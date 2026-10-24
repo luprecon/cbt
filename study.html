@@ -51,6 +51,10 @@
       overflow-x: hidden;
     }
 
+    em, i, cite, address, var {
+      font-style: normal;
+    }
+
     /* ==========================================================================
        Top Header Bar (52px, #1e2024, padding 0 40px - index.html 1:1)
        ========================================================================== */
@@ -725,7 +729,7 @@
     .c-fn { color: #38bdf8; }
     .c-str { color: #a3e635; }
     .c-num { color: #fbbf24; }
-    .c-com { color: #64748b; font-style: italic; }
+    .c-com { color: #64748b; font-style: normal; }
     .c-type { color: #c084fc; font-weight: 500; }
 
     /* Explanation & Solution Drawer (index.html .explanation-card 1:1) */
@@ -1229,9 +1233,8 @@
       html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
       html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
 
-      // Bold & Italic
+      // Bold
       html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
       // Blockquotes & Formula Callout Cards (> ...)
       html = html.replace(/(?:^>\s?.*(?:\r?\n|$))+/gm, (quoteMatch) => {
