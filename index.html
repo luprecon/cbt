@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>정보처리기사 실기 벼락치기 - Professional CBT Test Engine</title>
+
+  <!-- Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Header Navigation (companyTest 1:1) -->
+  <header class="top-header">
+    <div class="header-left-group">
+      <div class="header-logo">Company Test</div>
+      <div class="header-subject-tabs" id="subjectTabs">
+        <select id="examSelect" class="exam-select-dropdown" title="회차 선택"></select>
+        <span class="exam-meta-text">합격률: <strong id="examPassRate">-</strong> | <strong id="examDifficulty">-</strong></span>
+      </div>
+    </div>
+
+    <!-- Center Timer -->
+    <div class="header-center-timer">
+      <span class="timer-label">남은시간</span>
+      <span class="timer-val" id="timerDisplay">02:30:00</span>
+      <button class="timer-btn-toggle" id="btnToggleTimer" title="일시정지/재개">⏸</button>
+    </div>
+
+    <!-- Right Controls -->
+    <div class="header-right-tools">
+      <button class="btn-file-load" id="btnOpenCheatsheet">실기 족보 &amp; 꿀팁</button>
+      <button class="btn-file-load" id="modePractice">연습 모드</button>
+      <button class="btn-file-load" id="modeReal" style="display:none;">실전 모드</button>
+      <button class="btn-file-load" id="btnResetExam">문제 초기화</button>
+      <button class="btn-file-load btn-submit" id="btnSubmitExam">시험 종료 및 채점</button>
+    </div>
+  </header>
+
+  <!-- Retake Mode Alert Banner -->
+  <div class="retake-banner" id="retakeBanner" style="display: none;">
+    <span id="retakeBannerText">오답 복습 모드 진행 중</span>
+    <button class="btn-exit-retake" id="btnExitRetake">전체 회차로 복귀</button>
+  </div>
+
+  <!-- Main Exam Wrapper (companyTest 1:1) -->
+  <div class="exam-wrapper">
+    <!-- Question Boxes Bar -->
+    <div class="question-boxes-bar" id="questionBoxesContainer"></div>
+
+    <div class="main-workspace">
+      <!-- Problem Section (Completely Borderless) -->
+      <section class="problem-section">
+        <div class="problem-meta-info">
+          <span id="qNumBadge">문항 1</span> &nbsp;|&nbsp;
+          <span id="qCategoryBadge">C 언어</span> &nbsp;|&nbsp;
+          <span id="qPointsBadge">배점 5점</span>
+        </div>
+
+        <div class="question-prompt" id="questionPrompt">문제를 불러오는 중입니다...</div>
+
+        <div class="passage-text" id="passageBox" style="display: none;"></div>
+
+        <div class="code-container" id="codeContainer" style="display: none;">
+          <div class="code-header">
+            <span id="codeLang">C</span>
+            <span>Source Code</span>
+          </div>
+          <pre class="code-block" id="codeBlock"></pre>
+        </div>
+
+        <div class="answer-section">
+          <div class="answer-input-group" id="answerInputGroup"></div>
+          <div class="answer-controls">
+            <span class="answer-status-msg" id="answerStatusMsg"></span>
+            <button class="btn-check-answer" id="btnCheckAnswer">정답 확인</button>
+          </div>
+        </div>
+
+        <div class="explanation-card" id="explanationCard">
+          <div class="exp-correct-answer" id="expCorrectAnswer"></div>
+          <div class="exp-trap-box" id="expTrapBox" style="display: none;"></div>
+          <div class="trace-table-container" id="expTraceContainer" style="display: none;">
+            <div class="trace-box-header">
+              <span class="trace-box-title">루프 변수 추적표</span>
+            </div>
+            <table class="trace-table" id="expTraceTable"></table>
+          </div>
+          <div class="exp-body-text" id="expBodyText"></div>
+        </div>
+      </section>
+
+      <!-- Right Tools Column (companyTest-style Memo Pad) -->
+      <aside class="tools-column">
+        <div class="tool-card">
+          <div class="tool-header-row">
+            <span class="tool-label">메모장</span>
+            <button class="btn-memo-clear" id="btnClear">삭제</button>
+          </div>
+          <div class="memo-canvas-box" id="memoBox">
+            <canvas id="memoCanvas" width="250" height="250"></canvas>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Score & Review Modal -->
+  <div class="modal-backdrop" id="scoreModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <span class="modal-title">시험 종료 및 종합 채점 결과</span>
+      </div>
+
+      <div class="modal-body">
+        <div class="score-banner" id="scoreBanner">
+          <div class="score-title" id="scoreTitle">최종 취득 점수</div>
+          <div class="score-big-number" id="scoreBigNumber">0점</div>
+          <div class="score-judgment" id="scoreJudgment">합격 여부 판정 중</div>
+        </div>
+
+        <div class="category-stats-grid">
+          <div class="cat-stat-card">
+            <div class="cat-stat-title">프로그래밍 (C/Java/Python)</div>
+            <div class="cat-stat-score" id="progStatScore">0 / 0</div>
+          </div>
+          <div class="cat-stat-card">
+            <div class="cat-stat-title">데이터베이스 (SQL)</div>
+            <div class="cat-stat-score" id="dbStatScore">0 / 0</div>
+          </div>
+          <div class="cat-stat-card">
+            <div class="cat-stat-title">소프트웨어 설계/보안/네트워크</div>
+            <div class="cat-stat-score" id="theoryStatScore">0 / 0</div>
+          </div>
+        </div>
+
+        <div class="score-question-review">
+          <div style="font-size: 13.5px; font-weight: 700; color: #334155; margin-bottom: 6px;">
+            문항별 정오표 (클릭 시 해당 문항으로 이동)
+          </div>
+          <div class="review-grid" id="reviewGrid"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-modal secondary" id="btnCloseModal">닫기</button>
+        <button class="btn-modal primary" id="btnViewAllExp">해설 복습 모드</button>
+        <button class="btn-modal secondary" id="btnRestartFull">처음부터 다시 풀기</button>
+        <button class="btn-modal danger" id="btnRetakeWrong">🔥 틀린 문제만 다시 풀기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cheatsheet & Tips Modal -->
+  <div class="modal-backdrop" id="cheatsheetModal">
+    <div class="modal-container cheatsheet-modal-box">
+      <div class="modal-header">
+        <span class="modal-title">📑 실기 족보 요약 &amp; 벼락치기 공부 꿀팁</span>
+        <button class="btn-modal-close-icon" id="btnCloseCheatsheet">✕</button>
+      </div>
+
+      <div class="cheatsheet-nav-tabs" id="csTabs">
+        <button class="cs-tab-btn active" data-tab="part1">족보 1탄: SW설계/공학</button>
+        <button class="cs-tab-btn" data-tab="part2">족보 2탄: DB &amp; SQL</button>
+        <button class="cs-tab-btn" data-tab="part3">족보 3탄: 보안 &amp; 네트워크</button>
+        <button class="cs-tab-btn" data-tab="tips">⚡ 3주 벼락치기 꿀팁</button>
+      </div>
+
+      <div class="cheatsheet-body-scroll" id="csBody"></div>
+
+      <div class="modal-footer">
+        <button class="btn-modal secondary" id="btnCloseCheatsheetBottom">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Scripts (Catalog & Rounds 2020~2026 & Themes) -->
+  <script src="data/exam-index.js"></script>
+  <script src="data/cheatsheet-data.js"></script>
+  <script src="data/rounds/2026_1.js"></script>
+  <script src="data/rounds/2026_2.js"></script>
+  <script src="data/rounds/2025_3.js"></script>
+  <script src="data/rounds/2025_2.js"></script>
+  <script src="data/rounds/2025_1.js"></script>
+  <script src="data/rounds/2024_3.js"></script>
+  <script src="data/rounds/2024_2.js"></script>
+  <script src="data/rounds/2024_1.js"></script>
+  <script src="data/rounds/2023_all.js"></script>
+  <script src="data/rounds/2022_all.js"></script>
+  <script src="data/rounds/2021_all.js"></script>
+  <script src="data/rounds/2020_all.js"></script>
+  <script src="data/themes/killer_programming.js"></script>
+  <script src="data/themes/sql_master.js"></script>
+  <script src="data/themes/practical_cheatsheet.js"></script>
+  <script src="data/themes/c_special.js"></script>
+  <script src="data/themes/java_special.js"></script>
+  <script src="data/themes/python_special.js"></script>
+
+  <!-- Engine Scripts -->
+  <script src="js/grader.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/a4-pad.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
