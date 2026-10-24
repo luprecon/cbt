@@ -240,7 +240,7 @@ def run_tests():
         drain_events(0.3)
         
         eval_resp = send_cmd("Runtime.evaluate", {
-            "expression": "({ href: window.location.href, examCatalogCount: (window.EXAM_CATALOG ? window.EXAM_CATALOG.length : 0), totalRounds: (window.EXAM_ROUNDS ? Object.keys(window.EXAM_ROUNDS).length : 0), hasStudyBtn: !!document.querySelector('.btn-study-link'), studyHref: document.querySelector('.btn-study-link') ? document.querySelector('.btn-study-link').getAttribute('href') : '' })",
+            "expression": "({ href: window.location.href, examCatalogCount: (window.EXAM_CATALOG ? window.EXAM_CATALOG.length : 0), totalRounds: (window.EXAM_ROUNDS ? Object.keys(window.EXAM_ROUNDS).length : 0), keys: Object.keys(window.EXAM_ROUNDS || {}), hasStudyBtn: !!document.querySelector('.btn-study-link'), studyHref: document.querySelector('.btn-study-link') ? document.querySelector('.btn-study-link').getAttribute('href') : '' })",
             "returnByValue": True
         })
         val = eval_resp.get("result", {}).get("result", {}).get("value", {})
@@ -303,6 +303,113 @@ def run_tests():
         print("  Round mode evaluation result:", val)
         assert val.get("mode") == "round"
         assert val.get("cardsRendered") == 20, f"Expected 20 cards for active round, got {val.get('cardsRendered')}"
+
+        # Test Syntax Highlighting in code blocks (Round mode 2026_1 Q1 & Unit 2 C/Java/Python)
+        print("  Testing code syntax highlighting tokens and line numbers...")
+        code_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                codeBlocksCount: document.querySelectorAll('.q-code-block').length,
+                hasKw: document.querySelectorAll('.q-code-block .c-kw').length > 0,
+                hasFn: document.querySelectorAll('.q-code-block .c-fn').length > 0,
+                hasStr: document.querySelectorAll('.q-code-block .c-str').length > 0,
+                hasNum: document.querySelectorAll('.q-code-block .c-num').length > 0,
+                hasLineNum: document.querySelectorAll('.q-code-block .code-line-num').length > 0,
+                kwTokens: Array.from(document.querySelectorAll('#card_2026_1_1 .q-code-block .c-kw')).map(el => el.textContent.trim()),
+                strTokens: Array.from(document.querySelectorAll('#card_2026_1_1 .q-code-block .c-str')).map(el => el.textContent.trim()),
+                fnTokens: Array.from(document.querySelectorAll('#card_2026_1_1 .q-code-block .c-fn')).map(el => el.textContent.trim()),
+                numTokens: Array.from(document.querySelectorAll('#card_2026_1_1 .q-code-block .c-num')).map(el => el.textContent.trim()),
+                firstLineNum: document.querySelector('#card_2026_1_1 .q-code-block .code-line-num') ? document.querySelector('#card_2026_1_1 .q-code-block .code-line-num').textContent.trim() : null
+            })""",
+            "returnByValue": True
+        })
+        code_val = code_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Code syntax highlighting evaluation result:", code_val)
+        assert code_val.get("codeBlocksCount", 0) > 0, "Expected .q-code-block elements in Round mode"
+        assert code_val.get("hasKw") is True, "Expected .c-kw elements in code blocks"
+        assert code_val.get("hasFn") is True, "Expected .c-fn elements in code blocks"
+        assert code_val.get("hasStr") is True, "Expected .c-str elements in code blocks"
+        assert code_val.get("hasNum") is True, "Expected .c-num elements in code blocks"
+        assert code_val.get("hasLineNum") is True, "Expected .code-line-num elements in code blocks"
+        assert code_val.get("firstLineNum") == "1", f"Expected first line number '1', got {code_val.get('firstLineNum')}"
+        kw_set = set(code_val.get("kwTokens", []))
+        assert "#include" in kw_set, f"Expected '#include' token in .c-kw, found: {kw_set}"
+        assert "int" in kw_set, f"Expected 'int' token in .c-kw, found: {kw_set}"
+        str_set = set(code_val.get("strTokens", []))
+        assert "<stdio.h>" in str_set, f"Expected '<stdio.h>' token in .c-str, found: {str_set}"
+        fn_set = set(code_val.get("fnTokens", []))
+        assert "main" in fn_set or "printf" in fn_set, f"Expected 'main' or 'printf' in .c-fn, found: {fn_set}"
+        num_set = set(code_val.get("numTokens", []))
+        assert "10" in num_set or "5" in num_set, f"Expected numeric token '10' or '5' in .c-num, found: {num_set}"
+
+        # Test fenced code block in Markdown parser (including $ sign preservation and trailing fence space)
+        md_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                standard: parseMarkdownToHtml('```c\\n#include <stdio.h>\\nint main() {\\n    return 0;\\n}\\n```'),
+                dollarPreserved: parseMarkdownToHtml('```sh\\necho $1 $&\\n```'),
+                trailingSpace: parseMarkdownToHtml('```c  \\nint a = 1;\\n```')
+            })""",
+            "returnByValue": True
+        })
+        md_res = md_eval.get("result", {}).get("result", {}).get("value", {})
+        md_html = md_res.get("standard", "")
+        assert 'class="c-kw">#include</span>' in md_html, "parseMarkdownToHtml failed to highlight #include as .c-kw"
+        assert 'class="c-str">&lt;stdio.h&gt;</span>' in md_html, "parseMarkdownToHtml failed to highlight <stdio.h> as .c-str"
+        assert 'class="c-kw">int</span>' in md_html, "parseMarkdownToHtml failed to highlight int as .c-kw"
+        assert 'class="code-line-num">1</span>' in md_html, "parseMarkdownToHtml failed to generate .code-line-num"
+        
+        dollar_html = md_res.get("dollarPreserved", "")
+        assert '$<span class="c-num">1</span>' in dollar_html and '$&amp;' in dollar_html, f"Dollar signs were corrupted in code block: {dollar_html}"
+        assert "__CODE_BLOCK_" not in dollar_html, f"Placeholder leaked into dollar block output: {dollar_html}"
+        
+        space_html = md_res.get("trailingSpace", "")
+        assert 'class="c-kw">int</span>' in space_html, "Failed to parse code block with trailing space on fence line"
+        print("  Fenced code block in parseMarkdownToHtml verified successfully.")
+
+        # Test edge cases: empty strings, nulls, multiline block comments, preprocessor #define, Python, and SQL
+        print("  Testing syntax highlighter edge cases...")
+        edge_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                emptyCode: formatCodeWithSyntax('', 'c'),
+                nullCode: formatCodeWithSyntax(null, 'c'),
+                undefinedCode: formatCodeWithSyntax(undefined, 'c'),
+                emptyLine: highlightSyntaxLine('', 'c', false),
+                nullLine: highlightSyntaxLine(null, 'c', false),
+                undefinedLine: highlightSyntaxLine(undefined, 'c', false),
+                blockCommentStart: highlightSyntaxLine('/* start comment', 'c', false),
+                blockCommentCont: highlightSyntaxLine('still comment', 'c', true),
+                blockCommentEnd: highlightSyntaxLine('end */ int val = 10;', 'c', true),
+                pythonHighlight: highlightSyntaxLine('# python comment', 'python', false),
+                sqlHighlight: highlightSyntaxLine('-- sql comment', 'sql', false),
+                sqlKeywords: formatCodeWithSyntax('SELECT id, name FROM users WHERE score >= 100;', 'sql'),
+                defineHighlight: highlightSyntaxLine('#define MAX_SIZE 10', 'c', false),
+                includeComment: highlightSyntaxLine('#include <stdio.h> // stdio header', 'c', false),
+                javaTypeHighlight: highlightSyntaxLine('catch (Exception e) {}', 'java', false)
+            })""",
+            "returnByValue": True
+        })
+        e_val = edge_eval.get("result", {}).get("result", {}).get("value", {})
+        assert e_val.get("emptyCode") == "", "Expected empty string from formatCodeWithSyntax('')"
+        assert e_val.get("nullCode") == "", "Expected empty string from formatCodeWithSyntax(null)"
+        assert e_val.get("undefinedCode") == "", "Expected empty string from formatCodeWithSyntax(undefined)"
+        assert e_val.get("emptyLine", {}).get("html") == "", "Expected empty html for empty line"
+        assert e_val.get("nullLine", {}).get("html") == "", "Expected empty html for null line"
+        assert e_val.get("undefinedLine", {}).get("html") == "", "Expected empty html for undefined line"
+        assert e_val.get("blockCommentStart", {}).get("inBlockComment") is True, "Expected inBlockComment true on open block comment"
+        assert e_val.get("blockCommentCont", {}).get("inBlockComment") is True, "Expected inBlockComment true on continued block comment"
+        assert e_val.get("blockCommentEnd", {}).get("inBlockComment") is False, "Expected inBlockComment false on closed block comment"
+        assert 'class="c-kw">int</span>' in e_val.get("blockCommentEnd", {}).get("html", ""), "Expected int to be highlighted after block comment closes"
+        assert 'class="c-com"># python comment</span>' in e_val.get("pythonHighlight", {}).get("html", ""), "Expected python comment highlighted"
+        assert 'class="c-com">-- sql comment</span>' in e_val.get("sqlHighlight", {}).get("html", ""), "Expected sql comment highlighted"
+        assert 'class="c-kw">SELECT</span>' in e_val.get("sqlKeywords", ""), "Expected SELECT keyword in SQL"
+        assert 'class="c-kw">FROM</span>' in e_val.get("sqlKeywords", ""), "Expected FROM keyword in SQL"
+        assert 'class="c-kw">WHERE</span>' in e_val.get("sqlKeywords", ""), "Expected WHERE keyword in SQL"
+        assert 'class="c-num">100</span>' in e_val.get("sqlKeywords", ""), "Expected 100 number in SQL"
+        assert 'class="c-kw">#define</span>' in e_val.get("defineHighlight", {}).get("html", ""), "Expected #define to be .c-kw"
+        assert 'class="c-num">10</span>' in e_val.get("defineHighlight", {}).get("html", ""), "Expected 10 in #define to be .c-num"
+        assert 'class="c-str">&lt;stdio.h&gt;</span>' in e_val.get("includeComment", {}).get("html", ""), "Expected <stdio.h> in #include to be .c-str"
+        assert 'class="c-com">// stdio header</span>' in e_val.get("includeComment", {}).get("html", ""), "Expected // stdio header to be .c-com"
+        assert 'class="c-type">Exception</span>' in e_val.get("javaTypeHighlight", {}).get("html", ""), "Expected Exception in Java to be .c-type"
+        print("  All edge cases verified successfully.")
 
         # Test live search with normal keyword
         print("  Testing live search for '포인터'...")

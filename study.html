@@ -665,11 +665,53 @@
       color: var(--color-code-text);
       font-family: var(--font-code);
       font-size: 13.5px;
-      line-height: 1.5;
-      padding: 14px 16px;
+      line-height: 1.48;
+      padding: 12px 0;
+      margin: 0;
       overflow-x: auto;
-      white-space: pre;
+      background: transparent;
     }
+
+    .code-line {
+      display: flex;
+      align-items: baseline;
+      line-height: 1.48;
+      min-height: 1.48em;
+      width: max-content;
+      min-width: 100%;
+      padding: 0 16px 0 0;
+    }
+
+    .code-line:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .code-line-num {
+      display: inline-block;
+      width: 3.2em;
+      min-width: 3.2em;
+      flex-shrink: 0;
+      text-align: right;
+      padding-right: 1.2em;
+      color: #64748b;
+      user-select: none;
+      font-size: 12px;
+    }
+
+    .code-line-content {
+      flex: 1;
+      white-space: pre;
+      line-height: inherit;
+      font-family: inherit;
+    }
+
+    /* Syntax Highlighting */
+    .c-kw { color: #f43f5e; font-weight: 600; }
+    .c-fn { color: #38bdf8; }
+    .c-str { color: #a3e635; }
+    .c-num { color: #fbbf24; }
+    .c-com { color: #64748b; font-style: italic; }
+    .c-type { color: #c084fc; font-weight: 500; }
 
     /* Explanation & Solution Drawer */
     .q-solution-drawer {
@@ -861,6 +903,19 @@
         color: #000000 !important;
       }
 
+      .q-code-block, .q-code-block * {
+        color: #000000 !important;
+        background: transparent !important;
+      }
+
+      .code-line:hover {
+        background: transparent !important;
+      }
+
+      .code-line-num {
+        color: #555555 !important;
+      }
+
       .q-answer-card {
         background: #f9f9f9 !important;
         border: 1px solid #000000 !important;
@@ -964,17 +1019,166 @@
     let roundsCatalog = [];
 
     // =========================================================================
+    // Zero-Dependency Syntax Highlighter & Formatter
+    // =========================================================================
+    function formatCodeWithSyntax(rawCode, category) {
+      if (rawCode === null || rawCode === undefined || rawCode === '') return '';
+      const lines = String(rawCode).replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+      let html = '';
+      let inBlockComment = false;
+
+      lines.forEach((line, idx) => {
+        const lineNum = idx + 1;
+        const res = highlightSyntaxLine(line, category, inBlockComment);
+        inBlockComment = res.inBlockComment;
+        html += `<div class="code-line"><span class="code-line-num">${lineNum}</span><span class="code-line-content">${res.html || ' '}</span></div>`;
+      });
+      return html;
+    }
+
+    function highlightSyntax(rawLine, category) {
+      return highlightSyntaxLine(rawLine, category, false).html;
+    }
+
+    function highlightSyntaxLine(rawLine, category, inBlockComment = false) {
+      if (rawLine === null || rawLine === undefined) {
+        return { html: '', inBlockComment: Boolean(inBlockComment) };
+      }
+      const rawStr = String(rawLine);
+      const cat = (category || '').toLowerCase();
+      const len = rawStr.length;
+      let out = '';
+
+      const esc = escapeHtml;
+      let startIdx = 0;
+
+      // Handle ongoing multi-line block comment
+      if (inBlockComment) {
+        const closeIdx = rawStr.indexOf('*/');
+        if (closeIdx === -1) {
+          return { html: `<span class="c-com">${esc(rawStr)}</span>`, inBlockComment: true };
+        } else {
+          out += `<span class="c-com">${esc(rawStr.slice(0, closeIdx + 2))}</span>`;
+          startIdx = closeIdx + 2;
+          inBlockComment = false;
+          if (startIdx >= len) {
+            return { html: out, inBlockComment: false };
+          }
+        }
+      }
+
+      let remaining = rawStr.slice(startIdx);
+
+      // 1. C/C++ Preprocessor (#include, #define)
+      if ((cat !== 'python' && cat !== 'py') && startIdx === 0 && /^\s*#(include|define)\b/.test(remaining)) {
+        const match = remaining.match(/^(\s*)(#(?:include|define))(\s*)(<[^>]+>|"[^"]+")?(.*)$/);
+        if (match) {
+          out += esc(match[1]);
+          out += `<span class="c-kw">${esc(match[2])}</span>`;
+          out += esc(match[3]);
+          if (match[4]) {
+            out += `<span class="c-str">${esc(match[4])}</span>`;
+          }
+          if (match[5] && match[5].trim()) {
+            remaining = match[5];
+          } else {
+            if (match[5]) out += esc(match[5]);
+            return { html: out, inBlockComment: false };
+          }
+        }
+      }
+
+      // Token regex pattern:
+      // 1: Comments (C/Java: //, Python: #, SQL: --)
+      // 2: Block comment start /* ... */ or /* to end of line
+      // 3: Strings ("..." or '...')
+      // 4: Numbers (integers, floats, hex)
+      // 5: Words (keywords, types, functions)
+      let commentPattern = '\\/\\/.*';
+      let blockCommentPattern = '\\/\\*[\\s\\S]*?\\*\\/|\\/\\*.*';
+      if (cat === 'python' || cat === 'py') {
+        commentPattern = '#.*';
+        blockCommentPattern = '"""[\\s\\S]*?"""|\'\'\'[\\s\\S]*?\'\'\'';
+      } else if (cat === 'sql') {
+        commentPattern = '--.*';
+      }
+
+      const tokenRegex = new RegExp(
+        `(${commentPattern})|(${blockCommentPattern})|("(?:\\\\.|[^"\\\\])*"|'(?:\\\\.|[^'\\\\])*')|(\\b0x[0-9a-fA-F]+\\b|\\b\\d+(?:\\.\\d+)?\\b)|(\\b[a-zA-Z_][a-zA-Z0-9_]*\\b)`,
+        'g'
+      );
+
+      const KEYWORDS = new Set([
+        'int','float','double','char','void','struct','public','class','static','return',
+        'if','else','while','for','do','switch','case','break','continue','default','import',
+        'interface','extends','implements','new','try','catch','finally','throw','throws',
+        'def','lambda','in','not','is','from','as','elif','None','self','super','this',
+        'true','false','null','TRUE','FALSE','NULL',
+        'sizeof','typedef','const','final','boolean','byte','short','long','unsigned','signed',
+        'len','range','print','input','pass','yield','raise','except','with',
+        'select','from','where','group','by','having','order','join','inner','left','right',
+        'outer','on','insert','into','values','update','set','delete','create','alter','drop',
+        'table','view','index','count','sum','avg','max','min','rank','dense_rank','over'
+      ]);
+
+      const TYPES = new Set([
+        'String','Integer','Boolean','Double','Float','List','ArrayList','Map','HashMap','Scanner','System','Object',
+        'Exception','Thread','Runnable'
+      ]);
+
+      let lastIdx = 0;
+      let m;
+      while ((m = tokenRegex.exec(remaining)) !== null) {
+        if (m.index > lastIdx) {
+          out += esc(remaining.slice(lastIdx, m.index));
+        }
+        lastIdx = tokenRegex.lastIndex;
+
+        if (m[1]) {
+          out += `<span class="c-com">${esc(m[1])}</span>`;
+        } else if (m[2]) {
+          out += `<span class="c-com">${esc(m[2])}</span>`;
+          if (m[2].startsWith('/*') && !m[2].endsWith('*/')) {
+            inBlockComment = true;
+          }
+        } else if (m[3]) {
+          out += `<span class="c-str">${esc(m[3])}</span>`;
+        } else if (m[4]) {
+          out += `<span class="c-num">${esc(m[4])}</span>`;
+        } else if (m[5]) {
+          const word = m[5];
+          const lower = word.toLowerCase();
+          if (KEYWORDS.has(lower) || KEYWORDS.has(word)) {
+            out += `<span class="c-kw">${esc(word)}</span>`;
+          } else if (TYPES.has(word)) {
+            out += `<span class="c-type">${esc(word)}</span>`;
+          } else if (/^\s*\(/.test(remaining.slice(lastIdx))) {
+            out += `<span class="c-fn">${esc(word)}</span>`;
+          } else {
+            out += esc(word);
+          }
+        }
+      }
+
+      if (lastIdx < remaining.length) {
+        out += esc(remaining.slice(lastIdx));
+      }
+
+      return { html: out, inBlockComment };
+    }
+
+    // =========================================================================
     // Markdown to HTML Micro-Renderer
     // =========================================================================
     function parseMarkdownToHtml(md) {
       if (!md) return '';
       let html = md;
       
-      // Escape HTML special chars inside code blocks first
+      // Syntax-highlight fenced code blocks first
       const codeBlocks = [];
-      html = html.replace(/```([a-z]*)\n([\s\S]*?)```/gi, (match, lang, code) => {
+      html = html.replace(/```([a-zA-Z0-9_-]*)[^\n\r]*\r?\n([\s\S]*?)```/g, (match, lang, code) => {
         const placeholder = `__CODE_BLOCK_${codeBlocks.length}__`;
-        codeBlocks.push(`<pre class="q-code-container"><div class="q-code-header"><span>${lang.toUpperCase() || 'CODE'}</span><span>Source</span></div><code class="q-code-block">${escapeHtml(code.trim())}</code></pre>`);
+        codeBlocks.push(`<div class="q-code-container"><div class="q-code-header"><span>${(lang || 'CODE').toUpperCase()}</span><span>Source</span></div><pre class="q-code-block">${formatCodeWithSyntax(code.trim(), lang)}</pre></div>`);
         return placeholder;
       });
 
@@ -1044,12 +1248,12 @@
       html = html.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
       html = html.replace(/(<li>.*<\/li>(\r?\n)?)+/gim, '<ul>$&</ul>');
 
-      // Restore inline codes & code blocks
+      // Restore inline codes & code blocks using function replacers to prevent $ patterns from corrupting content
       inlineCodes.forEach((ic, idx) => {
-        html = html.replace(`__INLINE_CODE_${idx}__`, ic);
+        html = html.replace(`__INLINE_CODE_${idx}__`, () => ic);
       });
       codeBlocks.forEach((cb, idx) => {
-        html = html.replace(`__CODE_BLOCK_${idx}__`, cb);
+        html = html.replace(`__CODE_BLOCK_${idx}__`, () => cb);
       });
 
       // Line breaks
@@ -1059,7 +1263,7 @@
     }
 
     function escapeHtml(text) {
-      if (!text) return '';
+      if (text === null || text === undefined || text === '') return '';
       return String(text)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
@@ -1370,7 +1574,7 @@
                   <span>${(q.category || 'CODE').toUpperCase()}</span>
                   <span>Source Code</span>
                 </div>
-                <pre class="q-code-block">${highlightQuery(q.code, isSearch)}</pre>
+                <pre class="q-code-block">${formatCodeWithSyntax(q.code, q.category)}</pre>
               </div>
             ` : ''}
 
@@ -1418,7 +1622,7 @@
     }
 
     function highlightQuery(text, isSearch) {
-      if (!text) return '';
+      if (text === null || text === undefined || text === '') return '';
       if (!isSearch || !state.searchQuery.trim()) return escapeHtml(text);
       const q = state.searchQuery.trim();
       const regex = new RegExp(`(${escapeRegex(q)})`, 'gi');
