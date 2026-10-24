@@ -232,6 +232,53 @@ UNIT_INFO = {
     }
 }
 
+UNIT_SYLLABUS = {
+    1: [
+        "1.1 개발 방법론 & SDLC",
+        "1.2 프로젝트 관리 & 비용 산정",
+        "1.3 요구사항 분석 & UML",
+        "1.4 GoF 디자인 패턴",
+        "1.5 모듈 결합도 & 응집도",
+        "1.6 객체지향 설계 원칙 (SOLID)",
+        "1.7 EAI 구축 & 인터페이스 연계",
+        "1.8 소프트웨어 아키텍처 & 설계"
+    ],
+    2: [
+        "2.1 C언어 포인터 & 다차원 배열",
+        "2.2 C언어 제어문 & 연산자 & 구조체",
+        "2.3 Java 객체지향 & 상속 / 다형성",
+        "2.4 Java static & 인터페이스 / 예외",
+        "2.5 Python 슬라이싱 & 컬렉션 / 람다",
+        "2.6 Python 프로그래밍 기초"
+    ],
+    3: [
+        "3.1 데이터 모델링 & 키 / 무결성 제약조건",
+        "3.2 관계대수 & 릴레이션 이론",
+        "3.3 정규화 6단계 & 이상현상",
+        "3.4 DDL / DML / DCL 테이블 정의 및 조작",
+        "3.5 SQL 집계 · 조인 · 윈도우 함수",
+        "3.6 트랜잭션 ACID & 병행제어 / 뷰(View)"
+    ],
+    4: [
+        "4.1 OSI 7계층 & TCP/UDP 프로토콜",
+        "4.2 IPv4 서브넷 마스킹 계산",
+        "4.3 라우팅 프로토콜 (OSPF/RIP)",
+        "4.4 암호화 알고리즘 (대칭키/공개키/해시)",
+        "4.5 네트워크 공격 기법 & 보안 취약점",
+        "4.6 보안 솔루션 & 침입 차단"
+    ],
+    5: [
+        "5.1 소프트웨어 테스팅 기본 원칙",
+        "5.2 화이트박스 테스팅 & 순환복잡도",
+        "5.3 블랙박스 테스팅 기법",
+        "5.4 V-모델 & 테스트 레벨",
+        "5.5 프로세스 관리 & CPU 스케줄링",
+        "5.6 교착상태 (Deadlock) 발생 조건",
+        "5.7 기억장치 관리 & 페이지 교체",
+        "5.8 소프트웨어 형상 관리 (SCM)"
+    ]
+}
+
 def classify_question(q):
     cat = (q.get('category') or '').strip()
     prompt = q.get('prompt', '')
@@ -308,93 +355,84 @@ def extract_topic(q, unit):
     text = f"{q.get('prompt', '')} {q.get('explanation', '')} {q.get('answer', '')} {q.get('category', '')}".lower()
     
     if unit == 1:
-        if any(k in text for k in ['패턴', 'pattern', '싱글톤', '팩토리', '옵서버', '어댑터', '데코레이터', '전략', '스트래티지']):
-            return "GoF 디자인 패턴"
-        if any(k in text for k in ['결합도', '응집도', 'coupling', 'cohesion', '자료 결합도', '스탬프', '기능적 응집도']):
-            return "모듈 결합도 & 응집도"
-        if any(k in text for k in ['solid', '단일책임', '개방폐쇄', '리스코프', '인터페이스분리', '의존역전']):
-            return "객체지향 설계 원칙 (SOLID)"
-        if any(k in text for k in ['eai', 'esb', 'soap', 'wsdl', 'ajax', 'rest', 'json', 'xml', '미들웨어']):
-            return "EAI & 인터페이스 연계"
-        if any(k in text for k in ['요구사항', 'uml', '유스케이스', '시퀀스', '다이어그램', '클래스']):
-            return "요구사항 분석 & UML"
+        if any(k in text for k in ['패턴', 'pattern', '싱글톤', '팩토리', '옵서버', '어댑터', '데코레이터', '전략', '스트래티지', '빌더', '프로토타입', '컴포지트', '브리지', '퍼사드', '플라이웨이트', '프록시']):
+            return "1.4 GoF 디자인 패턴"
+        if any(k in text for k in ['결합도', '응집도', 'coupling', 'cohesion', '자료 결합도', '스탬프', '기능적 응집도', '순차적 응집도', '제어 결합도', '외부 결합도', '공통 결합도', '내용 결합도', 'fan-in', 'fan-out']):
+            return "1.5 모듈 결합도 & 응집도"
+        if any(k in text for k in ['solid', '단일책임', '개방폐쇄', '리스코프', '인터페이스분리', '의존역전', 'srp', 'ocp', 'lsp', 'isp', 'dip']):
+            return "1.6 객체지향 설계 원칙 (SOLID)"
+        if any(k in text for k in ['eai', 'esb', 'soap', 'wsdl', 'ajax', 'rest', 'json', 'xml', '미들웨어', 'point-to-point', 'hub & spoke', 'message bus']):
+            return "1.7 EAI 구축 & 인터페이스 연계"
+        if any(k in text for k in ['요구사항', 'uml', '유스케이스', '시퀀스', '다이어그램', '클래스', '애그리게이션', '컴포지션']):
+            return "1.3 요구사항 분석 & UML"
         if any(k in text for k in ['sdlc', '애자일', '스크럼', 'xp', '폭포수', '나선형', '프로토타입']):
-            return "개발 방법론 & SDLC"
-        if any(k in text for k in ['loc', '비용', 'cocomo', '기능점수', 'fan-in', 'fan-out']):
-            return "프로젝트 관리 & 비용 산정"
-        return "소프트웨어 아키텍처 & 설계"
+            return "1.1 개발 방법론 & SDLC"
+        if any(k in text for k in ['loc', '비용', 'cocomo', '기능점수', 'fp', 'man-month', '맨먼스', 'cpm', '임계 경로']):
+            return "1.2 프로젝트 관리 & 비용 산정"
+        return "1.8 소프트웨어 아키텍처 & 설계"
 
     elif unit == 2:
         cat = q.get('category', '')
         if cat == 'C':
-            if any(k in text for k in ['포인터', '*', '->']): return "C언어 포인터 & 다차원 배열"
-            if any(k in text for k in ['구조체', 'struct']): return "C언어 구조체"
-            if any(k in text for k in ['재귀', 'recursive']): return "C언어 재귀함수"
-            if any(k in text for k in ['문자열', 'strcat', 'strcpy', 'strlen', 'strcmp']): return "C언어 문자열 조작"
-            return "C언어 제어문 & 연산"
+            if any(k in text for k in ['포인터', '*', '->', '배열', '이차원', '다차원', '주소', 'malloc']):
+                return "2.1 C언어 포인터 & 다차원 배열"
+            return "2.2 C언어 제어문 & 연산자 & 구조체"
         elif cat == 'Java':
-            if any(k in text for k in ['상속', 'extends', 'super', '부모', '자식']): return "Java 상속 & 부모 생성자"
-            if any(k in text for k in ['오버라이딩', '동적바인딩', '다형성']): return "Java 오버라이딩 & 다형성"
-            if any(k in text for k in ['static', '정적']): return "Java static 공유 변수"
-            if any(k in text for k in ['인터페이스', 'interface', 'abstract']): return "Java 인터페이스 & 추상클래스"
-            if any(k in text for k in ['예외', 'try', 'catch', 'finally']): return "Java 예외 처리"
-            return "Java 객체지향 프로그래밍"
+            if any(k in text for k in ['static', '정적', '인터페이스', 'interface', 'abstract', '추상', '예외', 'try', 'catch', 'finally']):
+                return "2.4 Java static & 인터페이스 / 예외"
+            return "2.3 Java 객체지향 & 상속 / 다형성"
         elif cat == 'Python':
-            if any(k in text for k in ['슬라이싱', '[:]']): return "Python 슬라이싱 연산"
-            if any(k in text for k in ['컴프리헨션', 'comprehension']): return "Python 리스트 컴프리헨션"
-            if any(k in text for k in ['딕셔너리', 'dict', 'set', '집합']): return "Python 컬렉션 자료구조"
-            if any(k in text for k in ['lambda', '람다', 'map', 'filter']): return "Python 람다 & 함수형 기법"
-            return "Python 프로그래밍 기초"
-        return "프로그래밍 언어 활용"
+            if any(k in text for k in ['슬라이싱', '[:]', '딕셔너리', 'dict', 'set', '집합', '컴프리헨션', 'lambda', '람다', 'map', 'filter']):
+                return "2.5 Python 슬라이싱 & 컬렉션 / 람다"
+            return "2.6 Python 프로그래밍 기초"
+        return "2.2 C언어 제어문 & 연산자 & 구조체"
 
     elif unit == 3:
-        if any(k in text for k in ['정규화', '1nf', '2nf', '3nf', 'bcnf', '이상현상', '도부이결다조']):
-            return "정규화 6단계 & 이상현상"
-        if any(k in text for k in ['관계대수', '셀렉트', '프로젝트', '카티션', '조인 연산']):
-            return "관계대수 & 릴레이션 이론"
-        if any(k in text for k in ['acid', '트랜잭션', '원자성', '일관성', '격리성', '영속성', '회복', '로킹']):
-            return "트랜잭션 ACID & 병행제어"
-        if any(k in text for k in ['view', '뷰', '가상 테이블', '인덱스']):
-            return "뷰(View) & 인덱스 최적화"
-        if any(k in text for k in ['create', 'alter', 'drop', 'truncate']):
-            return "DDL 테이블 정의 & 제약조건"
-        if any(k in text for k in ['group by', 'having', 'join', '윈도우', 'count', 'sum', 'rank']):
-            return "SQL 집계·조인·윈도우 함수"
-        return "데이터베이스 모델링 & SQL"
+        if any(k in text for k in ['정규화', '1nf', '2nf', '3nf', 'bcnf', '이상현상', '도부이결다조', '결정자', '무손실']):
+            return "3.3 정규화 6단계 & 이상현상"
+        if any(k in text for k in ['관계대수', '셀렉트', '프로젝트', '카티션', '조인 연산', '디비전', '릴레이션 이론', '차수', '카디널리티']):
+            return "3.2 관계대수 & 릴레이션 이론"
+        if any(k in text for k in ['group by', 'having', 'join', '윈도우', 'count', 'sum', 'rank', 'dense_rank', 'row_number', '집계']):
+            return "3.5 SQL 집계 · 조인 · 윈도우 함수"
+        if any(k in text for k in ['create', 'alter', 'drop', 'truncate', 'insert', 'update', 'delete', 'grant', 'revoke']):
+            return "3.4 DDL / DML / DCL 테이블 정의 및 조작"
+        if any(k in text for k in ['acid', '트랜잭션', '원자성', '일관성', '격리성', '영속성', '회복', '로킹', 'view', '뷰', '가상 테이블', '인덱스']):
+            return "3.6 트랜잭션 ACID & 병행제어 / 뷰(View)"
+        return "3.1 데이터 모델링 & 키 / 무결성 제약조건"
 
     elif unit == 4:
-        if any(k in text for k in ['서브넷', 'cidr', '호스트', 'ip주소', '255.255']):
-            return "IPv4 서브넷 마스킹 계산"
+        if any(k in text for k in ['서브넷', 'cidr', '호스트', 'ip주소', '255.255', '넷마스크']):
+            return "4.2 IPv4 서브넷 마스킹 계산"
         if any(k in text for k in ['osi', '계층', 'tcp', 'udp', '3-way', 'handshake']):
-            return "OSI 7계층 & TCP/UDP 프로토콜"
-        if any(k in text for k in ['라우팅', 'rip', 'ospf', 'bgp']):
-            return "라우팅 프로토콜 (OSPF/RIP)"
-        if any(k in text for k in ['대칭키', '비대칭키', '공개키', 'des', 'aes', 'rsa', 'sha', 'md5']):
-            return "암호화 알고리즘 (대칭키/공개키/해시)"
-        if any(k in text for k in ['스니핑', '스푸핑', 'ddos', 'syn', 'smurf', 'xss', 'csrf', '인젝션']):
-            return "네트워크 공격 기법 & 취약점"
-        if any(k in text for k in ['방화벽', 'ids', 'ips', 'waf', 'vpn', 'nac', 'dlp']):
-            return "보안 솔루션 & 침입 차단"
-        return "네트워크 프로토콜 & 정보 보안"
+            return "4.1 OSI 7계층 & TCP/UDP 프로토콜"
+        if any(k in text for k in ['라우팅', 'rip', 'ospf', 'bgp', 'igp', 'egp']):
+            return "4.3 라우팅 프로토콜 (OSPF/RIP)"
+        if any(k in text for k in ['대칭키', '비대칭키', '공개키', 'des', 'aes', 'rsa', 'sha', 'md5', 'seed', 'aria', '해시', '암호']):
+            return "4.4 암호화 알고리즘 (대칭키/공개키/해시)"
+        if any(k in text for k in ['스니핑', '스푸핑', 'ddos', 'syn', 'smurf', 'xss', 'csrf', '인젝션', '악성코드', '랜섬웨어', '트로이', '웜', '백도어', '공격', '취약점']):
+            return "4.5 네트워크 공격 기법 & 보안 취약점"
+        if any(k in text for k in ['방화벽', 'ids', 'ips', 'waf', 'vpn', 'nac', 'dlp', '접근 통제', '접근통제']):
+            return "4.6 보안 솔루션 & 침입 차단"
+        return "4.1 OSI 7계층 & TCP/UDP 프로토콜"
 
     elif unit == 5:
-        if any(k in text for k in ['살충제', '테스팅 원칙', '결함 집중', '오류-부재']):
-            return "소프트웨어 테스팅 기본 원칙"
-        if any(k in text for k in ['커버리지', '화이트박스', '문장 커버리지', '분기 커버리지', '맥케이브', '순환복잡도']):
-            return "화이트박스 테스팅 & 순환복잡도"
-        if any(k in text for k in ['동등분할', '경계값', '블랙박스', '원인-결과']):
-            return "블랙박스 테스팅 기법"
-        if any(k in text for k in ['v-모델', '단위 테스트', '통합 테스트', '스텁', '드라이버', '인수 테스트']):
-            return "V-모델 & 테스트 레벨"
-        if any(k in text for k in ['스케줄링', 'hrn', 'fcfs', 'sjf', 'rr', '라운드로빈']):
-            return "CPU 스케줄링 & HRN 공식"
-        if any(k in text for k in ['교착상태', 'deadlock', '상호배제', '비선점', '환형대기', '점유와대기', '은행가']):
-            return "교착상태 (Deadlock) 발생 조건"
-        if any(k in text for k in ['페이징', '세그멘테이션', 'lru', 'lfu', 'fifo', '페이지 교체', '쓰레싱']):
-            return "기억장치 관리 & 페이지 교체"
-        if any(k in text for k in ['형상관리', 'scm', 'git', 'svn', 'ccb']):
-            return "소프트웨어 형상 관리 (SCM)"
-        return "소프트웨어 테스팅 & 운영체제"
+        if any(k in text for k in ['살충제', '테스팅 원칙', '결함 집중', '오류-부재', '조기 테스팅', '테스트 오라클', '테스트 케이스', '정적 분석', '성능 지표', '처리량']):
+            return "5.1 소프트웨어 테스팅 기본 원칙"
+        if any(k in text for k in ['커버리지', '화이트박스', '문장 커버리지', '분기 커버리지', '맥케이브', '순환복잡도', '구문 커버리지', '제어 흐름']):
+            return "5.2 화이트박스 테스팅 & 순환복잡도"
+        if any(k in text for k in ['동등분할', '동등 분할', '경계값', '블랙박스', '원인-결과', '의사결정 테이블', '동치', 'cause-effect']):
+            return "5.3 블랙박스 테스팅 기법"
+        if any(k in text for k in ['v-모델', 'v모델', '단위 테스트', '통합 테스트', '스텁', '드라이버', '인수 테스트', '알파 테스트', '베타 테스트', '회귀 테스트', '하네스', 'junit']):
+            return "5.4 V-모델 & 테스트 레벨"
+        if any(k in text for k in ['스케줄링', 'hrn', 'fcfs', 'sjf', 'rr', '라운드로빈', 'srt', '프로세스 상태', '디스패치', 'ipc', '공유 메모리', '세마포어']):
+            return "5.5 프로세스 관리 & CPU 스케줄링"
+        if any(k in text for k in ['교착상태', 'deadlock', '상호배제', '비선점', '환형대기', '점유와대기', '은행가', '로킹', '동시성 제어']):
+            return "5.6 교착상태 (Deadlock) 발생 조건"
+        if any(k in text for k in ['형상관리', '형상 관리', '형상 통제', '형상 식별', '형상 감사', 'scm', 'git', 'svn', 'cvs', 'ccb']):
+            return "5.8 소프트웨어 형상 관리 (SCM)"
+        if any(k in text for k in ['페이징', '세그멘테이션', 'lru', 'lfu', 'fifo', '페이지 교체', '쓰레싱', '워킹셋', '국부성', '단편화', '기억장치', 'raid', 'chmod', '유닉스', 'unix', '리눅스', 'linux', '안드로이드', '운영체제']):
+            return "5.7 기억장치 관리 & 페이지 교체"
+        return "5.1 소프트웨어 테스팅 기본 원칙"
 
     return "종합 실기 평가"
 
@@ -404,18 +442,18 @@ def extract_topic(q, unit):
 # ==============================================================================
 THEORY_CONTENT = {
     1: """
-### 📌 1.1 소프트웨어 생명주기(SDLC) 및 개발 방법론
+### 📌 1.1 개발 방법론 & SDLC
 - **폭포수(Waterfall) 모형**: 각 단계를 순차적으로 완료한 후 다음 단계로 진행. 고전적, 요구사항 변경 어려움.
 - **프로토타이핑(Prototyping) 모형**: 핵심 기능 프로토타입을 먼저 만들어 고객 피드백을 신속히 반영.
 - **나선형(Spiral) 모형**: 폭포수 + 프로토타이핑 + **위험 분석(Risk Analysis)**을 결합하여 점진적으로 구축.
-  - **4단계 반복 주기**: **계획 수립 ➔ 위험 분석 ➔ 개발 및 검증 ➔ 고객 평가**
+  - **반복 주기**: **계획 수립 ➔ 위험 분석 ➔ 개발 및 검증 ➔ 고객 평가**
 - **애자일(Agile) 모형**: 변화에 유연하게 대응하며 고객과의 소통과 작동하는 소프트웨어를 중시.
   - **스크럼(Scrum)**: 2~4주의 반복 스프린트(Sprint), 제품 백로그(Product Backlog), 일일 스크럼(Daily Scrum), 스크럼 마스터, 소멸 차트(Burn-down Chart).
-  - **XP (eXtreme Programming)**: 5가지 핵심 가치(**용기, 단순성, 의사소통, 피드백, 존중**), 12가지 실천 항목(**TDD, 짝 프로그래밍, 지속적 통합(CI), 리팩토링, 소규모 릴리즈**).
+  - **XP (eXtreme Programming)**: 핵심 가치(**용기, 단순성, 의사소통, 피드백, 존중**), 실천 항목(**TDD, 짝 프로그래밍, 지속적 통합(CI), 리팩토링, 소규모 릴리즈**).
 
 ---
 
-### 📌 1.2 소프트웨어 프로젝트 관리 & 비용 산정 모형
+### 📌 1.2 프로젝트 관리 & 비용 산정
 - **LoC(Line of Code) 모형**: 원시 코드 라인 수를 기준으로 개발 기간 및 비용 예측.
 > 📐 **공식 (PERT & LoC 비용 산정)**:
 > - **예측치 E = (a + 4m + b) / 6** (a: 낙관치, m: 최빈치/기대치, b: 비관치)
@@ -431,7 +469,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 1.3 요구사항 공학 & UML 다이어그램
+### 📌 1.3 요구사항 분석 & UML
 - **요구사항 분류**:
   - **기능적 요구사항**: 시스템이 실제로 무엇을 해야 하는가 (입출력, 비즈니스 로직, 데이터).
   - **비기능적 요구사항**: 시스템의 품질 특성 (성능, 보안성, 가용성, 신뢰성, 상호운용성, 인터페이스).
@@ -449,7 +487,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 1.4 GoF 디자인 패턴 23종 핵심 정리
+### 📌 1.4 GoF 디자인 패턴
 > **주요 출제 포인트 요약 표**
 
 | 분류 | 패턴명 | 핵심 정의 및 수험 암기 키워드 |
@@ -480,7 +518,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 1.5 모듈 결합도(Coupling) & 응집도(Cohesion)
+### 📌 1.5 모듈 결합도 & 응집도
 - **결합도 (Coupling)**: 모듈 간의 상호 의존 정도 (**낮을수록 우수**)
   - **결합도 약함(우수) ➔ 강함(취약) 7단계**:
   - **자료(Data) ➔ 스탬프(Stamp) ➔ 제어(Control) ➔ 외부(External) ➔ 공통(Common) ➔ 내용(Content)**
@@ -517,7 +555,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 1.7 EAI 구축 유형 & 인터페이스 연계 기술
+### 📌 1.7 EAI 구축 & 인터페이스 연계
 - **EAI(Enterprise Application Integration) 구축 유형**:
   - **Point-to-Point**: 1:1 직접 연결, 연계 개수가 늘어날수록 복잡도 급증 (N(N-1)/2).
   - **Hub & Spoke**: 단일 중앙 허브를 통해 메시지 중계 (중앙 집중형, 허브 장애 시 전체 마비).
@@ -529,10 +567,27 @@ THEORY_CONTENT = {
   - **AJAX**: 비동기 JavaScript와 XML을 이용한 페이지 무새로고침 부분 갱신 기술.
   - **SOAP**: HTTP, HTTPS, SMTP를 통해 XML 기반 메시지를 교환하는 프로토콜 (WSDL, UDDI 연계).
   - **REST**: HTTP 메서드(GET, POST, PUT, DELETE)와 URI를 활용하여 자원을 명시하는 아키텍처.
+
+---
+
+### 📌 1.8 소프트웨어 아키텍처 & 설계
+- **소프트웨어 아키텍처 기본 원칙**:
+  - **모듈화(Modularity)**: 소프트웨어를 작고 독립적인 모듈로 분할하여 복잡도 감소 및 재사용성 향상.
+  - **추상화(Abstraction)**: 복잡한 현실 세계의 본질적 특성만을 간추려 표현 (제어 추상화, 자료 추상화, 기능 추상화).
+  - **단계적 분해(Stepwise Refinement)**: 하향식 설계 방식으로 상위 추상 개념에서 구체적 세부 구현으로 점진적 세분화.
+  - **정보 은닉(Information Hiding)**: 모듈 내부의 상세한 구현 세부 사항을 감추고 필요한 인터페이스만 외부에 공개.
+- **소프트웨어 아키텍처 패턴**:
+  - **계층형(Layered) 패턴**: 모듈을 상하 계층으로 구성하여 인접한 상위/하위 계층 간에만 상호작용 (OSI 7계층, 웹 애플리케이션 3계층).
+  - **클라이언트-서버(Client-Server) 패턴**: 서비스를 요청하는 클라이언트와 서비스를 제공하는 서버로 분리.
+  - **파이프-필터(Pipe-Filter) 패턴**: 데이터 스트림을 필터 모듈을 거쳐 순차 처리 (UNIX 파이프 line).
+  - **MVC(Model-View-Controller) 패턴**: 모델(데이터·비즈니스 로직), 뷰(사용자 UI), 컨트롤러(사용자 입력 제어 및 흐름 통제)로 관심사 분리.
+- **아키텍처 품질 속성**:
+  - 시스템 품질: 성능, 가용성, 보안성, 변경용이성, 사용성, 신뢰성.
+  - 비즈니스 품질: 시장 적시성, 비용 절감, 시스템 수명.
 """,
 
     2: """
-### 📌 2.1 C언어 포인터 & 다차원 배열 & 메모리 조작
+### 📌 2.1 C언어 포인터 & 다차원 배열
 - **포인터 기초 문법**:
   - `int a = 10; int *p = &a;`
   - `&a`: 변수 `a`의 메모리 주소값.
@@ -554,6 +609,20 @@ THEORY_CONTENT = {
   - `p + 1`은 1행(arr[1]) 전체를 건너뜀 (3 × 4 = 12바이트 이동).
   - `*(p + 1) + 2`는 `&arr[1][2]`의 주소.
   - `*(*(p + 1) + 2)`는 `arr[1][2]`의 실제 값인 `6`.
+- **동적 메모리 할당**:
+  - `int *p = (int *)malloc(sizeof(int) * 5);`
+  - 동적 할당된 메모리는 사용 후 반드시 `free(p);`를 호출하여 해제.
+
+---
+
+### 📌 2.2 C언어 제어문 & 연산자 & 구조체
+- **제어문과 반복문**:
+  - `for (초기식; 조건식; 증감식)`: 정해진 횟수만큼 반복 실행.
+  - `while (조건식)` / `do { ... } while (조건식);`: 조건에 따른 반복 제어.
+  - `switch (변수) { case 값: ... break; default: ... }`
+- **연산자 및 비트 연산**:
+  - 증감 연산자 (`++i` 전위 vs `i++` 후위), 삼항 연산자 (`조건 ? 참값 : 거짓값`).
+  - 비트 연산자: AND(`&`), OR(`|`), XOR(`^`), NOT(`~`), 좌/우 시프트(`<<`, `>>`).
 - **C언어 표준 문자열 함수**:
   - `strlen(s)`: 널 문자(`\\0`)를 제외한 순수 문자열 길이.
   - `strcpy(dest, src)`: 문자열 복사.
@@ -562,10 +631,12 @@ THEORY_CONTENT = {
 - **구조체와 화살표 연산자**:
   - `struct Data d = {10}; struct Data *p = &d;`
   - `p->val`은 `(*p).val`과 100% 동일한 표현.
+- **재귀 함수 (Recursion)**:
+  - 함수 내부에서 자기 자신을 호출하는 방식으로, 기저 조건(Base Case)이 없으면 스택 오버플로우 발생.
 
 ---
 
-### 📌 2.2 Java 상속 & 다형성 & 동적 바인딩 & static
+### 📌 2.3 Java 객체지향 & 상속 / 다형성
 - **생성자(Constructor) 호출 순서**:
   - 자식 객체 `Child c = new Child();`를 생성하면:
   - 1단계: 부모 생성자 `Parent()`가 묵시적 `super()` 호출에 의해 먼저 실행됨.
@@ -577,16 +648,23 @@ THEORY_CONTENT = {
   - `Parent obj = new Child();`
   - **멤버 변수 접근 (`obj.x`)**: 참조 변수의 선언 타입인 **`Parent`의 변수**를 참조! (변수는 오버라이딩되지 않음).
   - **멤버 메서드 호출 (`obj.show()`)**: 실제 인스턴스인 **`Child`의 오버라이딩된 메서드**가 동적으로 호출됨!
+
+---
+
+### 📌 2.4 Java static & 인터페이스 / 예외
 - **`static` 키워드**:
   - 인스턴스를 생성하지 않아도 클래스 로딩 시점에 단 한 번 메모리에 할당.
   - 모든 인스턴스가 동일한 단 하나의 메모리 공간을 공유 (카운터, 싱글톤 등에 활용).
+- **추상 클래스 vs 인터페이스**:
+  - **추상 클래스 (`abstract class`)**: 하나 이상의 추상 메서드를 포함할 수 있으며 단일 상속만 지원.
+  - **인터페이스 (`interface`)**: 다중 구현(`implements`) 가능, 모든 필드는 `public static final`, 메서드는 `public abstract`.
 - **예외 처리 흐름**:
   - `try { 예외발생가능코드 } catch (Exception e) { 예외처리 } finally { 무조건실행 }`
   - `finally` 블록은 `try` 내부에 `return` 문이 있어도 **반드시 실행된 후 반환**됨!
 
 ---
 
-### 📌 2.3 Python 슬라이싱 & 컬렉션 자료구조
+### 📌 2.5 Python 슬라이싱 & 컬렉션 / 람다
 - **음수 인덱스 & 슬라이싱 문법**: `arr[start:end:step]`
   - 음수 인덱스는 뒤에서부터 `-1, -2, -3...`
   - `arr[::-1]`: 배열 또는 문자열을 통째로 역순 반전.
@@ -599,21 +677,34 @@ THEORY_CONTENT = {
   - **딕셔너리 `{k: v}`**: Key-Value 쌍, `d.get(k, default)`는 키가 없어도 예외 없이 기본값 반환.
 - **리스트 컴프리헨션 (List Comprehension)**:
   - `[x * 2 for x in arr if x % 2 == 0]` ➔ 짝수만 골라 2배한 새 리스트 생성.
-- **람다식(Lambda)**:
+- **람다식(Lambda) 및 고차 함수**:
   - `add = lambda a, b: a + b`
   - `list(map(lambda x: x + 1, [1, 2, 3])) == [2, 3, 4]`
   - `list(filter(lambda x: x > 2, [1, 2, 3])) == [3]`
+
+---
+
+### 📌 2.6 Python 프로그래밍 기초
+- **기본 문법과 입출력**:
+  - 동적 타이핑 언어로 변수 선언 시 타입을 명시하지 않음.
+  - f-string 포맷팅: `f"결과: {val}"`
+- **반복문과 내장 함수**:
+  - `range(stop)` 또는 `range(start, stop, step)`
+  - `enumerate(iterable)`: 인덱스와 요소를 튜플로 반환.
+  - `zip(list1, list2)`: 두 리스트를 병합 순회.
+- **함수 정의와 언패킹**:
+  - `def func(*args, **kwargs)`: 가변 인자 패킹/언패킹 지원.
 """,
 
     3: """
-### 📌 3.1 관계형 데이터베이스 모델 & 키(Key) & 무결성
+### 📌 3.1 데이터 모델링 & 키 / 무결성 제약조건
 - **릴레이션의 기본 용어**:
   - **튜플(Tuple)**: 릴레이션의 각 행(Row, 레코드).
   - **애트리뷰트(Attribute)**: 릴레이션의 각 열(Column, 속성).
   - **도메인(Domain)**: 하나의 애트리뷰트가 취할 수 있는 원자값들의 집합.
   - **차수(Degree)**: 릴레이션의 **속성(열)의 개수**.
   - **카디널리티(Cardinality)**: 릴레이션의 **튜플(행)의 개수**.
-- **키(Key)의 5가지 분류**:
+- **키(Key)의 분류**:
   - **슈퍼키(Super Key)**: 유일성(O), 최소성(X).
   - **후보키(Candidate Key)**: 유일성(O), 최소성(O)을 모두 만족하는 속성 집합.
   - **기본키(Primary Key)**: 후보키 중 선정된 주 키 (Not Null + Unique).
@@ -627,7 +718,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 3.2 관계대수 (Relational Algebra) 연산자
+### 📌 3.2 관계대수 & 릴레이션 이론
 - **순수 관계 연산자 (4종)**:
   - **Select (σ, 시그마)**: 조건에 맞는 튜플(행)을 수평으로 분리.
   - **Project (π, 파이)**: 원하는 속성(열)을 수직으로 추출.
@@ -641,7 +732,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 3.3 정규화(Normalization) 6단계 & 이상현상
+### 📌 3.3 정규화 6단계 & 이상현상
 - **이상 현상 (Anomaly)**: 테이블 설계 부실로 인한 삽입 이상, 갱신 이상, 삭제 이상.
 - **정규화 6단계 공식 (암기 두문자: 도 - 부 - 이 - 결 - 다 - 조)**:
 
@@ -658,7 +749,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 3.4 SQL 표준 작성법 (DDL / DML / DCL / TCL)
+### 📌 3.4 DDL / DML / DCL 테이블 정의 및 조작
 - **DDL (데이터 정의어)**:
   - `CREATE TABLE 학생 (학번 CHAR(8) PRIMARY KEY, 이름 VARCHAR(20) NOT NULL, 지도교수 VARCHAR(20), FOREIGN KEY (지도교수) REFERENCES 교수(교수ID) ON DELETE CASCADE);`
   - `ALTER TABLE 학생 ADD (연락처 VARCHAR(15));`
@@ -667,11 +758,6 @@ THEORY_CONTENT = {
   - `INSERT INTO 학생 (학번, 이름) VALUES ('2026001', '홍길동');`
   - `UPDATE 학생 SET 이름 = '김철수' WHERE 학번 = '2026001';`
   - `DELETE FROM 학생 WHERE 학번 = '2026001';`
-  - `SELECT 부서, AVG(급여) AS 평균급여 FROM 직원 WHERE 재직상태 = '재직' GROUP BY 부서 HAVING AVG(급여) >= 4000 ORDER BY 평균급여 DESC;`
-- **윈도우 함수 (순위 매기기)**:
-  - `ROW_NUMBER()`: 무조건 고유 순위 부여 (1, 2, 3, 4)
-  - `RANK()`: 동순위 발생 시 다음 순위 건너뜀 (1, 2, 2, 4)
-  - `DENSE_RANK()`: 동순위 발생 시 다음 순위 연속 부여 (1, 2, 2, 3)
 - **DCL & TCL (제어어)**:
   - `GRANT SELECT, INSERT ON 학생 TO user1 WITH GRANT OPTION;`
   - `REVOKE INSERT ON 학생 FROM user1 CASCADE;`
@@ -679,19 +765,33 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 3.5 트랜잭션 ACID 주요 특성 & 회복 & 뷰(VIEW)
+### 📌 3.5 SQL 집계 · 조인 · 윈도우 함수
+- **SELECT 절 작성 순서와 집계**:
+  - `SELECT 부서, AVG(급여) AS 평균급여 FROM 직원 WHERE 재직상태 = '재직' GROUP BY 부서 HAVING AVG(급여) >= 4000 ORDER BY 평균급여 DESC;`
+- **테이블 조인 연산**:
+  - **내부 조인(INNER JOIN)**: 공통 조건이 일치하는 튜플만 반환.
+  - **외부 조인(OUTER JOIN)**: 조건 불일치 행도 NULL로 포함 (LEFT, RIGHT, FULL OUTER JOIN).
+- **윈도우 함수 (순위 매기기)**:
+  - `ROW_NUMBER()`: 무조건 고유 순위 부여 (1, 2, 3, 4)
+  - `RANK()`: 동순위 발생 시 다음 순위 건너뜀 (1, 2, 2, 4)
+  - `DENSE_RANK()`: 동순위 발생 시 다음 순위 연속 부여 (1, 2, 2, 3)
+
+---
+
+### 📌 3.6 트랜잭션 ACID & 병행제어 / 뷰(View)
 - **트랜잭션 ACID 주요 특성**:
   - **원자성 (Atomicity)**: All or Nothing. 모두 반영되거나 전혀 반영되지 않아야 함.
   - **일관성 (Consistency)**: 트랜잭션 수행 완료 후에도 DB 무결성 제약조건 유지.
   - **격리성/고립성 (Isolation)**: 동시 수행 중인 트랜잭션끼리 서로 연산 중간 결과를 간섭할 수 없음.
   - **지속성/영속성 (Durability)**: 성공적으로 완료된 트랜잭션의 결과는 영구 보존됨.
 - **병행 제어 미보장 시 문제점**: 갱신 분실(Lost Update), 모순성(Inconsistency), 연쇄 복귀(Cascading Rollback), 비완료 의존성.
+- **동시성 제어 기법**: 2단계 로킹 규약 (2PL - 확장 단계와 축소 단계).
 - **회복 기법**: REDO(재실행), UNDO(취소), WAL(Write-Ahead Logging), 체크포인트(검사점) 회복.
 - **뷰(VIEW)**: 가상 테이블. 보안성 향상, 쿼리 단순화. 독자적인 물리적 인덱스 소유 불가.
 """,
 
     4: """
-### 📌 4.1 OSI 7계층 vs TCP/IP 4계층 프로토콜
+### 📌 4.1 OSI 7계층 & TCP/UDP 프로토콜
 - **OSI 7계층 구조와 프로토콜**:
   - **7계층 응용(Application)**: HTTP, FTP, SMTP, DNS, DHCP (데이터 단위: Data)
   - **6계층 표현(Presentation)**: JPEG, MPEG, ASCII, 암호화, 데이터 압축 (단위: Data)
@@ -708,7 +808,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 4.2 IPv4 서브넷 마스킹 계산 공식 (주요 출제 포인트)
+### 📌 4.2 IPv4 서브넷 마스킹 계산
 > 📐 **공식 (IPv4 서브넷 호스트 수 계산)**:
 > - **전체 IP 개수 = 2ʰ** (h = 32 - 프리픽스 비트 수)
 > - **가용 호스트 IP 개수 = 2ʰ - 2** (네트워크 ID 1개 + 브로드캐스트 주소 1개 제외)
@@ -728,7 +828,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 4.3 라우팅 프로토콜 (IGP vs EGP)
+### 📌 4.3 라우팅 프로토콜 (OSPF/RIP)
 - **내부 게이트웨이 프로토콜 (IGP)**:
   - **RIP**: 거리 벡터(Bellman-Ford) 알고리즘. 최적 경로 척도로 **홉 수(Hop Count, 최대 15)** 사용. 30초마다 전체 라우팅 정보 브로드캐스팅. 소규모 망에 적합.
   - **OSPF**: 링크 상태(Dijkstra 다익스트라 SPF) 알고리즘. 홉 수 제한 없음. 네트워크 상태 변화 시에만 플러딩. 대규모 기업 네트워크에 최적화.
@@ -737,7 +837,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 4.4 암호 알고리즘 정리 (대칭키 vs 공개키 vs 해시)
+### 📌 4.4 암호화 알고리즘 (대칭키/공개키/해시)
 - **대칭키 (비밀키) 암호**:
   - 암호화 키 = 복호화 키. 암복호화 속도 빠름. 키 배송 및 관리 부담 (N(N-1)/2).
   - **블록 암호**: **DES** (64비트 블록, 56비트 키), **AES** (128비트 블록, 128/192/256 키), **SEED** (128비트, 한국 KISA), **ARIA** (128/192/256, 한국 국가보안기술연구소).
@@ -753,7 +853,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 4.5 네트워크 공격 기법 & 보안 솔루션
+### 📌 4.5 네트워크 공격 기법 & 보안 취약점
 - **서비스 거부 공격 (DoS / DDoS)**:
   - **SYN Flooding**: 대량의 TCP SYN 요청을 보낸 뒤 ACK를 보내지 않아 서버의 대기 큐(Backlog Queue)를 고갈시킴.
   - **Smurf**: 출발지 IP를 희생자 IP로 위조(스푸핑)하여 네트워크 브로드캐스트 주소로 ICMP Echo Request를 전송, 다수의 호스트가 희생자에게 일제히 응답하게 만듦.
@@ -763,7 +863,11 @@ THEORY_CONTENT = {
   - **SQL 인젝션**: 입력값 검증 부재를 틈타 악의적인 SQL 구문을 삽입하여 DB 비인가 접근.
   - **XSS (크로스 사이트 스크립팅)**: 웹 페이지에 악성 자바스크립트를 삽입하여 희생자의 세션 쿠키를 탈취.
   - **CSRF**: 희생자가 로그인된 신뢰 상태를 도용하여 희생자 모르게 서버에 변조 요청을 전송하게 유도.
-- **주요 보안 솔루션**:
+
+---
+
+### 📌 4.6 보안 솔루션 & 침입 차단
+- **주요 네트워크 보안 솔루션**:
   - **방화벽(Firewall)**: IP/Port 기반 네트워크 패킷 인바운드/아웃바운드 필터링.
   - **IDS (침입 탐지 시스템)**: 비인가 침입 실시간 모니터링 및 경고 (오용 탐지-패턴매칭 vs 이상 탐지-통계).
   - **IPS (침입 방지 시스템)**: 침입 탐지 즉시 해당 악성 패킷을 능동적으로 차단.
@@ -771,6 +875,10 @@ THEORY_CONTENT = {
   - **VPN (가상 사설망)**: 공중망을 사설 전용망처럼 안전하게 암호화 터널링 (IPSec, SSL).
   - **NAC (네트워크 접근 제어)**: 내부망 접속 단말의 무결성 점검 및 접근 권한 통제.
   - **DLP (데이터 유출 방지)**: 사내 기밀 정보가 외부로 무단 반출되는 것을 감시 및 차단.
+- **접근 통제 정책**:
+  - **강제적 접근 통제(MAC)**: 보안 등급과 인가 등급에 기반.
+  - **임의적 접근 통제(DAC)**: 데이터 소유자가 접근 권한을 결정.
+  - **역할 기반 접근 통제(RBAC)**: 사용자의 역할에 따라 권한 부여.
 """,
 
     5: """
@@ -782,10 +890,15 @@ THEORY_CONTENT = {
 5. **조기 테스팅 (Early Testing)**: 개발 초기 단계(요구사항 분석)부터 테스팅을 시작해야 결함 수정 비용(SDLC 후반 급증)을 최소화할 수 있음.
 6. **정황 의존성 (Context Dependency)**: 도메인과 상황(금융, 의료, 임베디드, 게임)에 따라 테스팅 접근법이 달라져야 함.
 7. **오류-부재의 궤변 (Absence-of-Errors Fallacy)**: 사용자의 요구사항을 충족시키지 못하거나 유용성이 없는 소프트웨어는 결함이 없어도 쓸모없음.
+- **테스트 오라클(Test Oracle) 유형**:
+  - **참(True) 오라클**: 모든 입력값에 대해 기대 결과를 완벽히 생성.
+  - **샘플링(Sampling) 오라클**: 선별된 몇 개의 대표 입력값에 대해서만 결과 제공.
+  - **휴리스틱(Heuristic) 오라클**: 특정 입력에 대해 추정치를 바탕으로 판정.
+  - **일관성 검사 오라클**: 애플리케이션 변경 전후의 결과 일관성을 검증.
 
 ---
 
-### 📌 5.2 화이트박스 vs 블랙박스 테스팅 & 맥케이브 순환복잡도
+### 📌 5.2 화이트박스 테스팅 & 순환복잡도
 - **화이트박스 테스팅 (구조 기반)**: 소스 코드 내부 논리 제어 구조를 보면서 검증.
   - **구문(문장) 커버리지**: 소스 코드의 모든 실행 가능한 문장이 최소 1번 이상 실행.
   - **결정(분기) 커버리지**: 모든 조건식의 전체 분기 결과가 참(True)과 거짓(False)을 최소 1번씩 수행.
@@ -795,14 +908,19 @@ THEORY_CONTENT = {
 > 📐 **공식 (McCabe 순환 복잡도)**:
 > - **V(G) = E - N + 2** (E: 화살표 간선 수, N: 노드 원형 수)
 > - **V(G) = P + 1** (P: 판정 노드의 개수 = 조건 분기점의 개수)
-- **블랙박스 테스팅 (명세 기반)**: 코드 내부를 보지 않고 입력값에 따른 출력 결과 검증.
-  - **동등(동치) 분할 (Equivalence Partitioning)**: 입력 도메인을 유효값과 무효값 그룹으로 분할하여 대표값 선택.
-  - **경계값 분석 (Boundary Value Analysis)**: 유효 분할의 경계선(n-1, n, n+1)에서 결함 발생 확률이 가장 높다는 점에 착안.
-  - **원인-결과 그래프, 의사결정 테이블, 오류 예측, 페어와이즈(Pairwise)**.
 
 ---
 
-### 📌 5.3 V-모델과 테스트 레벨
+### 📌 5.3 블랙박스 테스팅 기법
+- **블랙박스 테스팅 (명세 기반)**: 코드 내부를 보지 않고 입력값에 따른 출력 결과 검증.
+  - **동등(동치) 분할 (Equivalence Partitioning)**: 입력 도메인을 유효값과 무효값 그룹으로 분할하여 대표값 선택.
+  - **경계값 분석 (Boundary Value Analysis)**: 유효 분할의 경계선(n-1, n, n+1)에서 결함 발생 확률이 가장 높다는 점에 착안.
+  - **원인-결과 그래프 (Cause-Effect Graphing)**: 입력 조건(원인)과 출력 결과(효과) 간의 논리적 관계를 그래프로 구성.
+  - **의사결정 테이블, 오류 예측, 페어와이즈(Pairwise)**.
+
+---
+
+### 📌 5.4 V-모델 & 테스트 레벨
 - **단위 테스트 (Unit)** ⟷ 모듈 상세 설계 검증.
 - **통합 테스트 (Integration)** ⟷ 소프트웨어 아키텍처 및 모듈 간 인터페이스 검증.
   - **하향식 통합 (Top-Down)**: 상위 모듈에서 하위로. 하위 더미 모듈인 **스텁(Stub)** 필요.
@@ -811,16 +929,18 @@ THEORY_CONTENT = {
 - **인수 테스트 (Acceptance)** ⟷ 사용자 요구사항 검증.
   - **알파 테스트**: 개발자 환경에서 사용자가 개발자 참관 하에 수행.
   - **베타 테스트**: 실제 사용자 환경에서 다수의 최종 사용자가 자유롭게 수행.
+- **회귀 테스트 (Regression Test)**: 오류 수정이나 기능 변경 후 기존 정상 기능에 부작용이 없는지 재검증.
 
 ---
 
-### 📌 5.4 프로세스 상태 전이 & CPU 스케줄링
+### 📌 5.5 프로세스 관리 & CPU 스케줄링
 - **프로세스 상태 전이도**:
   - **생성(Create) ➔ 준비(Ready) ⟷ 실행(Running) ➔ 대기(Block) ➔ 종료(Terminated)**
   - **디스패치 (Dispatch)**: 준비 큐의 맨 앞 프로세스를 실행 상태로 전환 (`Ready` ➔ `Running`).
   - **타임아웃 (Timeout)**: 할당된 CPU 시간(Time Slice) 만료 (`Running` ➔ `Ready`).
   - **블록 (Block/Wait)**: I/O 요청 등으로 입출력 완료 대기 (`Running` ➔ `Waiting`).
   - **웨이크업 (Wakeup)**: I/O 완료 시 준비 큐로 복귀 (`Waiting` ➔ `Ready`).
+- **프로세스 간 통신(IPC)**: 독립된 프로세스 간 데이터 교환 (공유 메모리, 파이프, 소켓, 세마포어, 메시지 큐).
 - **CPU 스케줄링 알고리즘**:
   - **비선점형 (Non-Preemptive)**:
     - **FCFS**: 선착순 실행 (호위 효과 Convoy Effect 발생 위험).
@@ -834,7 +954,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 5.5 교착상태 (Deadlock) 발생 조건 & 해결 기법
+### 📌 5.6 교착상태 (Deadlock) 발생 조건
 - **교착상태 발생 필요조건 (동시 만족 시 발생)**:
   1. **상호 배제 (Mutual Exclusion)**: 한 번에 한 프로세스만 자원을 점유.
   2. **점유와 대기 (Hold and Wait)**: 자원을 보유한 채 다른 자원을 대기.
@@ -848,8 +968,10 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 5.6 가상 기억장치 & 페이지 교체 & 형상 관리 (SCM)
-- **페이징(Paging, 고정 크기, 내부 단편화)** vs **세그멘테이션(Segmentation, 가변 크기, 외부 단편화)**.
+### 📌 5.7 기억장치 관리 & 페이지 교체
+- **페이징 vs 세그멘테이션**:
+  - **페이징(Paging)**: 고정 크기 블록 분할, 내부 단편화 발생 가능.
+  - **세그멘테이션(Segmentation)**: 논리적 가변 크기 분할, 외부 단편화 발생 가능.
 - **페이지 교체 알고리즘**:
   - **FIFO**: 가장 먼저 적재된 페이지 교체.
   - **LRU (Least Recently Used)**: 가장 오랫동안 참조되지 않은 페이지 교체.
@@ -860,6 +982,13 @@ THEORY_CONTENT = {
   - **시간 국부성**: 최근 참조된 메모리가 곧 다시 참조됨 (반복문, 스택).
   - **공간 국부성**: 참조된 메모리의 인접 영역이 참조됨 (배열, 순차 코드).
   - **쓰레싱 (Thrashing)**: 페이지 부재(Page Fault)가 너무 자주 발생하여 CPU가 실제 프로세스 연산보다 페이지 교체에 더 많은 시간을 소모하는 성능 급감 현상.
+- **보조기억장치 및 파일 관리**:
+  - **RAID**: 복수 디스크 배열 (RAID 0 스트라이핑, RAID 1 미러링, RAID 5 패리티 분산).
+  - **Linux/Unix 파일 권한 (chmod)**: 소유자/그룹/기타사용자 권한 rwx(4+2+1=7) 8진수 설정.
+
+---
+
+### 📌 5.8 소프트웨어 형상 관리 (SCM)
 - **소프트웨어 형상 관리 (SCM - Software Configuration Management)**:
   - 주요 활동: **형상 식별 ➔ 형상 통제(CCB 통제 위원회) ➔ 형상 감사 ➔ 형상 기록/보고**
   - 형상 관리 도구: Git, SVN, CVS.
@@ -936,6 +1065,23 @@ def render_question_markdown(q, round_id, round_title, unit_num, topic):
     lines.append("---")
     lines.append("")
     return "\n".join(lines)
+
+
+def split_theory_into_sections(theory_markdown, syllabus_list):
+    sections = {}
+    parts = re.split(r'(?=### 📌 )', theory_markdown.strip())
+    for part in parts:
+        part = part.strip()
+        if not part:
+            continue
+        first_line = part.splitlines()[0]
+        for topic in syllabus_list:
+            prefix = topic.split(' ')[0]
+            if prefix in first_line:
+                clean_part = re.sub(r'\n---\s*$', '', part).strip()
+                sections[topic] = clean_part
+                break
+    return sections
 
 
 # ==============================================================================
@@ -1144,7 +1290,9 @@ def main():
             "title": UNIT_INFO[u]["title"],
             "shortTitle": UNIT_INFO[u]["short_title"],
             "summary": UNIT_INFO[u]["summary"],
-            "markdown": THEORY_CONTENT[u].strip()
+            "markdown": THEORY_CONTENT[u].strip(),
+            "syllabus": UNIT_SYLLABUS[u],
+            "sections": split_theory_into_sections(THEORY_CONTENT[u], UNIT_SYLLABUS[u])
         }
         
     js_content = f"""/**
@@ -1163,6 +1311,7 @@ window.CONCEPT_BOOK = {{
       5: {len(unit_questions[5])}
     }}
   }},
+  syllabus: {json.dumps(UNIT_SYLLABUS, ensure_ascii=False, indent=2)},
   units: {json.dumps(web_theory, ensure_ascii=False, indent=2)},
   questions: {json.dumps(web_questions, ensure_ascii=False, indent=2)}
 }};

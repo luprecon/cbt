@@ -792,14 +792,18 @@ def run_tests():
                 assert "s1 < s2" in u_text and "p->val" in u_text, "Unit 2 C operators (<, ->) were corrupted by unescaped HTML in inline code!"
             print(f"  Unit {u_num} theory DOM & accordion verified: formulaCards={u_val.get('formulaCards')}, openWrappers={u_val.get('openWrappers')}, domPreserved={u_val.get('domPreserved')}.")
 
-        # Test subtopic selection preserves sidebar DOM and updates active chip
+        # Test subtopic selection preserves sidebar DOM, scopes theory, and updates active chip
         send_cmd("Runtime.evaluate", {"expression": "selectUnit(1); selectTopic('GoF 디자인 패턴');"})
         time.sleep(0.1)
         topic_eval = send_cmd("Runtime.evaluate", {
             "expression": """({
                 domPreserved: window.__unit1BtnRef === document.querySelector('.sidebar-item-btn[data-unit="1"]'),
                 activeChipText: document.querySelector('.subtopic-chip.active') ? document.querySelector('.subtopic-chip.active').textContent.trim() : '',
-                cardsCount: document.querySelectorAll('.question-card').length
+                cardsCount: document.querySelectorAll('.question-card').length,
+                hasBanner: !!document.querySelector('.topic-context-banner'),
+                pillText: document.querySelector('.topic-context-pill') ? document.querySelector('.topic-context-pill').textContent.trim() : '',
+                theoryText: document.getElementById('theoryBodyContainer') ? document.getElementById('theoryBodyContainer').innerText : '',
+                u1Chips: Array.from(document.querySelectorAll('.sidebar-subtopics-wrapper[data-subtopics-for="1"] .subtopic-chip')).map(el => el.textContent.trim())
             })""",
             "returnByValue": True
         })
@@ -807,6 +811,118 @@ def run_tests():
         assert topic_val.get("domPreserved") is True, "Sidebar DOM was destroyed on selectTopic!"
         assert "GoF 디자인 패턴" in topic_val.get("activeChipText", ""), f"Expected GoF 디자인 패턴 active chip, got {topic_val.get('activeChipText')}"
         assert topic_val.get("cardsCount", 0) > 0, "Expected filtered question cards for subtopic"
+        assert topic_val.get("hasBanner") is True, "Expected .topic-context-banner to be rendered when topic is selected"
+        assert "1.4 GoF 디자인 패턴" in topic_val.get("pillText", ""), f"Expected 1.4 GoF 디자인 패턴 in pill, got {topic_val.get('pillText')}"
+        assert "Singleton" in topic_val.get("theoryText", ""), "Scoped theory missing GoF design pattern content"
+        assert "1.1 개발 방법론" not in topic_val.get("theoryText", ""), "Scoped theory unexpectedly contains 1.1 SDLC content"
+
+        # Verify sidebar chip ordering for Unit 1: 1.1 -> 1.2 -> ... -> 1.8
+        u1_chips = topic_val.get("u1Chips", [])
+        assert len(u1_chips) == 9, f"Expected 1 '전체 보기' + 8 subtopic chips for Unit 1, got {len(u1_chips)}"
+        for i in range(1, 9):
+            prefix = f"• 1.{i}"
+            assert any(chip.startswith(prefix) for chip in u1_chips), f"Expected subtopic with prefix '{prefix}' in Unit 1 chips, got: {u1_chips}"
+
+        # Test clicking reset button restores full unit theory
+        send_cmd("Runtime.evaluate", {"expression": "document.querySelector('.btn-reset-topic-view').click();"})
+        time.sleep(0.1)
+        reset_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                cardsCount: document.querySelectorAll('.question-card').length,
+                hasBanner: !!document.querySelector('.topic-context-banner'),
+                theoryText: document.getElementById('theoryBodyContainer') ? document.getElementById('theoryBodyContainer').innerText : '',
+                activeChipText: document.querySelector('.subtopic-chip.active') ? document.querySelector('.subtopic-chip.active').textContent.trim() : ''
+            })""",
+            "returnByValue": True
+        })
+        reset_val = reset_eval.get("result", {}).get("result", {}).get("value", {})
+        assert reset_val.get("cardsCount") == 61, f"Expected full unit 1 questions (61), got {reset_val.get('cardsCount')}"
+        assert reset_val.get("hasBanner") is False, "Expected .topic-context-banner to be removed after reset"
+        assert "1.1 개발 방법론" in reset_val.get("theoryText", ""), "Full unit theory missing 1.1 content after reset"
+        assert "전체 보기" in reset_val.get("activeChipText", ""), f"Expected '전체 보기' chip to be active after reset, got {reset_val.get('activeChipText')}"
+
+        # Test Search-Topic Resilience: Clicking a subtopic chip while a live search query is active
+        send_cmd("Runtime.evaluate", {"expression": """
+            document.getElementById('liveSearchInput').value = '포인터';
+            handleSearchInput();
+        """})
+        time.sleep(0.05)
+        search_active_eval = send_cmd("Runtime.evaluate", {
+            "expression": "({ isSearching: Boolean(state.searchQuery), inputVal: document.getElementById('liveSearchInput').value })",
+            "returnByValue": True
+        })
+        s_val = search_active_eval.get("result", {}).get("result", {}).get("value", {})
+        assert s_val.get("isSearching") is True and s_val.get("inputVal") == "포인터", "Failed to initiate search for '포인터'"
+
+        # Click subtopic chip while search is active
+        send_cmd("Runtime.evaluate", {"expression": """
+            const chip = document.querySelector('.subtopic-chip[data-topic*="1.4 GoF 디자인 패턴"]');
+            if (chip) chip.click();
+        """})
+        time.sleep(0.05)
+        search_chip_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                searchQuery: state.searchQuery,
+                inputVal: document.getElementById('liveSearchInput').value,
+                activeTopic: state.activeTopic,
+                hasBanner: !!document.querySelector('.topic-context-banner'),
+                pillText: document.querySelector('.topic-context-pill') ? document.querySelector('.topic-context-pill').textContent.trim() : '',
+                isChipActive: document.querySelector('.subtopic-chip[data-topic*="GoF"]') ? document.querySelector('.subtopic-chip[data-topic*="GoF"]').classList.contains('active') : false,
+                cardsCount: document.querySelectorAll('.question-card').length
+            })""",
+            "returnByValue": True
+        })
+        sc_val = search_chip_eval.get("result", {}).get("result", {}).get("value", {})
+        assert sc_val.get("searchQuery") == "", f"Expected searchQuery to be cleared on subtopic click, got {sc_val.get('searchQuery')}"
+        assert sc_val.get("inputVal") == "", f"Expected search input to be cleared, got {sc_val.get('inputVal')}"
+        assert sc_val.get("hasBanner") is True, "Expected .topic-context-banner after clicking subtopic from search"
+        assert sc_val.get("isChipActive") is True, "Expected subtopic chip to be highlighted as active"
+        assert "1.4 GoF 디자인 패턴" in sc_val.get("pillText", ""), f"Expected 1.4 GoF in pill, got {sc_val.get('pillText')}"
+        assert sc_val.get("cardsCount") > 0, "Expected question cards filtered to selected subtopic"
+
+        # Test Cross-Unit Navigation: Calling selectTopic for Unit 3 while on Unit 1
+        send_cmd("Runtime.evaluate", {"expression": "selectTopic('3.3 정규화 6단계 & 이상현상');"})
+        time.sleep(0.05)
+        cross_unit_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                activeUnit: state.activeUnit,
+                activeTopic: state.activeTopic,
+                u3WrapperOpen: document.querySelector('.sidebar-subtopics-wrapper[data-subtopics-for="3"]').classList.contains('open'),
+                hasBanner: !!document.querySelector('.topic-context-banner'),
+                pillText: document.querySelector('.topic-context-pill') ? document.querySelector('.topic-context-pill').textContent.trim() : '',
+                theoryText: document.getElementById('theoryBodyContainer') ? document.getElementById('theoryBodyContainer').innerText : '',
+                cardsCount: document.querySelectorAll('.question-card').length
+            })""",
+            "returnByValue": True
+        })
+        cu_val = cross_unit_eval.get("result", {}).get("result", {}).get("value", {})
+        assert cu_val.get("activeUnit") == 3, f"Expected activeUnit to switch to 3, got {cu_val.get('activeUnit')}"
+        assert cu_val.get("u3WrapperOpen") is True, "Expected Unit 3 subtopics wrapper to be opened"
+        assert "3.3 정규화 6단계" in cu_val.get("pillText", ""), f"Expected 3.3 in pill, got {cu_val.get('pillText')}"
+        assert "도 - 부 - 이 - 결 - 다 - 조" in cu_val.get("theoryText", ""), "Unit 3 scoped theory missing normalization mnemonic"
+        assert "3.1 데이터 모델링" not in cu_val.get("theoryText", ""), "Scoped theory unexpectedly contains 3.1 modeling text"
+        assert cu_val.get("cardsCount") > 0, "Expected Unit 3 question cards filtered to 3.3 subtopic"
+
+        # Verify chip ordering and scoping for all units (Unit 2, 3, 4, 5)
+        unit_expected_chips = {
+            2: (7, ["• 2.1", "• 2.2", "• 2.3", "• 2.4", "• 2.5", "• 2.6"]),
+            3: (7, ["• 3.1", "• 3.2", "• 3.3", "• 3.4", "• 3.5", "• 3.6"]),
+            4: (7, ["• 4.1", "• 4.2", "• 4.3", "• 4.4", "• 4.5", "• 4.6"]),
+            5: (9, ["• 5.1", "• 5.2", "• 5.3", "• 5.4", "• 5.5", "• 5.6", "• 5.7", "• 5.8"]),
+        }
+        for u_chk, (exp_count, prefixes) in unit_expected_chips.items():
+            u_chips_eval = send_cmd("Runtime.evaluate", {
+                "expression": f"Array.from(document.querySelectorAll('.sidebar-subtopics-wrapper[data-subtopics-for=\"{u_chk}\"] .subtopic-chip')).map(el => el.textContent.trim())",
+                "returnByValue": True
+            })
+            chips_list = u_chips_eval.get("result", {}).get("result", {}).get("value", [])
+            assert len(chips_list) == exp_count, f"Unit {u_chk} expected {exp_count} chips, got {len(chips_list)}"
+            for pfx in prefixes:
+                assert any(chip.startswith(pfx) for chip in chips_list), f"Unit {u_chk} chips missing prefix '{pfx}': {chips_list}"
+
+        # Reset back to Unit 1 for subsequent tests
+        send_cmd("Runtime.evaluate", {"expression": "selectUnit(1);"})
+        time.sleep(0.05)
 
         # Test Theory Drawer smooth CSS Grid toggle (toggleTheoryDrawer)
         drawer_eval = send_cmd("Runtime.evaluate", {

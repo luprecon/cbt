@@ -548,6 +548,51 @@
       border-radius: 0;
     }
 
+    .focused-topic-card {
+      border-left-color: var(--btn-danger, #d9383a);
+    }
+
+    .topic-context-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .topic-context-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--btn-danger, #d9383a);
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      padding: 3px 10px;
+      border-radius: 0;
+      font-family: var(--font-headline);
+      letter-spacing: -0.3px;
+    }
+
+    .btn-reset-topic-view {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #4b5563;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 0;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-reset-topic-view:hover {
+      background: #f3f4f6;
+      color: #111827;
+      border-color: #9ca3af;
+    }
+
     .unit-hero-summary {
       font-size: 15px;
       color: #4b5563;
@@ -1445,6 +1490,7 @@
     // =========================================================================
     function switchMode(newMode) {
       state.mode = newMode;
+      state.activeTopic = null;
       state.searchQuery = '';
       document.getElementById('liveSearchInput').value = '';
       document.getElementById('btnSearchClear').style.display = 'none';
@@ -1496,12 +1542,23 @@
               <div class="sidebar-subtopics-wrapper ${isActive ? 'open' : ''}" data-subtopics-for="${u}">
                 <div class="sidebar-subtopics-inner">
                   <div class="sidebar-subtopics">
-                    <button class="subtopic-chip ${isActive && !state.activeTopic ? 'active' : ''}" data-unit-owner="${u}" data-topic="" onclick="selectTopic(null)">전체 보기 (${unitQuestions.length})</button>
+                    <button class="subtopic-chip ${isActive && !state.activeTopic ? 'active' : ''}" data-unit-owner="${u}" data-topic="" onclick="selectTopic(null, Number(this.dataset.unitOwner))">전체 보기 (${unitQuestions.length})</button>
           `;
 
-          for (const [topic, tCount] of Object.entries(topicsMap)) {
-            const isTopicActive = isActive && state.activeTopic === topic;
-            html += `<button class="subtopic-chip ${isTopicActive ? 'active' : ''}" data-unit-owner="${u}" data-topic="${escapeHtml(topic)}" onclick="selectTopic(this.dataset.topic)">• ${escapeHtml(topic)} (${tCount})</button>`;
+          const syllabus = (window.CONCEPT_BOOK && window.CONCEPT_BOOK.syllabus && window.CONCEPT_BOOK.syllabus[u]) || (unit.syllabus || []);
+          const sortedTopics = Object.keys(topicsMap).sort((a, b) => {
+            const idxA = syllabus.indexOf(a);
+            const idxB = syllabus.indexOf(b);
+            if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+            if (idxA !== -1) return -1;
+            if (idxB !== -1) return 1;
+            return a.localeCompare(b, 'ko');
+          });
+
+          for (const topic of sortedTopics) {
+            const tCount = topicsMap[topic];
+            const isTopicActive = isActive && (state.activeTopic === topic);
+            html += `<button class="subtopic-chip ${isTopicActive ? 'active' : ''}" data-unit-owner="${u}" data-topic="${escapeHtml(topic)}" onclick="selectTopic(this.dataset.topic, Number(this.dataset.unitOwner))">• ${escapeHtml(topic)} (${tCount})</button>`;
           }
 
           html += `
@@ -1579,7 +1636,10 @@
         const u = Number(chip.dataset.unitOwner);
         const topic = chip.dataset.topic || null;
         const isUnitActive = (u === state.activeUnit) && !isSearching;
-        const isChipActive = isUnitActive && ((topic === null && !state.activeTopic) || (topic !== null && state.activeTopic === topic));
+        const isChipActive = isUnitActive && (
+          (topic === null && !state.activeTopic) ||
+          (topic !== null && state.activeTopic === topic)
+        );
         chip.classList.toggle('active', isChipActive);
       });
     }
@@ -1604,10 +1664,44 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function selectTopic(t) {
-      state.activeTopic = (t && t !== 'null' && t !== 'undefined') ? t : null;
+    function selectTopic(t, unitOwner) {
+      state.searchQuery = '';
+      const sInput = document.getElementById('liveSearchInput');
+      if (sInput) sInput.value = '';
+      const cBtn = document.getElementById('btnSearchClear');
+      if (cBtn) cBtn.style.display = 'none';
+
+      if (t && t !== 'null' && t !== 'undefined') {
+        let targetUnit = unitOwner;
+        if (!targetUnit) {
+          const m = String(t).match(/^(\d+)\./);
+          if (m) {
+            targetUnit = Number(m[1]);
+          } else {
+            const anyMatch = questionsData.find(q => q.topic === t || (q.topic && q.topic.includes(t)) || (q.topic && t.includes(q.topic)));
+            if (anyMatch) targetUnit = anyMatch.unit;
+          }
+        }
+        if (targetUnit && targetUnit >= 1 && targetUnit <= 5) {
+          state.activeUnit = targetUnit;
+        }
+
+        const unitQuestions = questionsData.filter(q => q.unit === state.activeUnit);
+        const syllabus = (window.CONCEPT_BOOK && window.CONCEPT_BOOK.syllabus && window.CONCEPT_BOOK.syllabus[state.activeUnit]) || [];
+        const sylMatch = syllabus.find(s => s === t || s.startsWith(t) || s.includes(t) || t.includes(s));
+        const qMatch = unitQuestions.find(q => q.topic === t || (q.topic && q.topic.includes(t)) || (q.topic && t.includes(q.topic)));
+
+        state.activeTopic = sylMatch || (qMatch ? qMatch.topic : t);
+        state.theoryExpanded = true;
+      } else {
+        if (unitOwner && unitOwner >= 1 && unitOwner <= 5) {
+          state.activeUnit = unitOwner;
+        }
+        state.activeTopic = null;
+      }
       renderSidebar();
       renderContent();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function selectRound(rid) {
@@ -1659,13 +1753,35 @@
         qs = qs.filter(q => q.topic === state.activeTopic);
       }
 
+      const isTopicFocused = Boolean(state.activeTopic);
+      let theoryHtml = '';
+      if (isTopicFocused && unit.sections && unit.sections[state.activeTopic]) {
+        theoryHtml = parseMarkdownToHtml(unit.sections[state.activeTopic]);
+      } else if (isTopicFocused) {
+        const fullMd = unit.markdown || '';
+        const topicNum = (state.activeTopic.match(/^(\d+\.\d+)/) || [])[1];
+        const regex = new RegExp(`(### 📌 ${topicNum ? escapeRegex(topicNum) : escapeRegex(state.activeTopic)}[\\s\\S]*?)(?=(?:### 📌 |$))`, 'i');
+        const match = fullMd.match(regex);
+        theoryHtml = match ? parseMarkdownToHtml(match[1]) : parseMarkdownToHtml(fullMd);
+      } else {
+        theoryHtml = parseMarkdownToHtml(unit.markdown || '');
+      }
+
       let html = '';
 
       // Hero Card (Theory Summary)
       html += `
-        <div class="unit-hero-card">
+        <div class="unit-hero-card ${isTopicFocused ? 'focused-topic-card' : ''}">
           <div class="unit-hero-header">
-            <h1 class="unit-hero-title">${unit.title || `제${state.activeUnit}단원`}</h1>
+            <div>
+              <h1 class="unit-hero-title">${unit.title || `제${state.activeUnit}단원`}</h1>
+              ${isTopicFocused ? `
+                <div class="topic-context-banner">
+                  <span class="topic-context-pill">[${escapeHtml(state.activeTopic)} 핵심 요약]</span>
+                  <button class="btn-reset-topic-view" onclick="selectTopic(null)">단원 전체 이론 보기 ↺</button>
+                </div>
+              ` : ''}
+            </div>
             <span class="unit-hero-badge">기출 총 ${questionsData.filter(q => q.unit === state.activeUnit).length}문항 수록</span>
           </div>
           <p class="unit-hero-summary">${unit.summary || ''}</p>
@@ -1675,7 +1791,7 @@
           <div class="theory-drawer-wrapper ${state.theoryExpanded ? 'open' : ''}" id="theoryDrawerWrapper">
             <div class="theory-drawer-inner">
               <div class="theory-body-container" id="theoryBodyContainer">
-                ${parseMarkdownToHtml(unit.markdown || '')}
+                ${theoryHtml}
               </div>
             </div>
           </div>
@@ -1686,7 +1802,7 @@
       html += `
         <div class="questions-control-header">
           <span class="questions-count-text">
-            관련 기출문제 ${state.activeTopic ? `[${state.activeTopic}]` : ''} — 총 ${qs.length}문항
+            관련 기출문제 ${state.activeTopic ? `[${escapeHtml(state.activeTopic)}]` : ''} — 총 ${qs.length}문항
           </span>
           <button class="btn-toggle-all-answers" onclick="toggleAllAnswers()">
             ${state.allAnswersExpanded ? '전체 정답 접기 ▲' : '전체 정답 펼치기 ▼'}

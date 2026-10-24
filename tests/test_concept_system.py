@@ -47,6 +47,29 @@ def test_verification():
     questions = json.loads(m_qs.group(1))
     assert len(questions) == 525, f"Expected 525 parsed questions, got {len(questions)}"
 
+    # Parse syllabus from concept-data.js
+    m_syl = re.search(r'syllabus:\s*(\{[\s\S]*?\n\}),', js_text)
+    assert m_syl, "Could not extract syllabus from concept-data.js"
+    syllabus = json.loads(m_syl.group(1))
+    assert len(syllabus) == 5, f"Expected 5 syllabus units, got {len(syllabus)}"
+    expected_topic_counts = {"1": 8, "2": 6, "3": 6, "4": 6, "5": 8}
+    total_syllabus_topics = 0
+    for u_str, count in expected_topic_counts.items():
+        assert len(syllabus.get(u_str, [])) == count, f"Unit {u_str} expected {count} syllabus topics, got {len(syllabus.get(u_str, []))}"
+        total_syllabus_topics += len(syllabus[u_str])
+    assert total_syllabus_topics == 34, f"Expected 34 total syllabus topics, got {total_syllabus_topics}"
+
+    # Parse units to verify section markdown content
+    u_start = js_text.find("units: {") + 7
+    u_end = js_text.find(",\n  questions: [")
+    assert u_start > 6 and u_end > u_start, "Could not parse units range in concept-data.js"
+    units_dict = json.loads(js_text[u_start:u_end])
+    for u_str, u_data in units_dict.items():
+        sections = u_data.get("sections", {})
+        for topic in syllabus[u_str]:
+            assert topic in sections, f"Unit {u_str} sections missing theory for syllabus topic: {topic}"
+            assert len(sections[topic].strip()) > 50, f"Unit {u_str} section {topic} has suspiciously short theory: {len(sections[topic])} chars"
+
     unit_counts = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
     for q in questions:
         assert "uid" in q and q["uid"], "Question missing uid"
@@ -57,11 +80,12 @@ def test_verification():
         assert "explanation" in q and q["explanation"], f"Question {q.get('uid')} missing explanation"
         assert "unit" in q and q["unit"] in (1, 2, 3, 4, 5), f"Invalid unit {q.get('unit')} in {q.get('uid')}"
         assert "topic" in q and q["topic"], f"Question {q.get('uid')} missing topic"
+        assert q["topic"] in syllabus[str(q["unit"])], f"Question {q.get('uid')} topic '{q.get('topic')}' not in Unit {q['unit']} syllabus!"
         unit_counts[q["unit"]] += 1
 
     for u in range(1, 6):
         assert unit_counts[u] > 0, f"Unit {u} has 0 questions!"
-        print(f"  Unit {u} question count: {unit_counts[u]} questions")
+        print(f"  Unit {u} question count: {unit_counts[u]} questions (mapped to {len(syllabus[str(u)])} syllabus topics)")
 
     # 3. Check docs files
     master_doc = os.path.join(base_dir, "docs", "정처기_실기_핵심개념서_및_기출해설총람.md")
@@ -147,6 +171,10 @@ def test_verification():
     assert "단원별 개념" in std_txt and "주제별 기출 모음" in std_txt, "study.html missing clean sidebar section titles!"
     assert "sidebar-subtopics-wrapper" in std_txt and "grid-template-rows: 0fr" in std_txt, "study.html missing CSS Grid accordion animation!"
     assert "theory-drawer-wrapper" in std_txt, "study.html missing CSS Grid theory drawer animation!"
+    assert "topic-context-banner" in std_txt, "study.html missing topic context banner for scoped view!"
+    assert "topic-context-pill" in std_txt, "study.html missing topic context pill!"
+    assert "btn-reset-topic-view" in std_txt, "study.html missing reset button for topic theory view!"
+    assert "focused-topic-card" in std_txt, "study.html missing focused topic card styling!"
     for banned in ("5대 핵심 단원별 개념서", "6대 특화 테마", "실전 개념서 &amp; 해설총람", "5대 단원", "단골 함정 (Trap Point)"):
         assert banned not in std_txt, f"study.html still contains exaggerated wording: {banned}"
 
