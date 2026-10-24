@@ -136,6 +136,7 @@ def run_tests():
         edge_bin,
         "--headless=new",
         "--disable-gpu",
+        "--window-size=1400,900",
         "--allow-file-access-from-files",
         f"--remote-debugging-port={cdp_port}",
         f"--user-data-dir={user_data_dir}",
@@ -250,6 +251,64 @@ def run_tests():
         assert val.get("hasStudyBtn") is True, "btn-study-link missing in index.html"
         assert val.get("studyHref") == "study.html", f"Expected href 'study.html', got {val.get('studyHref')}"
 
+        # Font Typography Verification for index.html
+        print("  Verifying LG EI fonts on index.html...")
+        font_resp = send_cmd("Runtime.evaluate", {
+            "expression": """(async () => {
+                await document.fonts.ready;
+                // Force-verify that all 5 woff2 font assets can be loaded over HTTP and decoded
+                await Promise.all([
+                    document.fonts.load('700 20px "LG EI Headline"'),
+                    document.fonts.load('400 20px "LG EI Headline"'),
+                    document.fonts.load('400 16px "LG EI Text"'),
+                    document.fonts.load('600 16px "LG EI Text"'),
+                    document.fonts.load('700 16px "LG EI Text"')
+                ]);
+                const getFont = (sel) => {
+                    const el = document.querySelector(sel);
+                    return el ? window.getComputedStyle(el).fontFamily : '';
+                };
+                return {
+                    bodyFont: getFont('body'),
+                    topHeaderFont: getFont('header.top-header'),
+                    logoFont: getFont('.header-logo'),
+                    timerFont: getFont('.timer-val'),
+                    promptFont: getFont('.question-prompt'),
+                    submitBtnFont: getFont('.btn-submit'),
+                    modalTitleFont: getFont('.modal-title'),
+                    scoreBigFont: getFont('.score-big-number'),
+                    catStatFont: getFont('.cat-stat-title'),
+                    scoreJudgmentFont: getFont('.score-judgment'),
+                    expAnswerFont: getFont('.exp-correct-answer'),
+                    hasHeadlineBold: document.fonts.check('700 20px "LG EI Headline"'),
+                    hasHeadlineRegular: document.fonts.check('400 20px "LG EI Headline"'),
+                    hasTextRegular: document.fonts.check('400 16px "LG EI Text"'),
+                    hasTextSemiBold: document.fonts.check('600 16px "LG EI Text"'),
+                    hasTextBold: document.fonts.check('700 16px "LG EI Text"')
+                };
+            })()""",
+            "awaitPromise": True,
+            "returnByValue": True
+        })
+        font_val = font_resp.get("result", {}).get("result", {}).get("value", {})
+        print("  index.html font verification:", font_val)
+        assert "LG EI Text" in font_val.get("bodyFont", ""), f"Body font should include 'LG EI Text', got {font_val.get('bodyFont')}"
+        assert "LG EI Headline" in font_val.get("topHeaderFont", ""), f"Top header should include 'LG EI Headline', got {font_val.get('topHeaderFont')}"
+        assert "LG EI Headline" in font_val.get("logoFont", ""), f"Logo font should include 'LG EI Headline', got {font_val.get('logoFont')}"
+        assert "LG EI Headline" in font_val.get("timerFont", ""), f"Timer font should include 'LG EI Headline', got {font_val.get('timerFont')}"
+        assert "LG EI Headline" in font_val.get("promptFont", ""), f"Question prompt font should include 'LG EI Headline', got {font_val.get('promptFont')}"
+        assert "LG EI Headline" in font_val.get("submitBtnFont", ""), f"Submit button font should include 'LG EI Headline', got {font_val.get('submitBtnFont')}"
+        assert "LG EI Headline" in font_val.get("modalTitleFont", ""), f"Modal title font should include 'LG EI Headline', got {font_val.get('modalTitleFont')}"
+        assert "LG EI Headline" in font_val.get("scoreBigFont", ""), f"Score big number font should include 'LG EI Headline', got {font_val.get('scoreBigFont')}"
+        assert "LG EI Headline" in font_val.get("catStatFont", ""), f"Category stat title font should include 'LG EI Headline', got {font_val.get('catStatFont')}"
+        assert "LG EI Headline" in font_val.get("scoreJudgmentFont", ""), f"Score judgment font should include 'LG EI Headline', got {font_val.get('scoreJudgmentFont')}"
+        assert "LG EI Text" in font_val.get("expAnswerFont", ""), f"Answer text font should include 'LG EI Text', got {font_val.get('expAnswerFont')}"
+        assert font_val.get("hasHeadlineBold") is True, "LG EI Headline Bold (700) failed document.fonts.check"
+        assert font_val.get("hasHeadlineRegular") is True, "LG EI Headline Regular (400) failed document.fonts.check"
+        assert font_val.get("hasTextRegular") is True, "LG EI Text Regular (400) failed document.fonts.check"
+        assert font_val.get("hasTextSemiBold") is True, "LG EI Text SemiBold (600) failed document.fonts.check"
+        assert font_val.get("hasTextBold") is True, "LG EI Text Bold (700) failed document.fonts.check"
+
         # -------------------------------------------------------------
         # Test 2: study.html (Concept Mode)
         # -------------------------------------------------------------
@@ -271,12 +330,76 @@ def run_tests():
         assert val.get("formulaCards", 0) > 0, "Expected .formula-card elements rendered in Unit 1 theory"
         assert val.get("hasRawLatex") is False, "Found unrendered raw LaTeX ($...$) in study.html theory container"
 
+        # Font Typography Verification for study.html
+        print("  Verifying LG EI fonts on study.html...")
+        study_font_resp = send_cmd("Runtime.evaluate", {
+            "expression": """(async () => {
+                await document.fonts.ready;
+                // Force-verify that all 5 woff2 font assets can be loaded over HTTP and decoded
+                await Promise.all([
+                    document.fonts.load('700 20px "LG EI Headline"'),
+                    document.fonts.load('400 20px "LG EI Headline"'),
+                    document.fonts.load('400 16px "LG EI Text"'),
+                    document.fonts.load('600 16px "LG EI Text"'),
+                    document.fonts.load('700 16px "LG EI Text"')
+                ]);
+                const getFont = (sel) => {
+                    const el = document.querySelector(sel);
+                    return el ? window.getComputedStyle(el).fontFamily : '';
+                };
+                return {
+                    bodyFont: getFont('body'),
+                    studyHeaderFont: getFont('.study-header'),
+                    logoFont: getFont('.header-logo'),
+                    modeTabFont: getFont('.btn-mode-tab'),
+                    heroTitleFont: getFont('.unit-hero-title'),
+                    countTextFont: getFont('.questions-count-text'),
+                    promptFont: getFont('.q-prompt-text'),
+                    h3Font: getFont('.theory-body-container h3'),
+                    correctLabelFont: getFont('.exp-correct-label'),
+                    hasHeadlineBold: document.fonts.check('700 20px "LG EI Headline"'),
+                    hasHeadlineRegular: document.fonts.check('400 20px "LG EI Headline"'),
+                    hasTextRegular: document.fonts.check('400 16px "LG EI Text"'),
+                    hasTextSemiBold: document.fonts.check('600 16px "LG EI Text"'),
+                    hasTextBold: document.fonts.check('700 16px "LG EI Text"')
+                };
+            })()""",
+            "awaitPromise": True,
+            "returnByValue": True
+        })
+        study_font_val = study_font_resp.get("result", {}).get("result", {}).get("value", {})
+        print("  study.html font verification:", study_font_val)
+        assert "LG EI Text" in study_font_val.get("bodyFont", ""), f"Body font should include 'LG EI Text', got {study_font_val.get('bodyFont')}"
+        assert "LG EI Headline" in study_font_val.get("studyHeaderFont", ""), f"Study header font should include 'LG EI Headline', got {study_font_val.get('studyHeaderFont')}"
+        assert "LG EI Headline" in study_font_val.get("logoFont", ""), f"Logo font should include 'LG EI Headline', got {study_font_val.get('logoFont')}"
+        assert "LG EI Headline" in study_font_val.get("modeTabFont", ""), f"Mode tab font should include 'LG EI Headline', got {study_font_val.get('modeTabFont')}"
+        assert "LG EI Headline" in study_font_val.get("heroTitleFont", ""), f"Unit hero title should include 'LG EI Headline', got {study_font_val.get('heroTitleFont')}"
+        assert "LG EI Headline" in study_font_val.get("countTextFont", ""), f"Questions count font should include 'LG EI Headline', got {study_font_val.get('countTextFont')}"
+        assert "LG EI Headline" in study_font_val.get("promptFont", ""), f"Question prompt font should include 'LG EI Headline', got {study_font_val.get('promptFont')}"
+        assert "LG EI Headline" in study_font_val.get("h3Font", ""), f"H3 heading font should include 'LG EI Headline', got {study_font_val.get('h3Font')}"
+        assert "LG EI Headline" in study_font_val.get("correctLabelFont", ""), f"Answer label font should include 'LG EI Headline', got {study_font_val.get('correctLabelFont')}"
+        assert study_font_val.get("hasHeadlineBold") is True, "LG EI Headline Bold (700) failed document.fonts.check in study.html"
+        assert study_font_val.get("hasHeadlineRegular") is True, "LG EI Headline Regular (400) failed document.fonts.check in study.html"
+        assert study_font_val.get("hasTextRegular") is True, "LG EI Text Regular (400) failed document.fonts.check in study.html"
+        assert study_font_val.get("hasTextSemiBold") is True, "LG EI Text SemiBold (600) failed document.fonts.check in study.html"
+        assert study_font_val.get("hasTextBold") is True, "LG EI Text Bold (700) failed document.fonts.check in study.html"
+
         # Test all 5 units in Concept Mode for clean rendering (0 raw LaTeX, 0 raw blockquote '>' prefixes)
+        # Also verify DOM-preserving sidebar animation (.sidebar-subtopics-wrapper.open toggling without destroying DOM nodes)
+        send_cmd("Runtime.evaluate", {"expression": "window.__unit1BtnRef = document.querySelector('.sidebar-item-btn[data-unit=\"1\"]');"})
         for u_num in range(1, 6):
             send_cmd("Runtime.evaluate", {"expression": f"selectUnit({u_num})"})
             time.sleep(0.15)
             u_eval = send_cmd("Runtime.evaluate", {
-                "expression": "({ text: document.getElementById('theoryBodyContainer').innerText, formulaCards: document.querySelectorAll('.formula-card').length, quotes: document.querySelectorAll('blockquote.theory-quote').length })",
+                "expression": f"""({{
+                    text: document.getElementById('theoryBodyContainer').innerText,
+                    formulaCards: document.querySelectorAll('.formula-card').length,
+                    quotes: document.querySelectorAll('blockquote.theory-quote').length,
+                    domPreserved: window.__unit1BtnRef === document.querySelector('.sidebar-item-btn[data-unit="1"]'),
+                    openWrappers: Array.from(document.querySelectorAll('.sidebar-subtopics-wrapper.open')).map(el => Number(el.dataset.subtopicsFor)),
+                    activeUnits: Array.from(document.querySelectorAll('.sidebar-item-btn.active[data-unit]')).map(el => Number(el.dataset.unit)),
+                    sidebarText: document.getElementById('appSidebar').innerText
+                }})""",
                 "returnByValue": True
             })
             u_val = u_eval.get("result", {}).get("result", {}).get("value", {})
@@ -284,10 +407,94 @@ def run_tests():
             assert "$" not in u_text, f"Unit {u_num} theory still contains '$' symbol!"
             assert "\\frac" not in u_text and "\\rightarrow" not in u_text, f"Unit {u_num} theory still contains raw LaTeX commands!"
             assert not any(line.strip().startswith(">") for line in u_text.splitlines()), f"Unit {u_num} theory has unrendered blockquote '>' line!"
+            assert u_val.get("domPreserved") is True, f"Sidebar DOM was destroyed on selectUnit({u_num}) instead of preserving nodes for CSS transition!"
+            assert u_val.get("openWrappers") == [u_num], f"Expected open accordion wrapper [{u_num}], got {u_val.get('openWrappers')}"
+            assert u_val.get("activeUnits") == [u_num], f"Expected active unit button [{u_num}], got {u_val.get('activeUnits')}"
+            assert "5대" not in u_val.get("sidebarText", ""), "Sidebar still contains '5대'!"
             if u_num == 2:
                 assert "*(*(p + 1) + 2)" in u_text and "*(p + 2)" in u_text, "Unit 2 C pointer asterisks were corrupted by Markdown italic parser!"
                 assert "s1 < s2" in u_text and "p->val" in u_text, "Unit 2 C operators (<, ->) were corrupted by unescaped HTML in inline code!"
-            print(f"  Unit {u_num} theory DOM verified: formulaCards={u_val.get('formulaCards')}, quotes={u_val.get('quotes')}, 0 raw LaTeX.")
+            print(f"  Unit {u_num} theory DOM & accordion verified: formulaCards={u_val.get('formulaCards')}, openWrappers={u_val.get('openWrappers')}, domPreserved={u_val.get('domPreserved')}.")
+
+        # Test subtopic selection preserves sidebar DOM and updates active chip
+        send_cmd("Runtime.evaluate", {"expression": "selectUnit(1); selectTopic('GoF 디자인 패턴');"})
+        time.sleep(0.1)
+        topic_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                domPreserved: window.__unit1BtnRef === document.querySelector('.sidebar-item-btn[data-unit="1"]'),
+                activeChipText: document.querySelector('.subtopic-chip.active') ? document.querySelector('.subtopic-chip.active').textContent.trim() : '',
+                cardsCount: document.querySelectorAll('.question-card').length
+            })""",
+            "returnByValue": True
+        })
+        topic_val = topic_eval.get("result", {}).get("result", {}).get("value", {})
+        assert topic_val.get("domPreserved") is True, "Sidebar DOM was destroyed on selectTopic!"
+        assert "GoF 디자인 패턴" in topic_val.get("activeChipText", ""), f"Expected GoF 디자인 패턴 active chip, got {topic_val.get('activeChipText')}"
+        assert topic_val.get("cardsCount", 0) > 0, "Expected filtered question cards for subtopic"
+
+        # Test Theory Drawer smooth CSS Grid toggle (toggleTheoryDrawer)
+        drawer_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const wrapper = document.getElementById('theoryDrawerWrapper');
+                const initialOpen = wrapper && wrapper.classList.contains('open');
+                toggleTheoryDrawer();
+                const afterClose = wrapper && wrapper.classList.contains('open');
+                const closedBtnText = document.querySelector('.theory-drawer-toggle span').textContent.trim();
+                toggleTheoryDrawer();
+                const afterReopen = wrapper && wrapper.classList.contains('open');
+                const openBtnText = document.querySelector('.theory-drawer-toggle span').textContent.trim();
+                return { initialOpen, afterClose, closedBtnText, afterReopen, openBtnText };
+            })()""",
+            "returnByValue": True
+        })
+        drawer_val = drawer_eval.get("result", {}).get("result", {}).get("value", {})
+        assert drawer_val.get("initialOpen") is True, "Expected theoryDrawerWrapper initially open"
+        assert drawer_val.get("afterClose") is False, "Expected theoryDrawerWrapper .open removed after toggleTheoryDrawer()"
+        assert drawer_val.get("closedBtnText") == "이론 요약 펼치기 ▼", f"Unexpected closed button text: {drawer_val.get('closedBtnText')}"
+        assert drawer_val.get("afterReopen") is True, "Expected theoryDrawerWrapper .open restored after second toggleTheoryDrawer()"
+        assert drawer_val.get("openBtnText") == "이론 요약 접기 ▲", f"Unexpected open button text: {drawer_val.get('openBtnText')}"
+
+        # Test rapid mode/unit/search switching and mobile responsive layout (<= 900px)
+        rapid_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                switchMode('round');
+                selectRound('2024_2');
+                selectRound('2026_1');
+                switchMode('concept');
+                selectUnit(3);
+                document.getElementById('liveSearchInput').value = '정규화';
+                handleSearchInput();
+                clearSearch();
+                selectUnit(1);
+                return {
+                    mode: state.mode,
+                    activeUnit: state.activeUnit,
+                    openWrappers: Array.from(document.querySelectorAll('.sidebar-subtopics-wrapper.open')).map(el => Number(el.dataset.subtopicsFor)),
+                    enteringClass: document.getElementById('mainContent').classList.contains('content-entering')
+                };
+            })()""",
+            "returnByValue": True
+        })
+        rapid_val = rapid_eval.get("result", {}).get("result", {}).get("value", {})
+        assert rapid_val.get("mode") == "concept" and rapid_val.get("activeUnit") == 1
+        assert rapid_val.get("openWrappers") == [1]
+        assert rapid_val.get("enteringClass") is True
+
+        # Test mobile viewport (<= 900px) via Emulation.setDeviceMetricsOverride
+        send_cmd("Emulation.setDeviceMetricsOverride", {"width": 768, "height": 900, "deviceScaleFactor": 1, "mobile": True})
+        time.sleep(0.15)
+        mobile_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                layoutDir: window.getComputedStyle(document.querySelector('.app-layout')).flexDirection,
+                sidebarPos: window.getComputedStyle(document.querySelector('.sidebar')).position
+            })""",
+            "returnByValue": True
+        })
+        mobile_val = mobile_eval.get("result", {}).get("result", {}).get("value", {})
+        assert mobile_val.get("layoutDir") == "column", f"Expected flex-direction column at 768px, got {mobile_val.get('layoutDir')}"
+        assert mobile_val.get("sidebarPos") == "static", f"Expected static sidebar at 768px, got {mobile_val.get('sidebarPos')}"
+        send_cmd("Emulation.clearDeviceMetricsOverride")
+        time.sleep(0.1)
 
         # Test switching to Round mode
         print("  Testing switchMode('round')...")
@@ -296,13 +503,15 @@ def run_tests():
         drain_events(0.2)
         
         eval_resp = send_cmd("Runtime.evaluate", {
-            "expression": "({ mode: state.mode, cardsRendered: document.querySelectorAll('.question-card').length })",
+            "expression": "({ mode: state.mode, cardsRendered: document.querySelectorAll('.question-card').length, sidebarText: document.getElementById('appSidebar').innerText })",
             "returnByValue": True
         })
         val = eval_resp.get("result", {}).get("result", {}).get("value", {})
-        print("  Round mode evaluation result:", val)
+        print("  Round mode evaluation result:", {k: v for k, v in val.items() if k != 'sidebarText'})
         assert val.get("mode") == "round"
         assert val.get("cardsRendered") == 20, f"Expected 20 cards for active round, got {val.get('cardsRendered')}"
+        assert "주제별 기출 모음" in val.get("sidebarText", ""), "Round mode sidebar missing '주제별 기출 모음'!"
+        assert "6대" not in val.get("sidebarText", "") and "킬러" not in val.get("sidebarText", ""), "Round mode sidebar still contains exaggerated words!"
 
         # Test Syntax Highlighting in code blocks (Round mode 2026_1 Q1 & Unit 2 C/Java/Python)
         print("  Testing code syntax highlighting tokens and line numbers...")

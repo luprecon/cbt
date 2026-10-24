@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>정보처리기사 실기 벼락치기 - Professional CBT Test Engine</title>
+  <title>정보처리기사 실기 CBT - 실전 모의고사 &amp; 기출 문제은행</title>
+
+  <!-- Preload LG EI Web Fonts -->
+  <link rel="preload" href="fonts/LGEIText-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/LGEIHeadline-Bold.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,8 +38,8 @@
 
     <!-- Right Controls -->
     <div class="header-right-tools">
-      <a href="study.html" class="btn-file-load btn-study-link" style="text-decoration:none; display:inline-flex; align-items:center;" title="5대 단원 핵심 개념서 및 전 회차 해설총람">📖 실전 개념서 &amp; 해설총람</a>
-      <button class="btn-file-load" id="btnOpenCheatsheet">실기 족보 &amp; 꿀팁</button>
+      <a href="study.html" class="btn-file-load btn-study-link" style="text-decoration:none; display:inline-flex; align-items:center;" title="단원별 개념서 및 기출 해설">개념서 &amp; 기출해설</a>
+      <button class="btn-file-load" id="btnOpenCheatsheet">핵심 요약</button>
       <button class="btn-file-load" id="modePractice">연습 모드</button>
       <button class="btn-file-load" id="modeReal" style="display:none;">실전 모드</button>
       <button class="btn-file-load" id="btnResetExam">문제 초기화</button>
@@ -152,7 +156,7 @@
         <button class="btn-modal secondary" id="btnCloseModal">닫기</button>
         <button class="btn-modal primary" id="btnViewAllExp">해설 복습 모드</button>
         <button class="btn-modal secondary" id="btnRestartFull">처음부터 다시 풀기</button>
-        <button class="btn-modal danger" id="btnRetakeWrong">🔥 틀린 문제만 다시 풀기</button>
+        <button class="btn-modal danger" id="btnRetakeWrong">틀린 문제 다시 풀기</button>
       </div>
     </div>
   </div>
@@ -161,15 +165,15 @@
   <div class="modal-backdrop" id="cheatsheetModal">
     <div class="modal-container cheatsheet-modal-box">
       <div class="modal-header">
-        <span class="modal-title">📑 실기 족보 요약 &amp; 벼락치기 공부 꿀팁</span>
+        <span class="modal-title">실기 핵심 요약 &amp; 학습 가이드</span>
         <button class="btn-modal-close-icon" id="btnCloseCheatsheet">✕</button>
       </div>
 
       <div class="cheatsheet-nav-tabs" id="csTabs">
-        <button class="cs-tab-btn active" data-tab="part1">족보 1탄: SW설계/공학</button>
-        <button class="cs-tab-btn" data-tab="part2">족보 2탄: DB &amp; SQL</button>
-        <button class="cs-tab-btn" data-tab="part3">족보 3탄: 보안 &amp; 네트워크</button>
-        <button class="cs-tab-btn" data-tab="tips">⚡ 3주 벼락치기 꿀팁</button>
+        <button class="cs-tab-btn active" data-tab="part1">요약 1: SW설계/공학</button>
+        <button class="cs-tab-btn" data-tab="part2">요약 2: DB &amp; SQL</button>
+        <button class="cs-tab-btn" data-tab="part3">요약 3: 보안 &amp; 네트워크</button>
+        <button class="cs-tab-btn" data-tab="tips">시험 대비 가이드</button>
       </div>
 
       <div class="cheatsheet-body-scroll" id="csBody"></div>

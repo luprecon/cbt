@@ -4,7 +4,7 @@
  * - 동적 배점 계산 및 주관식 다중 빈칸 부분 점수(Partial Credit) 지원
  * - 완벽한 오답 복습 모드 (재도전 정복률 및 누적 종합 점수 반영)
  * - A4 연습지 1장 시뮬레이터 & 문제 추적표 1클릭 복사
- * - 실기 족보 1·2·3탄 & 벼락치기 꿀팁 가이드
+ * - 실기 핵심 요약 & 학습 가이드
  */
 
 (function () {
@@ -718,7 +718,7 @@
     // Trap Point
     if (q.trapPoint) {
       expTrapBox.style.display = 'block';
-      expTrapBox.innerHTML = `<strong>⚠️ 수험생 함정 포인트 (Trap Point)</strong>${escapeHtml(q.trapPoint)}`;
+      expTrapBox.innerHTML = `<strong>주의 포인트: </strong>${escapeHtml(q.trapPoint)}`;
     } else {
       expTrapBox.style.display = 'none';
     }
@@ -916,7 +916,7 @@
 
     const data = window.CHEATSHEET_DATA && window.CHEATSHEET_DATA[tabKey];
     if (!data) {
-      csBody.innerHTML = '<div style="padding:20px; color:#64748b;">족보 데이터를 불러올 수 없습니다.</div>';
+      csBody.innerHTML = '<div style="padding:20px; color:#64748b;">요약 데이터를 불러올 수 없습니다.</div>';
       return;
     }
 

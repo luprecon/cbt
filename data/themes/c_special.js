@@ -1,11 +1,11 @@
 /**
- * [테마] C언어 기출 집중 15선 (포인터, 배열, 문자열, 구조체, 재귀, 비트연산)
- * 정보처리기사 실기 출제 빈도 최상위 C언어 킬러 문제 엄선
+ * [언어별] C언어 기출 15문항 (포인터, 배열, 문자열, 구조체, 재귀, 비트연산)
+ * 정보처리기사 실기 C언어 주요 출제 유형
  */
 window.EXAM_ROUNDS = window.EXAM_ROUNDS || {};
 window.EXAM_ROUNDS["c_special"] = {
   id: "c_special",
-  title: "⚡ [언어특화] C언어 기출 집중 15선",
+  title: "[언어별] C언어 기출 15문항",
   totalPoints: 100,
   cutoffPoints: 60,
   questions: [

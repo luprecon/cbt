@@ -106,7 +106,7 @@ window.EXAM_ROUNDS["2020_1"] = {
     {
       id: 8,
       category: "데이터베이스",
-      prompt: "트랜잭션의 4대 특징(ACID) 중 일관성(Consistency)과 지속성(Durability) 외 나머지 2가지 특성을 쓰시오.",
+      prompt: "트랜잭션의 주요 특성(ACID) 중 일관성(Consistency)과 지속성(Durability) 외 나머지 2가지 특성을 쓰시오.",
       passage: `( 1 ) 트랜잭션의 모든 연산은 데이터베이스에 완전히 반영되거나 전혀 반영되지 않아야 한다(All or Nothing).
 ( 2 ) 둘 이상의 트랜잭션이 동시 실행될 때, 어느 하나의 트랜잭션도 다른 트랜잭션의 연산에 끼어들 수 없다.`,
       answerType: "multi_blank",
@@ -287,7 +287,7 @@ void main() {
     {
       id: 19,
       category: "소프트웨어공학",
-      prompt: "다음은 애플리케이션의 성능을 측정하기 위한 4대 지표에 대한 설명이다. 빈칸 (1), (2), (3)에 알맞은 지표명을 각각 쓰시오.",
+      prompt: "다음은 애플리케이션의 성능을 측정하기 위한 주요 지표에 대한 설명이다. 빈칸 (1), (2), (3)에 알맞은 지표명을 각각 쓰시오.",
       passage: `| 지표 | 설명 |
 | --- | --- |
 | ( 1 ) | 애플리케이션이 주어진 시간 동안 처리할 수 있는 트랜잭션의 수 (시간당 처리량) |
@@ -306,7 +306,7 @@ void main() {
         "처리량, 응답시간, 경과시간",
         "처리량 응답시간 경과시간"
       ],
-      explanation: "성능 측정 4대 지표:\n1. 처리량(Throughput): 단위 시간당 처리 트랜잭션 수\n2. 응답 시간(Response Time): 요청 후 첫 반응이 올 때까지의 지연\n3. 경과 시간(Turnaround Time): 요청부터 전체 작업 완료까지의 총 소요 시간\n4. 자원 사용률(Resource Usage): CPU, 메모리 등 하드웨어 점유율",
+      explanation: "성능 측정 주요 지표:\n1. 처리량(Throughput): 단위 시간당 처리 트랜잭션 수\n2. 응답 시간(Response Time): 요청 후 첫 반응이 올 때까지의 지연\n3. 경과 시간(Turnaround Time): 요청부터 전체 작업 완료까지의 총 소요 시간\n4. 자원 사용률(Resource Usage): CPU, 메모리 등 하드웨어 점유율",
       trapPoint: "첫 응답 개시까지는 응답 시간, 전체 처리 완료까지는 경과 시간(Turnaround Time)입니다."
     },
     {

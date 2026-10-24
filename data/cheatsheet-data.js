@@ -1,14 +1,13 @@
 /**
- * 정보처리기사 실기 족보 1탄 / 2탄 / 3탄 및 공부방법 꿀팁 종합 데이터
- * 출처 및 실기 핵심 압축 정리
+ * 정보처리기사 실기 핵심 요약 및 학습 가이드 데이터
  */
 window.CHEATSHEET_DATA = {
   part1: {
-    title: "📑 실기 족보 1탄: 소프트웨어 설계 & 개발방법론",
+    title: "요약 1: 소프트웨어 설계 & 개발방법론",
     category: "소프트웨어 공학",
     sections: [
       {
-        heading: "1. GoF 디자인 패턴 23종 완벽 암기 공식",
+        heading: "1. GoF 디자인 패턴 23종 핵심 정리",
         content: `• <strong>생성 패턴 (5개)</strong>: [추빌팩프싱] 추상 팩토리(Abstract Factory), 빌더(Builder), 팩토리 메서드(Factory Method), 프로토타입(Prototype), 싱글톤(Singleton)
 • <strong>구조 패턴 (7개)</strong>: [어브컴데퍼플프] 어댑터(Adapter), 브리지(Bridge), 컴포지트(Composite), 데코레이터(Decorator), 퍼사드(Facade), 플라이웨이트(Flyweight), 프록시(Proxy)
 • <strong>행위 패턴 (11개)</strong>: 책임 연쇄(Chain of Resp.), 커맨드(Command), 인터프리터(Interpreter), 이터레이터(Iterator), 중재자(Mediator), 메멘토(Memento), 옵저버(Observer), 상태(State), 전략(Strategy), 템플릿 메서드(Template Method), 비지터(Visitor)`
@@ -35,7 +34,7 @@ window.CHEATSHEET_DATA = {
 7. <strong>우연적 (Coincidental)</strong>: 가장 낮음(가장 나쁨). 아무 관련 없는 요소들이 우연히 모임`
       },
       {
-        heading: "4. 소프트웨어 테스트 7원리 & 테스트 기법",
+        heading: "4. 소프트웨어 테스트 기본 원리 & 테스트 기법",
         content: `• <strong>살충제 패러독스 (Pesticide Paradox)</strong>: 동일한 테스트 케이스로 반복 테스트하면 새로운 결함을 찾을 수 없으므로 정기적으로 케이스를 개선해야 함
 • <strong>화이트박스 테스트</strong>: 구문(Statement), 결정(Decision/Branch), 조건(Condition), 조건/결정, 변경 조건/결정(MC/DC), 다중 조건, 경로 커버리지
 • <strong>블랙박스 테스트</strong>: 동등 분할(Equivalence Partitioning), 경계값 분석(Boundary Value Analysis), 원인-효과 그래프, 오류 예측, 상태 전이 검사`
@@ -43,7 +42,7 @@ window.CHEATSHEET_DATA = {
     ]
   },
   part2: {
-    title: "💾 실기 족보 2탄: 데이터베이스 & SQL 핵심 총정리",
+    title: "요약 2: 데이터베이스 & SQL 핵심 정리",
     category: "데이터베이스",
     sections: [
       {
@@ -57,7 +56,7 @@ window.CHEATSHEET_DATA = {
 6. <strong>5NF (4NF -> 5NF)</strong>: 조인 종속(JD: Join Dependency) 제거 및 후보키를 통한 복원`
       },
       {
-        heading: "2. 트랜잭션 4대 특성 (ACID)",
+        heading: "2. 트랜잭션 주요 특성 (ACID)",
         content: `• <strong>Atomicity (원자성)</strong>: All or Nothing. 트랜잭션의 연산은 모두 반영되거나 전혀 반영되지 않아야 함 (회복 기법)
 • <strong>Consistency (일관성)</strong>: 트랜잭션 성공 후에도 언제나 데이터베이스의 무결성 제약조건을 만족해야 함
 • <strong>Isolation (고립성/격리성)</strong>: 둘 이상의 트랜잭션이 동시 실행될 때 다른 트랜잭션의 연산에 끼어들 수 없음 (병행 제어)
@@ -79,11 +78,11 @@ window.CHEATSHEET_DATA = {
     ]
   },
   part3: {
-    title: "🔒 실기 족보 3탄: 시스템 보안 & 네트워크 & 신기술",
+    title: "요약 3: 시스템 보안 & 네트워크",
     category: "보안 / 네트워크",
     sections: [
       {
-        heading: "1. 서브넷 마스크(Subnet Mask) & CIDR 계산 비법",
+        heading: "1. 서브넷 마스크(Subnet Mask) & CIDR 계산",
         content: `• <strong>/24</strong>: 255.255.255.0 -> 호스트 256개 (사용 가능 254개, 네트워크 0, 브로드캐스트 255 제외)
 • <strong>/25</strong>: 255.255.255.128 -> 블록 크기 128 (호스트 128개, 사용 가능 126개)
 • <strong>/26</strong>: 255.255.255.192 -> 블록 크기 64 (호스트 64개, 사용 가능 62개)
@@ -92,7 +91,7 @@ window.CHEATSHEET_DATA = {
 • <strong>공식</strong>: 가용 호스트 수 = 2^(호스트 비트 수) - 2`
       },
       {
-        heading: "2. 암호화 알고리즘 완벽 분류",
+        heading: "2. 암호화 알고리즘 분류",
         content: `• <strong>대칭키 (비밀키) 암호화</strong>:
   - <strong>블록 암호</strong>: DES(64비트), 3-DES, AES(128/192/256비트), SEED(한국 KISA, 128비트), ARIA(국정원), IDEA
   - <strong>스트림 암호</strong>: RC4, LFSR
@@ -112,15 +111,15 @@ window.CHEATSHEET_DATA = {
     ]
   },
   tips: {
-    title: "⚡ 비전공자 & 직장인을 위한 실기 3주 벼락치기 전략",
-    category: "공부방법 꿀팁",
+    title: "시험 대비 학습 전략",
+    category: "학습 가이드",
     sections: [
       {
         heading: "1. 60점 합격선 타겟팅 포트폴리오",
         content: `• 실기 시험은 총 20문항, 100점 만점에 <strong>60점(12문항)</strong> 이상이면 합격입니다.
 • <strong>프로그래밍(C/Java/Python)</strong>: 매회 8~9문항 출제 (40~45점). <strong>여기서 최소 6~7문항(30~35점)을 확보</strong>해야 안정권입니다.
 • <strong>SQL 및 데이터베이스</strong>: 매회 3~4문항 출제 (15~20점). <strong>3문항 이상(15점) 득점 필수</strong>.
-• <strong>소프트웨어 공학/보안/네트워크 단답형</strong>: 매회 7~8문항 출제 (35~40점). 빈출 족보 키워드로 <strong>최소 4문항(20점)</strong> 득점.
+• <strong>소프트웨어 공학/보안/네트워크 단답형</strong>: 매회 7~8문항 출제 (35~40점). 주요 빈출 키워드로 <strong>최소 4문항(20점)</strong> 득점.
 👉 결과: 프로그래밍 35점 + SQL 15점 + 단답형 20점 = <strong>70점 안정 합격!</strong>`
       },
       {

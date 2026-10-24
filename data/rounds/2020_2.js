@@ -225,7 +225,7 @@ public class good {
 사용자가 의도하고 목표하는 바를 시스템을 통해 정확하고 완벽하게 달성할 수 있도록 보장해야 한다는 원칙`,
       answer: "유효성",
       aliases: ["유효성", "Effectiveness", "effectiveness"],
-      explanation: "UI 설계 4대 원칙:\n1. 직관성(Intuitiveness): 누구나 쉽게 이해하고 사용\n2. 유효성(Effectiveness): 사용자의 목적을 정확하고 완전하게 달성\n3. 학습성(Learnability): 누구나 쉽게 학습\n4. 유연성(Flexibility): 사용자의 요구사항을 최대한 수용",
+      explanation: "UI 설계 기본 원칙:\n1. 직관성(Intuitiveness): 누구나 쉽게 이해하고 사용\n2. 유효성(Effectiveness): 사용자의 목적을 정확하고 완전하게 달성\n3. 학습성(Learnability): 누구나 쉽게 학습\n4. 유연성(Flexibility): 사용자의 요구사항을 최대한 수용",
       trapPoint: "목적 달성의 정확성과 완전성을 의미하는 원칙은 '유효성'입니다."
     },
     {

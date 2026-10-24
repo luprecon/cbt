@@ -1,10 +1,10 @@
 /**
- * [테마] 실기 빈출 족보 단답형 25선 (합격 직결 핵심 암기 키워드)
+ * [테마] 주요 단답형 25문항 (핵심 단답형 키워드)
  */
 window.EXAM_ROUNDS = window.EXAM_ROUNDS || {};
 window.EXAM_ROUNDS["practical_cheatsheet"] = {
   id: "practical_cheatsheet",
-  title: "📑 [테마] 실기 빈출 족보 단답형 25선",
+  title: "[테마] 주요 단답형 25문항",
   totalPoints: 100,
   cutoffPoints: 60,
   questions: [
@@ -84,10 +84,10 @@ window.EXAM_ROUNDS["practical_cheatsheet"] = {
     {
       id: 9,
       category: "단답형",
-      prompt: "트랜잭션의 4대 특징(ACID) 중 트랜잭션의 모든 연산이 데이터베이스에 완전히 반영되거나 아니면 전혀 반영되지 않아야 한다는 특성(All or Nothing)의 명칭을 쓰시오.",
+      prompt: "트랜잭션의 주요 특성(ACID) 중 트랜잭션의 모든 연산이 데이터베이스에 완전히 반영되거나 아니면 전혀 반영되지 않아야 한다는 특성(All or Nothing)의 명칭을 쓰시오.",
       answer: "원자성",
       aliases: ["원자성", "Atomicity", "atomicity"],
-      explanation: "트랜잭션 4대 특성(ACID) 중 하나로, 트랜잭션 내의 모든 연산이 데이터베이스에 완전히 반영(Commit)되거나, 실패 시 전혀 반영되지 않고 원상 복구(Rollback)되어야 한다는 All-or-Nothing 원칙입니다."
+      explanation: "트랜잭션 주요 특성(ACID) 중 하나로, 트랜잭션 내의 모든 연산이 데이터베이스에 완전히 반영(Commit)되거나, 실패 시 전혀 반영되지 않고 원상 복구(Rollback)되어야 한다는 All-or-Nothing 원칙입니다."
     },
     {
       id: 10,
@@ -207,7 +207,7 @@ window.EXAM_ROUNDS["practical_cheatsheet"] = {
       prompt: "데이터베이스에서 둘 이상의 트랜잭션이 서로가 점유한 자원의 잠금 해제를 무한정 대기하는 상태를 일컫는 용어의 명칭을 쓰시오.",
       answer: "교착 상태",
       aliases: ["교착 상태", "교착상태", "Deadlock", "deadlock", "데드락"],
-      explanation: "교착 상태(Deadlock)는 다중 프로세스 또는 트랜잭션 환경에서 둘 이상의 작업이 서로가 가진 자원의 잠금(Lock) 해제를 무한정 기다리며 진행이 멈춰버리는 현상입니다. 상호 배제, 점유와 대기, 비선점, 환형 대기 4대 조건이 모두 충족될 때 발생합니다."
+      explanation: "교착 상태(Deadlock)는 다중 프로세스 또는 트랜잭션 환경에서 둘 이상의 작업이 서로가 가진 자원의 잠금(Lock) 해제를 무한정 기다리며 진행이 멈춰버리는 현상입니다. 상호 배제, 점유와 대기, 비선점, 환형 대기 4가지 조건이 모두 충족될 때 발생합니다."
     },
     {
       id: 25,

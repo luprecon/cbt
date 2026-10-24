@@ -1,11 +1,11 @@
 /**
- * [테마] Python 언어 기출 집중 15선 (슬라이싱, 컴프리헨션, 딕셔너리/세트, 람다, 언패킹)
- * 정보처리기사 실기 출제 빈도 최상위 Python 킬러 문제 엄선
+ * [언어별] Python 기출 15문항 (슬라이싱, 컴프리헨션, 딕셔너리/세트, 람다, 언패킹)
+ * 정보처리기사 실기 Python 주요 출제 유형
  */
 window.EXAM_ROUNDS = window.EXAM_ROUNDS || {};
 window.EXAM_ROUNDS["python_special"] = {
   id: "python_special",
-  title: "🐍 [언어특화] Python 기출 집중 15선",
+  title: "[언어별] Python 기출 15문항",
   totalPoints: 100,
   cutoffPoints: 60,
   questions: [

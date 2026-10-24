@@ -83,7 +83,7 @@ WHERE col1 IN (2, 3) OR col2 IN (3, 5);`,
     {
       id: 6,
       category: "소프트웨어공학",
-      prompt: "객체지향 설계의 5대 원칙(SOLID) 중 '클라이언트는 자신이 사용하지 않는 메소드에 의존하지 않아야 한다'는 인터페이스 분리 원칙의 영문 약어를 쓰시오.",
+      prompt: "객체지향 설계 원칙(SOLID) 중 '클라이언트는 자신이 사용하지 않는 메소드에 의존하지 않아야 한다'는 인터페이스 분리 원칙의 영문 약어를 쓰시오.",
       answer: "ISP",
       aliases: ["ISP", "isp", "Interface Segregation Principle"],
       explanation: "SOLID 원칙:\n- S: 단일 책임 원칙 (SRP)\n- O: 개방 폐쇄 원칙 (OCP)\n- L: 리스코프 치환 원칙 (LSP)\n- I: 인터페이스 분리 원칙 (ISP)\n- D: 의존 역전 원칙 (DIP)",

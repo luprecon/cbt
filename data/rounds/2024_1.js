@@ -210,7 +210,7 @@ print(a.replace("-", "/"))`,
       answer: "Hello",
       aliases: ["Hello"],
       explanation: "자바의 String 객체는 불변(Immutable) 객체입니다.\nstr.concat(\" World\")는 새로운 문자열 객체를 반환할 뿐, str 변수 자체가 가리키는 원본 객체를 수정하지 않습니다 (재할당 str = str.concat(...)을 하지 않음).\n따라서 str은 여전히 \"Hello\"입니다.",
-      trapPoint: "자바 String 클래스의 불변성(Immutability)에 관한 대표적인 단골 함정 문제입니다!",
+      trapPoint: "자바 String 클래스의 불변성(Immutability)에 관한 주요 출제 포인트입니다.",
       traceTable: {
         headers: ["단계", "코드", "설명", "str 변수 값"],
         rows: [

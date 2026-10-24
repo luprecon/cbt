@@ -199,35 +199,35 @@ UNIT_INFO = {
         "num": 1,
         "title": "제1단원: 소프트웨어 공학 & 아키텍처 설계",
         "short_title": "소프트웨어 공학 & 아키텍처",
-        "summary": "GoF 디자인 패턴 23종, 결합도/응집도 7단계, 객체지향 SOLID 5대 원칙, 아키텍처 스타일, EAI 및 인터페이스 연계 기술 완전 정복",
+        "summary": "GoF 디자인 패턴 23종, 결합도/응집도 7단계, 객체지향 SOLID 설계 원칙, 아키텍처 스타일, EAI 및 인터페이스 연계 기술 정리",
         "doc_file": "01_소프트웨어공학_설계.md"
     },
     2: {
         "num": 2,
         "title": "제2단원: 프로그래밍 언어 활용 (C / Java / Python)",
         "short_title": "프로그래밍 언어 활용",
-        "summary": "C언어 포인터·배열·구조체·재귀, Java 상속·동적바인딩·static·인터페이스, Python 슬라이싱·자료구조·컴프리헨션 킬러 문항 집중",
+        "summary": "C언어 포인터·배열·구조체·재귀, Java 상속·동적바인딩·static·인터페이스, Python 슬라이싱·자료구조·컴프리헨션 핵심 정리",
         "doc_file": "02_프로그래밍언어_활용.md"
     },
     3: {
         "num": 3,
-        "title": "제3단원: 데이터베이스 & SQL 완전정복",
+        "title": "제3단원: 데이터베이스 & SQL 활용",
         "short_title": "데이터베이스 & SQL",
-        "summary": "정규화 6단계(도부이결다조), 관계대수, DDL/DML/DCL, 집계·조인·서브쿼리·윈도우 함수, 트랜잭션 ACID 및 회복·병행제어",
+        "summary": "정규화 6단계(도부이결다조), 관계대수, DDL/DML/DCL, 집계·조인·서브쿼리·윈도우 함수, 트랜잭션 ACID 및 회복·병행제어 정리",
         "doc_file": "03_데이터베이스_구축.md"
     },
     4: {
         "num": 4,
         "title": "제4단원: 네트워크 & 정보 보안 구축",
         "short_title": "네트워크 & 정보 보안",
-        "summary": "OSI 7계층 vs TCP/IP, IPv4 서브넷 마스킹 계산 공식, 라우팅(OSPF/RIP), 대칭키 vs 공개키 암호화, 네트워크 공격 기법 및 보안 솔루션",
+        "summary": "OSI 7계층 vs TCP/IP, IPv4 서브넷 마스킹 계산 공식, 라우팅(OSPF/RIP), 대칭키 vs 공개키 암호화, 네트워크 공격 기법 및 보안 솔루션 정리",
         "doc_file": "04_네트워크_정보보안.md"
     },
     5: {
         "num": 5,
         "title": "제5단원: 소프트웨어 테스팅 & 운영체제 관리",
         "short_title": "소프트웨어 테스팅 & 운영체제",
-        "summary": "살충제 패러독스, 화이트박스 커버리지 및 맥케이브 순환복잡도 V(G), 블랙박스 기법, V-모델, CPU 스케줄링(HRN/RR), 데드록 4대 조건, 형상관리(SCM)",
+        "summary": "살충제 패러독스, 화이트박스 커버리지 및 맥케이브 순환복잡도 V(G), 블랙박스 기법, V-모델, CPU 스케줄링(HRN/RR), 교착상태(Deadlock) 발생 조건, 형상관리(SCM) 정리",
         "doc_file": "05_테스팅_운영체제.md"
     }
 }
@@ -379,7 +379,7 @@ def extract_topic(q, unit):
 
     elif unit == 5:
         if any(k in text for k in ['살충제', '테스팅 원칙', '결함 집중', '오류-부재']):
-            return "테스팅 7대 기본 원칙"
+            return "소프트웨어 테스팅 기본 원칙"
         if any(k in text for k in ['커버리지', '화이트박스', '문장 커버리지', '분기 커버리지', '맥케이브', '순환복잡도']):
             return "화이트박스 테스팅 & 순환복잡도"
         if any(k in text for k in ['동등분할', '경계값', '블랙박스', '원인-결과']):
@@ -389,7 +389,7 @@ def extract_topic(q, unit):
         if any(k in text for k in ['스케줄링', 'hrn', 'fcfs', 'sjf', 'rr', '라운드로빈']):
             return "CPU 스케줄링 & HRN 공식"
         if any(k in text for k in ['교착상태', 'deadlock', '상호배제', '비선점', '환형대기', '점유와대기', '은행가']):
-            return "교착상태 (Deadlock) 4대 조건"
+            return "교착상태 (Deadlock) 발생 조건"
         if any(k in text for k in ['페이징', '세그멘테이션', 'lru', 'lfu', 'fifo', '페이지 교체', '쓰레싱']):
             return "기억장치 관리 & 페이지 교체"
         if any(k in text for k in ['형상관리', 'scm', 'git', 'svn', 'ccb']):
@@ -400,7 +400,7 @@ def extract_topic(q, unit):
 
 
 # ==============================================================================
-# 3. 5대 단원 핵심 이론 교재 본문 (NCS 실기 표준 맞춤형)
+# 3. 단원별 핵심 이론 교재 본문 (NCS 실기 표준 맞춤형)
 # ==============================================================================
 THEORY_CONTENT = {
     1: """
@@ -411,7 +411,7 @@ THEORY_CONTENT = {
   - **4단계 반복 주기**: **계획 수립 ➔ 위험 분석 ➔ 개발 및 검증 ➔ 고객 평가**
 - **애자일(Agile) 모형**: 변화에 유연하게 대응하며 고객과의 소통과 작동하는 소프트웨어를 중시.
   - **스크럼(Scrum)**: 2~4주의 반복 스프린트(Sprint), 제품 백로그(Product Backlog), 일일 스크럼(Daily Scrum), 스크럼 마스터, 소멸 차트(Burn-down Chart).
-  - **XP (eXtreme Programming)**: 5대 핵심 가치(**용기, 단순성, 의사소통, 피드백, 존중**), 12대 실천 항목(**TDD, 짝 프로그래밍, 지속적 통합(CI), 리팩토링, 소규모 릴리즈**).
+  - **XP (eXtreme Programming)**: 5가지 핵심 가치(**용기, 단순성, 의사소통, 피드백, 존중**), 12가지 실천 항목(**TDD, 짝 프로그래밍, 지속적 통합(CI), 리팩토링, 소규모 릴리즈**).
 
 ---
 
@@ -432,7 +432,7 @@ THEORY_CONTENT = {
 ---
 
 ### 📌 1.3 요구사항 공학 & UML 다이어그램
-- **요구사항 2대 분류**:
+- **요구사항 분류**:
   - **기능적 요구사항**: 시스템이 실제로 무엇을 해야 하는가 (입출력, 비즈니스 로직, 데이터).
   - **비기능적 요구사항**: 시스템의 품질 특성 (성능, 보안성, 가용성, 신뢰성, 상호운용성, 인터페이스).
 - **요구사항 개발 프로세스**: **도출(Elicitation) ➔ 분석(Analysis) ➔ 명세(Specification) ➔ 확인(Validation)**
@@ -449,8 +449,8 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 1.4 GoF 디자인 패턴 23종 완벽 요약
-> **시험 빈출 1순위 핵심 요약 표**
+### 📌 1.4 GoF 디자인 패턴 23종 핵심 정리
+> **주요 출제 포인트 요약 표**
 
 | 분류 | 패턴명 | 핵심 정의 및 수험 암기 키워드 |
 | :--- | :--- | :--- |
@@ -508,7 +508,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 1.6 객체지향 설계 5대 원칙 (SOLID)
+### 📌 1.6 객체지향 설계 원칙 (SOLID)
 1. **SRP (단일 책임 원칙)**: 클래스는 단 하나의 변경 이유와 책임만 가져야 함.
 2. **OCP (개방-폐쇄 원칙)**: 확장에 열려 있고 변경에는 닫혀 있어야 함 (인터페이스 활용).
 3. **LSP (리스코프 치환 원칙)**: 하위 클래스는 상위 클래스의 인스턴스를 완벽히 대체할 수 있어야 함.
@@ -518,7 +518,7 @@ THEORY_CONTENT = {
 ---
 
 ### 📌 1.7 EAI 구축 유형 & 인터페이스 연계 기술
-- **EAI(Enterprise Application Integration) 4대 구축 유형**:
+- **EAI(Enterprise Application Integration) 구축 유형**:
   - **Point-to-Point**: 1:1 직접 연결, 연계 개수가 늘어날수록 복잡도 급증 (N(N-1)/2).
   - **Hub & Spoke**: 단일 중앙 허브를 통해 메시지 중계 (중앙 집중형, 허브 장애 시 전체 마비).
   - **Message Bus**: 대용량 통합 버스(ESB 미들웨어)를 통해 미들웨어 연계 (확장성 최상).
@@ -538,7 +538,7 @@ THEORY_CONTENT = {
   - `&a`: 변수 `a`의 메모리 주소값.
   - `p`: 주소값을 저장하는 포인터 변수 (`p == &a`).
   - `*p`: 포인터가 가리키는 메모리 주소의 실제 값 역참조 (`*p == 10`).
-- **포인터 연산자 우선순위 (초특급 함정 포인트!)**:
+- **포인터 연산자 우선순위 (주의 포인트)**:
   - `*p++`: 현재 `*p`의 값을 반환한 후, 포인터 주소 `p`를 다음 원소로 1 이동.
   - `(*p)++`: `*p`가 가리키는 실제 정수값을 1 증가시킴.
   - `*++p`: 포인터 주소 `p`를 먼저 다음 칸으로 이동한 후 그 위치의 값을 역참조.
@@ -573,7 +573,7 @@ THEORY_CONTENT = {
 - **오버라이딩(Overriding) vs 오버로딩(Overloading)**:
   - **오버라이딩**: 부모의 메서드를 자식이 시그니처(이름, 매개변수, 반환형)를 동일하게 재정의 (동적 바인딩).
   - **오버로딩**: 같은 클래스 내에서 메서드 이름은 같고 매개변수 타입/개수를 다르게 선언 (정적 바인딩).
-- **상속과 다형성 참조 규칙 (실기 킬러 1위!)**:
+- **상속과 다형성 참조 규칙 (주요 출제 포인트)**:
   - `Parent obj = new Child();`
   - **멤버 변수 접근 (`obj.x`)**: 참조 변수의 선언 타입인 **`Parent`의 변수**를 참조! (변수는 오버라이딩되지 않음).
   - **멤버 메서드 호출 (`obj.show()`)**: 실제 인스턴스인 **`Child`의 오버라이딩된 메서드**가 동적으로 호출됨!
@@ -619,7 +619,7 @@ THEORY_CONTENT = {
   - **기본키(Primary Key)**: 후보키 중 선정된 주 키 (Not Null + Unique).
   - **대체키(Alternate Key)**: 기본키로 선택되지 못한 나머지 후보키.
   - **외래키(Foreign Key)**: 참조 릴레이션의 기본키를 참조하는 속성.
-- **무결성(Integrity) 4대 제약조건**:
+- **무결성(Integrity) 제약조건**:
   - **개체 무결성(Entity Integrity)**: 기본키는 Null이나 중복값을 가질 수 없음.
   - **참조 무결성(Referential Integrity)**: 외래키 값은 참조하는 기본키 값과 일치하거나 Null이어야 함.
     - 참조 무결성 옵션: `CASCADE`(연쇄 삭제/수정), `RESTRICT`(참조 중 삭제 거절), `SET NULL`(Null로 설정).
@@ -643,7 +643,7 @@ THEORY_CONTENT = {
 
 ### 📌 3.3 정규화(Normalization) 6단계 & 이상현상
 - **이상 현상 (Anomaly)**: 테이블 설계 부실로 인한 삽입 이상, 갱신 이상, 삭제 이상.
-- **정규화 6단계 공식 (초필살 두문자: 도 - 부 - 이 - 결 - 다 - 조)**:
+- **정규화 6단계 공식 (암기 두문자: 도 - 부 - 이 - 결 - 다 - 조)**:
 
 | 정규형 | 정규화 조건 및 제거 대상 | 수험 핵심 암기 포인트 |
 | :--- | :--- | :--- |
@@ -679,8 +679,8 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 3.5 트랜잭션 ACID 4대 특성 & 회복 & 뷰(VIEW)
-- **트랜잭션 ACID 4대 특성**:
+### 📌 3.5 트랜잭션 ACID 주요 특성 & 회복 & 뷰(VIEW)
+- **트랜잭션 ACID 주요 특성**:
   - **원자성 (Atomicity)**: All or Nothing. 모두 반영되거나 전혀 반영되지 않아야 함.
   - **일관성 (Consistency)**: 트랜잭션 수행 완료 후에도 DB 무결성 제약조건 유지.
   - **격리성/고립성 (Isolation)**: 동시 수행 중인 트랜잭션끼리 서로 연산 중간 결과를 간섭할 수 없음.
@@ -708,7 +708,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 4.2 IPv4 서브넷 마스킹 계산 공식 (빈출 1위!)
+### 📌 4.2 IPv4 서브넷 마스킹 계산 공식 (주요 출제 포인트)
 > 📐 **공식 (IPv4 서브넷 호스트 수 계산)**:
 > - **전체 IP 개수 = 2ʰ** (h = 32 - 프리픽스 비트 수)
 > - **가용 호스트 IP 개수 = 2ʰ - 2** (네트워크 ID 1개 + 브로드캐스트 주소 1개 제외)
@@ -737,7 +737,7 @@ THEORY_CONTENT = {
 
 ---
 
-### 📌 4.4 암호 알고리즘 총정리 (대칭키 vs 공개키 vs 해시)
+### 📌 4.4 암호 알고리즘 정리 (대칭키 vs 공개키 vs 해시)
 - **대칭키 (비밀키) 암호**:
   - 암호화 키 = 복호화 키. 암복호화 속도 빠름. 키 배송 및 관리 부담 (N(N-1)/2).
   - **블록 암호**: **DES** (64비트 블록, 56비트 키), **AES** (128비트 블록, 128/192/256 키), **SEED** (128비트, 한국 KISA), **ARIA** (128/192/256, 한국 국가보안기술연구소).
@@ -763,7 +763,7 @@ THEORY_CONTENT = {
   - **SQL 인젝션**: 입력값 검증 부재를 틈타 악의적인 SQL 구문을 삽입하여 DB 비인가 접근.
   - **XSS (크로스 사이트 스크립팅)**: 웹 페이지에 악성 자바스크립트를 삽입하여 희생자의 세션 쿠키를 탈취.
   - **CSRF**: 희생자가 로그인된 신뢰 상태를 도용하여 희생자 모르게 서버에 변조 요청을 전송하게 유도.
-- **보안 솔루션 7선**:
+- **주요 보안 솔루션**:
   - **방화벽(Firewall)**: IP/Port 기반 네트워크 패킷 인바운드/아웃바운드 필터링.
   - **IDS (침입 탐지 시스템)**: 비인가 침입 실시간 모니터링 및 경고 (오용 탐지-패턴매칭 vs 이상 탐지-통계).
   - **IPS (침입 방지 시스템)**: 침입 탐지 즉시 해당 악성 패킷을 능동적으로 차단.
@@ -774,7 +774,7 @@ THEORY_CONTENT = {
 """,
 
     5: """
-### 📌 5.1 소프트웨어 테스팅 7대 기본 원칙
+### 📌 5.1 소프트웨어 테스팅 기본 원칙
 1. **살충제 패러독스 (Pesticide Paradox)**: 동일한 테스트 케이스로 반복 테스트하면 더 이상 새로운 결함을 발견할 수 없음 (주기적 TC 리뷰 및 신규 케이스 추가 필수).
 2. **결함 집중 (Defect Clustering)**: 소프트웨어 결함의 대부분(80%)은 소수의 특정 복잡한 모듈(20%)에 집중됨 (파레토의 법칙).
 3. **테스팅은 결함이 존재함을 보이는 것**: 결함을 찾아낼 수는 있으나, 소프트웨어에 결함이 없음을 증명할 수는 없음.
@@ -827,21 +827,21 @@ THEORY_CONTENT = {
     - **SJF**: 실행 시간이 가장 짧은 프로세스 우선 실행 (긴 작업의 기아 현상 Starvation 가능).
     - **HRN (Highest Response Ratio Next)**: SJF의 기아 현상을 방지하기 위해 대기 시간을 반영.
 > 📐 **공식 (HRN 스케줄링 우선순위)**:
-> - **우선순위 값 = (대기 시간 + 서비스 시간) / 서비스 시간** (계산 결과값이 클수록 우선순위 1위!)
+> - **우선순위 값 = (대기 시간 + 서비스 시간) / 서비스 시간** (계산 결과값이 클수록 우선순위 높음)
   - **선점형 (Preemptive)**:
     - **Round Robin (RR)**: 동일한 시간 할당량(Time Quantum)씩 순환 실행.
     - **SRT (Shortest Remaining Time)**: 남은 실행 시간이 가장 짧은 프로세스에게 CPU 강제 할당.
 
 ---
 
-### 📌 5.5 교착상태 (Deadlock) 4대 조건 & 해결 기법
-- **교착상태 발생 4대 필요조건 (동시 만족 시 발생)**:
+### 📌 5.5 교착상태 (Deadlock) 발생 조건 & 해결 기법
+- **교착상태 발생 필요조건 (동시 만족 시 발생)**:
   1. **상호 배제 (Mutual Exclusion)**: 한 번에 한 프로세스만 자원을 점유.
   2. **점유와 대기 (Hold and Wait)**: 자원을 보유한 채 다른 자원을 대기.
   3. **비선점 (No Preemption)**: 다른 프로세스의 자원을 강제로 빼앗을 수 없음.
   4. **환형 대기 (Circular Wait)**: 대기 프로세스들이 원형으로 서로 자원을 대기.
-- **교착상태 해결 4대 기법**:
-  - **예방 (Prevention)**: 4대 조건 중 하나를 사전에 원천 부정 (자원 낭비 심함).
+- **교착상태 해결 기법**:
+  - **예방 (Prevention)**: 발생 조건 중 하나를 사전에 원천 부정 (자원 낭비 심함).
   - **회피 (Avoidance)**: 은행가 알고리즘 (Dijkstra Banker's Algorithm) - 항상 안전 상태(Safe State) 유지.
   - **탐지 (Detection)**: 자원 할당 그래프(RAG)를 주기적으로 분석하여 데드록 발견.
   - **회복 (Recovery)**: 데드록 프로세스 강제 종료 또는 자원 선점 롤백.
@@ -861,7 +861,7 @@ THEORY_CONTENT = {
   - **공간 국부성**: 참조된 메모리의 인접 영역이 참조됨 (배열, 순차 코드).
   - **쓰레싱 (Thrashing)**: 페이지 부재(Page Fault)가 너무 자주 발생하여 CPU가 실제 프로세스 연산보다 페이지 교체에 더 많은 시간을 소모하는 성능 급감 현상.
 - **소프트웨어 형상 관리 (SCM - Software Configuration Management)**:
-  - 4대 활동: **형상 식별 ➔ 형상 통제(CCB 통제 위원회) ➔ 형상 감사 ➔ 형상 기록/보고**
+  - 주요 활동: **형상 식별 ➔ 형상 통제(CCB 통제 위원회) ➔ 형상 감사 ➔ 형상 기록/보고**
   - 형상 관리 도구: Git, SVN, CVS.
 """
 }
@@ -919,7 +919,7 @@ def render_question_markdown(q, round_id, round_title, unit_num, topic):
     lines.append("")
     
     if trap:
-        lines.append(f"> ⚠️ **[단골 함정 (Trap Point)]**  ")
+        lines.append(f"> **[주의 포인트]**  ")
         lines.append(f"> {trap}")
         lines.append("")
         
@@ -1048,12 +1048,12 @@ def main():
         doc_lines.append("")
         doc_lines.append("---")
         doc_lines.append("")
-        doc_lines.append("## 🏛️ [핵심 이론 및 필수 공식 총정리]")
+        doc_lines.append("## [핵심 이론 및 필수 공식 정리]")
         doc_lines.append(THEORY_CONTENT[u].strip())
         doc_lines.append("")
         doc_lines.append("---")
         doc_lines.append("")
-        doc_lines.append("## 🎯 [단원별 실전 기출문제 & 상세 해설 총람]")
+        doc_lines.append("## [단원별 관련 기출문제 & 상세 해설]")
         doc_lines.append("")
         
         for q in u_qs:
@@ -1069,7 +1069,7 @@ def main():
         y_rids = [rid for rid in sorted_round_ids if str(y) in rid and not rid.startswith("c_") and not rid.startswith("sql_") and not rid.startswith("java_") and not rid.startswith("python_") and not rid.startswith("killer_") and not rid.startswith("practical_")]
         y_path = os.path.join(docs_rounds_dir, f"{y}.md")
         y_lines = []
-        y_lines.append(f"# 📚 {y}년도 정보처리기사 실기 기출 전 회차 총람")
+        y_lines.append(f"# 📚 {y}년도 정보처리기사 실기 기출 회차 모음")
         y_lines.append(f"> 수록 회차: {', '.join([rounds_questions[r]['title'] for r in y_rids])}")
         y_lines.append("")
         
@@ -1087,15 +1087,15 @@ def main():
     # 6. 마스터 통합본 생성 (docs/정처기_실기_핵심개념서_및_기출해설총람.md)
     master_path = os.path.join(docs_dir, "정처기_실기_핵심개념서_및_기출해설총람.md")
     m_lines = []
-    m_lines.append("# 📖 정보처리기사 실기 핵심 개념서 & 전 회차(2020~2026) 기출 해설총람 (Master Book)")
+    m_lines.append("# 📖 정보처리기사 실기 개념서 & 기출 해설 (2020~2026)")
     m_lines.append("")
-    m_lines.append("> 본 교재는 2020년 개정 이후 2026년 최신 기출까지 21개 전 회차(420문항) 및 6대 특화 테마(105문항) 총 525문항을 NCS 5대 출제 기준으로 완벽 분류하고, 별도의 수험서 없이 합격할 수 있도록 핵심 이론 요약과 모든 문제의 정답·해설·단골 함정(Trap Point)·변수 추적표(Trace Table)를 집대성한 완전판입니다.")
+    m_lines.append("> 본 교재는 2020년 개정 이후 2026년 최신 기출까지 21개 회차(420문항) 및 주제별 기출 모음(105문항) 총 525문항을 단원별로 분류하고, 이론 요약과 각 문항의 정답·해설·주의 포인트·변수 추적표(Trace Table)를 정리한 통합 자료입니다.")
     m_lines.append("")
     m_lines.append("## 📑 목차 (Table of Contents)")
     for u in range(1, 6):
         u_info = UNIT_INFO[u]
         m_lines.append(f"- [제{u}단원: {u_info['short_title']} ({len(unit_questions[u])}문항)](#단원-{u})")
-    m_lines.append("- [부록: 6대 특화 테마 기출 105선](#부록-특화테마)")
+    m_lines.append("- [부록: 주제별 기출 모음 (105문항)](#부록-특화테마)")
     m_lines.append("")
     m_lines.append("---")
     m_lines.append("")
@@ -1107,18 +1107,18 @@ def main():
         m_lines.append(f"# {u_info['title']}")
         m_lines.append(f"> **단원 요약**: {u_info['summary']}")
         m_lines.append("")
-        m_lines.append("## 🏛️ [핵심 이론 및 필수 공식 총정리]")
+        m_lines.append("## [핵심 이론 및 필수 공식 정리]")
         m_lines.append(THEORY_CONTENT[u].strip())
         m_lines.append("")
-        m_lines.append("## 🎯 [단원별 기출문제 & 상세 해설]")
+        m_lines.append("## [단원별 기출문제 & 상세 해설]")
         m_lines.append("")
         for q in u_qs:
             m_lines.append(render_question_markdown(q, q["round_id"], q["round_title"], u, q["topic"]))
             
-    # 특화 테마 부록
+    # 주제별 기출 부록
     theme_ids = ["killer_programming", "sql_master", "practical_cheatsheet", "c_special", "java_special", "python_special"]
     m_lines.append("<a name=\"부록-특화테마\"></a>")
-    m_lines.append("# ⚡ 부록: 6대 특화 테마 기출 105선")
+    m_lines.append("# 부록: 주제별 기출 모음 (105문항)")
     m_lines.append("")
     for tid in theme_ids:
         if tid in rounds_questions:
@@ -1148,8 +1148,8 @@ def main():
         }
         
     js_content = f"""/**
- * 정보처리기사 실기 5대 단원 핵심 개념서 및 기출 해설총람 웹 뷰어 데이터셋
- * 총 525문항 (21개 회차 420문항 + 6대 테마 105문항)
+ * 정보처리기사 실기 단원별 개념서 및 기출 해설 웹 뷰어 데이터셋
+ * 총 525문항 (21개 회차 420문항 + 주제별 모음 105문항)
  */
 window.CONCEPT_BOOK = {{
   metadata: {{
@@ -1175,3 +1175,4 @@ window.CONCEPT_BOOK = {{
 
 if __name__ == "__main__":
     main()
+

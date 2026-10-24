@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>정보처리기사 실기 핵심 개념서 &amp; 전 회차 기출 해설총람 (2020~2026)</title>
+  <title>정보처리기사 실기 개념서 &amp; 기출 해설 (2020~2026)</title>
   
+  <!-- Preload LG EI Web Fonts -->
+  <link rel="preload" href="fonts/LGEIText-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/LGEIHeadline-Bold.woff2" as="font" type="font/woff2" crossorigin>
+
   <!-- Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,8 +18,49 @@
     /* ==========================================================================
        CSS Variables & Global Reset (Company Test 미니멀 CBT 테마 1:1 일치)
        ========================================================================== */
+    @font-face {
+      font-family: 'LG EI Headline';
+      src: url('fonts/LGEIHeadline-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'LG EI Headline';
+      src: url('fonts/LGEIHeadline-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'LG EI Text';
+      src: url('fonts/LGEIText-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'LG EI Text';
+      src: url('fonts/LGEIText-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'LG EI Text';
+      src: url('fonts/LGEIText-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
-      --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-headline: 'LG EI Headline', 'LG EI Text', 'Noto Sans KR', sans-serif;
+      --font-body: 'LG EI Text', 'Noto Sans KR', sans-serif;
       --font-code: 'JetBrains Mono', Consolas, 'Courier New', monospace;
 
       --bg-page: #ffffff;
@@ -51,6 +96,10 @@
       overflow-x: hidden;
     }
 
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-headline);
+    }
+
     em, i, cite, address, var {
       font-style: normal;
     }
@@ -59,6 +108,7 @@
        Top Header Bar (52px, #1e2024, padding 0 40px - index.html 1:1)
        ========================================================================== */
     .study-header {
+      font-family: var(--font-headline);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -79,6 +129,7 @@
     }
 
     .header-logo {
+      font-family: var(--font-headline);
       font-size: 18px;
       font-weight: 700;
       color: #ffffff;
@@ -103,19 +154,34 @@
       background: #2b2f36;
       padding: 2px;
       border-radius: 0;
+      position: relative;
     }
 
     .btn-mode-tab {
+      position: relative;
       background: none;
       border: none;
       color: #9ca3af;
-      padding: 5px 12px;
+      padding: 5px 14px;
       font-size: 12px;
       font-weight: 600;
       border-radius: 0;
       cursor: pointer;
-      transition: all 0.1s ease;
-      font-family: var(--font-body);
+      transition: background-color 0.22s cubic-bezier(0.22, 1, 0.36, 1), color 0.22s cubic-bezier(0.22, 1, 0.36, 1), transform 0.18s ease;
+      font-family: var(--font-headline);
+    }
+
+    .btn-mode-tab::after {
+      content: '';
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 0;
+      height: 2px;
+      background: var(--btn-danger);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .btn-mode-tab:hover {
@@ -127,6 +193,10 @@
       background: var(--btn-dark);
       color: #ffffff;
       font-weight: 700;
+    }
+
+    .btn-mode-tab.active::after {
+      transform: scaleX(1);
     }
 
     .header-right {
@@ -150,7 +220,7 @@
       padding: 5px 10px 5px 28px;
       width: 240px;
       outline: none;
-      transition: all 0.15s;
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
       font-family: var(--font-body);
     }
 
@@ -194,12 +264,13 @@
       font-family: var(--font-body);
       text-decoration: none;
       white-space: nowrap;
-      transition: background-color 0.1s;
+      transition: background-color 0.18s cubic-bezier(0.22, 1, 0.36, 1), color 0.18s ease, transform 0.18s ease;
     }
 
     .btn-action-tool:hover {
       background: var(--btn-tool-hover);
       color: #ffffff;
+      transform: translateY(-1px);
     }
 
     .btn-action-cbt {
@@ -252,6 +323,8 @@
     }
 
     .sidebar-item-btn {
+      position: relative;
+      overflow: hidden;
       width: 100%;
       text-align: left;
       background: #ffffff;
@@ -265,10 +338,43 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: all 0.1s;
+      transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
       font-family: var(--font-body);
       line-height: 1.4;
       margin-bottom: 4px;
+    }
+
+    .sidebar-item-btn::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--current-border);
+      transform: scaleY(0);
+      transform-origin: center;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .sidebar-item-label {
+      display: inline-block;
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .sidebar-item-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .unit-chevron {
+      display: inline-block;
+      font-size: 11px;
+      color: #9ca3af;
+      transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+      line-height: 1;
     }
 
     .sidebar-item-btn:hover {
@@ -276,11 +382,29 @@
       border-color: #cbd5e1;
     }
 
+    .sidebar-item-btn:hover::before {
+      transform: scaleY(0.6);
+    }
+
+    .sidebar-item-btn:hover .sidebar-item-label {
+      transform: translateX(2px);
+    }
+
     .sidebar-item-btn.active {
       background: var(--btn-dark);
       color: #ffffff;
       border-color: var(--btn-dark);
       font-weight: 700;
+    }
+
+    .sidebar-item-btn.active::before {
+      background: var(--btn-danger);
+      transform: scaleY(1);
+    }
+
+    .sidebar-item-btn.active .unit-chevron {
+      transform: rotate(90deg);
+      color: #ffffff;
     }
 
     .sidebar-badge {
@@ -293,6 +417,7 @@
       margin-left: 8px;
       white-space: nowrap;
       border: 1px solid #e5e7eb;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
 
     .sidebar-item-btn.active .sidebar-badge {
@@ -301,29 +426,52 @@
       border-color: #52525b;
     }
 
+    /* Smooth CSS Grid Accordion for Subtopics */
+    .sidebar-subtopics-wrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transition: grid-template-rows 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+      overflow: hidden;
+    }
+
+    .sidebar-subtopics-wrapper.open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    .sidebar-subtopics-inner {
+      min-height: 0;
+      overflow: hidden;
+    }
+
     .sidebar-subtopics {
-      padding: 2px 0 6px 10px;
+      padding: 2px 0 8px 10px;
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
 
     .subtopic-chip {
+      position: relative;
       background: transparent;
       border: none;
+      border-left: 3px solid transparent;
       text-align: left;
       color: #4b5563;
       font-size: 12px;
-      padding: 4px 8px;
+      padding: 5px 10px;
       border-radius: 0;
       cursor: pointer;
-      transition: all 0.1s;
+      transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s cubic-bezier(0.22, 1, 0.36, 1), padding-left 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
       font-family: var(--font-body);
     }
 
     .subtopic-chip:hover {
       color: #111827;
       background: rgba(0, 0, 0, 0.05);
+      padding-left: 13px;
+      border-left-color: #9ca3af;
     }
 
     .subtopic-chip.active {
@@ -331,11 +479,23 @@
       font-weight: 700;
       background: rgba(0, 0, 0, 0.08);
       border-left: 3px solid #111827;
+      padding-left: 12px;
     }
 
     /* ==========================================================================
        Main Content Area (Pure White Background, Borderless Flow)
        ========================================================================== */
+    @keyframes studyContentFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .main-content {
       flex: 1;
       padding: 32px 44px;
@@ -343,6 +503,10 @@
       margin: 0;
       overflow-y: visible;
       background-color: var(--bg-page);
+    }
+
+    .main-content.content-entering {
+      animation: studyContentFadeIn 0.22s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     /* Top Summary / Theory Banner (Minimalist Left-Border Box) */
@@ -366,6 +530,7 @@
     }
 
     .unit-hero-title {
+      font-family: var(--font-headline);
       font-size: 20px;
       font-weight: 700;
       color: #111827;
@@ -402,15 +567,34 @@
       align-items: center;
       gap: 6px;
       font-family: var(--font-body);
-      transition: background-color 0.1s;
+      transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), transform 0.18s ease;
     }
 
     .theory-drawer-toggle:hover {
       background: var(--btn-dark-hover);
     }
 
-    .theory-body-container {
+    .theory-drawer-wrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transition: grid-template-rows 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease, margin-top 0.24s ease;
+      margin-top: 0;
+      overflow: hidden;
+    }
+
+    .theory-drawer-wrapper.open {
+      grid-template-rows: 1fr;
+      opacity: 1;
       margin-top: 16px;
+    }
+
+    .theory-drawer-inner {
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .theory-body-container {
       padding: 18px 20px;
       background: #ffffff;
       border: 1px solid var(--border-color);
@@ -421,6 +605,7 @@
     }
 
     .theory-body-container h3 {
+      font-family: var(--font-headline);
       font-size: 16px;
       font-weight: 700;
       color: #111827;
@@ -538,6 +723,7 @@
     }
 
     .questions-count-text {
+      font-family: var(--font-headline);
       font-size: 16px;
       font-weight: 700;
       color: #111827;
@@ -621,6 +807,7 @@
     }
 
     .q-prompt-text {
+      font-family: var(--font-headline);
       font-size: 17px;
       font-weight: 700;
       color: #111827;
@@ -748,6 +935,7 @@
     }
 
     .q-answer-card .exp-correct-label {
+      font-family: var(--font-headline);
       font-weight: 700;
       color: #16a34a;
     }
@@ -865,6 +1053,47 @@
     }
 
     /* ==========================================================================
+       Responsive Layout (<= 900px)
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .study-header {
+        height: auto;
+        min-height: 52px;
+        flex-wrap: wrap;
+        padding: 10px 16px;
+        gap: 10px;
+      }
+
+      .header-left,
+      .header-right {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .search-input,
+      .search-input:focus {
+        width: 180px;
+      }
+
+      .app-layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        position: static;
+        height: auto;
+        max-height: 360px;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .main-content {
+        padding: 20px 16px;
+      }
+    }
+
+    /* ==========================================================================
        Print Optimization Stylesheet (@media print)
        ========================================================================== */
     @media print {
@@ -900,6 +1129,12 @@
         page-break-after: always;
         break-after: page;
         margin-bottom: 20px !important;
+      }
+
+      .theory-drawer-wrapper {
+        display: block !important;
+        opacity: 1 !important;
+        margin-top: 16px !important;
       }
 
       .theory-body-container {
@@ -982,15 +1217,15 @@
   <header class="study-header">
     <div class="header-left">
       <div class="header-logo">
-        Company Test <span class="header-logo-badge">실전 개념서 &amp; 해설총람</span>
+        Company Test <span class="header-logo-badge">개념서 &amp; 기출해설</span>
       </div>
 
       <div class="mode-toggle-group">
         <button class="btn-mode-tab active" id="btnModeConcept" onclick="switchMode('concept')">
-          🏛️ 개념서 모드 (5대 단원)
+          단원별 개념서
         </button>
         <button class="btn-mode-tab" id="btnModeRound" onclick="switchMode('round')">
-          📅 회차별 모드 (2020~2026)
+          연도별 기출 (2020~2026)
         </button>
       </div>
     </div>
@@ -1011,7 +1246,7 @@
       </button>
 
       <a href="index.html" class="btn-action-tool btn-action-cbt" title="CBT 시험 모드로 이동">
-        🎯 CBT 시험 모드로 돌아가기
+        CBT 시험 모드로 돌아가기
       </a>
     </div>
   </header>
@@ -1320,7 +1555,7 @@
         }
       }
 
-      renderSidebar();
+      renderSidebar(true);
       renderContent();
     });
 
@@ -1336,58 +1571,77 @@
       document.getElementById('btnModeConcept').classList.toggle('active', newMode === 'concept');
       document.getElementById('btnModeRound').classList.toggle('active', newMode === 'round');
 
-      renderSidebar();
+      renderSidebar(true);
       renderContent();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // =========================================================================
-    // Sidebar Renderer
+    // Sidebar Renderer (DOM-preserving for smooth CSS accordion transitions)
     // =========================================================================
-    function renderSidebar() {
+    function renderSidebar(forceRebuild = false) {
       const sidebar = document.getElementById('appSidebar');
       if (!sidebar) return;
 
       if (state.mode === 'concept') {
-        let html = `<div class="sidebar-section-title">5대 핵심 단원별 개념서</div><ul class="sidebar-list">`;
+        const existingConceptTree = sidebar.querySelector('[data-sidebar-mode="concept"]');
+        if (existingConceptTree && !forceRebuild) {
+          updateConceptSidebarActiveStates(sidebar);
+          return;
+        }
+
+        let html = `<div data-sidebar-mode="concept"><div class="sidebar-section-title">단원별 개념</div><ul class="sidebar-list">`;
         
         for (let u = 1; u <= 5; u++) {
           const unit = unitsData[u] || {};
-          const count = questionsData.filter(q => q.unit === u).length;
+          const unitQuestions = questionsData.filter(q => q.unit === u);
+          const count = unitQuestions.length;
           const isActive = state.activeUnit === u && !state.searchQuery;
 
+          const topicsMap = {};
+          unitQuestions.forEach(q => {
+            if (q.topic) topicsMap[q.topic] = (topicsMap[q.topic] || 0) + 1;
+          });
+
           html += `
-            <li>
+            <li class="sidebar-unit-item" data-unit-item="${u}">
               <button class="sidebar-item-btn ${isActive ? 'active' : ''}" data-unit="${u}" onclick="selectUnit(Number(this.dataset.unit))">
-                <span>${unit.shortTitle || `제${u}단원`}</span>
-                <span class="sidebar-badge">${count}제</span>
+                <span class="sidebar-item-label">${unit.shortTitle || `제${u}단원`}</span>
+                <span class="sidebar-item-right">
+                  <span class="sidebar-badge">${count}제</span>
+                  <span class="unit-chevron">▸</span>
+                </span>
               </button>
-            </li>
+              <div class="sidebar-subtopics-wrapper ${isActive ? 'open' : ''}" data-subtopics-for="${u}">
+                <div class="sidebar-subtopics-inner">
+                  <div class="sidebar-subtopics">
+                    <button class="subtopic-chip ${isActive && !state.activeTopic ? 'active' : ''}" data-unit-owner="${u}" data-topic="" onclick="selectTopic(null)">전체 보기 (${unitQuestions.length})</button>
           `;
 
-          // If active, list subtopics
-          if (state.activeUnit === u && !state.searchQuery) {
-            const unitQuestions = questionsData.filter(q => q.unit === u);
-            const topicsMap = {};
-            unitQuestions.forEach(q => {
-              if (q.topic) topicsMap[q.topic] = (topicsMap[q.topic] || 0) + 1;
-            });
-
-            html += `<div class="sidebar-subtopics">`;
-            html += `<button class="subtopic-chip ${!state.activeTopic ? 'active' : ''}" onclick="selectTopic(null)">전체 보기 (${unitQuestions.length})</button>`;
-            for (const [topic, tCount] of Object.entries(topicsMap)) {
-              const isTopicActive = state.activeTopic === topic;
-              html += `<button class="subtopic-chip ${isTopicActive ? 'active' : ''}" data-topic="${escapeHtml(topic)}" onclick="selectTopic(this.dataset.topic)">• ${escapeHtml(topic)} (${tCount})</button>`;
-            }
-            html += `</div>`;
+          for (const [topic, tCount] of Object.entries(topicsMap)) {
+            const isTopicActive = isActive && state.activeTopic === topic;
+            html += `<button class="subtopic-chip ${isTopicActive ? 'active' : ''}" data-unit-owner="${u}" data-topic="${escapeHtml(topic)}" onclick="selectTopic(this.dataset.topic)">• ${escapeHtml(topic)} (${tCount})</button>`;
           }
+
+          html += `
+                  </div>
+                </div>
+              </div>
+            </li>
+          `;
         }
-        html += `</ul>`;
+        html += `</ul></div>`;
         sidebar.innerHTML = html;
 
       } else {
         // Round Mode
-        let html = `<div class="sidebar-section-title">기출 전 회차 (2020~2026)</div><ul class="sidebar-list">`;
+        const existingRoundTree = sidebar.querySelector('[data-sidebar-mode="round"]');
+        if (existingRoundTree && !forceRebuild) {
+          updateRoundSidebarActiveStates(sidebar);
+          return;
+        }
+
+        let html = `<div data-sidebar-mode="round"><div class="sidebar-section-title">연도별 기출 회차</div><ul class="sidebar-list">`;
         
         const standardRounds = roundsCatalog.filter(r => !r.id.startsWith('killer_') && !r.id.startsWith('sql_') && !r.id.startsWith('practical_') && !r.id.startsWith('c_') && !r.id.startsWith('java_') && !r.id.startsWith('python_'));
         const themeRounds = roundsCatalog.filter(r => !standardRounds.includes(r));
@@ -1397,30 +1651,65 @@
           html += `
             <li>
               <button class="sidebar-item-btn ${isActive ? 'active' : ''}" data-round-id="${escapeHtml(r.id)}" onclick="selectRound(this.dataset.roundId)">
-                <span>${r.title}</span>
+                <span class="sidebar-item-label">${r.title}</span>
                 <span class="sidebar-badge">${r.questionCount}문항</span>
               </button>
             </li>
           `;
         });
 
-        html += `</ul><div class="sidebar-section-title">⚡ 6대 특화 테마 기출</div><ul class="sidebar-list">`;
+        html += `</ul><div class="sidebar-section-title">주제별 기출 모음</div><ul class="sidebar-list">`;
 
         themeRounds.forEach(r => {
           const isActive = state.activeRoundId === r.id && !state.searchQuery;
           html += `
             <li>
               <button class="sidebar-item-btn ${isActive ? 'active' : ''}" data-round-id="${escapeHtml(r.id)}" onclick="selectRound(this.dataset.roundId)">
-                <span>${r.title}</span>
+                <span class="sidebar-item-label">${r.title}</span>
                 <span class="sidebar-badge">${r.questionCount}문항</span>
               </button>
             </li>
           `;
         });
 
-        html += `</ul>`;
+        html += `</ul></div>`;
         sidebar.innerHTML = html;
       }
+    }
+
+    function updateConceptSidebarActiveStates(sidebar) {
+      const isSearching = Boolean(state.searchQuery && state.searchQuery.trim());
+      const unitBtns = sidebar.querySelectorAll('.sidebar-item-btn[data-unit]');
+      unitBtns.forEach(btn => {
+        const u = Number(btn.dataset.unit);
+        const isActive = (u === state.activeUnit) && !isSearching;
+        btn.classList.toggle('active', isActive);
+      });
+
+      const wrappers = sidebar.querySelectorAll('.sidebar-subtopics-wrapper[data-subtopics-for]');
+      wrappers.forEach(w => {
+        const u = Number(w.dataset.subtopicsFor);
+        const isOpen = (u === state.activeUnit) && !isSearching;
+        w.classList.toggle('open', isOpen);
+      });
+
+      const chips = sidebar.querySelectorAll('.subtopic-chip[data-unit-owner]');
+      chips.forEach(chip => {
+        const u = Number(chip.dataset.unitOwner);
+        const topic = chip.dataset.topic || null;
+        const isUnitActive = (u === state.activeUnit) && !isSearching;
+        const isChipActive = isUnitActive && ((topic === null && !state.activeTopic) || (topic !== null && state.activeTopic === topic));
+        chip.classList.toggle('active', isChipActive);
+      });
+    }
+
+    function updateRoundSidebarActiveStates(sidebar) {
+      const isSearching = Boolean(state.searchQuery && state.searchQuery.trim());
+      const roundBtns = sidebar.querySelectorAll('.sidebar-item-btn[data-round-id]');
+      roundBtns.forEach(btn => {
+        const rid = btn.dataset.roundId;
+        btn.classList.toggle('active', rid === state.activeRoundId && !isSearching);
+      });
     }
 
     function selectUnit(u) {
@@ -1453,6 +1742,13 @@
     // =========================================================================
     // Content Renderer
     // =========================================================================
+    function triggerContentTransition(container) {
+      if (!container) return;
+      container.classList.remove('content-entering');
+      void container.offsetWidth;
+      container.classList.add('content-entering');
+    }
+
     function renderContent() {
       const container = document.getElementById('mainContent');
       if (!container) return;
@@ -1466,11 +1762,13 @@
       // Case 2: Concept Mode
       if (state.mode === 'concept') {
         renderConceptMode(container);
+        triggerContentTransition(container);
         return;
       }
 
       // Case 3: Round Mode
       renderRoundMode(container);
+      triggerContentTransition(container);
     }
 
     function renderConceptMode(container) {
@@ -1491,10 +1789,14 @@
           </div>
           <p class="unit-hero-summary">${unit.summary || ''}</p>
           <button class="theory-drawer-toggle" onclick="toggleTheoryDrawer()">
-            <span>${state.theoryExpanded ? '📖 핵심 이론 요약 접기 ▲' : '📖 핵심 이론 & 암기 공식 펼쳐보기 ▼'}</span>
+            <span>${state.theoryExpanded ? '이론 요약 접기 ▲' : '이론 요약 펼치기 ▼'}</span>
           </button>
-          <div class="theory-body-container" id="theoryBodyContainer" style="display: ${state.theoryExpanded ? 'block' : 'none'};">
-            ${parseMarkdownToHtml(unit.markdown || '')}
+          <div class="theory-drawer-wrapper ${state.theoryExpanded ? 'open' : ''}" id="theoryDrawerWrapper">
+            <div class="theory-drawer-inner">
+              <div class="theory-body-container" id="theoryBodyContainer">
+                ${parseMarkdownToHtml(unit.markdown || '')}
+              </div>
+            </div>
           </div>
         </div>
       `;
@@ -1503,7 +1805,7 @@
       html += `
         <div class="questions-control-header">
           <span class="questions-count-text">
-            🎯 실전 기출문제 총람 ${state.activeTopic ? `[${state.activeTopic}]` : ''} (${qs.length}문항)
+            관련 기출문제 ${state.activeTopic ? `[${state.activeTopic}]` : ''} — 총 ${qs.length}문항
           </span>
           <button class="btn-toggle-all-answers" onclick="toggleAllAnswers()">
             ${state.allAnswersExpanded ? '전체 정답 접기 ▲' : '전체 정답 펼치기 ▼'}
@@ -1531,7 +1833,7 @@
         </div>
         <div class="questions-control-header">
           <span class="questions-count-text">
-            📋 회차 전체 문항 (${qs.length}문항)
+            회차 전체 문항 — 총 ${qs.length}문항
           </span>
           <button class="btn-toggle-all-answers" onclick="toggleAllAnswers()">
             ${state.allAnswersExpanded ? '전체 정답 접기 ▲' : '전체 정답 펼치기 ▼'}
@@ -1622,7 +1924,7 @@
 
               ${q.trapPoint ? `
                 <div class="q-trap-box">
-                  <div class="q-trap-title">⚠️ 단골 함정 (Trap Point)</div>
+                  <div class="q-trap-title">주의 포인트</div>
                   <div>${highlightQuery(q.trapPoint, isSearch)}</div>
                 </div>
               ` : ''}
@@ -1679,10 +1981,10 @@
     // =========================================================================
     function toggleTheoryDrawer() {
       state.theoryExpanded = !state.theoryExpanded;
-      const el = document.getElementById('theoryBodyContainer');
-      if (el) el.style.display = state.theoryExpanded ? 'block' : 'none';
+      const wrapper = document.getElementById('theoryDrawerWrapper');
+      if (wrapper) wrapper.classList.toggle('open', state.theoryExpanded);
       const btn = document.querySelector('.theory-drawer-toggle span');
-      if (btn) btn.textContent = state.theoryExpanded ? '📖 핵심 이론 요약 접기 ▲' : '📖 핵심 이론 & 암기 공식 펼쳐보기 ▼';
+      if (btn) btn.textContent = state.theoryExpanded ? '이론 요약 접기 ▲' : '이론 요약 펼치기 ▼';
     }
 
     function toggleSingleAnswer(uid) {
@@ -1712,6 +2014,7 @@
       state.searchQuery = val;
       const clearBtn = document.getElementById('btnSearchClear');
       clearBtn.style.display = val.length > 0 ? 'inline-block' : 'none';
+      renderSidebar();
       renderContent();
     }
 
@@ -1719,6 +2022,7 @@
       state.searchQuery = '';
       document.getElementById('liveSearchInput').value = '';
       document.getElementById('btnSearchClear').style.display = 'none';
+      renderSidebar();
       renderContent();
     }
   </script>

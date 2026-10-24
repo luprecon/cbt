@@ -2,10 +2,50 @@
    Company Test - Authentic Minimalist CBT Styling (선 없는 간결한 디자인)
    ========================================================================== */
 
+@font-face {
+  font-family: 'LG EI Headline';
+  src: url('fonts/LGEIHeadline-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LG EI Headline';
+  src: url('fonts/LGEIHeadline-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LG EI Text';
+  src: url('fonts/LGEIText-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LG EI Text';
+  src: url('fonts/LGEIText-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LG EI Text';
+  src: url('fonts/LGEIText-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --font-headline: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-text: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+  --font-headline: 'LG EI Headline', 'LG EI Text', 'Noto Sans KR', sans-serif;
+  --font-text: 'LG EI Text', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
 
   --bg-page: #ffffff;
   --header-bg: #1e2024;
@@ -19,6 +59,10 @@
   --btn-next-bg: #262626;
   --calc-op-bg: #e5e7eb;
   --border-color: #cbd5e1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
 }
 
 * {
@@ -44,6 +88,7 @@ em, i, cite, address, var {
    Top Header (companyTest 1:1)
    ========================================================================== */
 header.top-header {
+  font-family: var(--font-headline);
   background-color: var(--header-bg);
   height: 52px;
   display: flex;
@@ -60,6 +105,7 @@ header.top-header {
 }
 
 .header-logo {
+  font-family: var(--font-headline);
   color: #ffffff;
   font-size: 18px;
   font-weight: 700;
@@ -112,7 +158,7 @@ header.top-header {
 }
 
 .timer-val {
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--font-headline);
   font-size: 20px;
   font-weight: 700;
   color: #ffffff;
@@ -148,14 +194,16 @@ header.top-header {
   border-radius: 0;
   white-space: nowrap;
   font-family: var(--font-text);
-  transition: background-color 0.1s;
+  transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease, transform 0.18s ease;
 }
 
 .btn-file-load:hover {
   background: #4b5563;
+  transform: translateY(-1px);
 }
 
 .btn-file-load.btn-submit {
+  font-family: var(--font-headline);
   background: #dc2626;
   color: #ffffff;
   font-weight: 700;
@@ -216,6 +264,7 @@ header.top-header {
 }
 
 .q-box {
+  font-family: var(--font-headline);
   width: 28px;
   height: 28px;
   border: 1px solid #d1d5db;
@@ -229,11 +278,12 @@ header.top-header {
   font-weight: 600;
   cursor: pointer;
   outline: none;
-  transition: all 0.1s ease;
+  transition: background-color 0.18s cubic-bezier(0.22, 1, 0.36, 1), color 0.18s ease, border-color 0.18s ease, transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .q-box:hover {
   border-color: #9ca3af;
+  transform: translateY(-1px);
 }
 
 .q-box.current {
@@ -295,6 +345,7 @@ header.top-header {
 }
 
 .question-prompt {
+  font-family: var(--font-headline);
   font-size: 18px;
   font-weight: 700;
   color: #111827;
@@ -491,10 +542,15 @@ header.top-header {
 }
 
 .exp-correct-answer {
+  font-family: var(--font-text);
   font-size: 15px;
   font-weight: 700;
   color: #16a34a;
   margin-bottom: 10px;
+}
+
+.exp-correct-answer strong {
+  font-family: var(--font-headline);
 }
 
 .exp-body-text {
@@ -640,10 +696,15 @@ header.top-header {
 }
 
 .modal-header {
+  font-family: var(--font-headline);
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 16px;
   color: #111827;
+}
+
+.modal-title {
+  font-family: var(--font-headline);
 }
 
 .modal-body {
@@ -694,10 +755,21 @@ header.top-header {
 }
 
 .score-big-number {
+  font-family: var(--font-headline);
   font-size: 32px;
   font-weight: 800;
   color: #111827;
   margin: 6px 0;
+}
+
+.cat-stat-title {
+  font-family: var(--font-headline);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.score-judgment {
+  font-family: var(--font-headline);
 }
 
 .review-grid {

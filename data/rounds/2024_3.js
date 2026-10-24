@@ -145,7 +145,7 @@ int main() {
       answer: "조인",
       aliases: ["조인", "Join", "join", "JOIN"],
       explanation: "조인(Join, ⋈) 연산은 공통 속성을 중심으로 두 개 이상의 릴레이션을 하나로 합쳐서 새로운 릴레이션을 만듭니다.",
-      trapPoint: "관계 대수 4대 순수 관계 연산자: Select(σ), Project(π), Join(⋈), Division(÷)."
+      trapPoint: "관계 대수 순수 관계 연산자: Select(σ), Project(π), Join(⋈), Division(÷)."
     },
     {
       id: 9,
@@ -319,7 +319,7 @@ int main() {
     {
       id: 20,
       category: "단답형",
-      prompt: "데이터베이스에서 데이터 무결성을 보장하기 위한 3대 무결성 제약조건 중, 외래키 값은 참조하는 릴레이션의 기본키 값과 일치하거나 NULL이어야 한다는 제약조건의 명칭을 쓰시오.",
+      prompt: "데이터베이스에서 데이터 무결성을 보장하기 위한 주요 무결성 제약조건 중, 외래키 값은 참조하는 릴레이션의 기본키 값과 일치하거나 NULL이어야 한다는 제약조건의 명칭을 쓰시오.",
       answer: "참조 무결성",
       aliases: ["참조 무결성", "참조무결성", "참조 무결성 제약조건", "Referential Integrity"],
       explanation: "참조 무결성(Referential Integrity)은 릴레이션 간의 일관성을 유지하기 위해 외래키가 참조할 수 없는 존재하지 않는 값을 참조하지 못하도록 제한하는 규칙입니다.",

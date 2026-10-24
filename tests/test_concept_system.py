@@ -131,18 +131,33 @@ def test_verification():
         idx_txt = f.read()
     assert "study.html" in idx_txt, "index.html does not link to study.html!"
     assert "btn-study-link" in idx_txt, "index.html does not have btn-study-link button!"
+    assert "개념서 &amp; 기출해설" in idx_txt, "index.html missing clean study link text!"
+    assert "핵심 요약" in idx_txt, "index.html missing clean cheatsheet button text!"
+    assert "5대 단원" not in idx_txt and "실전 개념서 &amp; 해설총람" not in idx_txt and "벼락치기" not in idx_txt, "index.html still contains exaggerated AI wording!"
 
     with open(study_html, "r", encoding="utf-8") as f:
         std_txt = f.read()
     assert "index.html" in std_txt, "study.html does not link to index.html!"
     assert "data/concept-data.js" in std_txt, "study.html does not include concept-data.js!"
     assert "@media print" in std_txt, "study.html does not have @media print styles!"
+    assert "@media (max-width: 900px)" in std_txt, "study.html missing responsive layout rules!"
     assert "CBT 시험 모드로 돌아가기" in std_txt, "study.html missing return navigation text!"
     assert "formula-card" in std_txt, "study.html missing .formula-card styling and parser support!"
+    assert "단원별 개념서" in std_txt and "연도별 기출 (2020~2026)" in std_txt, "study.html missing clean mode tab labels!"
+    assert "단원별 개념" in std_txt and "주제별 기출 모음" in std_txt, "study.html missing clean sidebar section titles!"
+    assert "sidebar-subtopics-wrapper" in std_txt and "grid-template-rows: 0fr" in std_txt, "study.html missing CSS Grid accordion animation!"
+    assert "theory-drawer-wrapper" in std_txt, "study.html missing CSS Grid theory drawer animation!"
+    for banned in ("5대 핵심 단원별 개념서", "6대 특화 테마", "실전 개념서 &amp; 해설총람", "5대 단원", "단골 함정 (Trap Point)"):
+        assert banned not in std_txt, f"study.html still contains exaggerated wording: {banned}"
+
+    for banned_concept in ("5대 원칙", "4대 특징", "4대 특성", "4대 조건", "4대 구축 유형", "4대 지표", "단골 함정", "완전정복", "초특급", "초필살"):
+        assert banned_concept not in js_text, f"concept-data.js still contains exaggerated wording: {banned_concept}"
 
     print("\n[ALL INTEGRITY CHECKS PASSED SUCCESSFULLY]")
 
 
 if __name__ == "__main__":
     test_verification()
+
+
 

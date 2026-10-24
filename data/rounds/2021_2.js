@@ -36,7 +36,7 @@ window.EXAM_ROUNDS["2021_2"] = {
     {
       id: 3,
       category: "데이터베이스",
-      prompt: "데이터베이스 트랜잭션의 4대 특징(ACID) 중 '원자성(Atomicity)'의 개념에 대해 간략히 서술하시오.",
+      prompt: "데이터베이스 트랜잭션의 주요 특성(ACID) 중 '원자성(Atomicity)'의 개념에 대해 간략히 서술하시오.",
       answer: "트랜잭션에 포함된 모든 연산은 데이터베이스에 모두 반영(Commit)되거나 전혀 반영되지 않아야(Rollback) 한다.",
       aliases: [
         "트랜잭션에 포함된 모든 연산은 데이터베이스에 모두 반영(Commit)되거나 전혀 반영되지 않아야(Rollback) 한다.",

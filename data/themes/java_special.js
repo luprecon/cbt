@@ -1,11 +1,11 @@
 /**
- * [테마] Java 언어 기출 집중 15선 (상속, 다형성, 생성자, static, 람다, 예외)
- * 정보처리기사 실기 출제 빈도 최상위 Java 객체지향 킬러 문제 엄선
+ * [언어별] Java 기출 15문항 (상속, 다형성, 생성자, static, 람다, 예외)
+ * 정보처리기사 실기 Java 객체지향 주요 출제 유형
  */
 window.EXAM_ROUNDS = window.EXAM_ROUNDS || {};
 window.EXAM_ROUNDS["java_special"] = {
   id: "java_special",
-  title: "☕ [언어특화] Java 기출 집중 15선",
+  title: "[언어별] Java 기출 15문항",
   totalPoints: 100,
   cutoffPoints: 60,
   questions: [

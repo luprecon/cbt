@@ -1,10 +1,10 @@
 /**
- * [테마] SQL & DB 완전정복 15선 (GROUP BY, HAVING, JOIN, 윈도우함수, 정규화, 트랜잭션)
+ * [테마] SQL & 데이터베이스 15문항 (GROUP BY, HAVING, JOIN, 윈도우함수, 정규화, 트랜잭션)
  */
 window.EXAM_ROUNDS = window.EXAM_ROUNDS || {};
 window.EXAM_ROUNDS["sql_master"] = {
   id: "sql_master",
-  title: "💾 [테마] SQL & DB 완전정복 15선",
+  title: "[테마] SQL & 데이터베이스 15문항",
   totalPoints: 100,
   cutoffPoints: 60,
   questions: [
@@ -131,7 +131,7 @@ INNER JOIN B ON A.ID = B.ID;`,
       answer: "차집합",
       aliases: ["차집합", "Difference", "difference", "EXCEPT", "MINUS"],
       explanation: "차집합(Difference, R - S)은 R의 튜플 중 S와 겹치는 부분을 제거한 집합입니다.",
-      trapPoint: "합집합, 교집합, 차집합, 카티션 프로덕트 4대 일반 집합 연산자 중 차집합입니다."
+      trapPoint: "합집합, 교집합, 차집합, 카티션 프로덕트 일반 집합 연산자 중 차집합입니다."
     },
     {
       id: 11,

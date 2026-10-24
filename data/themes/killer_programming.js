@@ -1,10 +1,10 @@
 /**
- * [테마] 프로그래밍 킬러 20선 (C / Java / Python 단골 고난도 함정 엄선)
+ * [테마] 프로그래밍 코드 추적 20문항 (C / Java / Python 주요 출제 유형)
  */
 window.EXAM_ROUNDS = window.EXAM_ROUNDS || {};
 window.EXAM_ROUNDS["killer_programming"] = {
   id: "killer_programming",
-  title: "🔥 [테마] 프로그래밍 킬러 20선",
+  title: "[테마] 프로그래밍 코드 추적 20문항",
   totalPoints: 100,
   cutoffPoints: 60,
   questions: [

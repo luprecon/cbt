@@ -287,7 +287,7 @@ public class good {
       prompt: "사용자 인터페이스(UI) 설계 원칙 중 사용자가 별도의 사전 교육이나 학습 없이도 시스템의 기능을 직관적으로 쉽게 이해하고 쉽게 조작할 수 있어야 한다는 원칙의 명칭을 쓰시오.",
       answer: "직관성",
       aliases: ["직관성", "Intuitiveness", "intuitiveness"],
-      explanation: "UI 4대 원칙:\n- 직관성(Intuitiveness): 누구나 쉽게 이해하고 조작 가능\n- 유효성(Effectiveness): 사용자의 목적을 정확하고 완벽하게 달성\n- 학습성(Learnability): 누구나 쉽게 학습하고 기억\n- 유연성(Flexibility): 사용자의 요구사항을 최대한 수용",
+      explanation: "UI 기본 원칙:\n- 직관성(Intuitiveness): 누구나 쉽게 이해하고 조작 가능\n- 유효성(Effectiveness): 사용자의 목적을 정확하고 완벽하게 달성\n- 학습성(Learnability): 누구나 쉽게 학습하고 기억\n- 유연성(Flexibility): 사용자의 요구사항을 최대한 수용",
       trapPoint: "사전 지식 없이도 쉽게 이해하고 쓸 수 있어야 한다는 원칙은 '직관성'입니다."
     },
     {
@@ -315,7 +315,7 @@ public class good {
     {
       id: 18,
       category: "소프트웨어공학",
-      prompt: "기업 애플리케이션 통합(EAI)의 4대 구축 유형 중 빈칸 (1), (2)에 들어갈 유형을 각각 쓰시오.",
+      prompt: "기업 애플리케이션 통합(EAI)의 구축 유형 중 빈칸 (1), (2)에 들어갈 유형을 각각 쓰시오.",
       passage: `( 1 ) 가장 기초적인 연계 방식으로, 애플리케이션들을 1:1로 직접 연결하는 방식
 ( 2 ) 단일 접점인 중앙 허브 시스템을 두고 데이터를 전송하는 중앙 집중형 방식
 - Message Bus: 미들웨어(버스)를 두어 애플리케이션 간 대용량 메시지를 중계하는 방식
@@ -331,7 +331,7 @@ public class good {
         "포인트투포인트, 허브앤스포크",
         "Point-to-point, Hub & Spoke"
       ],
-      explanation: "EAI의 4대 토폴로지 모델:\n1. Point-to-point: 애플리케이션 간 1:1 직접 연결\n2. Hub & Spoke: 중앙의 단일 허브를 통한 중계\n3. Message Bus: 공통 버스를 통한 비동기 메시지 교환\n4. Hybrid: 허브 앤 스포크 + 메시지 버스 혼용",
+      explanation: "EAI 토폴로지 모델:\n1. Point-to-point: 애플리케이션 간 1:1 직접 연결\n2. Hub & Spoke: 중앙의 단일 허브를 통한 중계\n3. Message Bus: 공통 버스를 통한 비동기 메시지 교환\n4. Hybrid: 허브 앤 스포크 + 메시지 버스 혼용",
       trapPoint: "1:1 연결은 포인트 투 포인트, 중앙 허브 중계는 허브 앤 스포크입니다."
     },
     {
