@@ -161,6 +161,10 @@ header.top-header {
   background: #b91c1c;
 }
 
+.btn-file-load.btn-study-link:hover {
+  background: #1d4ed8 !important;
+}
+
 /* Retake Alert Banner */
 .retake-banner {
   background-color: #fff7ed;

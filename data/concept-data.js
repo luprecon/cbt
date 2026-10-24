@@ -1,0 +1,12979 @@
+/**
+ * 정보처리기사 실기 5대 단원 핵심 개념서 및 기출 해설총람 웹 뷰어 데이터셋
+ * 총 525문항 (21개 회차 420문항 + 6대 테마 105문항)
+ */
+window.CONCEPT_BOOK = {
+  metadata: {
+    generatedAt: "2026-10-24",
+    totalQuestions: 525,
+    unitCounts: {
+      1: 61,
+      2: 221,
+      3: 99,
+      4: 95,
+      5: 49
+    }
+  },
+  units: {
+  "1": {
+    "num": 1,
+    "title": "제1단원: 소프트웨어 공학 & 아키텍처 설계",
+    "shortTitle": "소프트웨어 공학 & 아키텍처",
+    "summary": "GoF 디자인 패턴 23종, 결합도/응집도 7단계, 객체지향 SOLID 5대 원칙, 아키텍처 스타일, EAI 및 인터페이스 연계 기술 완전 정복",
+    "markdown": "### 📌 1.1 소프트웨어 생명주기(SDLC) 및 개발 방법론\n- **폭포수(Waterfall) 모형**: 각 단계를 순차적으로 완료한 후 다음 단계로 진행. 고전적, 요구사항 변경 어려움.\n- **프로토타이핑(Prototyping) 모형**: 핵심 기능 프로토타입을 먼저 만들어 고객 피드백을 신속히 반영.\n- **나선형(Spiral) 모형**: 폭포수 + 프로토타이핑 + **위험 분석(Risk Analysis)**을 결합하여 점진적으로 구축.\n  - *4단계 반복 주기*: **계획 수립 ➔ 위험 분석 ➔ 개발 및 검증 ➔ 고객 평가**\n- **애자일(Agile) 모형**: 변화에 유연하게 대응하며 고객과의 소통과 작동하는 소프트웨어를 중시.\n  - *스크럼(Scrum)*: 2~4주의 반복 스프린트(Sprint), 제품 백로그(Product Backlog), 일일 스크럼(Daily Scrum), 스크럼 마스터, 소멸 차트(Burn-down Chart).\n  - *XP (eXtreme Programming)*: 5대 핵심 가치(**용기, 단순성, 의사소통, 피드백, 존중**), 12대 실천 항목(**TDD, 짝 프로그래밍, 지속적 통합(CI), 리팩토링, 소규모 릴리즈**).\n\n---\n\n### 📌 1.2 소프트웨어 프로젝트 관리 & 비용 산정 모형\n- **LoC(Line of Code) 모형**: 원시 코드 라인 수를 기준으로 개발 기간 및 비용 예측.\n> 📐 **공식 (PERT & LoC 비용 산정)**:\n> - **예측치 E = (a + 4m + b) / 6** (a: 낙관치, m: 최빈치/기대치, b: 비관치)\n> - **노력(Man-Month) = 총 LoC / (1인당 월간 생산 라인 수)**\n> - **개발 기간 = Man-Month / 투입 인원**\n- **COCOMO 모형 (Boehm)**: 프로젝트 규모(KDSI)에 따른 비용 산정.\n  - *조직형 (Organic)*: 5만 라인(50 KDSI) 이하의 중·소규모 소프트웨어.\n  - *반분리형 (Semi-Detached)*: 30만 라인(300 KDSI) 이하의 트랜잭션 처리 시스템.\n  - *임베디드형 (Embedded)*: 30만 라인 초과의 초대형 미션 크리티컬 시스템 (항공, 무기 등).\n- **기능 점수(FP - Function Point)**: 사용자 관점에서 소프트웨어 기능(데이터 기능: ILF, EIF / 트랜잭션 기능: EI, EO, EQ)에 가중치를 부여하여 규모 산정.\n- **일정 관리 (CPM & 간트 차트)**:\n  - *임계 경로 (Critical Path)*: 프로젝트의 시작부터 종료까지 가장 긴 시간이 걸리는 경로 (여유 시간이 0).\n\n---\n\n### 📌 1.3 요구사항 공학 & UML 다이어그램\n- **요구사항 2대 분류**:\n  - *기능적 요구사항*: 시스템이 실제로 무엇을 해야 하는가 (입출력, 비즈니스 로직, 데이터).\n  - *비기능적 요구사항*: 시스템의 품질 특성 (성능, 보안성, 가용성, 신뢰성, 상호운용성, 인터페이스).\n- **요구사항 개발 프로세스**: **도출(Elicitation) ➔ 분석(Analysis) ➔ 명세(Specification) ➔ 확인(Validation)**\n- **UML(Unified Modeling Language) 다이어그램 분류**:\n  - *구조적(정적) 다이어그램 (6종)*: 클래스(Class), 객체(Object), 컴포넌트(Component), 배치(Deployment), 복합체 구조(Composite Structure), 패키지(Package).\n  - *행위적(동적) 다이어그램 (7종)*: 유스케이스(Use Case), 시퀀스(Sequence), 커뮤니케이션(Communication), 상태(State Machine), 활동(Activity), 상호작용 개요(Interaction Overview), 타이밍(Timing).\n- **UML 관계(Relationships) 표현법**:\n  - *연관(Association)*: 실선 (양방향/단방향 참조).\n  - *집합(Aggregation)*: 전체-부분 관계, 독립적 생명주기 (**빈 마름모 ◇**).\n  - *포함/합성(Composition)*: 전체-부분 관계, 강력한 종속성 (**채워진 마름모 ◆**).\n  - *일반화(Generalization)*: 상속 관계 (**빈 삼각형 화살표 ▷**).\n  - *의존(Dependency)*: 일시적 참조 (**점선 화살표 ⤏**).\n  - *실체화(Realization)*: 인터페이스 구현 (**점선 빈 삼각형 화살표**).\n\n---\n\n### 📌 1.4 GoF 디자인 패턴 23종 완벽 요약\n> **시험 빈출 1순위 핵심 요약 표**\n\n| 분류 | 패턴명 | 핵심 정의 및 수험 암기 키워드 |\n| :--- | :--- | :--- |\n| **생성 (5종)** | **Singleton** | 전역에서 단 하나의 인스턴스만 생성하여 공유하는 패턴 |\n| | **Factory Method** | 객체 생성을 하위 서브클래스에 위임하여 캡슐화 |\n| | **Abstract Factory** | 연관된 객체들의 군(Family)을 생성하기 위한 상위 인터페이스 제공 |\n| | **Builder** | 복잡한 객체의 생성 과정과 표현 방법을 분리하여 단계별 조립 |\n| | **Prototype** | 원형이 되는 인스턴스를 복제(Clone)하여 객체를 생성 |\n| **구조 (7종)** | **Adapter** | 호환성이 없는 인터페이스를 다른 클래스가 요구하는 규격으로 변환 |\n| | **Bridge** | 구현부와 추상부를 분리하여 독립적으로 확장 가능하게 구성 |\n| | **Composite** | 단일 객체와 복합 객체를 동일하게 취급 (트리 구조 표현) |\n| | **Decorator** | 기존 객체를 포장(Wrapper)하여 동적으로 새로운 기능을 확장 추가 |\n| | **Facade** | 복잡한 서브시스템에 대해 단순화된 상위 단일 창구 인터페이스 제공 |\n| | **Flyweight** | 많은 수의 유사 객체를 생성할 때 메모리를 절약하기 위해 인스턴스 공유 |\n| | **Proxy** | 실제 객체에 대한 접근을 제어하거나 대리인 역할을 수행 |\n| **행위 (11종)** | **Observer** | 주체 객체의 상태 변화 시 등록된 모든 구독자에게 자동으로 통지 |\n| | **Strategy** | 동일 계열의 알고리즘을 캡슐화하여 런타임에 동적으로 교체 가능하게 함 |\n| | **Template Method**| 상위 클래스에서 알고리즘의 골격을 정의하고 하위 클래스에서 구체화 |\n| | **Command** | 실행할 연산/요청을 객체로 캡슐화하여 매개변수화 및 실행 취소 지원 |\n| | **Iterator** | 내부 구현 노출 없이 복합 객체의 원소들에 순차적으로 접근 |\n| | **Mediator** | 객체 간의 복잡한 상호작용을 중재자 객체에 집중시켜 결합도 완화 |\n| | **Memento** | 객체의 내부 상태를 저장하여 나중에 해당 시점으로 롤백(Undo) 지원 |\n| | **State** | 객체 내부의 상태에 따라 행위를 클래스화하여 상태 전이 처리 |\n| | **Visitor** | 객체 구조를 변경하지 않고 새로운 연산 기능을 외부에서 추가 |\n| | **Chain of Resp.**| 요청을 처리할 수 있는 기회를 여러 객체에 체인 형태로 전달 |\n| | **Interpreter** | 언어의 문법 규칙을 클래스로 표현하여 SQL/수식 등을 구문 분석 |\n\n---\n\n### 📌 1.5 모듈 결합도(Coupling) & 응집도(Cohesion)\n- **결합도 (Coupling)**: 모듈 간의 상호 의존 정도 (**낮을수록 우수**)\n  - *결합도 약함(우수) ➔ 강함(취약) 7단계*:\n  - **자료(Data) ➔ 스탬프(Stamp) ➔ 제어(Control) ➔ 외부(External) ➔ 공통(Common) ➔ 내용(Content)**\n  - *암기 공식*: **자 - 스 - 제 - 외 - 공 - 내**\n    - *자료 결합도*: 단순 값 파라미터만 전달.\n    - *스탬프 결합도*: 배열이나 레코드 등 복합 자료구조 전달.\n    - *제어 결합도*: 제어 신호(플래그)를 전달하여 다른 모듈의 로직을 통제.\n    - *외부 결합도*: 외부 통신 프로토콜, 환경 변수 공유.\n    - *공통 결합도*: 전역 변수(Global Variable) 공유 (참조/수정).\n    - *내용 결합도*: 다른 모듈 내부의 변수나 코드를 직접 침범하여 참조/수정 (최악).\n- **응집도 (Cohesion)**: 모듈 내부 구성 요소 간의 밀접 정도 (**높을수록 우수**)\n  - *응집도 강함(우수) ➔ 약함(취약) 7단계*:\n  - **기능적(Functional) ➔ 순차적(Sequential) ➔ 교환적/통신적(Communicational) ➔ 절차적(Procedural) ➔ 시간적(Temporal) ➔ 논리적(Logical) ➔ 우연적(Coincidental)**\n  - *암기 공식*: **기 - 순 - 교 - 절 - 시 - 논 - 우**\n    - *기능적 응집도*: 단일 목적의 완전한 단 하나의 기능만 수행.\n    - *순차적 응집도*: 한 작업의 출력이 다음 작업의 입력으로 직접 사용됨.\n    - *교환적(통신적) 응집도*: 동일한 입출력 데이터를 사용하여 서로 다른 기능 수행.\n    - *절차적 응집도*: 순차적으로 실행되는 여러 관련 기능을 모음.\n    - *시간적 응집도*: 특정 시간대(초기화, 종료 등)에 동시에 실행되는 기능들.\n    - *논리적 응집도*: 유사한 성격의 기능들을 한 곳에 모아둠.\n    - *우연적 응집도*: 아무 관련 없는 요소들이 우연히 한 모듈에 존재 (최악).\n- **Fan-in vs Fan-out**:\n  - *Fan-in*: 모듈을 호출하는 상위 모듈의 수 (들어오는 화살표 수).\n  - *Fan-out*: 모듈이 호출하는 하위 모듈의 수 (나가는 화살표 수).\n\n---\n\n### 📌 1.6 객체지향 설계 5대 원칙 (SOLID)\n1. **SRP (단일 책임 원칙)**: 클래스는 단 하나의 변경 이유와 책임만 가져야 함.\n2. **OCP (개방-폐쇄 원칙)**: 확장에 열려 있고 변경에는 닫혀 있어야 함 (인터페이스 활용).\n3. **LSP (리스코프 치환 원칙)**: 하위 클래스는 상위 클래스의 인스턴스를 완벽히 대체할 수 있어야 함.\n4. **ISP (인터페이스 분리 원칙)**: 사용하지 않는 인터페이스 메서드에 클라이언트가 의존하지 않아야 함.\n5. **DIP (의존 역전 원칙)**: 상위 모듈은 구체 클래스가 아닌 추상화(인터페이스)에 의존해야 함.\n\n---\n\n### 📌 1.7 EAI 구축 유형 & 인터페이스 연계 기술\n- **EAI(Enterprise Application Integration) 4대 구축 유형**:\n  - *Point-to-Point*: 1:1 직접 연결, 연계 개수가 늘어날수록 복잡도 급증 (N(N-1)/2).\n  - *Hub & Spoke*: 단일 중앙 허브를 통해 메시지 중계 (중앙 집중형, 허브 장애 시 전체 마비).\n  - *Message Bus*: 대용량 통합 버스(ESB 미들웨어)를 통해 미들웨어 연계 (확장성 최상).\n  - *Hybrid*: Hub & Spoke의 내부 그룹화 + Message Bus 간 연동 혼합.\n- **연계 데이터 포맷 & 통신 기술**:\n  - *JSON*: 경량의 텍스트 기반 Key-Value 데이터 교환 표준.\n  - *XML*: 확장 가능한 마크업 언어, W3C 표준.\n  - *AJAX*: 비동기 JavaScript와 XML을 이용한 페이지 무새로고침 부분 갱신 기술.\n  - *SOAP*: HTTP, HTTPS, SMTP를 통해 XML 기반 메시지를 교환하는 프로토콜 (WSDL, UDDI 연계).\n  - *REST*: HTTP 메서드(GET, POST, PUT, DELETE)와 URI를 활용하여 자원을 명시하는 아키텍처."
+  },
+  "2": {
+    "num": 2,
+    "title": "제2단원: 프로그래밍 언어 활용 (C / Java / Python)",
+    "shortTitle": "프로그래밍 언어 활용",
+    "summary": "C언어 포인터·배열·구조체·재귀, Java 상속·동적바인딩·static·인터페이스, Python 슬라이싱·자료구조·컴프리헨션 킬러 문항 집중",
+    "markdown": "### 📌 2.1 C언어 포인터 & 다차원 배열 & 메모리 조작\n- **포인터 기초 문법**:\n  - `int a = 10; int *p = &a;`\n  - `&a`: 변수 `a`의 메모리 주소값.\n  - `p`: 주소값을 저장하는 포인터 변수 (`p == &a`).\n  - `*p`: 포인터가 가리키는 메모리 주소의 실제 값 역참조 (`*p == 10`).\n- **포인터 연산자 우선순위 (초특급 함정 포인트!)**:\n  - `*p++`: 현재 `*p`의 값을 반환한 후, 포인터 주소 `p`를 다음 원소로 1 이동.\n  - `(*p)++`: `*p`가 가리키는 실제 정수값을 1 증가시킴.\n  - `*++p`: 포인터 주소 `p`를 먼저 다음 칸으로 이동한 후 그 위치의 값을 역참조.\n  - `++*p`: `*p`가 가리키는 실제 정수값을 먼저 1 증가시킨 후 그 값을 참조.\n- **1차원 배열과 포인터의 관계**:\n  - 배열 이름 `arr`은 배열의 시작 주소 `&arr[0]`과 동일.\n  - `arr + i == &arr[i]`\n  - `*(arr + i) == arr[i]`\n  - `*(p + 2)`는 2칸 뒤 원소의 값, `*p + 2`는 첫 원소 값에 정수 2를 더한 값.\n- **2차원 배열과 배열 포인터**:\n  - `int arr[2][3] = {{1, 2, 3}, {4, 5, 6}};`\n  - `int (*p)[3] = arr;` (열의 크기가 3인 1차원 배열을 가리키는 배열 포인터)\n  - `p + 1`은 1행(arr[1]) 전체를 건너뜀 (3 × 4 = 12바이트 이동).\n  - `*(p + 1) + 2`는 `&arr[1][2]`의 주소.\n  - `*(*(p + 1) + 2)`는 `arr[1][2]`의 실제 값인 `6`.\n- **C언어 표준 문자열 함수**:\n  - `strlen(s)`: 널 문자(`\\0`)를 제외한 순수 문자열 길이.\n  - `strcpy(dest, src)`: 문자열 복사.\n  - `strcat(dest, src)`: `dest` 뒤에 `src`를 이어붙임.\n  - `strcmp(s1, s2)`: 같으면 `0`, `s1 > s2`이면 양수, `s1 < s2`이면 음수 반환.\n- **구조체와 화살표 연산자**:\n  - `struct Data d = {10}; struct Data *p = &d;`\n  - `p->val`은 `(*p).val`과 100% 동일한 표현.\n\n---\n\n### 📌 2.2 Java 상속 & 다형성 & 동적 바인딩 & static\n- **생성자(Constructor) 호출 순서**:\n  - 자식 객체 `Child c = new Child();`를 생성하면:\n  - 1단계: 부모 생성자 `Parent()`가 묵시적 `super()` 호출에 의해 먼저 실행됨.\n  - 2단계: 그 후 자식 생성자 `Child()` 본문이 실행됨.\n- **오버라이딩(Overriding) vs 오버로딩(Overloading)**:\n  - *오버라이딩*: 부모의 메서드를 자식이 시그니처(이름, 매개변수, 반환형)를 동일하게 재정의 (동적 바인딩).\n  - *오버로딩*: 같은 클래스 내에서 메서드 이름은 같고 매개변수 타입/개수를 다르게 선언 (정적 바인딩).\n- **상속과 다형성 참조 규칙 (실기 킬러 1위!)**:\n  - `Parent obj = new Child();`\n  - **멤버 변수 접근 (`obj.x`)**: 참조 변수의 선언 타입인 **`Parent`의 변수**를 참조! (변수는 오버라이딩되지 않음).\n  - **멤버 메서드 호출 (`obj.show()`)**: 실제 인스턴스인 **`Child`의 오버라이딩된 메서드**가 동적으로 호출됨!\n- **`static` 키워드**:\n  - 인스턴스를 생성하지 않아도 클래스 로딩 시점에 단 한 번 메모리에 할당.\n  - 모든 인스턴스가 동일한 단 하나의 메모리 공간을 공유 (카운터, 싱글톤 등에 활용).\n- **예외 처리 흐름**:\n  - `try { 예외발생가능코드 } catch (Exception e) { 예외처리 } finally { 무조건실행 }`\n  - `finally` 블록은 `try` 내부에 `return` 문이 있어도 **반드시 실행된 후 반환**됨!\n\n---\n\n### 📌 2.3 Python 슬라이싱 & 컬렉션 자료구조\n- **음수 인덱스 & 슬라이싱 문법**: `arr[start:end:step]`\n  - 음수 인덱스는 뒤에서부터 `-1, -2, -3...`\n  - `arr[::-1]`: 배열 또는 문자열을 통째로 역순 반전.\n  - `arr[1:4]`: 인덱스 1부터 3까지 (끝 인덱스 4는 미포함).\n  - `arr[-3:]`: 뒤에서 3번째 원소부터 끝까지.\n- **컬렉션 핵심 특징**:\n  - *리스트 `[ ]`*: 순서 있음, 원소 수정 가능(Mutable).\n  - *튜플 `( )`*: 순서 있음, 원소 수정 불가능(Immutable, 읽기 전용).\n  - *세트 `{ }`*: 중복 자동 제거, 순서 없음 (합집합 `|`, 교집합 `&`, 차집합 `-`).\n  - *딕셔너리 `{k: v}`*: Key-Value 쌍, `d.get(k, default)`는 키가 없어도 예외 없이 기본값 반환.\n- **리스트 컴프리헨션 (List Comprehension)**:\n  - `[x * 2 for x in arr if x % 2 == 0]` ➔ 짝수만 골라 2배한 새 리스트 생성.\n- **람다식(Lambda)**:\n  - `add = lambda a, b: a + b`\n  - `list(map(lambda x: x + 1, [1, 2, 3])) == [2, 3, 4]`\n  - `list(filter(lambda x: x > 2, [1, 2, 3])) == [3]`"
+  },
+  "3": {
+    "num": 3,
+    "title": "제3단원: 데이터베이스 & SQL 완전정복",
+    "shortTitle": "데이터베이스 & SQL",
+    "summary": "정규화 6단계(도부이결다조), 관계대수, DDL/DML/DCL, 집계·조인·서브쿼리·윈도우 함수, 트랜잭션 ACID 및 회복·병행제어",
+    "markdown": "### 📌 3.1 관계형 데이터베이스 모델 & 키(Key) & 무결성\n- **릴레이션의 기본 용어**:\n  - *튜플(Tuple)*: 릴레이션의 각 행(Row, 레코드).\n  - *애트리뷰트(Attribute)*: 릴레이션의 각 열(Column, 속성).\n  - *도메인(Domain)*: 하나의 애트리뷰트가 취할 수 있는 원자값들의 집합.\n  - *차수(Degree)*: 릴레이션의 **속성(열)의 개수**.\n  - *카디널리티(Cardinality)*: 릴레이션의 **튜플(행)의 개수**.\n- **키(Key)의 5가지 분류**:\n  - *슈퍼키(Super Key)*: 유일성(O), 최소성(X).\n  - *후보키(Candidate Key)*: 유일성(O), 최소성(O)을 모두 만족하는 속성 집합.\n  - *기본키(Primary Key)*: 후보키 중 선정된 주 키 (Not Null + Unique).\n  - *대체키(Alternate Key)*: 기본키로 선택되지 못한 나머지 후보키.\n  - *외래키(Foreign Key)*: 참조 릴레이션의 기본키를 참조하는 속성.\n- **무결성(Integrity) 4대 제약조건**:\n  - *개체 무결성(Entity Integrity)*: 기본키는 Null이나 중복값을 가질 수 없음.\n  - *참조 무결성(Referential Integrity)*: 외래키 값은 참조하는 기본키 값과 일치하거나 Null이어야 함.\n    - 참조 무결성 옵션: `CASCADE`(연쇄 삭제/수정), `RESTRICT`(참조 중 삭제 거절), `SET NULL`(Null로 설정).\n  - *도메인 무결성*: 속성값은 정의된 도메인의 범위(타입, 허용값)를 만족해야 함.\n\n---\n\n### 📌 3.2 관계대수 (Relational Algebra) 연산자\n- **순수 관계 연산자 (4종)**:\n  - *Select (σ, 시그마)*: 조건에 맞는 튜플(행)을 수평으로 분리.\n  - *Project (π, 파이)*: 원하는 속성(열)을 수직으로 추출.\n  - *Join (⋈, 조인)*: 공통 속성을 기준으로 두 릴레이션을 결합.\n  - *Division (÷, 디비전)*: 릴레이션 R에서 S의 모든 조건을 만족하는 튜플 분리.\n- **일반 집합 연산자 (4종)**:\n  - 합집합(∪), 교집합(∩), 차집합(-), 카티션 프로덕트(×).\n> 📐 **공식 (카티션 프로덕트 차수 & 카디널리티)**:\n> - **합성 차수 = 차수₁ + 차수₂**\n> - **합성 카디널리티 = 카디널리티₁ × 카디널리티₂**\n\n---\n\n### 📌 3.3 정규화(Normalization) 6단계 & 이상현상\n- **이상 현상 (Anomaly)**: 테이블 설계 부실로 인한 삽입 이상, 갱신 이상, 삭제 이상.\n- **정규화 6단계 공식 (초필살 두문자: 도 - 부 - 이 - 결 - 다 - 조)**:\n\n| 정규형 | 정규화 조건 및 제거 대상 | 수험 핵심 암기 포인트 |\n| :--- | :--- | :--- |\n| **비정규형 ➔ 1NF** | **원자값(Atomic Value)**으로 구성 | 반복 그룹 및 다중값 제거 |\n| **1NF ➔ 2NF** | **부분 함수 종속성 제거** | 복합 기본키의 일부분에 종속되는 속성 분리 (완전 함수 종속) |\n| **2NF ➔ 3NF** | **이행적 함수 종속성 제거** | A ➔ B 이고 B ➔ C 일 때 A ➔ C 분리 |\n| **3NF ➔ BCNF** | **모든 결정자가 후보키** | 결정자이면서 후보키가 아닌 것 분리 |\n| **BCNF ➔ 4NF** | **다치 종속성(MVD) 제거** | 다치 종속 관계 독립 릴레이션으로 분리 |\n| **4NF ➔ 5NF** | **조인 종속성(JD) 제거** | 후보키를 통하지 않는 조인 종속 제거 |\n\n- **반정규화(De-normalization)**: 성능 향상, 쿼리 단순화를 위해 정규화 원칙을 의도적으로 위배 (테이블 병합/분할, 중복 컬럼 추가).\n\n---\n\n### 📌 3.4 SQL 표준 작성법 (DDL / DML / DCL / TCL)\n- **DDL (데이터 정의어)**:\n  - `CREATE TABLE 학생 (학번 CHAR(8) PRIMARY KEY, 이름 VARCHAR(20) NOT NULL, 지도교수 VARCHAR(20), FOREIGN KEY (지도교수) REFERENCES 교수(교수ID) ON DELETE CASCADE);`\n  - `ALTER TABLE 학생 ADD (연락처 VARCHAR(15));`\n  - `DROP TABLE 학생 CASCADE;`\n- **DML (데이터 조작어)**:\n  - `INSERT INTO 학생 (학번, 이름) VALUES ('2026001', '홍길동');`\n  - `UPDATE 학생 SET 이름 = '김철수' WHERE 학번 = '2026001';`\n  - `DELETE FROM 학생 WHERE 학번 = '2026001';`\n  - `SELECT 부서, AVG(급여) AS 평균급여 FROM 직원 WHERE 재직상태 = '재직' GROUP BY 부서 HAVING AVG(급여) >= 4000 ORDER BY 평균급여 DESC;`\n- **윈도우 함수 (순위 매기기)**:\n  - `ROW_NUMBER()`: 무조건 고유 순위 부여 (1, 2, 3, 4)\n  - `RANK()`: 동순위 발생 시 다음 순위 건너뜀 (1, 2, 2, 4)\n  - `DENSE_RANK()`: 동순위 발생 시 다음 순위 연속 부여 (1, 2, 2, 3)\n- **DCL & TCL (제어어)**:\n  - `GRANT SELECT, INSERT ON 학생 TO user1 WITH GRANT OPTION;`\n  - `REVOKE INSERT ON 학생 FROM user1 CASCADE;`\n  - `COMMIT;` (영구 반영), `ROLLBACK;` (취소 롤백).\n\n---\n\n### 📌 3.5 트랜잭션 ACID 4대 특성 & 회복 & 뷰(VIEW)\n- **트랜잭션 ACID 4대 특성**:\n  - **원자성 (Atomicity)**: All or Nothing. 모두 반영되거나 전혀 반영되지 않아야 함.\n  - **일관성 (Consistency)**: 트랜잭션 수행 완료 후에도 DB 무결성 제약조건 유지.\n  - **격리성/고립성 (Isolation)**: 동시 수행 중인 트랜잭션끼리 서로 연산 중간 결과를 간섭할 수 없음.\n  - **지속성/영속성 (Durability)**: 성공적으로 완료된 트랜잭션의 결과는 영구 보존됨.\n- **병행 제어 미보장 시 문제점**: 갱신 분실(Lost Update), 모순성(Inconsistency), 연쇄 복귀(Cascading Rollback), 비완료 의존성.\n- **회복 기법**: REDO(재실행), UNDO(취소), WAL(Write-Ahead Logging), 체크포인트(검사점) 회복.\n- **뷰(VIEW)**: 가상 테이블. 보안성 향상, 쿼리 단순화. 독자적인 물리적 인덱스 소유 불가."
+  },
+  "4": {
+    "num": 4,
+    "title": "제4단원: 네트워크 & 정보 보안 구축",
+    "shortTitle": "네트워크 & 정보 보안",
+    "summary": "OSI 7계층 vs TCP/IP, IPv4 서브넷 마스킹 계산 공식, 라우팅(OSPF/RIP), 대칭키 vs 공개키 암호화, 네트워크 공격 기법 및 보안 솔루션",
+    "markdown": "### 📌 4.1 OSI 7계층 vs TCP/IP 4계층 프로토콜\n- **OSI 7계층 구조와 프로토콜**:\n  - *7계층 응용(Application)*: HTTP, FTP, SMTP, DNS, DHCP (데이터 단위: Data)\n  - *6계층 표현(Presentation)*: JPEG, MPEG, ASCII, 암호화, 데이터 압축 (단위: Data)\n  - *5계층 세션(Session)*: RPC, NetBIOS, 동기점 관리 (단위: Data)\n  - *4계층 전송(Transport)*: TCP, UDP, 포트 번호 기반 전달 (단위: **Segment**)\n  - *3계층 네트워크(Network)*: IP, ICMP, IGMP, ARP, RARP, 라우터 (단위: **Packet**)\n  - *2계층 데이터링크(Data Link)*: 이더넷, MAC 주소, 스위치, 브리지 (단위: **Frame**)\n  - *1계층 물리(Physical)*: 케이블, 허브, 리피터, 비트 신호 (단위: **Bit**)\n- **TCP vs UDP 비교**:\n  - *TCP*: 연결 지향, 가상 회선, 신뢰성 보장, 흐름제어(슬라이딩 윈도우), 혼잡제어.\n    - 연결 수립: **3-way Handshake** (`SYN` ➔ `SYN + ACK` ➔ `ACK`)\n    - 연결 종료: **4-way Handshake** (`FIN` ➔ `ACK` ➔ `FIN` ➔ `ACK`)\n  - *UDP*: 비연결 지향, 데이터그램, 신뢰성 없음, 속도 빠름, 오버헤드 적음 (헤더 8바이트 고정), 실시간 스트리밍/DNS.\n\n---\n\n### 📌 4.2 IPv4 서브넷 마스킹 계산 공식 (빈출 1위!)\n> 📐 **공식 (IPv4 서브넷 호스트 수 계산)**:\n> - **전체 IP 개수 = 2ʰ** (h = 32 - 프리픽스 비트 수)\n> - **가용 호스트 IP 개수 = 2ʰ - 2** (네트워크 ID 1개 + 브로드캐스트 주소 1개 제외)\n\n1. **서브넷 마스크 비트 수 확인**:\n   - 예: `192.168.1.0/26` ➔ 서브넷 마스크 프리픽스가 `/26`\n   - 상위 26비트가 `1`이고, 하위 32 - 26 = 6비트가 호스트 비트.\n   - 서브넷 마스크: `255.255.255.192` (128 + 64 = 192)\n2. **서브넷당 전체 IP 수 계산**:\n   - 호스트 비트 수가 h일 때, 전체 IP 개수 = **2ʰ = 2⁶ = 64개**.\n   - 서브넷 블록 구간: `0~63`, `64~127`, `128~191`, `192~255`\n3. **실제 할당 가능한 호스트 IP 수 계산 (필수 제외 2개!)**:\n   - **2⁶ - 2 = 64 - 2 = 62개**.\n   - 첫 번째 IP는 **네트워크 ID** (예: `192.168.1.0`)\n   - 마지막 IP는 **브로드캐스트 주소** (예: `192.168.1.63`)\n   - 사용 가능한 호스트 IP 범위: `192.168.1.1` ~ `192.168.1.62`\n\n---\n\n### 📌 4.3 라우팅 프로토콜 (IGP vs EGP)\n- **내부 게이트웨이 프로토콜 (IGP)**:\n  - *RIP*: 거리 벡터(Bellman-Ford) 알고리즘. 최적 경로 척도로 **홉 수(Hop Count, 최대 15)** 사용. 30초마다 전체 라우팅 정보 브로드캐스팅. 소규모 망에 적합.\n  - *OSPF*: 링크 상태(Dijkstra 다익스트라 SPF) 알고리즘. 홉 수 제한 없음. 네트워크 상태 변화 시에만 플러딩. 대규모 기업 네트워크에 최적화.\n- **외부 게이트웨이 프로토콜 (EGP)**:\n  - *BGP*: 경로 벡터 알고리즘. 서로 다른 자치 시스템(AS) 간 라우팅. 루프 방지 메커니즘 제공.\n\n---\n\n### 📌 4.4 암호 알고리즘 총정리 (대칭키 vs 공개키 vs 해시)\n- **대칭키 (비밀키) 암호**:\n  - 암호화 키 = 복호화 키. 암복호화 속도 빠름. 키 배송 및 관리 부담 (N(N-1)/2).\n  - *블록 암호*: **DES** (64비트 블록, 56비트 키), **AES** (128비트 블록, 128/192/256 키), **SEED** (128비트, 한국 KISA), **ARIA** (128/192/256, 한국 국가보안기술연구소).\n  - *스트림 암호*: **RC4**.\n- **비대칭키 (공개키) 암호**:\n  - 공개키(Public Key)로 암호화하고 개인키(Private Key)로 복호화. 키 분배 용이, 키 개수 2N개로 절감. 계산 속도 느림.\n  - *소인수분해 기반*: **RSA**.\n  - *이산대수 기반*: **Diffie-Hellman** (최초의 비밀키 교환 프로토콜), **DSA**.\n  - *타원곡선 기반*: **ECC** (짧은 키 길이로 높은 보안 강도 제공).\n- **일방향 해시 함수**:\n  - 임의 길이 메시지를 고정 길이 다이제스트로 변환. 복호화 불가능 (무결성 검증, 전자서명).\n  - **SHA-256** (256비트 출력), **MD5** (128비트 출력, 충돌 취약).\n\n---\n\n### 📌 4.5 네트워크 공격 기법 & 보안 솔루션\n- **서비스 거부 공격 (DoS / DDoS)**:\n  - *SYN Flooding*: 대량의 TCP SYN 요청을 보낸 뒤 ACK를 보내지 않아 서버의 대기 큐(Backlog Queue)를 고갈시킴.\n  - *Smurf*: 출발지 IP를 희생자 IP로 위조(스푸핑)하여 네트워크 브로드캐스트 주소로 ICMP Echo Request를 전송, 다수의 호스트가 희생자에게 일제히 응답하게 만듦.\n  - *Land Attack*: 패킷의 송신자 IP와 수신자 IP를 희생자 IP로 동일하게 위조하여 자기 자신과 무한 루프 응답을 유발.\n  - *Ping of Death*: 허용 규격보다 큰 대용량 ICMP 패킷을 단편화 전송하여 재조합 시 시스템 다운 유발.\n- **웹 취약점 및 응용 계층 공격**:\n  - *SQL 인젝션*: 입력값 검증 부재를 틈타 악의적인 SQL 구문을 삽입하여 DB 비인가 접근.\n  - *XSS (크로스 사이트 스크립팅)*: 웹 페이지에 악성 자바스크립트를 삽입하여 희생자의 세션 쿠키를 탈취.\n  - *CSRF*: 희생자가 로그인된 신뢰 상태를 도용하여 희생자 모르게 서버에 변조 요청을 전송하게 유도.\n- **보안 솔루션 7선**:\n  - **방화벽(Firewall)**: IP/Port 기반 네트워크 패킷 인바운드/아웃바운드 필터링.\n  - **IDS (침입 탐지 시스템)**: 비인가 침입 실시간 모니터링 및 경고 (오용 탐지-패턴매칭 vs 이상 탐지-통계).\n  - **IPS (침입 방지 시스템)**: 침입 탐지 즉시 해당 악성 패킷을 능동적으로 차단.\n  - **WAF (웹 방화벽)**: SQL 인젝션, XSS 등 7계층 웹 공격 전용 차단.\n  - **VPN (가상 사설망)**: 공중망을 사설 전용망처럼 안전하게 암호화 터널링 (IPSec, SSL).\n  - **NAC (네트워크 접근 제어)**: 내부망 접속 단말의 무결성 점검 및 접근 권한 통제.\n  - **DLP (데이터 유출 방지)**: 사내 기밀 정보가 외부로 무단 반출되는 것을 감시 및 차단."
+  },
+  "5": {
+    "num": 5,
+    "title": "제5단원: 소프트웨어 테스팅 & 운영체제 관리",
+    "shortTitle": "소프트웨어 테스팅 & 운영체제",
+    "summary": "살충제 패러독스, 화이트박스 커버리지 및 맥케이브 순환복잡도 V(G), 블랙박스 기법, V-모델, CPU 스케줄링(HRN/RR), 데드록 4대 조건, 형상관리(SCM)",
+    "markdown": "### 📌 5.1 소프트웨어 테스팅 7대 기본 원칙\n1. **살충제 패러독스 (Pesticide Paradox)**: 동일한 테스트 케이스로 반복 테스트하면 더 이상 새로운 결함을 발견할 수 없음 (주기적 TC 리뷰 및 신규 케이스 추가 필수).\n2. **결함 집중 (Defect Clustering)**: 소프트웨어 결함의 대부분(80%)은 소수의 특정 복잡한 모듈(20%)에 집중됨 (파레토의 법칙).\n3. **테스팅은 결함이 존재함을 보이는 것**: 결함을 찾아낼 수는 있으나, 소프트웨어에 결함이 없음을 증명할 수는 없음.\n4. **완벽한 테스팅은 불가능 (Exhaustive Testing is impossible)**: 모든 입력과 조건 조합을 100% 테스트하는 것은 불가능하므로 위험도 기반 우선순위 설정.\n5. **조기 테스팅 (Early Testing)**: 개발 초기 단계(요구사항 분석)부터 테스팅을 시작해야 결함 수정 비용(SDLC 후반 급증)을 최소화할 수 있음.\n6. **정황 의존성 (Context Dependency)**: 도메인과 상황(금융, 의료, 임베디드, 게임)에 따라 테스팅 접근법이 달라져야 함.\n7. **오류-부재의 궤변 (Absence-of-Errors Fallacy)**: 사용자의 요구사항을 충족시키지 못하거나 유용성이 없는 소프트웨어는 결함이 없어도 쓸모없음.\n\n---\n\n### 📌 5.2 화이트박스 vs 블랙박스 테스팅 & 맥케이브 순환복잡도\n- **화이트박스 테스팅 (구조 기반)**: 소스 코드 내부 논리 제어 구조를 보면서 검증.\n  - *구문(문장) 커버리지*: 소스 코드의 모든 실행 가능한 문장이 최소 1번 이상 실행.\n  - *결정(분기) 커버리지*: 모든 조건식의 전체 분기 결과가 참(True)과 거짓(False)을 최소 1번씩 수행.\n  - *조건 커버리지*: 조건문 내부의 개별 단일 조건식이 참과 거짓을 각각 최소 1번씩 수행.\n  - *조건/결정 커버리지*: 개별 조건식과 전체 결정문 모두 참/거짓을 수행.\n- **맥케이브(McCabe) 순환 복잡도 계산 공식**:\n> 📐 **공식 (McCabe 순환 복잡도)**:\n> - **V(G) = E - N + 2** (E: 화살표 간선 수, N: 노드 원형 수)\n> - **V(G) = P + 1** (P: 판정 노드의 개수 = 조건 분기점의 개수)\n- **블랙박스 테스팅 (명세 기반)**: 코드 내부를 보지 않고 입력값에 따른 출력 결과 검증.\n  - *동등(동치) 분할 (Equivalence Partitioning)*: 입력 도메인을 유효값과 무효값 그룹으로 분할하여 대표값 선택.\n  - *경계값 분석 (Boundary Value Analysis)*: 유효 분할의 경계선(n-1, n, n+1)에서 결함 발생 확률이 가장 높다는 점에 착안.\n  - *원인-결과 그래프, 의사결정 테이블, 오류 예측, 페어와이즈(Pairwise)*.\n\n---\n\n### 📌 5.3 V-모델과 테스트 레벨\n- **단위 테스트 (Unit)** ⟷ 모듈 상세 설계 검증.\n- **통합 테스트 (Integration)** ⟷ 소프트웨어 아키텍처 및 모듈 간 인터페이스 검증.\n  - *하향식 통합 (Top-Down)*: 상위 모듈에서 하위로. 하위 더미 모듈인 **스텁(Stub)** 필요.\n  - *상향식 통합 (Bottom-Up)*: 하위 모듈에서 상위로. 상위 제어 모듈인 **드라이버(Driver)** 필요.\n- **시스템 테스트 (System)** ⟷ 시스템 요구사항 명세 검증 (기능적/비기능적 성능).\n- **인수 테스트 (Acceptance)** ⟷ 사용자 요구사항 검증.\n  - *알파 테스트*: 개발자 환경에서 사용자가 개발자 참관 하에 수행.\n  - *베타 테스트*: 실제 사용자 환경에서 다수의 최종 사용자가 자유롭게 수행.\n\n---\n\n### 📌 5.4 프로세스 상태 전이 & CPU 스케줄링\n- **프로세스 상태 전이도**:\n  - *생성(Create) ➔ 준비(Ready) ⟷ 실행(Running) ➔ 대기(Block) ➔ 종료(Terminated)*\n  - *디스패치 (Dispatch)*: 준비 큐의 맨 앞 프로세스를 실행 상태로 전환 (`Ready` ➔ `Running`).\n  - *타임아웃 (Timeout)*: 할당된 CPU 시간(Time Slice) 만료 (`Running` ➔ `Ready`).\n  - *블록 (Block/Wait)*: I/O 요청 등으로 입출력 완료 대기 (`Running` ➔ `Waiting`).\n  - *웨이크업 (Wakeup)*: I/O 완료 시 준비 큐로 복귀 (`Waiting` ➔ `Ready`).\n- **CPU 스케줄링 알고리즘**:\n  - **비선점형 (Non-Preemptive)**:\n    - *FCFS*: 선착순 실행 (호위 효과 Convoy Effect 발생 위험).\n    - *SJF*: 실행 시간이 가장 짧은 프로세스 우선 실행 (긴 작업의 기아 현상 Starvation 가능).\n    - *HRN (Highest Response Ratio Next)*: SJF의 기아 현상을 방지하기 위해 대기 시간을 반영.\n> 📐 **공식 (HRN 스케줄링 우선순위)**:\n> - **우선순위 값 = (대기 시간 + 서비스 시간) / 서비스 시간** (계산 결과값이 클수록 우선순위 1위!)\n  - **선점형 (Preemptive)**:\n    - *Round Robin (RR)*: 동일한 시간 할당량(Time Quantum)씩 순환 실행.\n    - *SRT (Shortest Remaining Time)*: 남은 실행 시간이 가장 짧은 프로세스에게 CPU 강제 할당.\n\n---\n\n### 📌 5.5 교착상태 (Deadlock) 4대 조건 & 해결 기법\n- **교착상태 발생 4대 필요조건 (동시 만족 시 발생)**:\n  1. **상호 배제 (Mutual Exclusion)**: 한 번에 한 프로세스만 자원을 점유.\n  2. **점유와 대기 (Hold and Wait)**: 자원을 보유한 채 다른 자원을 대기.\n  3. **비선점 (No Preemption)**: 다른 프로세스의 자원을 강제로 빼앗을 수 없음.\n  4. **환형 대기 (Circular Wait)**: 대기 프로세스들이 원형으로 서로 자원을 대기.\n- **교착상태 해결 4대 기법**:\n  - *예방 (Prevention)*: 4대 조건 중 하나를 사전에 원천 부정 (자원 낭비 심함).\n  - *회피 (Avoidance)*: 은행가 알고리즘 (Dijkstra Banker's Algorithm) - 항상 안전 상태(Safe State) 유지.\n  - *탐지 (Detection)*: 자원 할당 그래프(RAG)를 주기적으로 분석하여 데드록 발견.\n  - *회복 (Recovery)*: 데드록 프로세스 강제 종료 또는 자원 선점 롤백.\n\n---\n\n### 📌 5.6 가상 기억장치 & 페이지 교체 & 형상 관리 (SCM)\n- **페이징(Paging, 고정 크기, 내부 단편화)** vs **세그멘테이션(Segmentation, 가변 크기, 외부 단편화)**.\n- **페이지 교체 알고리즘**:\n  - *FIFO*: 가장 먼저 적재된 페이지 교체.\n  - *LRU (Least Recently Used)*: 가장 오랫동안 참조되지 않은 페이지 교체.\n  - *LFU (Least Frequently Used)*: 참조 횟수가 가장 적은 페이지 교체.\n  - *NUR (Not Used Recently)*: 최근 미사용 페이지 교체 (참조 비트, 변형 비트 활용).\n  - *OPT (Optimal, Belady)*: 앞으로 가장 오랫동안 사용되지 않을 페이지 교체 (이론적 최적).\n- **국부성(Locality) & 쓰레싱(Thrashing)**:\n  - *시간 국부성*: 최근 참조된 메모리가 곧 다시 참조됨 (반복문, 스택).\n  - *공간 국부성*: 참조된 메모리의 인접 영역이 참조됨 (배열, 순차 코드).\n  - *쓰레싱 (Thrashing)*: 페이지 부재(Page Fault)가 너무 자주 발생하여 CPU가 실제 프로세스 연산보다 페이지 교체에 더 많은 시간을 소모하는 성능 급감 현상.\n- **소프트웨어 형상 관리 (SCM - Software Configuration Management)**:\n  - 4대 활동: **형상 식별 ➔ 형상 통제(CCB 통제 위원회) ➔ 형상 감사 ➔ 형상 기록/보고**\n  - 형상 관리 도구: Git, SVN, CVS."
+  }
+},
+  questions: [
+  {
+    "uid": "2026_1_1",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[5] = {10, 20, 30, 40, 50};\n    int *p = arr + 1;\n    int sum = 0;\n    \n    for (int i = 0; i < 3; i++) {\n        sum += *(p + i);\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "90",
+    "aliases": [
+      "90"
+    ],
+    "explanation": "arr 배열의 시작 주소에서 arr + 1은 arr[1]의 주소(&arr[1])를 가리킵니다.\np는 arr[1](20)을 가리키므로, 루프에서 i=0일 때 *(p+0) = 20, i=1일 때 *(p+1) = 30, i=2일 때 *(p+2) = 40이 됩니다.\n따라서 sum = 20 + 30 + 40 = 90 입니다.",
+    "trapPoint": "p가 arr[0]이 아니라 arr+1(즉 arr[1]=20)부터 시작한다는 점을 놓치면 10+20+30=60으로 오답을 내기 쉽습니다.",
+    "traceTable": {
+      "headers": [
+        "반복 (i)",
+        "포인터 표현식",
+        "가리키는 값",
+        "sum 누적"
+      ],
+      "rows": [
+        [
+          "초기상태",
+          "p = arr + 1",
+          "arr[1] (20)",
+          "0"
+        ],
+        [
+          "i = 0",
+          "*(p + 0)",
+          "20",
+          "20"
+        ],
+        [
+          "i = 1",
+          "*(p + 1)",
+          "30",
+          "50"
+        ],
+        [
+          "i = 2",
+          "*(p + 2)",
+          "40",
+          "90"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_1_2",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    int x = 10;\n    Parent() {\n        System.out.print(\"P\");\n    }\n    void show() {\n        System.out.print(x);\n    }\n}\n\nclass Child extends Parent {\n    int x = 20;\n    Child() {\n        System.out.print(\"C\");\n    }\n    void show() {\n        System.out.print(x);\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Parent obj = new Child();\n        obj.show();\n    }\n}",
+    "answer": "PC20",
+    "aliases": [
+      "PC20",
+      "PC 20"
+    ],
+    "explanation": "1. new Child() 호출 시 부모 클래스 Parent의 생성자가 먼저 실행되어 'P'가 출력됩니다.\n2. 이후 Child 생성자가 실행되어 'C'가 출력됩니다.\n3. obj.show()는 부모 타입 Parent obj 참조 변수이지만, 자식 객체 Child에서 오버라이딩된 show() 메서드가 동적 바인딩(다형성)되어 호출됩니다.\n4. 따라서 Child의 show()가 실행되어 Child의 인스턴스 변수 x인 20이 출력됩니다.\n최종 출력: PC20",
+    "trapPoint": "자바의 인스턴스 메서드는 동적 바인딩되므로 부모 타입 변수로 참조하더라도 자식의 오버라이딩 메서드가 실행됩니다. 또한 자식 생성자 호출 전 부모 생성자가 먼저 실행됩니다.",
+    "traceTable": {
+      "headers": [
+        "실행 순서",
+        "실행 코드",
+        "출력 내용",
+        "누적 출력"
+      ],
+      "rows": [
+        [
+          "1단계",
+          "super() (Parent 생성자)",
+          "P",
+          "P"
+        ],
+        [
+          "2단계",
+          "Child() 생성자",
+          "C",
+          "PC"
+        ],
+        [
+          "3단계",
+          "obj.show() (오버라이딩 메서드)",
+          "20",
+          "PC20"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_1_3",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 슬라이싱 연산",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "data = [1, 2, 3, 4, 5, 6, 7, 8, 9]\nresult = [x * 2 for x in data if x % 3 == 0]\nprint(result[::-1])",
+    "answer": "[18, 12, 6]",
+    "aliases": [
+      "[18, 12, 6]",
+      "[18,12,6]",
+      "18, 12, 6",
+      "18 12 6"
+    ],
+    "explanation": "1. 리스트 컴프리헨션: data의 원소 중 3의 배수(x % 3 == 0)인 원소는 3, 6, 9입니다.\n2. 각각 x * 2를 수행하므로 result는 [6, 12, 18]이 됩니다.\n3. [::-1] 슬라이싱은 리스트를 역순으로 뒤집으므로 [18, 12, 6]이 출력됩니다.",
+    "trapPoint": "파이썬의 리스트 출력 시 대괄호 []와 콤마 구분자 형태를 유지해야 합니다. 슬라이싱 [::-1]이 역순 정렬임을 확인하세요.",
+    "traceTable": {
+      "headers": [
+        "x 값",
+        "3의 배수 조건 (x%3==0)",
+        "x * 2",
+        "result 리스트 상태"
+      ],
+      "rows": [
+        [
+          "3",
+          "참(True)",
+          "6",
+          "[6]"
+        ],
+        [
+          "6",
+          "참(True)",
+          "12",
+          "[6, 12]"
+        ],
+        [
+          "9",
+          "참(True)",
+          "18",
+          "[6, 12, 18]"
+        ],
+        [
+          "출력",
+          "result[::-1]",
+          "역순",
+          "[18, 12, 6]"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_1_4",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint f(int n) {\n    if (n <= 1) return 1;\n    return n * f(n - 1);\n}\n\nint main() {\n    int res = f(4) + f(3);\n    printf(\"%d\", res);\n    return 0;\n}",
+    "answer": "30",
+    "aliases": [
+      "30"
+    ],
+    "explanation": "f(n)은 팩토리얼(n!)을 계산하는 재귀함수입니다.\nf(4) = 4 * 3 * 2 * 1 = 24\nf(3) = 3 * 2 * 1 = 6\n따라서 res = 24 + 6 = 30 입니다.",
+    "trapPoint": "재귀함수 호출 시 종료 조건(n <= 1)에 도달할 때까지 스택 호출을 전개해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "함수 호출",
+        "전개 식",
+        "계산값"
+      ],
+      "rows": [
+        [
+          "f(4)",
+          "4 * f(3) = 4 * 6",
+          "24"
+        ],
+        [
+          "f(3)",
+          "3 * f(2) = 3 * 2",
+          "6"
+        ],
+        [
+          "f(2)",
+          "2 * f(1) = 2 * 1",
+          "2"
+        ],
+        [
+          "f(1)",
+          "종료조건 (n<=1)",
+          "1"
+        ],
+        [
+          "합계",
+          "f(4) + f(3) = 24 + 6",
+          "30"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_1_5",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 5,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 [학생] 테이블에서 학과별 학생 수가 2명 이상인 학과명과 해당 학생 수를 구하는 SQL문을 작성하고자 한다. 빈칸 (1), (2)에 들어갈 올바른 키워드를 작성하시오.",
+    "passage": "[학생 테이블]\n| 학번 | 이름 | 학과 | 점수 |\n| 101 | 김철수 | 컴퓨터공학 | 85 |\n| 102 | 이영희 | 컴퓨터공학 | 92 |\n| 103 | 박민수 | 전자공학 | 78 |\n| 104 | 최유리 | 전자공학 | 88 |\n| 105 | 정재호 | 컴퓨터공학 | 95 |\n\n[SQL문]\nSELECT 학과, COUNT(*) \nFROM 학생 \n(  1  ) 학과 \n(  2  ) COUNT(*) >= 2;",
+    "code": null,
+    "answer": "(1) GROUP BY, (2) HAVING",
+    "aliases": [
+      "GROUP BY, HAVING",
+      "GROUP BY HAVING",
+      "group by, having"
+    ],
+    "explanation": "그룹별 집계를 할 때 그룹화 기준 컬럼은 'GROUP BY'절을 사용하며, 그룹 함수(COUNT, SUM, AVG 등)에 대한 조건 필터링은 WHERE절이 아닌 'HAVING'절을 사용합니다.",
+    "trapPoint": "집계함수에 대한 조건절에는 WHERE가 아닌 반드시 HAVING을 사용해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_6",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 6,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "소프트웨어 디자인 패턴 중 생성(Creational) 패턴의 하나로, 어떤 클래스의 인스턴스가 오직 하나만 생성되도록 보장하고 이에 대한 전역적인 접근점을 제공하는 패턴의 이름을 영문 또는 한글로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "싱글톤",
+    "aliases": [
+      "싱글톤",
+      "싱글톤 패턴",
+      "싱글톤패턴",
+      "Singleton",
+      "Singleton Pattern",
+      "singleton"
+    ],
+    "explanation": "싱글톤(Singleton) 패턴은 프로그램 전역에서 단 하나의 유일한 인스턴스를 공유하여 메모리 낭비를 방지하고자 할 때 사용하는 GoF 생성 패턴입니다.",
+    "trapPoint": "GoF 패턴 분류 중 생성 패턴에 속하며, '단 하나(Single)의 인스턴스'가 핵심 힌트입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_7",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 7,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 12; // 1100(2)\n    int b = 10; // 1010(2)\n    int c = a ^ b;\n    int d = a & b;\n    printf(\"%d %d\", c, d);\n    return 0;\n}",
+    "answer": "6 8",
+    "aliases": [
+      "6 8",
+      "6, 8",
+      "6,8"
+    ],
+    "explanation": "1. a = 12 = 1100(2), b = 10 = 1010(2)\n2. XOR(^) 연산: 두 비트가 다르면 1, 같으면 0\n   1100 ^ 1010 = 0110(2) = 6\n3. AND(&) 연산: 두 비트 모두 1일 때만 1\n   1100 & 1010 = 1000(2) = 8\n출력 포맷: '%d %d'이므로 공백으로 구분하여 '6 8' 입니다.",
+    "trapPoint": "출력 구분자가 쉼표가 아니라 공백 한 칸(%d %d)임에 유의해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "변수/연산",
+        "2진수 비트 표현",
+        "10진수 결과"
+      ],
+      "rows": [
+        [
+          "a",
+          "1 1 0 0",
+          "12"
+        ],
+        [
+          "b",
+          "1 0 1 0",
+          "10"
+        ],
+        [
+          "c (a ^ b)",
+          "0 1 1 0",
+          "6"
+        ],
+        [
+          "d (a & b)",
+          "1 0 0 0",
+          "8"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_1_8",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 8,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "IPv4 서브넷 마스킹 계산",
+    "prompt": "IPv4 주소 192.168.1.0/26 대역을 서브넷팅하여 네트워크를 분할하였다. 이 때 각 서브넷에서 호스트에게 할당 가능한 최대 호스트(Host) 수를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "62",
+    "aliases": [
+      "62",
+      "62개"
+    ],
+    "explanation": "1. 서브넷 마스크 프리픽스가 /26이므로 호스트 비트 수는 32 - 26 = 6비트입니다.\n2. 6비트로 표현 가능한 전체 주소 수는 2^6 = 64개입니다.\n3. 네트워크 주소(1개)와 브로드캐스트 주소(1개)를 제외해야 하므로, 호스트에게 할당 가능한 IP 수는 64 - 2 = 62개입니다.",
+    "trapPoint": "전체 주소 수(64개)가 아니라 '호스트에게 할당 가능한 주소'이므로 네트워크 ID와 브로드캐스트 ID 2개를 반드시 빼야 합니다 (2^n - 2).",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_9",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 9,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "테스팅 7대 기본 원칙",
+    "prompt": "소프트웨어 테스트의 기본 원리 중 하나로, 동일한 테스트 케이스로 반복 실행하면 더 이상 새로운 결함을 찾아낼 수 없으므로 주기적으로 테스트 케이스를 점검하고 개선해야 한다는 원리의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "살충제 패러독스",
+    "aliases": [
+      "살충제 패러독스",
+      "살충제패러독스",
+      "살충제 역설",
+      "Pesticide Paradox",
+      "pesticide paradox"
+    ],
+    "explanation": "살충제 패러독스(Pesticide Paradox)는 동일한 살충제를 계속 사용하면 벌레에게 내성이 생기듯, 같은 테스트 케이스로는 새로운 결함을 발견하기 어렵다는 원리입니다.",
+    "trapPoint": "소프트웨어 테스트 7가지 원리 중 대표적인 빈출 단답형 키워드입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_10",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 10,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java static 공유 변수",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Counter {\n    static int count = 0;\n    int num = 0;\n    \n    void increment() {\n        count++;\n        num++;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Counter c1 = new Counter();\n        Counter c2 = new Counter();\n        c1.increment();\n        c2.increment();\n        System.out.println(c1.count + \" \" + c1.num);\n    }\n}",
+    "answer": "2 1",
+    "aliases": [
+      "2 1",
+      "2, 1",
+      "2,1"
+    ],
+    "explanation": "1. count는 static 변수로 모든 Counter 객체가 하나의 메모리 공간을 공유합니다.\n2. num은 인스턴스 변수로 각 객체(c1, c2)마다 독립적인 메모리를 갖습니다.\n3. c1.increment() 실행 시: static count는 1, c1.num은 1\n4. c2.increment() 실행 시: static count는 2, c2.num은 1\n5. c1.count는 공유되므로 2이고, c1.num은 여전히 1입니다.\n출력: 2 1",
+    "trapPoint": "static 변수는 클래스 전체에서 공유되지만 인스턴스 변수는 객체마다 독립적이라는 차이를 파악해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "실행 코드",
+        "static count",
+        "c1.num",
+        "c2.num"
+      ],
+      "rows": [
+        [
+          "초기화",
+          "new Counter() x 2",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "1단계",
+          "c1.increment()",
+          "1",
+          "1",
+          "0"
+        ],
+        [
+          "2단계",
+          "c2.increment()",
+          "2",
+          "1",
+          "1"
+        ],
+        [
+          "결과출력",
+          "c1.count + ' ' + c1.num",
+          "2",
+          "1",
+          "-"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_1_11",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 11,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "보안 공격 기법 중 하나로, 공격자가 세션을 가로채거나 신뢰할 수 있는 사용자로 위장하여 사용자의 브라우저를 통해 악의적인 요청을 서버로 전송하게 만드는 공격의 명칭(영문 약어 4글자)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "CSRF",
+    "aliases": [
+      "CSRF",
+      "csrf",
+      "XSRF",
+      "Cross-Site Request Forgery",
+      "크로스 사이트 요청 변조"
+    ],
+    "explanation": "CSRF(Cross-Site Request Forgery, 크로스 사이트 요청 변조)는 사용자가 자신의 의지와 무관하게 공격자가 의도한 행위(수정, 등록, 삭제 등)를 특정 웹서버에 요청하도록 만드는 취약점입니다.",
+    "trapPoint": "스크립트를 피해자 브라우저에서 실행시키는 XSS와 달리, CSRF는 희생자의 권한을 도용하여 악의적 서버 요청을 발생시킵니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_12",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 12,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nvoid swap(int *a, int *b) {\n    int temp = *a;\n    *a = *b;\n    *b = temp;\n}\n\nint main() {\n    int x = 10, y = 20;\n    swap(&x, &y);\n    printf(\"x=%d,y=%d\", x, y);\n    return 0;\n}",
+    "answer": "x=20,y=10",
+    "aliases": [
+      "x=20,y=10",
+      "x=20, y=10"
+    ],
+    "explanation": "swap 함수에 x와 y의 주소(&x, &y)를 전달하는 Call by Reference(참조에 의한 호출)입니다.\n포인터 역참조 *a, *b를 통해 원본 변수 x와 y의 메모리 공간에 있는 값을 교환하므로,\nx는 20이 되고 y는 10이 됩니다.\nprintf 포맷 문자열이 'x=%d,y=%d'이므로 'x=20,y=10'이 출력됩니다.",
+    "trapPoint": "printf 출력 양식에 공백이 있는지 없는지 정확히 확인해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_13",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 13,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "DDL 테이블 정의 & 제약조건",
+    "prompt": "기존 테이블 [EMPLOYEE]에서 직급(POSITION) 컬럼의 데이터 타입을 VARCHAR(30)으로 수정하고자 한다. SQL 표준 DDL 문의 빈칸 (1), (2)를 완성하시오.",
+    "passage": "ALTER TABLE EMPLOYEE (  1  ) (  2  ) POSITION VARCHAR(30);",
+    "code": null,
+    "answer": "(1) ALTER 또는 MODIFY, (2) COLUMN",
+    "aliases": [
+      "ALTER COLUMN",
+      "MODIFY COLUMN"
+    ],
+    "explanation": "표준 SQL에서 컬럼의 속성을 변경할 때 `ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 데이터타입` 또는 Oracle 계열에서는 `ALTER TABLE 테이블명 MODIFY 컬럼명 데이터타입`을 사용합니다.",
+    "trapPoint": "테이블 구조 변경은 ALTER TABLE 문을 사용합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_14",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 14,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "관계 데이터베이스 정규화 과정 중, 테이블 R의 모든 결정자가 후보키(Candidate Key)이어야 하며 제3정규형(3NF)을 만족하면서도 강한 조건을 만족하는 정규형의 명칭을 영문 약어 또는 한글로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "BCNF",
+    "aliases": [
+      "BCNF",
+      "보이스코드 정규형",
+      "보이스-코드 정규형",
+      "보이스코드정규형",
+      "Boyce-Codd"
+    ],
+    "explanation": "BCNF(Boyce-Codd Normal Form)는 3정규형을 만족하면서 모든 결정자가 후보키가 되도록 함수 종속성을 분해한 정규형입니다.",
+    "trapPoint": "1NF(도메인 원자값) -> 2NF(부분함수종속 제거) -> 3NF(이행함수종속 제거) -> BCNF(모든 결정자가 후보키).",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_15",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 15,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        String s = \"Hello World\";\n        String r = s.substring(6, 11);\n        System.out.println(r.toUpperCase());\n    }\n}",
+    "answer": "WORLD",
+    "aliases": [
+      "WORLD",
+      "world"
+    ],
+    "explanation": "1. s.substring(beginIndex, endIndex)는 beginIndex부터 endIndex-1까지를 추출합니다.\n2. 인덱스 6은 'W', 인덱스 10은 'd'이므로 substring(6, 11)은 \"World\"가 됩니다.\n3. toUpperCase()를 호출하므로 모두 대문자로 바뀌어 \"WORLD\"가 출력됩니다.",
+    "trapPoint": "substring의 두 번째 인자는 exclusive(미포함)이므로 11 이전인 10까지 추출된다는 점과 대문자 변환을 확인해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_16",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 16,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 컬렉션 자료구조",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = {'A': 90, 'B': 80, 'C': 70}\nres = 0\nfor k, v in a.items():\n    if v >= 80:\n        res += v\nprint(res)",
+    "answer": "170",
+    "aliases": [
+      "170"
+    ],
+    "explanation": "딕셔너리 a의 key-value 쌍을 순회하면서 점수 v가 80 이상인 경우만 누적합을 구합니다.\n'A': 90 (>=80 참) -> res = 90\n'B': 80 (>=80 참) -> res = 90 + 80 = 170\n'C': 70 (>=80 거짓)\n따라서 최종 res = 170입니다.",
+    "trapPoint": "조건식 v >= 80에서 80이 포함(이상)되므로 90과 80이 더해집니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_17",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 17,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "네트워크 계층 구조에서 OSI 7계층 중 물리적 전송 매체를 통해 비트(Bit) 스트림을 전송하며, 리피터(Repeater)와 허브(Hub) 등의 장비가 동작하는 최하위 계층의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "물리 계층",
+    "aliases": [
+      "물리 계층",
+      "물리계층",
+      "Physical Layer",
+      "Physical",
+      "1계층"
+    ],
+    "explanation": "물리 계층(Physical Layer)은 OSI 1계층으로 데이터 전송 단위는 비트(Bit)이며 리피터, 허브, 케이블 등이 작동합니다.",
+    "trapPoint": "데이터링크 계층(2계층, 프레임, 스위치/브리지)과 혼동하지 않도록 1계층의 단위(Bit)와 장비(허브, 리피터)를 확인하세요.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_18",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 18,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int i = 0, sum = 0;\n    while (i < 10) {\n        i++;\n        if (i % 2 == 0) continue;\n        sum += i;\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "25",
+    "aliases": [
+      "25"
+    ],
+    "explanation": "i가 0에서 시작하여 루프 안에서 먼저 i++되므로 i는 1, 2, 3, 4, 5, 6, 7, 8, 9, 10이 됩니다.\ni가 짝수(i % 2 == 0)이면 continue로 건너뛰므로 홀수만 sum에 누적됩니다.\n홀수: 1 + 3 + 5 + 7 + 9 = 25\n따라서 25가 출력됩니다.",
+    "trapPoint": "루프 진입 후 즉시 i++가 수행되므로 첫 번째로 검사되는 i는 0이 아니라 1입니다.",
+    "traceTable": {
+      "headers": [
+        "루프 단계",
+        "i 증감",
+        "짝수 여부 (i % 2 == 0)",
+        "sum 누적"
+      ],
+      "rows": [
+        [
+          "1회",
+          "i = 1",
+          "거짓 (홀수)",
+          "1"
+        ],
+        [
+          "2회",
+          "i = 2",
+          "참 (continue)",
+          "1"
+        ],
+        [
+          "3회",
+          "i = 3",
+          "거짓 (홀수)",
+          "4"
+        ],
+        [
+          "4회",
+          "i = 4",
+          "참 (continue)",
+          "4"
+        ],
+        [
+          "5회",
+          "i = 5",
+          "거짓 (홀수)",
+          "9"
+        ],
+        [
+          "6회",
+          "i = 6",
+          "참 (continue)",
+          "9"
+        ],
+        [
+          "7회",
+          "i = 7",
+          "거짓 (홀수)",
+          "16"
+        ],
+        [
+          "8회",
+          "i = 8",
+          "참 (continue)",
+          "16"
+        ],
+        [
+          "9회",
+          "i = 9",
+          "거짓 (홀수)",
+          "25"
+        ],
+        [
+          "10회",
+          "i = 10",
+          "참 (continue)",
+          "25"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_1_19",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 19,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "모듈의 독립성을 나타내는 지표 중 하나로, 한 모듈 내부의 처리 요소들이 서로 관련되어 있는 정도를 나타내며 '기능적 > 순차적 > 통신적 > 절차적 > 시간적 > 논리적 > 우연적' 순으로 강도가 높은 지표의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "응집도",
+    "aliases": [
+      "응집도",
+      "Cohesion",
+      "cohesion"
+    ],
+    "explanation": "응집도(Cohesion)는 모듈 내부 구성요소 간의 밀접한 정도를 나타내며, 좋은 설계는 높은 응집도(High Cohesion)와 낮은 결합도(Low Coupling)를 가집니다.",
+    "trapPoint": "모듈 간의 상호 의존성을 나타내는 것은 '결합도(Coupling)'이고, 모듈 내부 구성 요소 간의 밀접도를 나타내는 것은 '응집도(Cohesion)'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_1_20",
+    "round_id": "2026_1",
+    "round_title": "2026년 제1회 기출 복원",
+    "id": 20,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 SQL 문의 실행 결과를 쓰시오.",
+    "passage": "[EMP 테이블]\n| ID | NAME | DEPT | SALARY |\n| 1 | 이순신 | 개발 | 3500 |\n| 2 | 강감찬 | 기획 | 2800 |\n| 3 | 을지문덕 | 개발 | 4000 |\n| 4 | 유관순 | 인사 | 3200 |\n| 5 | 안중근 | 기획 | 3100 |",
+    "code": "SELECT COUNT(*) \nFROM (\n    SELECT DISTINCT DEPT \n    FROM EMP \n    WHERE SALARY >= 3000\n) AS T;",
+    "answer": "3",
+    "aliases": [
+      "3"
+    ],
+    "explanation": "1. WHERE SALARY >= 3000 조건 필터링:\n- ID 1 (이순신, 개발, 3500) -> 포함\n- ID 3 (을지문덕, 개발, 4000) -> 포함\n- ID 4 (유관순, 인사, 3200) -> 포함\n- ID 5 (안중근, 기획, 3100) -> 포함\n2. SELECT DISTINCT DEPT 수행: 추출된 부서는 '개발', '개발', '인사', '기획'이며 DISTINCT로 중복 제거 시 '개발', '인사', '기획' 3개 부서가 남습니다.\n3. 바깥쪽 SELECT COUNT(*)는 중복 제거된 부서 개수를 세므로 결과는 3입니다.",
+    "trapPoint": "DISTINCT로 중복된 '개발' 부서가 1건으로 처리되므로 총 3건입니다.",
+    "traceTable": {
+      "headers": [
+        "필터링 조건",
+        "추출된 레코드 (DEPT)",
+        "DISTINCT 적용 후",
+        "COUNT(*) 결과"
+      ],
+      "rows": [
+        [
+          "SALARY >= 3000",
+          "개발, 개발, 인사, 기획",
+          "개발, 인사, 기획 (3건)",
+          "3"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_2_1",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nstruct Point {\n    int x;\n    int y;\n};\n\nint main() {\n    struct Point p1 = {10, 20};\n    struct Point *ptr = &p1;\n    ptr->x += 5;\n    ptr->y *= 2;\n    printf(\"%d, %d\", p1.x, p1.y);\n    return 0;\n}",
+    "answer": "15, 40",
+    "aliases": [
+      "15, 40",
+      "15,40",
+      "15 40"
+    ],
+    "explanation": "ptr은 구조체 변수 p1의 메모리 주소를 가리키는 구조체 포인터입니다.\nptr->x는 p1.x를 의미하므로 p1.x = 10 + 5 = 15가 됩니다.\nptr->y는 p1.y를 의미하므로 p1.y = 20 * 2 = 40이 됩니다.\n출력 형식: '%d, %d'이므로 '15, 40'이 출력됩니다.",
+    "trapPoint": "구조체 포인터에서 멤버에 접근할 때 화살표 연산자(->)를 사용하는 문법과 원본 구조체 변수 p1의 값이 직접 변경된다는 점을 확인해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "연산 단계",
+        "실행 코드",
+        "p1.x 값",
+        "p1.y 값"
+      ],
+      "rows": [
+        [
+          "초기화",
+          "struct Point p1 = {10, 20}",
+          "10",
+          "20"
+        ],
+        [
+          "1단계",
+          "ptr->x += 5",
+          "15",
+          "20"
+        ],
+        [
+          "2단계",
+          "ptr->y *= 2",
+          "15",
+          "40"
+        ],
+        [
+          "출력",
+          "printf('%d, %d', p1.x, p1.y)",
+          "15",
+          "40"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_2_2",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 인터페이스 & 추상클래스",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "interface A {\n    int calculate(int n);\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        A obj = (n) -> n * n + 1;\n        System.out.println(obj.calculate(4));\n    }\n}",
+    "answer": "17",
+    "aliases": [
+      "17"
+    ],
+    "explanation": "람다식 (n) -> n * n + 1은 함수형 인터페이스 A의 calculate 메서드를 구현한 것입니다.\ncalculate(4) 호출 시 n=4가 대입되어 4 * 4 + 1 = 17이 반환되어 출력됩니다.",
+    "trapPoint": "자바 8 이후 도입된 람다식(Lambda Expression) 기본 연산 결과를 정확히 계산합니다.",
+    "traceTable": {
+      "headers": [
+        "인자 n",
+        "람다 수식 n * n + 1",
+        "반환값"
+      ],
+      "rows": [
+        [
+          "4",
+          "4 * 4 + 1 = 16 + 1",
+          "17"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_2_3",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def func(a, *b):\n    sum_val = a\n    for x in b:\n        sum_val += x * 2\n    return sum_val\n\nprint(func(10, 1, 2, 3))",
+    "answer": "22",
+    "aliases": [
+      "22"
+    ],
+    "explanation": "1. 가변 인자 *b는 튜플로 패킹됩니다. a에는 첫 번째 인자 10이 들어가고, b에는 (1, 2, 3)이 들어갑니다.\n2. sum_val은 처음에 10입니다.\n3. x=1: sum_val += 1 * 2 -> 12\n4. x=2: sum_val += 2 * 2 -> 16\n5. x=3: sum_val += 3 * 2 -> 22\n따라서 22가 출력됩니다.",
+    "trapPoint": "가변 매개변수 *b가 첫 번째 인자(10)를 제외한 나머지 인자들(1, 2, 3)을 튜플로 받는다는 점에 유의하세요.",
+    "traceTable": {
+      "headers": [
+        "루프 (x)",
+        "연산 x * 2",
+        "sum_val 누적"
+      ],
+      "rows": [
+        [
+          "초기",
+          "a = 10",
+          "10"
+        ],
+        [
+          "x = 1",
+          "1 * 2 = 2",
+          "12"
+        ],
+        [
+          "x = 2",
+          "2 * 2 = 4",
+          "16"
+        ],
+        [
+          "x = 3",
+          "3 * 2 = 6",
+          "22"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_2_4",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[2][3] = {{1, 2, 3}, {4, 5, 6}};\n    int *p = &arr[0][0];\n    int sum = 0;\n    \n    for (int i = 0; i < 6; i++) {\n        if (i % 2 == 1) {\n            sum += *(p + i);\n        }\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "12",
+    "aliases": [
+      "12"
+    ],
+    "explanation": "2차원 배열은 메모리 상에 1차원으로 연속 배치됩니다: {1, 2, 3, 4, 5, 6}.\np는 시작 주소(&arr[0][0])를 가리키므로 *(p + i)는 각 원소를 순서대로 접근합니다.\ni는 0부터 5까지 반복하며, i % 2 == 1인 홀수 인덱스는 i = 1, 3, 5 입니다.\n- i = 1: *(p + 1) = 2\n- i = 3: *(p + 3) = 4\n- i = 5: *(p + 5) = 6\nsum = 2 + 4 + 6 = 12 입니다.",
+    "trapPoint": "2차원 배열의 메모리 행 우선(Row-major) 연속 배치 구조와 홀수 인덱스(1, 3, 5)에 위치한 값의 합산임을 파악해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "인덱스 i",
+        "홀수 조건",
+        "원소 *(p + i)",
+        "sum 누적"
+      ],
+      "rows": [
+        [
+          "i = 0",
+          "거짓",
+          "1",
+          "0"
+        ],
+        [
+          "i = 1",
+          "참",
+          "2",
+          "2"
+        ],
+        [
+          "i = 2",
+          "거짓",
+          "3",
+          "2"
+        ],
+        [
+          "i = 3",
+          "참",
+          "4",
+          "6"
+        ],
+        [
+          "i = 4",
+          "거짓",
+          "5",
+          "6"
+        ],
+        [
+          "i = 5",
+          "참",
+          "6",
+          "12"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_2_5",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 5,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 두 테이블 [고객]과 [주문]을 고객번호를 기준으로 내부 조인(INNER JOIN)하여 고객명과 주문금액을 조회하는 SQL문을 완성하고자 한다. 빈칸 (1), (2)를 완성하시오.",
+    "passage": "SELECT C.고객명, O.주문금액 \nFROM 고객 C \n(  1  ) JOIN 주문 O \n(  2  ) C.고객번호 = O.고객번호;",
+    "code": null,
+    "answer": "(1) INNER, (2) ON",
+    "aliases": [
+      "INNER ON",
+      "INNER, ON",
+      "inner on"
+    ],
+    "explanation": "표준 ANSI JOIN 문법은 `FROM 테이블1 INNER JOIN 테이블2 ON 조인조건` 형식입니다.",
+    "trapPoint": "WHERE절 대신 ANSI JOIN에서는 ON절을 사용하여 조인 조건을 명시합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_6",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 6,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "인터넷이나 네트워크를 통해 인증 및 권한 부여를 표준화하기 위해 사용되는 개방형 표준 프로토콜로, 제3자 애플리케이션이 비밀번호를 노출하지 않고 사용자 자원에 대한 접근 권한을 위임받을 수 있도록 해주는 프로토콜의 명칭을 영문 또는 숫자를 포함하여 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "OAuth 2.0",
+    "aliases": [
+      "OAuth 2.0",
+      "OAuth",
+      "oauth",
+      "OAuth2.0",
+      "oauth 2.0",
+      "오아스"
+    ],
+    "explanation": "OAuth(Open Authorization)는 사용자의 비밀번호 없이도 구글, 카카오, 깃허브 등 인증 제공자를 통해 안전하게 서드파티 앱에 인가 토큰(Access Token)을 발급하여 자원 접근 권한을 위임하는 프레임워크입니다.",
+    "trapPoint": "인증과 인가 표준 프로토콜로 현대 웹/앱에서 필수적인 개념입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_7",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 7,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "암호화 알고리즘 (대칭키/공개키/해시)",
+    "prompt": "기존의 양자 컴퓨터 기술 발전에 따라 RSA, ECC 등 현대 공개키 암호체계가 취약해질 것에 대비하여, 양자 컴퓨터로도 해독하기 어렵도록 수학적 난제(격자, 다변수 다항식 등)를 기반으로 설계된 차세대 암호 기술의 명칭(영문 약어 3글자 또는 한글)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "PQC",
+    "aliases": [
+      "PQC",
+      "pqc",
+      "양자내성암호",
+      "포스트양자암호",
+      "Post-Quantum Cryptography"
+    ],
+    "explanation": "PQC(Post-Quantum Cryptography, 양자내성암호)는 쇼어(Shor) 알고리즘을 수행하는 양자 컴퓨터의 공격에도 안전성을 보장하는 차세대 암호 체계입니다.",
+    "trapPoint": "양자 키 분배(QKD)와 양자내성암호(PQC)의 차이점을 구별해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_8",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 8,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = {10, 20, 30, 40, 50};\n        int sum = 0;\n        for (int x : arr) {\n            if (x == 30) continue;\n            sum += x;\n        }\n        System.out.println(sum);\n    }\n}",
+    "answer": "120",
+    "aliases": [
+      "120"
+    ],
+    "explanation": "향상된 for문(for-each)으로 배열 arr의 원소를 순회합니다.\nx가 30일 때 continue로 건너뛰므로,\nsum = 10 + 20 + 40 + 50 = 120이 됩니다.",
+    "trapPoint": "x == 30일 때만 건너뛰고 나머지 원소는 모두 더해집니다.",
+    "traceTable": {
+      "headers": [
+        "원소 x",
+        "조건 (x == 30)",
+        "sum 누적"
+      ],
+      "rows": [
+        [
+          "10",
+          "거짓",
+          "10"
+        ],
+        [
+          "20",
+          "거짓",
+          "30"
+        ],
+        [
+          "30",
+          "참 (continue)",
+          "30"
+        ],
+        [
+          "40",
+          "거짓",
+          "70"
+        ],
+        [
+          "50",
+          "거짓",
+          "120"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_2_9",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 9,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "GoF 디자인 패턴 중 객체의 상태 변화가 발생했을 때 연관된 다른 객체들에게 통보하고 자동으로 갱신되도록 1:N 의존성을 정의하는 행위(Behavioral) 패턴의 명칭을 영문 또는 한글로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "옵저버",
+    "aliases": [
+      "옵저버",
+      "옵저버 패턴",
+      "옵서버",
+      "Observer",
+      "Observer Pattern",
+      "observer"
+    ],
+    "explanation": "옵저버(Observer) 패턴은 발행-구독(Publish-Subscribe) 모델로 알려져 있으며, 주체 객체의 상태 변경을 감지하여 등록된 관찰자(Observer)들에게 자동으로 통보하는 패턴입니다.",
+    "trapPoint": "GoF 행위 패턴 중 이벤트 리스너의 기반이 되는 가장 대표적인 패턴입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_10",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 10,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    char str[] = \"KOREA\";\n    char *p = str;\n    while (*p != '\\0') {\n        p++;\n    }\n    printf(\"%d\", (int)(p - str));\n    return 0;\n}",
+    "answer": "5",
+    "aliases": [
+      "5"
+    ],
+    "explanation": "1. str[]은 'K', 'O', 'R', 'E', 'A', '\\0'로 구성된 6바이트 문자열 배열입니다.\n2. p가 '\\0'(널 문자)를 만날 때까지 p++로 1바이트씩 이동합니다.\n3. '\\0'의 위치에서 멈췄을 때 p는 str + 5를 가리킵니다.\n4. 포인터 간의 뺄셈 p - str은 두 포인터 사이의 요소 개수를 계산하므로 (str + 5) - str = 5가 됩니다 (즉, 문자열의 길이 strlen과 동일).",
+    "trapPoint": "널 문자(\\0) 직전까지 순회한 포인터의 차이는 문자열의 순수 길이(5)를 의미합니다.",
+    "traceTable": {
+      "headers": [
+        "포인터 p",
+        "*p 문자",
+        "조건 (*p != '\\0')",
+        "p - str"
+      ],
+      "rows": [
+        [
+          "str + 0",
+          "'K'",
+          "참",
+          "0"
+        ],
+        [
+          "str + 1",
+          "'O'",
+          "참",
+          "1"
+        ],
+        [
+          "str + 2",
+          "'R'",
+          "참",
+          "2"
+        ],
+        [
+          "str + 3",
+          "'E'",
+          "참",
+          "3"
+        ],
+        [
+          "str + 4",
+          "'A'",
+          "참",
+          "4"
+        ],
+        [
+          "str + 5",
+          "'\\0'",
+          "거짓 (루프 종료)",
+          "5"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_2_11",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 11,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "데이터베이스에서 하나의 논리적 작업 단위를 구성하는 연산들의 집합을 트랜잭션이라 한다. 트랜잭션이 가져야 할 4가지 특징(ACID) 중 '트랜잭션의 연산은 데이터베이스에 모두 반영되든지 아니면 전혀 반영되지 않아야 한다(All or Nothing)'는 특성의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "원자성",
+    "aliases": [
+      "원자성",
+      "Atomicity",
+      "atomicity"
+    ],
+    "explanation": "ACID 특징:\n- Atomicity (원자성): All or Nothing (전부 수행되거나 전부 취소)\n- Consistency (일관성): 완료 후 모순 없이 일관된 상태 유지\n- Isolation (독립성/격리성): 다른 트랜잭션이 끼어들지 못함\n- Durability (영속성): 성공 시 영구히 저장됨",
+    "trapPoint": "All or Nothing 키워드는 무조건 '원자성(Atomicity)'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_12",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 12,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "데이터베이스 테이블에서 레코드의 중복을 허용하지 않고 고유한 값을 가져야 하며, NULL 값을 가질 수 없는 키(Key)의 명칭을 한글 또는 영문으로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "기본키",
+    "aliases": [
+      "기본키",
+      "기본 키",
+      "Primary Key",
+      "PRIMARY KEY",
+      "PK"
+    ],
+    "explanation": "기본키(Primary Key)는 유일성(Uniqueness)과 최소성(Minimality)을 만족하며, 개체 무결성 제약조건에 의해 NULL 값을 절대 가질 수 없는 속성입니다.",
+    "trapPoint": "대체키나 후보키와 구별하여 테이블에서 튜플을 유일하게 식별하도록 주(Primary)로 선택된 키입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_13",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 13,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 슬라이싱 연산",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "s = \"Information\"\nprint(s[2:6])",
+    "answer": "form",
+    "aliases": [
+      "form"
+    ],
+    "explanation": "파이썬 문자열 슬라이싱 s[2:6]은 인덱스 2부터 5(6 미만)까지를 추출합니다.\n인덱스: 0(I), 1(n), 2(f), 3(o), 4(r), 5(m), 6(a)...\n따라서 'form'이 출력됩니다.",
+    "trapPoint": "끝 인덱스 6은 포함되지 않고 5번째 문자인 'm'까지만 포함됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_14",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 14,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "네트워크에서 내부 네트워크가 직접 외부 인터넷에 노출되지 않도록 사설 IP 주소를 공인 IP 주소로 상호 변환해 주는 기술의 명칭(영문 약어 3글자)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "NAT",
+    "aliases": [
+      "NAT",
+      "nat",
+      "Network Address Translation"
+    ],
+    "explanation": "NAT(Network Address Translation, 네트워크 주소 변환)는 사설 IP를 공인 IP로 변환하여 IPv4 주소 부족 문제를 완화하고 내부망 보안을 향상시키는 기술입니다.",
+    "trapPoint": "IP 주소를 동적으로 할당하는 프로토콜은 DHCP이고, 사설-공인 IP 변환 기술은 NAT입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_15",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 15,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 5;\n        int b = 2;\n        double result = (double) a / b;\n        System.out.printf(\"%.1f\", result);\n    }\n}",
+    "answer": "2.5",
+    "aliases": [
+      "2.5"
+    ],
+    "explanation": "(double) a / b 연산에서 a가 double 타입 5.0으로 명시적 형변환된 후 2로 나누어지므로 2.5가 됩니다.\nprintf(\"%.1f\", result)는 소수점 첫째 자리까지 출력하므로 2.5가 출력됩니다.",
+    "trapPoint": "정수 나눗셈 a / b는 2이지만, (double)로 캐스팅되어 실수 연산이 수행되므로 2.5가 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_16",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 16,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "소프트웨어 결함 관리 프로세스에서 발생한 결함이 수정되었는지를 확인하기 위해, 수정된 소프트웨어 버전에 대해 이전에 성공했던 테스트 케이스들을 다시 실행하여 새로운 오류(사이드 이펙트)가 발생하지 않았는지 검증하는 테스트 기법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "회귀 테스트",
+    "aliases": [
+      "회귀 테스트",
+      "회귀테스트",
+      "리그레션 테스트",
+      "Regression Test",
+      "Regression Testing"
+    ],
+    "explanation": "회귀 테스트(Regression Testing)는 오류 수정이나 기능 변경 후 기존에 잘 작동하던 기능에 부작용(Side Effect)이 발생하지 않았는지를 확인하기 위해 반복 수행하는 재시험입니다.",
+    "trapPoint": "새로운 결함 유입 여부를 재확인하는 테스트 = 회귀 테스트(Regression Test).",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_17",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 17,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int n = 1234;\n    int rev = 0;\n    while (n > 0) {\n        rev = rev * 10 + (n % 10);\n        n /= 10;\n    }\n    printf(\"%d\", rev);\n    return 0;\n}",
+    "answer": "4321",
+    "aliases": [
+      "4321"
+    ],
+    "explanation": "각 자릿수를 10으로 나눈 나머지(n % 10)를 구하여 rev에 10을 곱하며 누적하므로 숫자가 거꾸로 뒤집힙니다.\n1234 -> 4 -> 43 -> 432 -> 4321\n출력 결과는 4321 입니다.",
+    "trapPoint": "기본적인 정수 자릿수 반전 알고리즘입니다.",
+    "traceTable": {
+      "headers": [
+        "반복",
+        "n % 10",
+        "rev 누적 (rev*10 + rest)",
+        "n = n / 10"
+      ],
+      "rows": [
+        [
+          "1회",
+          "4",
+          "4",
+          "123"
+        ],
+        [
+          "2회",
+          "3",
+          "43",
+          "12"
+        ],
+        [
+          "3회",
+          "2",
+          "432",
+          "1"
+        ],
+        [
+          "4회",
+          "1",
+          "4321",
+          "0 (종료)"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2026_2_18",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 18,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "객체지향 설계 원칙 (SOLID)",
+    "prompt": "소프트웨어 아키텍처 및 디자인 원칙(SOLID) 중 '하위 클래스는 상위 클래스의 기능을 온전히 대체할 수 있어야 한다(자식 클래스는 언제나 부모 클래스를 대체할 수 있어야 함)'는 원칙의 명칭을 영문 또는 한글로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "리스코프 치환 원칙",
+    "aliases": [
+      "리스코프 치환 원칙",
+      "리스코프치환원칙",
+      "LSP",
+      "Liskov Substitution Principle"
+    ],
+    "explanation": "SOLID 원칙:\n- S: 단일 책임 원칙 (SRP)\n- O: 개방-폐쇄 원칙 (OCP)\n- L: 리스코프 치환 원칙 (LSP)\n- I: 인터페이스 분리 원칙 (ISP)\n- D: 의존 역전 원칙 (DIP)",
+    "trapPoint": "부모 클래스의 계약을 자식 클래스가 위반하지 않고 교체 가능해야 한다는 것은 LSP(리스코프 치환 원칙)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_19",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 19,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 [도서] 테이블에서 가격(PRICE)이 15000원 이상이고 30000원 이하인 도서명(TITLE)을 조회하는 SQL문이다. 빈칸에 들어갈 키워드를 쓰시오.",
+    "passage": "SELECT TITLE \nFROM 도서 \nWHERE PRICE (        ) 15000 AND 30000;",
+    "code": null,
+    "answer": "BETWEEN",
+    "aliases": [
+      "BETWEEN",
+      "between"
+    ],
+    "explanation": "범위 검색 연산자는 `BETWEEN A AND B`로 A 이상 B 이하의 범위를 조건으로 지정합니다.",
+    "trapPoint": "AND 연산자와 짝을 이루는 범위 연산자 키워드는 BETWEEN입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2026_2_20",
+    "round_id": "2026_2",
+    "round_title": "2026년 제2회 기출 예상/복원",
+    "id": 20,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "OSI 7계층 중 종단 간(End-to-End)의 신뢰성 있는 데이터 전송을 보장하며, 흐름 제어(Flow Control), 혼잡 제어(Congestion Control), 오류 제어를 수행하는 전송 단위가 세그먼트(Segment)인 계층의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "전송 계층",
+    "aliases": [
+      "전송 계층",
+      "전송계층",
+      "Transport Layer",
+      "Transport",
+      "4계층"
+    ],
+    "explanation": "전송 계층(Transport Layer)은 OSI 4계층으로 대표 프로토콜로 TCP, UDP가 있으며, 신뢰성 있는 데이터 전송과 포트 번호를 통한 프로세스 식별을 담당합니다.",
+    "trapPoint": "3계층 네트워크(패킷, 라우터)와 혼동하지 않도록 세그먼트 단위와 TCP/UDP 프로토콜 계층임을 확인하세요.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_1",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 재귀함수",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint fibo(int n) {\n    if (n <= 1) return n;\n    return fibo(n - 1) + fibo(n - 2);\n}\n\nint main() {\n    printf(\"%d\", fibo(6));\n    return 0;\n}",
+    "answer": "8",
+    "aliases": [
+      "8"
+    ],
+    "explanation": "피보나치 수열 재귀함수입니다.\nfibo(0)=0, fibo(1)=1, fibo(2)=1, fibo(3)=2, fibo(4)=3, fibo(5)=5, fibo(6)=8.\n따라서 8이 출력됩니다.",
+    "trapPoint": "fibo(0)=0, fibo(1)=1부터 시작하여 N번째 항의 값을 차례로 도출합니다.",
+    "traceTable": {
+      "headers": [
+        "n",
+        "fibo(n) 전개",
+        "값"
+      ],
+      "rows": [
+        [
+          "0",
+          "fibo(0)",
+          "0"
+        ],
+        [
+          "1",
+          "fibo(1)",
+          "1"
+        ],
+        [
+          "2",
+          "fibo(1) + fibo(0)",
+          "1"
+        ],
+        [
+          "3",
+          "fibo(2) + fibo(1)",
+          "2"
+        ],
+        [
+          "4",
+          "fibo(3) + fibo(2)",
+          "3"
+        ],
+        [
+          "5",
+          "fibo(4) + fibo(3)",
+          "5"
+        ],
+        [
+          "6",
+          "fibo(5) + fibo(4)",
+          "8"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_3_2",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 오버라이딩 & 다형성",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Base {\n    public void print() {\n        System.out.print(\"Base \");\n    }\n}\n\nclass Derived extends Base {\n    @Override\n    public void print() {\n        System.out.print(\"Derived \");\n    }\n    public void print(String msg) {\n        System.out.print(msg + \" \");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Base b = new Derived();\n        b.print();\n        Derived d = (Derived) b;\n        d.print(\"Hello\");\n    }\n}",
+    "answer": "Derived Hello",
+    "aliases": [
+      "Derived Hello",
+      "Derived Hello ",
+      "Derived, Hello"
+    ],
+    "explanation": "1. Base b = new Derived(): b.print()는 오버라이딩된 Derived의 print()가 호출되어 \"Derived \"를 출력합니다.\n2. Derived d = (Derived) b: 다운캐스팅 후 오버로딩된 print(\"Hello\")가 호출되어 \"Hello \"를 출력합니다.\n3. 결과: \"Derived Hello \"",
+    "trapPoint": "다형성 오버라이딩 메서드 호출과 오버로딩 메서드의 차이를 이해해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "호출 메서드",
+        "출력"
+      ],
+      "rows": [
+        [
+          "1",
+          "b.print() (오버라이딩)",
+          "Derived "
+        ],
+        [
+          "2",
+          "d.print('Hello') (오버로딩)",
+          "Hello "
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_3_3",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = [10, 20, 30, 40, 50]\na.pop(1)\na.append(60)\nprint(len(a), a[-1])",
+    "answer": "5 60",
+    "aliases": [
+      "5 60",
+      "5, 60",
+      "5,60"
+    ],
+    "explanation": "1. a.pop(1)은 1번 인덱스 원소인 20을 삭제하여 a = [10, 30, 40, 50]이 됩니다.\n2. a.append(60)으로 맨 끝에 60이 추가되어 a = [10, 30, 40, 50, 60]이 됩니다.\n3. len(a)는 5이고, 맨 마지막 원소 a[-1]은 60입니다.\n출력: 5 60",
+    "trapPoint": "pop(1)은 인덱스 1의 값을 삭제한다는 점과 append는 맨 끝에 추가한다는 점을 확인합니다.",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "수행 연산",
+        "리스트 상태",
+        "길이 len(a)"
+      ],
+      "rows": [
+        [
+          "초기",
+          "초기화",
+          "[10, 20, 30, 40, 50]",
+          "5"
+        ],
+        [
+          "1",
+          "pop(1)",
+          "[10, 30, 40, 50]",
+          "4"
+        ],
+        [
+          "2",
+          "append(60)",
+          "[10, 30, 40, 50, 60]",
+          "5"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_3_4",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[] = {4, 2, 8, 5, 1};\n    int len = sizeof(arr) / sizeof(arr[0]);\n    int max = arr[0];\n    \n    for (int i = 1; i < len; i++) {\n        if (arr[i] > max) {\n            max = arr[i];\n        }\n    }\n    printf(\"%d\", max);\n    return 0;\n}",
+    "answer": "8",
+    "aliases": [
+      "8"
+    ],
+    "explanation": "배열에서 최댓값을 찾는 전형적인 선형 탐색 알고리즘입니다.\n원소: 4, 2, 8, 5, 1 중 가장 큰 값은 8이므로 8이 출력됩니다.",
+    "trapPoint": "기본적인 최댓값 갱신 루프입니다.",
+    "traceTable": {
+      "headers": [
+        "인덱스 i",
+        "원소 arr[i]",
+        "arr[i] > max 조건",
+        "max 갱신"
+      ],
+      "rows": [
+        [
+          "초기",
+          "arr[0] = 4",
+          "-",
+          "4"
+        ],
+        [
+          "i = 1",
+          "2",
+          "거짓 (2 > 4)",
+          "4"
+        ],
+        [
+          "i = 2",
+          "8",
+          "참 (8 > 4)",
+          "8"
+        ],
+        [
+          "i = 3",
+          "5",
+          "거짓 (5 > 8)",
+          "8"
+        ],
+        [
+          "i = 4",
+          "1",
+          "거짓 (1 > 8)",
+          "8"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_3_5",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 5,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 [EMP] 테이블에서 부서(DEPT)별 급여(SALARY)의 합계를 구하는 SQL 문이다. 빈칸 (1), (2)에 들어갈 올바른 키워드를 쓰시오.",
+    "passage": "SELECT DEPT, (  1  )(SALARY) \nFROM EMP \n(  2  ) DEPT;",
+    "code": null,
+    "answer": "(1) SUM, (2) GROUP BY",
+    "aliases": [
+      "SUM, GROUP BY",
+      "SUM GROUP BY",
+      "sum group by"
+    ],
+    "explanation": "합계를 구하는 집계 함수는 SUM()이며, 그룹화할 때 사용하는 절은 GROUP BY입니다.",
+    "trapPoint": "합계는 SUM, 평균은 AVG입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_6",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 6,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "네트워크 통신망에서 패킷이 지나치게 많아져 통신망의 성능이 저하되는 현상을 방지하기 위해 데이터 전송량을 제어하는 기법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "혼잡 제어",
+    "aliases": [
+      "혼잡 제어",
+      "혼잡제어",
+      "Congestion Control",
+      "흐름제어"
+    ],
+    "explanation": "혼잡 제어(Congestion Control)는 네트워크 내의 모든 패킷 수를 조절하여 네트워크 오버플로우나 지연을 방지하는 기술입니다 (Slow Start, Congestion Avoidance 등).",
+    "trapPoint": "송신측과 수신측 간의 속도 차이를 조절하는 것은 '흐름 제어(Flow Control)', 네트워크 전체의 트래픽을 조절하는 것은 '혼잡 제어'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_7",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 7,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int sum = 0;\n    for (int i = 1; i <= 5; i++) {\n        for (int j = 1; j <= i; j++) {\n            sum += 1;\n        }\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "15",
+    "aliases": [
+      "15"
+    ],
+    "explanation": "이중 루프로 i가 1일 때 1번, 2일 때 2번, 3일 때 3번, 4일 때 4번, 5일 때 5번 반복됩니다.\n총 실행 횟수 = 1 + 2 + 3 + 4 + 5 = 15.\n따라서 sum = 15입니다.",
+    "trapPoint": "1부터 n까지의 합 공식 n(n+1)/2 = 5 * 6 / 2 = 15와 동일합니다.",
+    "traceTable": {
+      "headers": [
+        "i 값",
+        "j 반복 범위",
+        "j 반복 횟수",
+        "sum 누적"
+      ],
+      "rows": [
+        [
+          "i = 1",
+          "j = 1",
+          "1회",
+          "1"
+        ],
+        [
+          "i = 2",
+          "j = 1, 2",
+          "2회",
+          "3"
+        ],
+        [
+          "i = 3",
+          "j = 1, 2, 3",
+          "3회",
+          "6"
+        ],
+        [
+          "i = 4",
+          "j = 1..4",
+          "4회",
+          "10"
+        ],
+        [
+          "i = 5",
+          "j = 1..5",
+          "5회",
+          "15"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_3_8",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 8,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "암호화 알고리즘 (대칭키/공개키/해시)",
+    "prompt": "암호화 기술 중 암호화 키와 복호화 키가 서로 동일하여 처리 속도가 빠르지만 키 분배 및 관리가 어려운 대칭키 암호화 알고리즘의 대표적인 표준(128비트 블록 암호)의 명칭(영문 약어 3글자)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "AES",
+    "aliases": [
+      "AES",
+      "aes",
+      "Advanced Encryption Standard"
+    ],
+    "explanation": "AES(Advanced Encryption Standard)는 미국 NIST에서 DES를 대체하기 위해 제정한 현대 대표 대칭키 블록 암호화 알고리즘입니다.",
+    "trapPoint": "비대칭키는 RSA, ECC이고, 대칭키의 대표 표준은 AES, DES, ARIA, SEED입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_9",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 9,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 15;\n        int b = 4;\n        System.out.println(a % b + a / b);\n    }\n}",
+    "answer": "6",
+    "aliases": [
+      "6"
+    ],
+    "explanation": "1. 15 % 4는 15를 4로 나눈 나머지이므로 3입니다.\n2. 15 / 4는 정수 나눗셈의 몫이므로 3입니다.\n3. 3 + 3 = 6이 출력됩니다.",
+    "trapPoint": "자바 정수 나눗셈에서 소수점이 버려진다는 점을 주의하세요.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_10",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 10,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "데이터베이스 설계 4단계(개념적 설계 -> 논리적 설계 -> 물리적 설계 -> 구현) 중 트랜잭션 인터페이스 설계 및 목표 DBMS에 맞는 스키마(테이블, 정규화 등)를 설계하는 단계의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "논리적 설계",
+    "aliases": [
+      "논리적 설계",
+      "논리적설계",
+      "논리적 설계 단계",
+      "Logical Design"
+    ],
+    "explanation": "논리적 설계 단계에서는 개념적 설계에서 도출된 E-R 다이어그램을 관계형 테이블 스키마로 매핑하고, 정규화를 수행하며, 트랜잭션 인터페이스를 설계합니다.",
+    "trapPoint": "개념적(E-R 모델) -> 논리적(정규화, 테이블 매핑) -> 물리적(인덱스, 파티션, 저장구조) 흐름을 기억하세요.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_11",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 11,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def add(x, y=10):\n    return x + y\n\nprint(add(5), add(5, 20))",
+    "answer": "15 25",
+    "aliases": [
+      "15 25",
+      "15, 25",
+      "15,25"
+    ],
+    "explanation": "1. add(5): y 기본값(default value) 10이 사용되어 5 + 10 = 15가 됩니다.\n2. add(5, 20): y에 20이 명시되어 5 + 20 = 25가 됩니다.\n출력: 15 25",
+    "trapPoint": "디폴트 매개변수의 동작 방식을 파악합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_12",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 12,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 5;\n    int b = ++a + 2;\n    int c = a++ + 2;\n    printf(\"%d %d %d\", a, b, c);\n    return 0;\n}",
+    "answer": "7 8 8",
+    "aliases": [
+      "7 8 8",
+      "7, 8, 8",
+      "7,8,8"
+    ],
+    "explanation": "1. a = 5\n2. ++a: a가 먼저 6이 되고, 6 + 2 = 8이 되어 b = 8\n3. a++ + 2: 현재 a(6) + 2 = 8이 되어 c = 8이 된 후 a가 7로 증가함\n4. 최종 a = 7, b = 8, c = 8\n출력: 7 8 8",
+    "trapPoint": "전위 증감자(++a)와 후위 증감자(a++)의 평가 시점 차이를 명확히 구분해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "연산식",
+        "a의 변화",
+        "계산된 대입값"
+      ],
+      "rows": [
+        [
+          "초기상태",
+          "a = 5",
+          "-"
+        ],
+        [
+          "b = ++a + 2",
+          "a: 5 -> 6 (선증가)",
+          "b = 6 + 2 = 8"
+        ],
+        [
+          "c = a++ + 2",
+          "a: 6 -> 7 (후증가)",
+          "c = 6 + 2 = 8"
+        ],
+        [
+          "출력",
+          "a=7, b=8, c=8",
+          "7 8 8"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_3_13",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 13,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "소프트웨어 개발 보안 용어로, 악의적인 사용자가 웹 브라우저 주소창이나 입력 양식에 SQL 특수문자를 주입하여 비인가된 데이터베이스 조작을 수행하는 대표적인 웹 취약점의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "SQL 삽입",
+    "aliases": [
+      "SQL 삽입",
+      "SQL Injection",
+      "sql injection",
+      "SQL 인젝션",
+      "sql 인젝션"
+    ],
+    "explanation": "SQL 삽입(SQL Injection) 공격은 사용자의 입력값을 검증하지 않고 동적 SQL을 조합할 때 악의적인 쿼리를 삽입하여 데이터 유출이나 테이블 삭제를 유발하는 공격입니다.",
+    "trapPoint": "PreparedStatement(매개변수화된 쿼리)를 사용하여 방어합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_14",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 14,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "기존 [MEMBER] 테이블에서 나이(AGE)가 20세 미만인 회원을 완전히 삭제하는 SQL DML 문을 완성하시오.",
+    "passage": null,
+    "code": "(  1  ) FROM MEMBER WHERE AGE < 20;",
+    "answer": "DELETE",
+    "aliases": [
+      "DELETE",
+      "delete"
+    ],
+    "explanation": "테이블의 데이터를 삭제하는 DML 문법은 `DELETE FROM 테이블명 WHERE 조건;` 입니다.",
+    "trapPoint": "테이블 자체를 삭제하는 DDL은 DROP TABLE이고, 행(레코드) 데이터를 삭제하는 DML은 DELETE입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_15",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 15,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 예외 처리",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = {1, 2, 3};\n        try {\n            System.out.print(arr[3]);\n        } catch (ArrayIndexOutOfBoundsException e) {\n            System.out.print(\"Error\");\n        } finally {\n            System.out.print(\"Done\");\n        }\n    }\n}",
+    "answer": "ErrorDone",
+    "aliases": [
+      "ErrorDone",
+      "Error Done",
+      "Error, Done"
+    ],
+    "explanation": "arr의 유효 인덱스는 0, 1, 2입니다. arr[3] 접근 시 ArrayIndexOutOfBoundsException이 발생하여 catch 블록의 \"Error\"가 출력됩니다.\nfinally 블록은 예외 발생 여부와 상관없이 항상 실행되므로 \"Done\"이 출력됩니다.\n최종 출력: ErrorDone",
+    "trapPoint": "finally 블록은 예외 발생 및 처리 후에도 반드시 실행된다는 점을 잊지 마세요.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_16",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 16,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "라우팅 프로토콜 중 최단 경로 우선(Shortest Path First) 알고리즘인 다익스트라(Dijkstra) 알고리즘을 사용하며, 링크 상태(Link State) 기반으로 동작하는 대표적인 내부 라우팅 프로토콜의 명칭(영문 약어 4글자)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "OSPF",
+    "aliases": [
+      "OSPF",
+      "ospf",
+      "Open Shortest Path First"
+    ],
+    "explanation": "OSPF(Open Shortest Path First)는 대규모 자율시스템(AS) 내부에서 사용되는 링크 상태 라우팅 프로토콜로, 다익스트라 알고리즘으로 최단 경로 트리를 구성합니다.",
+    "trapPoint": "거리 벡터 프로토콜인 RIP(Hop count 기반)와 링크 상태 프로토콜인 OSPF(Dijkstra 기반)를 구분해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_17",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 17,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 10, b = 20;\n    int max = (a > b) ? a : b;\n    printf(\"%d\", max);\n    return 0;\n}",
+    "answer": "20",
+    "aliases": [
+      "20"
+    ],
+    "explanation": "삼항 조건 연산자 (조건) ? 참일때 : 거짓일때 입니다.\n10 > 20은 거짓이므로 b(20)가 선택되어 max에 대입됩니다.\n출력: 20",
+    "trapPoint": "삼항 조건 연산자의 기본 구조입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_18",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 18,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "IPv4 서브넷 마스킹 계산",
+    "prompt": "인터넷 계층의 프로토콜로 호스트가 자신의 IP 주소는 알고 있으나 상대방의 MAC 주소(하드웨어 주소)를 모를 때, IP 주소로부터 MAC 주소를 조회하기 위해 브로드캐스트로 질의하는 프로토콜의 명칭(영문 약어 3글자)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "ARP",
+    "aliases": [
+      "ARP",
+      "arp",
+      "Address Resolution Protocol"
+    ],
+    "explanation": "ARP(Address Resolution Protocol)는 논리적 IP 주소를 물리적 MAC 주소로 변환하는 프로토콜입니다 (반대는 RARP).",
+    "trapPoint": "IP -> MAC 변환은 ARP이고, MAC -> IP 변환은 RARP입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_3_19",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 19,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def calc(n):\n    if n <= 0:\n        return 0\n    return n + calc(n - 2)\n\nprint(calc(5))",
+    "answer": "9",
+    "aliases": [
+      "9"
+    ],
+    "explanation": "calc(5) = 5 + calc(3)\ncalc(3) = 3 + calc(1)\ncalc(1) = 1 + calc(-1)\ncalc(-1) = 0 (종료 조건)\n따라서 calc(5) = 5 + 3 + 1 + 0 = 9 입니다.",
+    "trapPoint": "재귀 호출 인자가 n - 2로 2씩 감소한다는 점에 주의합니다.",
+    "traceTable": {
+      "headers": [
+        "함수 호출",
+        "전개 식",
+        "결과"
+      ],
+      "rows": [
+        [
+          "calc(5)",
+          "5 + calc(3)",
+          "5 + 4 = 9"
+        ],
+        [
+          "calc(3)",
+          "3 + calc(1)",
+          "3 + 1 = 4"
+        ],
+        [
+          "calc(1)",
+          "1 + calc(-1)",
+          "1 + 0 = 1"
+        ],
+        [
+          "calc(-1)",
+          "종료조건 (n<=0)",
+          "0"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_3_20",
+    "round_id": "2025_3",
+    "round_title": "2025년 제3회 기출 복원",
+    "id": 20,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 결합도(Coupling) 중 가장 결합도가 강하여 품질 측면에서 가장 바람직하지 않은 것으로, 한 모듈이 다른 모듈의 내부 논리나 데이터를 직접 참조하거나 수정할 때 발생하는 결합도의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "내용 결합도",
+    "aliases": [
+      "내용 결합도",
+      "내용결합도",
+      "Content Coupling",
+      "content coupling"
+    ],
+    "explanation": "결합도 강도 순서 (낮을수록 좋음):\n자료(Data) < 스탬프(Stamp) < 제어(Control) < 외부(External) < 공통(Common) < 내용(Content)\n내용 결합도는 최고 강도로 가장 나쁩니다.",
+    "trapPoint": "모듈의 내부 자료나 코드를 직접 조작하는 최고 강도의 결합도는 '내용 결합도'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_1",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a[3][2] = {{1, 2}, {3, 4}, {5, 6}};\n    int (*p)[2] = a;\n    printf(\"%d\", *(*(p + 1) + 1));\n    return 0;\n}",
+    "answer": "4",
+    "aliases": [
+      "4"
+    ],
+    "explanation": "1. p는 2개 크기의 int 배열을 가리키는 배열 포인터(int (*p)[2])입니다.\n2. p + 1은 1행(두 번째 행인 {3, 4})을 가리킵니다.\n3. *(p + 1)은 1행의 시작 주소(&a[1][0])입니다.\n4. *(p + 1) + 1은 a[1][1]의 주소입니다.\n5. 역참조 *(*(p + 1) + 1)은 a[1][1]의 값인 4입니다.",
+    "trapPoint": "a[i][j]는 *(*(a + i) + j)와 완전히 동일한 포인터 표현입니다. i=1, j=1이므로 a[1][1] = 4입니다.",
+    "traceTable": {
+      "headers": [
+        "포인터 표현",
+        "의미",
+        "값 / 주소"
+      ],
+      "rows": [
+        [
+          "p",
+          "a[0]의 주소",
+          "&a[0][0]"
+        ],
+        [
+          "p + 1",
+          "a[1]의 주소",
+          "&a[1][0]"
+        ],
+        [
+          "*(p + 1)",
+          "a[1] 배열의 시작 주소",
+          "&a[1][0]"
+        ],
+        [
+          "*(p + 1) + 1",
+          "a[1][1]의 주소",
+          "&a[1][1]"
+        ],
+        [
+          "*(*(p + 1) + 1)",
+          "a[1][1]의 원소 값",
+          "4"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_2_2",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int x = 10;\n        int y = 20;\n        boolean b = (x > 5) && (y++ > 25);\n        System.out.println(b + \" \" + y);\n    }\n}",
+    "answer": "false 21",
+    "aliases": [
+      "false 21",
+      "false, 21",
+      "false,21"
+    ],
+    "explanation": "1. (x > 5)는 10 > 5이므로 참(true)입니다.\n2. && 연산에서 앞 조건이 참이므로 단락 평가(Short-circuit)되지 않고 뒤 조건 (y++ > 25)가 실행됩니다.\n3. y(20) > 25는 거짓(false)이므로 b는 false가 됩니다.\n4. 후위 증가 연산자 y++로 인해 y는 21로 1 증가합니다.\n출력: false 21",
+    "trapPoint": "자바에서 boolean 값은 소문자 'false'로 출력되며, 단락 평가 여부에 따른 y의 증가를 추적해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "항목",
+        "평가 내용",
+        "결과"
+      ],
+      "rows": [
+        [
+          "x > 5",
+          "10 > 5",
+          "true (뒷항 평가 진행)"
+        ],
+        [
+          "y++ > 25",
+          "20 > 25 (거짓) 후 y증가",
+          "false, y는 21"
+        ],
+        [
+          "전체 논리곱",
+          "true && false",
+          "false"
+        ],
+        [
+          "최종 출력",
+          "b + ' ' + y",
+          "false 21"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_2_3",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "s = \"apple,banana,cherry\"\nitems = s.split(',')\nresult = \"-\".join(items[1:])\nprint(result)",
+    "answer": "banana-cherry",
+    "aliases": [
+      "banana-cherry"
+    ],
+    "explanation": "1. split(',')에 의해 items = ['apple', 'banana', 'cherry']가 됩니다.\n2. items[1:]는 인덱스 1부터 끝까지이므로 ['banana', 'cherry']입니다.\n3. '-'.join(...)은 두 요소를 '-' 기호로 연결하므로 'banana-cherry'가 됩니다.",
+    "trapPoint": "슬라이싱 items[1:]에서 0번 인덱스인 'apple'이 제외된다는 점을 파악해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_4",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int num = 29;\n    int bin[8] = {0};\n    int i = 0;\n    while (num > 0) {\n        bin[i++] = num % 2;\n        num /= 2;\n    }\n    for (int j = i - 1; j >= 0; j--) {\n        printf(\"%d\", bin[j]);\n    }\n    return 0;\n}",
+    "answer": "11101",
+    "aliases": [
+      "11101"
+    ],
+    "explanation": "10진수 29를 2진수로 변환하는 알고리즘입니다.\n29 / 2 = 14 나머지 1\n14 / 2 = 7  나머지 0\n7 / 2 = 3   나머지 1\n3 / 2 = 1   나머지 1\n1 / 2 = 0   나머지 1\n역순으로 출력하면 11101(2) 입니다.",
+    "trapPoint": "나머지를 배열에 넣은 후 역순(i-1부터 0까지)으로 출력하므로 정확한 2진수 비트열이 됩니다.",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "num 값",
+        "num % 2 (bin[i])",
+        "num / 2 (다음 num)"
+      ],
+      "rows": [
+        [
+          "1회",
+          "29",
+          "1",
+          "14"
+        ],
+        [
+          "2회",
+          "14",
+          "0",
+          "7"
+        ],
+        [
+          "3회",
+          "7",
+          "1",
+          "3"
+        ],
+        [
+          "4회",
+          "3",
+          "1",
+          "1"
+        ],
+        [
+          "5회",
+          "1",
+          "1",
+          "0 (종료)"
+        ],
+        [
+          "역순출력",
+          "-",
+          "-",
+          "11101"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_2_5",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 5,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 [성적] 테이블에서 과목(SUBJECT)이 '데이터베이스'인 학생들의 점수(SCORE) 내림차순으로 정렬하여 조회하는 SQL 문이다. 빈칸 (1), (2)를 완성하시오.",
+    "passage": "SELECT NAME, SCORE \nFROM 성적 \nWHERE SUBJECT = '데이터베이스' \n(  1  ) (  2  ) SCORE (  3  );",
+    "code": null,
+    "answer": "(1) ORDER, (2) BY, (3) DESC",
+    "aliases": [
+      "ORDER BY DESC",
+      "ORDER, BY, DESC"
+    ],
+    "explanation": "정렬은 ORDER BY절을 사용하며 내림차순 정렬 키워드는 DESC(Descending)입니다 (오름차순은 ASC).",
+    "trapPoint": "내림차순은 DESC, 오름차순은 ASC입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_6",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 6,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 응집도(Cohesion) 중 가장 응집도가 높은(가장 바람직한) 유형으로, 모듈 내부의 모든 기능 요소들이 단 하나의 명확한 고유 목적만을 수행하도록 구성된 응집도의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "기능적 응집도",
+    "aliases": [
+      "기능적 응집도",
+      "기능적응집도",
+      "Functional Cohesion",
+      "기능적"
+    ],
+    "explanation": "기능적 응집도(Functional Cohesion)는 모듈 내의 모든 요소가 단 하나의 단일 기능을 완벽히 수행하기 위해 모여 있는 가장 이상적인 응집도입니다.",
+    "trapPoint": "응집도 최고봉 = 기능적(Functional), 최악 = 우연적(Coincidental).",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_7",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 7,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        String str1 = new String(\"Java\");\n        String str2 = new String(\"Java\");\n        boolean b1 = (str1 == str2);\n        boolean b2 = str1.equals(str2);\n        System.out.println(b1 + \" \" + b2);\n    }\n}",
+    "answer": "false true",
+    "aliases": [
+      "false true",
+      "false, true",
+      "false,true"
+    ],
+    "explanation": "1. `new String(\"Java\")`로 생성된 두 객체는 서로 다른 힙(Heap) 메모리 주소를 가집니다.\n2. `==` 연산자는 객체의 주소값을 비교하므로 b1은 false입니다.\n3. `equals()` 메서드는 문자열의 실제 내용 값을 비교하므로 b2는 true입니다.\n출력: false true",
+    "trapPoint": "자바에서 객체의 참조 주소 비교(==)와 내용 비교(equals)의 차이점입니다.",
+    "traceTable": {
+      "headers": [
+        "연산",
+        "비교 대상",
+        "결과"
+      ],
+      "rows": [
+        [
+          "str1 == str2",
+          "메모리 힙 주소 비교 (서로 다른 new 객체)",
+          "false"
+        ],
+        [
+          "str1.equals(str2)",
+          "문자열 내용 비교 ('Java' == 'Java')",
+          "true"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_2_8",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 8,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "데이터베이스에서 데이터의 중복으로 인해 테이블을 갱신하거나 삽입, 삭제할 때 예기치 않은 부작용이나 모순이 발생하는 현상을 일컫는 용어의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "이상 현상",
+    "aliases": [
+      "이상 현상",
+      "이상현상",
+      "이상",
+      "Anomaly",
+      "anomaly"
+    ],
+    "explanation": "이상(Anomaly) 현상은 릴레이션 조작 시 데이터 중복으로 인해 발생하는 부작용으로 삽입 이상, 삭제 이상, 갱신 이상 3가지가 있습니다.",
+    "trapPoint": "정규화를 하는 근본적인 이유는 이상(Anomaly) 현상을 방지하기 위함입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_9",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 9,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 10;\n    int *p1 = &a;\n    int **p2 = &p1;\n    **p2 += 20;\n    printf(\"%d\", a);\n    return 0;\n}",
+    "answer": "30",
+    "aliases": [
+      "30"
+    ],
+    "explanation": "1. p1은 a의 주소를 가리키는 1차 포인터입니다.\n2. p2는 p1의 주소를 가리키는 2차(이중) 포인터입니다.\n3. *p2는 p1이고, **p2는 p1이 가리키는 a 변수 자체입니다.\n4. **p2 += 20은 a += 20을 의미하므로 a는 10 + 20 = 30이 됩니다.",
+    "trapPoint": "이중 포인터의 역참조(**p2)가 가리키는 원본 변수가 a임을 추적해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_10",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 10,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "암호화 알고리즘 (대칭키/공개키/해시)",
+    "prompt": "공개키(비대칭키) 암호화 알고리즘 중 큰 정수의 소인수분해의 수학적 어려움에 기반하여 설계된 전 세계적으로 널리 사용되는 암호화 알고리즘의 명칭(영문 약어 3글자)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "RSA",
+    "aliases": [
+      "RSA",
+      "rsa",
+      "Rivest Shamir Adleman"
+    ],
+    "explanation": "RSA는 로널드 라이베스트, 아디 샤미르, 레너드 애들먼 3인이 개발한 공개키 암호 알고리즘으로 큰 수의 소인수분해 난이도에 기반합니다.",
+    "trapPoint": "이산대수에 기반한 알고리즘은 Diffie-Hellman / DSA / ECC이며, 소인수분해 기반은 RSA입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_11",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 11,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 컬렉션 자료구조",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = {1, 2, 3, 4}\nb = {3, 4, 5, 6}\nprint(sorted(list(a ^ b)))",
+    "answer": "[1, 2, 5, 6]",
+    "aliases": [
+      "[1, 2, 5, 6]",
+      "[1,2,5,6]",
+      "1, 2, 5, 6"
+    ],
+    "explanation": "집합(set)의 `^` 연산자는 대칭 차집합(Symmetric Difference)입니다.\n두 집합의 합집합에서 교집합 {3, 4}를 제외한 나머지 원소들의 집합 {1, 2, 5, 6}이 됩니다.\nsorted()에 의해 정렬된 리스트 [1, 2, 5, 6]이 출력됩니다.",
+    "trapPoint": "대칭차집합 기호 `^`는 교집합을 제외한 양쪽 고유 원소들의 합집합입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_12",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 12,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "소프트웨어 아키텍처 & 설계",
+    "prompt": "네트워크 토폴로지 중 중앙에 컴퓨터나 허브/스위치가 위치하고 모든 단말 장치가 중앙 장치와 1:1 포인트 투 포인트로 연결된 형태로, 설치 및 유지보수가 용이하지만 중앙 장치 고장 시 전체 통신망이 마비되는 구조의 명칭을 한글 또는 영문으로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "성형",
+    "aliases": [
+      "성형",
+      "성형 토폴로지",
+      "스타형",
+      "스타형 토폴로지",
+      "Star",
+      "star"
+    ],
+    "explanation": "성형(Star, 성형 구조)은 중앙 집중형 구조로 허브나 스위치가 중심이 되며 현대 LAN의 기본 형태입니다.",
+    "trapPoint": "버스형, 링형, 성형, 망형(Mesh)의 각 장단점을 비교하여 기억해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_13",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 13,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int sum = 0;\n        for (int i = 1; i <= 10; i++) {\n            if (i > 5) break;\n            sum += i;\n        }\n        System.out.println(sum);\n    }\n}",
+    "answer": "15",
+    "aliases": [
+      "15"
+    ],
+    "explanation": "i가 1부터 5까지는 sum에 더해져 1 + 2 + 3 + 4 + 5 = 15가 됩니다.\ni가 6이 되는 순간 i > 5 조건이 참이 되어 break문으로 루프를 즉시 탈출합니다.\n따라서 15가 출력됩니다.",
+    "trapPoint": "break는 루프를 완전히 종료시키므로 6부터 10까지는 연산되지 않습니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_14",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 14,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "DDL 테이블 정의 & 제약조건",
+    "prompt": "기존 테이블 [STUDENT]에 'EMAIL' 컬럼(데이터타입: VARCHAR(50))을 새로 추가하는 SQL 문을 완성하고자 한다. 빈칸 (1), (2)를 완성하시오.",
+    "passage": "ALTER TABLE STUDENT (  1  ) (  2  ) VARCHAR(50);",
+    "code": null,
+    "answer": "(1) ADD, (2) EMAIL",
+    "aliases": [
+      "ADD EMAIL",
+      "ADD, EMAIL",
+      "add email"
+    ],
+    "explanation": "테이블에 새로운 컬럼을 추가하는 DDL 문법은 `ALTER TABLE 테이블명 ADD 컬럼명 데이터타입;` 입니다.",
+    "trapPoint": "새로운 컬럼 추가는 ADD 키워드를 사용합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_15",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 15,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "블랙박스 테스팅 기법",
+    "prompt": "소프트웨어 테스트 기법 중 프로그램의 내부 논리 구조(제어 흐름, 코드 경로)를 참조하지 않고, 오직 요구사항 명세서와 입출력 인터페이스만을 기반으로 기능의 정상 동작을 검증하는 테스트 기법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "블랙박스 테스트",
+    "aliases": [
+      "블랙박스 테스트",
+      "블랙박스테스트",
+      "Black Box Test",
+      "Black-box Testing",
+      "블랙박스"
+    ],
+    "explanation": "블랙박스 테스트(Black-box Test)는 내부 코드를 보지 않고 동등 분할, 경계값 분석, 원인-결과 그래프 등을 이용해 입력 대비 출력 결과를 검증합니다.",
+    "trapPoint": "내부 로직을 들여다보는 것은 화이트박스 테스트(White-box Test)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_16",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 16,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 문자열 조작",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    char str[] = \"apple\";\n    int cnt = 0;\n    for (int i = 0; str[i] != '\\0'; i++) {\n        if (str[i] == 'p') {\n            cnt++;\n        }\n    }\n    printf(\"%d\", cnt);\n    return 0;\n}",
+    "answer": "2",
+    "aliases": [
+      "2"
+    ],
+    "explanation": "문자열 \"apple\"에서 문자 'p'의 등장 횟수를 셉니다.\n'a', 'p', 'p', 'l', 'e' 중 'p'는 2개이므로 cnt = 2가 됩니다.",
+    "trapPoint": "간단한 문자열 문자 개수 카운팅 문제입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_17",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 17,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "데이터 통신 프로토콜의 3대 요소를 모두 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "구문, 의미, 타이밍",
+    "aliases": [
+      "구문, 의미, 타이밍",
+      "구문 의미 타이밍",
+      "구문,의미,타이밍",
+      "Syntax, Semantics, Timing"
+    ],
+    "explanation": "프로토콜의 기본 3대 요소:\n1. 구문(Syntax): 데이터 형식, 부호화, 신호 레벨\n2. 의미(Semantics): 제어 정보 및 에러 처리\n3. 타이밍(Timing): 속도 조절 및 순서 관리",
+    "trapPoint": "실기 시험에서 꾸준히 출제되는 프로토콜 기본 이론 단답형입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_18",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 18,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = {10, 20, 30};\n        modify(arr);\n        System.out.println(arr[0]);\n    }\n    static void modify(int[] a) {\n        a[0] = 99;\n    }\n}",
+    "answer": "99",
+    "aliases": [
+      "99"
+    ],
+    "explanation": "Java에서 배열은 객체(참조형 타입)이므로 메서드 매개변수로 전달될 때 주소값(참조)이 복사되어 전달됩니다.\nmodify 함수 내부에서 a[0] = 99로 수정하면 원본 배열 arr[0]의 값도 99로 변경됩니다.",
+    "trapPoint": "배열이나 객체는 참조 전달 방식으로 인해 메서드 내에서의 변경이 원본에 반영됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_19",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 19,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "관계 데이터 모델에서 하나의 속성(Attribute)이 가질 수 있는 모든 유효한 값들의 집합을 의미하는 용어의 명칭을 한글 또는 영문으로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "도메인",
+    "aliases": [
+      "도메인",
+      "Domain",
+      "domain"
+    ],
+    "explanation": "도메인(Domain)은 테이블의 특정 속성이 취할 수 있는 원자값들의 범위/집합을 의미합니다 (예: 성별 속성의 도메인은 {남, 여}).",
+    "trapPoint": "릴레이션의 튜플 수를 카디널리티(Cardinality), 속성 수를 차수(Degree), 속성 값의 범위를 도메인(Domain)이라 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_2_20",
+    "round_id": "2025_2",
+    "round_title": "2025년 제2회 기출 복원",
+    "id": 20,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 SQL 문의 결과로 출력되는 행(Row)의 수를 숫자로 쓰시오.",
+    "passage": "[EMPLOYEES 테이블]\n| EMP_ID | DEPT_ID | SALARY |\n| 1 | 10 | 6000 |\n| 2 | 20 | 4500 |\n| 3 | 10 | 7000 |\n| 4 | 30 | 5500 |\n| 5 | 20 | 5200 |",
+    "code": "SELECT DISTINCT DEPT_ID FROM EMPLOYEES WHERE SALARY > 5000;",
+    "answer": "3",
+    "aliases": [
+      "3",
+      "3개",
+      "3행"
+    ],
+    "explanation": "WHERE SALARY > 5000 조건을 만족하는 레코드는:\n- EMP_ID 1: DEPT_ID 10, SALARY 6000\n- EMP_ID 3: DEPT_ID 10, SALARY 7000\n- EMP_ID 4: DEPT_ID 30, SALARY 5500\n- EMP_ID 5: DEPT_ID 20, SALARY 5200\n추출된 DEPT_ID는 10, 10, 30, 20이며, DISTINCT에 의해 중복 제거되면 {10, 20, 30} 3개가 됩니다.\n따라서 출력되는 행의 수는 3입니다.",
+    "trapPoint": "DISTINCT로 인해 중복된 부서코드 10이 하나로 묶여 3개 행이 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_1",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nvoid reverse(char *str, int len) {\n    char *start = str;\n    char *end = str + len - 1;\n    while (start < end) {\n        char temp = *start;\n        *start = *end;\n        *end = temp;\n        start++;\n        end--;\n    }\n}\n\nint main() {\n    char s[] = \"ENGINEER\";\n    reverse(s, 8);\n    printf(\"%s\", s);\n    return 0;\n}",
+    "answer": "REENIGNE",
+    "aliases": [
+      "REENIGNE"
+    ],
+    "explanation": "문자열 \"ENGINEER\"의 양 끝 포인터 start와 end를 마주보며 전진/후진시켜 문자를 맞바꾸는 문자열 뒤집기 알고리즘입니다.\n'E' <-> 'R' -> 'R' ... 'E'\n'N' <-> 'E' -> 'E' ... 'N'\n'G' <-> 'E' -> 'E' ... 'G'\n'I' <-> 'N' -> 'N' ... 'I'\n뒤집힌 결과는 \"REENIGNE\"가 됩니다.",
+    "trapPoint": "start < end까지 교환되므로 정확히 역순으로 뒤집힙니다.",
+    "traceTable": {
+      "headers": [
+        "반복",
+        "*start 교환 전",
+        "*end 교환 전",
+        "문자열 중간 상태"
+      ],
+      "rows": [
+        [
+          "1회",
+          "'E'",
+          "'R'",
+          "R N G I N E E E"
+        ],
+        [
+          "2회",
+          "'N'",
+          "'E'",
+          "R E G I N E N E"
+        ],
+        [
+          "3회",
+          "'G'",
+          "'E'",
+          "R E E I N G N E"
+        ],
+        [
+          "4회",
+          "'I'",
+          "'N'",
+          "R E E N I G N E (완료)"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_1_2",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    int a;\n    Parent(int a) {\n        this.a = a;\n    }\n}\n\nclass Child extends Parent {\n    int b;\n    Child(int a, int b) {\n        super(a);\n        this.b = b;\n    }\n    void print() {\n        System.out.println(a + b);\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Child c = new Child(10, 20);\n        c.print();\n    }\n}",
+    "answer": "30",
+    "aliases": [
+      "30"
+    ],
+    "explanation": "super(a)를 통해 부모 클래스의 생성자 `Parent(int a)`를 명시적으로 호출하여 a = 10이 저장되고, this.b = 20이 저장됩니다.\nc.print()에서 a + b = 10 + 20 = 30이 출력됩니다.",
+    "trapPoint": "자식 생성자에서 super(...)를 통해 부모 멤버를 정상 초기화하는 표준적인 상속 문법입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_3",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def test(val, lst=[]):\n    lst.append(val)\n    return lst\n\nprint(test(1))\nprint(test(2))",
+    "answer": "[1, 2]",
+    "aliases": [
+      "[1, 2]",
+      "[1,2]",
+      "[1]\n[1, 2]",
+      "[1], [1, 2]"
+    ],
+    "explanation": "파이썬에서 가변 객체(리스트)를 기본 매개변수(default parameter)로 사용할 경우 함수 정의 시점에 단 한 번만 생성되어 모든 호출 간에 공유됩니다.\n1. test(1) 호출 시 lst에 1이 추가되어 [1]이 되고 출력됩니다.\n2. test(2) 호출 시 동일한 lst에 2가 추가되어 [1, 2]가 반환되어 출력됩니다.\n최종 출력(두 번째 줄 기준 또는 전체): [1, 2]",
+    "trapPoint": "파이썬의 가장 유명한 함정 중 하나인 '가변 기본 매개변수 공유(Mutable Default Argument)' 특성입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_4",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int sum = 0;\n    for (int i = 1; i <= 20; i++) {\n        if (i % 3 == 0 && i % 5 == 0) {\n            sum += i;\n        }\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "15",
+    "aliases": [
+      "15"
+    ],
+    "explanation": "1부터 20 사이의 정수 중 3의 배수이면서 동시에 5의 배수인 공배수(15의 배수)는 15 하나뿐입니다.\n따라서 sum = 15가 됩니다.",
+    "trapPoint": "3과 5의 공배수는 최소공배수인 15의 배수임을 이용해 빠르게 계산할 수 있습니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_5",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 5,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 SQL 문에서 사용된 키워드 중 권한을 회수할 때 사용하는 키워드와 누구로부터 회수하는지 지정하는 절의 키워드를 각각 쓰시오.",
+    "passage": "(  1  ) SELECT, INSERT ON EMP (  2  ) USER1;",
+    "code": null,
+    "answer": "(1) REVOKE, (2) FROM",
+    "aliases": [
+      "REVOKE FROM",
+      "REVOKE, FROM",
+      "revoke from"
+    ],
+    "explanation": "DCL에서 권한 부여는 `GRANT 권한 ON 객체 TO 사용자;`, 권한 회수는 `REVOKE 권한 ON 객체 FROM 사용자;`를 사용합니다.",
+    "trapPoint": "GRANT는 TO와 짝을 이루고, REVOKE는 FROM과 짝을 이룹니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_6",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 6,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "관계 데이터베이스 정규화 단계 중 제2정규형(2NF)을 만족하기 위해 제거해야 하는 종속성의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "부분 함수 종속",
+    "aliases": [
+      "부분 함수 종속",
+      "부분함수종속",
+      "부분 함수적 종속",
+      "부분함수종속성",
+      "Partial Functional Dependency"
+    ],
+    "explanation": "정규화 단계:\n- 1NF: 도메인이 원자값\n- 2NF: 부분 함수 종속 제거 (완전 함수 종속 만족)\n- 3NF: 이행적 함수 종속 제거\n- BCNF: 모든 결정자가 후보키",
+    "trapPoint": "2NF는 '부분 함수 종속', 3NF는 '이행 함수 종속' 제거입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_7",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 7,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int n = 10;\n        System.out.println(n > 0 ? \"Positive\" : \"Non-positive\");\n    }\n}",
+    "answer": "Positive",
+    "aliases": [
+      "Positive",
+      "positive"
+    ],
+    "explanation": "10 > 0은 참이므로 \"Positive\"가 출력됩니다.",
+    "trapPoint": "삼항 연산자 평가 결과 문자열 출력 문제입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_8",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 8,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "IPv4 서브넷 마스킹 계산",
+    "prompt": "분산 서비스 거부 공격(DDoS)의 유형 중 공격자가 출발지 IP 주소를 피해자의 IP 주소로 위조(IP Spoofing)하여 불특정 다수의 반사 서버로 ICMP Echo Request를 브로드캐스트함으로써 대량의 응답이 피해자에게 집중되게 만드는 공격의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "스머핑",
+    "aliases": [
+      "스머핑",
+      "스머프",
+      "스머프 공격",
+      "Smurfing",
+      "smurfing",
+      "Smurf Attack"
+    ],
+    "explanation": "스머핑(Smurfing)은 ICMP 패킷의 출발지 IP를 피해자 IP로 변조하여 다이렉트 브로드캐스트 망으로 전송함으로써 다수의 호스트가 피해자에게 동시에 응답(Echo Reply)을 보내 다운시키는 DDoS 증폭 공격입니다.",
+    "trapPoint": "출발지 IP 변조 + ICMP Echo 브로드캐스트 = 스머핑(Smurfing).",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_9",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 9,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 7;\n    int b = 3;\n    printf(\"%d\", a % b * 2);\n    return 0;\n}",
+    "answer": "2",
+    "aliases": [
+      "2"
+    ],
+    "explanation": "산술 연산자 중 나머지(%)와 곱셈(*)은 우선순위가 동일하므로 좌측에서 우측으로 결합합니다.\n1. 7 % 3 = 1\n2. 1 * 2 = 2\n따라서 2가 출력됩니다.",
+    "trapPoint": "동일한 우선순위의 연산자 결합 방향(좌->우)을 따릅니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_10",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 10,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "디자인 패턴 중 기존 클래스의 인터페이스가 클라이언트가 요구하는 인터페이스와 호환되지 않을 때, 중간에서 인터페이스를 변환하여 함께 동작할 수 있도록 해주는 구조(Structural) 패턴의 명칭을 영문 또는 한글로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "어댑터",
+    "aliases": [
+      "어댑터",
+      "어댑터 패턴",
+      "어답터",
+      "Adapter",
+      "Adapter Pattern",
+      "adapter"
+    ],
+    "explanation": "어댑터(Adapter) 패턴은 일종의 220V-110V 돼지코 변환기처럼 서로 다른 인터페이스를 가진 두 객체가 함께 작동할 수 있도록 감싸서 중개해 주는 구조 패턴입니다.",
+    "trapPoint": "인터페이스 호환 및 변환 = 어댑터(Adapter) 패턴.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_11",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 11,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 람다 & 함수형 기법",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "nums = [1, 2, 3, 4]\nres = list(map(lambda x: x ** 2, nums))\nprint(sum(res))",
+    "answer": "30",
+    "aliases": [
+      "30"
+    ],
+    "explanation": "map과 lambda를 통해 nums의 각 원소를 제곱합니다: [1, 4, 9, 16].\nsum(res)는 이들의 총합이므로 1 + 4 + 9 + 16 = 30이 됩니다.",
+    "trapPoint": "1^2 + 2^2 + 3^2 + 4^2 = 1 + 4 + 9 + 16 = 30 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_12",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 12,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "데이터베이스 트랜잭션의 연산 중 트랜잭션의 처리가 성공적으로 완료되어 데이터베이스의 일관성 있는 상태를 영구히 반영시키는 명령어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "COMMIT",
+    "aliases": [
+      "COMMIT",
+      "commit",
+      "커밋"
+    ],
+    "explanation": "COMMIT 명령어는 트랜잭션이 성공적으로 끝났음을 선언하고 갱신된 내용을 DB에 영구 반영합니다 (실패 시 취소는 ROLLBACK).",
+    "trapPoint": "완료 및 영구 반영은 COMMIT, 취소 및 원상복구는 ROLLBACK입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_13",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 13,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[4] = {10, 20, 30, 40};\n    int *p = arr;\n    p += 2;\n    printf(\"%d\", *p);\n    return 0;\n}",
+    "answer": "30",
+    "aliases": [
+      "30"
+    ],
+    "explanation": "p가 arr[0]을 가리키는 상태에서 p += 2를 수행하면 p는 arr[2]의 주소를 가리키게 됩니다.\n역참조 *p는 arr[2]의 값이므로 30이 출력됩니다.",
+    "trapPoint": "포인터 덧셈에서 p += 2는 2개 요소만큼 뒤로 이동합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_14",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 14,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "소프트웨어 형상 관리 (SCM)",
+    "prompt": "소프트웨어 형상 관리(SCM) 도구 중 리눅스 토발즈가 개발하였으며, 중앙 서버 없이 각 개발자가 전체 저장소 복사본을 로컬에 보유하는 대표적인 분산 버전 관리 시스템의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "Git",
+    "aliases": [
+      "Git",
+      "git",
+      "깃"
+    ],
+    "explanation": "Git은 분산 버전 관리 시스템(DVCS)으로 SVN이나 CVS와 같은 중앙 집중식과 달리 로컬 저장소에서 브랜치 생성, 커밋 등의 작업을 독립적으로 수행할 수 있습니다.",
+    "trapPoint": "중앙 집중식이 아닌 '분산' 버전 관리 시스템의 대표격은 Git입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_15",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 15,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int x = 5;\n        System.out.println(x << 2);\n    }\n}",
+    "answer": "20",
+    "aliases": [
+      "20"
+    ],
+    "explanation": "왼쪽 시프트 연산자(<<)는 비트를 왼쪽으로 이동시키며 1회 이동 시마다 2배씩 증가합니다.\n5 << 2 = 5 * 2^2 = 5 * 4 = 20.\n출력: 20",
+    "trapPoint": "x << n 은 x * 2^n 과 같습니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_16",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 16,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "네트워크 통신에서 전송 계층의 TCP와 UDP의 가장 핵심적인 차이점으로, TCP는 연결 지향적이고 신뢰성을 보장하기 위해 패킷 송수신 전 맺는 연결 수립 과정의 명칭(영문 또는 한글)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "3-Way Handshake",
+    "aliases": [
+      "3-Way Handshake",
+      "3-way handshake",
+      "3웨이 핸드셰이크",
+      "3방향 핸드셰이크",
+      "3 way handshake"
+    ],
+    "explanation": "TCP는 신뢰성 있는 연결을 위해 SYN, SYN+ACK, ACK의 3단계를 거치는 3-Way Handshake를 통해 세션을 수립합니다.",
+    "trapPoint": "연결 수립은 3-Way Handshake, 연결 종료는 4-Way Handshake입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_17",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 17,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 1;\n    switch(a) {\n        case 1: printf(\"A\");\n        case 2: printf(\"B\"); break;\n        case 3: printf(\"C\");\n        default: printf(\"D\");\n    }\n    return 0;\n}",
+    "answer": "AB",
+    "aliases": [
+      "AB",
+      "A B"
+    ],
+    "explanation": "a가 1이므로 case 1로 진입하여 \"A\"를 출력합니다.\ncase 1에 break문이 없으므로 아래 case 2로 계속 진행(Fall-through)하여 \"B\"를 출력하고 break를 만나 탈출합니다.\n따라서 \"AB\"가 출력됩니다.",
+    "trapPoint": "switch-case문에서 break가 누락되었을 때의 Fall-through 동작을 놓치지 마세요.",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "분기",
+        "실행 내용",
+        "누적 출력"
+      ],
+      "rows": [
+        [
+          "진입",
+          "case 1:",
+          "printf('A'); break 없음",
+          "A"
+        ],
+        [
+          "폴스루",
+          "case 2:",
+          "printf('B'); break 탈출",
+          "AB"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2025_1_18",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 18,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "화이트박스 테스팅 & 순환복잡도",
+    "prompt": "소프트웨어 테스팅 검증 기준(Test Coverage) 중 프로그램의 제어 흐름 그래프 상에서 나타날 수 있는 모든 결정문(조건문)의 True와 False 분기를 적어도 한 번씩 수행하도록 보장하는 화이트박스 테스트 커버리지의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "분기 커버리지",
+    "aliases": [
+      "분기 커버리지",
+      "분기커버리지",
+      "결정 커버리지",
+      "결정커버리지",
+      "Branch Coverage",
+      "Decision Coverage"
+    ],
+    "explanation": "분기 커버리지(Branch Coverage, 결정 커버리지)는 조건문의 전체 결과가 참(True)과 거짓(False)이 되는 모든 경우를 적어도 한 번 이상 테스트하는 검증 기준입니다.",
+    "trapPoint": "구문 커버리지(모든 문장 1회), 분기 커버리지(결정문의 참/거짓 1회), 조건 커버리지(개별 조건식의 참/거짓 1회)의 차이점을 숙지하세요.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_19",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 19,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 [GRADE] 테이블에서 점수(SCORE)가 90 이상인 학생들의 이름(NAME)을 중복 없이 조회하는 SQL 문의 빈칸을 쓰시오.",
+    "passage": "SELECT (        ) NAME FROM GRADE WHERE SCORE >= 90;",
+    "code": null,
+    "answer": "DISTINCT",
+    "aliases": [
+      "DISTINCT",
+      "distinct"
+    ],
+    "explanation": "조회 결과에서 중복된 행을 제거하고 고유한 값만 출력하기 위해 SELECT 절 바로 뒤에 DISTINCT 키워드를 사용합니다.",
+    "trapPoint": "중복 제거 키워드는 DISTINCT입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2025_1_20",
+    "round_id": "2025_1",
+    "round_title": "2025년 제1회 기출 복원",
+    "id": 20,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "소프트웨어 형상 관리 (SCM)",
+    "prompt": "침해 사고 분석 및 보안 분야에서 컴퓨터나 모바일 기기, 네트워크 등 디지털 기기에 저장된 전자적 증거를 사법 절차에 사용할 수 있도록 과학적이고 체계적으로 수집, 분석, 보존하는 일련의 수사 기법을 일컫는 용어의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "디지털 포렌식",
+    "aliases": [
+      "디지털 포렌식",
+      "디지털포렌식",
+      "포렌식",
+      "Digital Forensics",
+      "forensics"
+    ],
+    "explanation": "디지털 포렌식(Digital Forensics)은 전자적 증거물의 무결성, 정당성, 연계보관성(Chain of Custody)을 유지하며 증거를 분석하는 기법입니다.",
+    "trapPoint": "디지털 증거 수집 및 분석 기술 = 디지털 포렌식.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_1",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[5] = {5, 3, 8, 1, 2};\n    int temp;\n    for (int i = 0; i < 4; i++) {\n        for (int j = 0; j < 4 - i; j++) {\n            if (arr[j] > arr[j + 1]) {\n                temp = arr[j];\n                arr[j] = arr[j + 1];\n                arr[j + 1] = temp;\n            }\n        }\n    }\n    printf(\"%d %d\", arr[0], arr[4]);\n    return 0;\n}",
+    "answer": "1 8",
+    "aliases": [
+      "1 8",
+      "1, 8",
+      "1,8"
+    ],
+    "explanation": "오름차순 버블 정렬(Bubble Sort) 알고리즘입니다.\n정렬 완료 후 배열은 {1, 2, 3, 5, 8}이 됩니다.\narr[0]은 최솟값 1이고, arr[4]는 최댓값 8입니다.\n출력: 1 8",
+    "trapPoint": "버블 정렬 후 최솟값과 최댓값을 순서대로 출력하는 문제입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_2",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int sum = 0;\n        int i = 0;\n        do {\n            i++;\n            sum += i;\n        } while (i < 5);\n        System.out.println(sum);\n    }\n}",
+    "answer": "15",
+    "aliases": [
+      "15"
+    ],
+    "explanation": "do-while 문은 최소 1회 실행 후 조건을 검사합니다.\ni는 1, 2, 3, 4, 5까지 증가하며 sum에 누적됩니다.\nsum = 1 + 2 + 3 + 4 + 5 = 15.\ni가 5일 때 (5 < 5)는 거짓이 되어 루프를 탈출합니다.\n출력: 15",
+    "trapPoint": "do-while 문 탈출 시점의 i값과 누적합 계산입니다.",
+    "traceTable": {
+      "headers": [
+        "반복",
+        "i 증가",
+        "sum 누적",
+        "조건 검사 (i < 5)"
+      ],
+      "rows": [
+        [
+          "1회",
+          "i = 1",
+          "1",
+          "1 < 5 (참)"
+        ],
+        [
+          "2회",
+          "i = 2",
+          "3",
+          "2 < 5 (참)"
+        ],
+        [
+          "3회",
+          "i = 3",
+          "6",
+          "3 < 5 (참)"
+        ],
+        [
+          "4회",
+          "i = 4",
+          "10",
+          "4 < 5 (참)"
+        ],
+        [
+          "5회",
+          "i = 5",
+          "15",
+          "5 < 5 (거짓, 종료)"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_3_3",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 컬렉션 자료구조",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "d = {'apple': 3, 'banana': 2, 'orange': 5}\ntotal = sum(d.values())\nprint(total)",
+    "answer": "10",
+    "aliases": [
+      "10"
+    ],
+    "explanation": "d.values()는 딕셔너리의 모든 값 [3, 2, 5]를 반환합니다.\nsum(d.values()) = 3 + 2 + 5 = 10 입니다.",
+    "trapPoint": "딕셔너리 values() 메서드와 sum() 내장 함수의 결합입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_4",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    char a = 'A';\n    char b = a + 3;\n    printf(\"%c\", b);\n    return 0;\n}",
+    "answer": "D",
+    "aliases": [
+      "D"
+    ],
+    "explanation": "문자 'A'의 아스키 코드는 65입니다.\n65 + 3 = 68이며, 아스키 코드 68은 문자 'D'에 해당합니다.\n%c 포맷이므로 'D'가 출력됩니다.",
+    "trapPoint": "'A' 다음 알파벳 순서: A(0), B(1), C(2), D(3).",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_5",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 5,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 [STUDENT] 테이블에서 학년(GRADE)이 1학년이거나 3학년인 학생을 조회하는 SQL 문이다. 빈칸에 들어갈 연산자 키워드를 쓰시오.",
+    "passage": "SELECT NAME FROM STUDENT WHERE GRADE (        ) (1, 3);",
+    "code": null,
+    "answer": "IN",
+    "aliases": [
+      "IN",
+      "in"
+    ],
+    "explanation": "여러 값 중 하나와 일치하는지 비교하는 다중 행 연산자는 `IN` 입니다.",
+    "trapPoint": "괄호 안의 목록 중 하나와 일치하는 연산자는 IN입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_6",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 6,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 결합도(Coupling) 중 한 모듈이 다른 모듈의 제어 플래그나 스위치 값을 전달하여 내부 흐름을 제어하도록 지시할 때 발생하는 결합도의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "제어 결합도",
+    "aliases": [
+      "제어 결합도",
+      "제어결합도",
+      "Control Coupling",
+      "control coupling"
+    ],
+    "explanation": "제어 결합도(Control Coupling)는 한 모듈이 다른 모듈 내부의 논리적 흐름을 제어하기 위한 제어 플래그를 넘겨받아 처리할 때 발생합니다.",
+    "trapPoint": "제어 플래그나 동작 제어 파라미터 전달 = 제어 결합도(Control Coupling).",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_7",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 7,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 5;\n        int b = a++;\n        int c = ++a;\n        System.out.println(a + \" \" + b + \" \" + c);\n    }\n}",
+    "answer": "7 5 7",
+    "aliases": [
+      "7 5 7",
+      "7, 5, 7",
+      "7,5,7"
+    ],
+    "explanation": "1. a = 5\n2. b = a++: b에 5가 먼저 대입된 후 a는 6이 됨\n3. c = ++a: a가 먼저 7로 증가된 후 c에 7이 대입됨\n4. 최종 a=7, b=5, c=7\n출력: 7 5 7",
+    "trapPoint": "a++는 후증가(b=5 대입 후 a=6), ++a는 선증가(a=7 증가 후 c=7 대입)입니다.",
+    "traceTable": {
+      "headers": [
+        "연산식",
+        "대입된 값",
+        "연산 후 a 값"
+      ],
+      "rows": [
+        [
+          "a = 5",
+          "-",
+          "5"
+        ],
+        [
+          "b = a++",
+          "b = 5",
+          "6"
+        ],
+        [
+          "c = ++a",
+          "c = 7",
+          "7"
+        ],
+        [
+          "출력",
+          "a + ' ' + b + ' ' + c",
+          "7 5 7"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_3_8",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 8,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "데이터베이스에서 둘 이상의 테이블에 존재하는 동일한 의미를 가진 속성을 연결하여 새로운 릴레이션을 생성하는 관계 대수 연산자의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "조인",
+    "aliases": [
+      "조인",
+      "Join",
+      "join",
+      "JOIN"
+    ],
+    "explanation": "조인(Join, ⋈) 연산은 공통 속성을 중심으로 두 개 이상의 릴레이션을 하나로 합쳐서 새로운 릴레이션을 만듭니다.",
+    "trapPoint": "관계 대수 4대 순수 관계 연산자: Select(σ), Project(π), Join(⋈), Division(÷).",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_9",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 9,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int x = 10;\n    if (x == 10) {\n        int x = 20;\n        printf(\"%d \", x);\n    }\n    printf(\"%d\", x);\n    return 0;\n}",
+    "answer": "20 10",
+    "aliases": [
+      "20 10",
+      "20, 10",
+      "20,10"
+    ],
+    "explanation": "블록(중괄호 `{}`) 스코프 내에서 선언된 지역 변수 `int x = 20;`은 해당 블록 내부에서 바깥의 변수를 가립니다(Shadowing).\n따라서 블록 내부에서는 20이 출력되고, 블록을 벗어나면 원래 바깥 변수인 10이 출력됩니다.\n출력: 20 10",
+    "trapPoint": "변수의 유효 범위(Scope)와 변수 섀도잉 문제입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_10",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 10,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "소프트웨어 아키텍처 & 설계",
+    "prompt": "네트워크 계층의 패킷 교환 방식 중 모든 패킷이 전송되기 전에 송수신 호스트 간에 미리 논리적인 통신 경로를 설정한 후, 설정된 경로를 따라 패킷이 순서대로 전달되는 방식의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "가상 회선 방식",
+    "aliases": [
+      "가상 회선 방식",
+      "가상회선 방식",
+      "가상회선방식",
+      "가상회선",
+      "Virtual Circuit"
+    ],
+    "explanation": "가상 회선(Virtual Circuit) 방식은 연결 지향형으로 패킷 전송 전 경로를 확정하므로 전송 순서가 보장됩니다 (반면 각 패킷이 독립적으로 최적 경로를 찾아가는 방식은 데이터그램(Datagram) 방식입니다).",
+    "trapPoint": "연결 지향형 패킷 교환 = 가상 회선 방식, 비연결형 패킷 교환 = 데이터그램 방식.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_11",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 11,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 슬라이싱 연산",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = \"Python\"\nprint(a[::-1])",
+    "answer": "nohtyP",
+    "aliases": [
+      "nohtyP"
+    ],
+    "explanation": "슬라이싱 `[::-1]`은 문자열을 역순으로 뒤집으므로 \"nohtyP\"가 출력됩니다.",
+    "trapPoint": "문자열 전체를 뒤집는 파이썬 전형적인 역순 슬라이싱입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_12",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 12,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 결함 분석 기법 중 하나로, 한 모듈의 매개변수나 인터페이스 구조체(레코드) 전체를 불필요하게 넘겨받아 사용하는 경우 발생하는 결합도의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "스탬프 결합도",
+    "aliases": [
+      "스탬프 결합도",
+      "스탬프결합도",
+      "Stamp Coupling",
+      "stamp coupling"
+    ],
+    "explanation": "스탬프 결합도(Stamp Coupling)는 두 모듈 간에 레코드나 배열, 구조체 등 복합 데이터 구조를 인터페이스로 교환할 때 발생합니다.",
+    "trapPoint": "단순 데이터는 자료 결합도, 구조체나 객체 데이터 구조 전달은 스탬프 결합도입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_13",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 13,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 0;\n        for (int i = 1; i <= 5; i++) {\n            a += (i % 2 == 0) ? i : -i;\n        }\n        System.out.println(a);\n    }\n}",
+    "answer": "-3",
+    "aliases": [
+      "-3"
+    ],
+    "explanation": "i가 짝수이면 +i, 홀수이면 -i를 더합니다:\n- i=1 (홀): -1\n- i=2 (짝): +2 -> 1\n- i=3 (홀): -3 -> -2\n- i=4 (짝): +4 -> 2\n- i=5 (홀): -5 -> -3\n따라서 최종 a는 -3입니다.",
+    "trapPoint": "홀수는 음수로, 짝수는 양수로 교대 부호 합산입니다.",
+    "traceTable": {
+      "headers": [
+        "i",
+        "짝/홀",
+        "연산",
+        "a 누적"
+      ],
+      "rows": [
+        [
+          "1",
+          "홀수",
+          "-1",
+          "-1"
+        ],
+        [
+          "2",
+          "짝수",
+          "+2",
+          "1"
+        ],
+        [
+          "3",
+          "홀수",
+          "-3",
+          "-2"
+        ],
+        [
+          "4",
+          "짝수",
+          "+4",
+          "2"
+        ],
+        [
+          "5",
+          "홀수",
+          "-5",
+          "-3"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_3_14",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 14,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 SQL 문에서 사용된 키워드 중 조회 결과의 레코드 수를 제한하여 상위 3건만 출력하도록 지정하는 절의 키워드를 쓰시오 (MySQL/PostgreSQL 기준).",
+    "passage": "SELECT * FROM MEMBER ORDER BY SCORE DESC (        ) 3;",
+    "code": null,
+    "answer": "LIMIT",
+    "aliases": [
+      "LIMIT",
+      "limit"
+    ],
+    "explanation": "출력할 행의 개수를 제한하는 절은 `LIMIT n` 입니다.",
+    "trapPoint": "표준 및 널리 쓰이는 행 제한 키워드는 LIMIT입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_15",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 15,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[] = {10, 20, 30, 40};\n    int *p = &arr[2];\n    printf(\"%d\", p[-1]);\n    return 0;\n}",
+    "answer": "20",
+    "aliases": [
+      "20"
+    ],
+    "explanation": "p가 arr[2](30)의 주소를 가리키고 있을 때, p[-1]은 *(p - 1)과 같으므로 arr[1]의 값인 20이 됩니다.",
+    "trapPoint": "C언어에서 포인터 음수 인덱스 p[-1]은 바로 앞 요소를 가리킵니다.",
+    "traceTable": {
+      "headers": [
+        "포인터 p 위치",
+        "음수 인덱스 식",
+        "역참조 결과"
+      ],
+      "rows": [
+        [
+          "&arr[2] (값 30)",
+          "p[-1] = *(p - 1)",
+          "arr[1] = 20"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_3_16",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 16,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "소프트웨어 개발 보안 용어로, 악의적인 사용자가 웹 애플리케이션의 게시판이나 댓글에 자바스크립트 등 악성 스크립트를 삽입하여 이를 열람하는 다른 사용자의 쿠키나 세션 토큰을 탈취하는 취약점의 명칭(영문 약어 3글자)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "XSS",
+    "aliases": [
+      "XSS",
+      "xss",
+      "Cross-Site Scripting",
+      "크로스 사이트 스크립팅"
+    ],
+    "explanation": "XSS(Cross-Site Scripting)는 검증되지 않은 외부 입력 스크립트가 피해자 웹 브라우저에서 실행되어 정보를 탈취하는 공격입니다.",
+    "trapPoint": "CSRF(서버로의 위조 요청)와 XSS(클라이언트 브라우저에서의 스크립트 실행)를 구분하세요.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_17",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 17,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = [1, 2, 3]\nb = [4, 5, 6]\nprint(list(zip(a, b))[0])",
+    "answer": "(1, 4)",
+    "aliases": [
+      "(1, 4)",
+      "(1,4)",
+      "1, 4"
+    ],
+    "explanation": "zip(a, b)는 두 리스트의 동일한 인덱스 원소를 쌍으로 묶어 튜플을 만듭니다: [(1, 4), (2, 5), (3, 6)].\n0번 인덱스 원소는 (1, 4) 입니다.",
+    "trapPoint": "zip 함수의 반환 요소는 튜플 (1, 4) 형태로 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_18",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 18,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "V-모델 & 테스트 레벨",
+    "prompt": "소프트웨어 테스트 단계 중 단위 테스트(Unit Test)를 마친 컴포넌트들을 결합하여 인터페이스 간의 결함과 상호작용을 검증하는 테스트 단계의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "통합 테스트",
+    "aliases": [
+      "통합 테스트",
+      "통합테스트",
+      "Integration Test",
+      "Integration Testing"
+    ],
+    "explanation": "V-모델 테스트 단계:\n- 단위 테스트 (모듈/단위 기능 검증)\n- 통합 테스트 (모듈 간 인터페이스 검증)\n- 시스템 테스트 (전체 시스템 비기능/기능 검증)\n- 인수 테스트 (사용자 요구사항 충족 검증)",
+    "trapPoint": "모듈 간의 결합 및 인터페이스 테스트는 통합 테스트(Integration Test)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_3_19",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 19,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 10;\n    int b = 20;\n    a = a + b;\n    b = a - b;\n    a = a - b;\n    printf(\"%d %d\", a, b);\n    return 0;\n}",
+    "answer": "20 10",
+    "aliases": [
+      "20 10",
+      "20, 10",
+      "20,10"
+    ],
+    "explanation": "임시 변수(temp) 없이 덧셈과 뺄셈만을 이용하여 두 변수 a와 b의 값을 맞바꾸는(swap) 알고리즘입니다.\n1. a = 10 + 20 = 30\n2. b = 30 - 20 = 10 (원래 a값)\n3. a = 30 - 10 = 20 (원래 b값)\n출력: 20 10",
+    "trapPoint": "변수 값 스왑 알고리즘입니다.",
+    "traceTable": {
+      "headers": [
+        "연산 단계",
+        "a 값",
+        "b 값"
+      ],
+      "rows": [
+        [
+          "초기",
+          "10",
+          "20"
+        ],
+        [
+          "a = a + b",
+          "30",
+          "20"
+        ],
+        [
+          "b = a - b",
+          "30",
+          "10"
+        ],
+        [
+          "a = a - b",
+          "20",
+          "10"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_3_20",
+    "round_id": "2024_3",
+    "round_title": "2024년 제3회 기출 복원",
+    "id": 20,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "데이터베이스에서 데이터 무결성을 보장하기 위한 3대 무결성 제약조건 중, 외래키 값은 참조하는 릴레이션의 기본키 값과 일치하거나 NULL이어야 한다는 제약조건의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "참조 무결성",
+    "aliases": [
+      "참조 무결성",
+      "참조무결성",
+      "참조 무결성 제약조건",
+      "Referential Integrity"
+    ],
+    "explanation": "참조 무결성(Referential Integrity)은 릴레이션 간의 일관성을 유지하기 위해 외래키가 참조할 수 없는 존재하지 않는 값을 참조하지 못하도록 제한하는 규칙입니다.",
+    "trapPoint": "기본키와 NULL 금지는 개체 무결성, 외래키와 참조 대상 일치는 참조 무결성입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_1",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    unsigned char a = 0x55; // 01010101\n    unsigned char b = 0xAA; // 10101010\n    unsigned char c = (a & 0x0F) | (b & 0xF0);\n    printf(\"%X\", c);\n    return 0;\n}",
+    "answer": "A5",
+    "aliases": [
+      "A5",
+      "0xA5",
+      "a5"
+    ],
+    "explanation": "1. a = 0x55: 0x55 & 0x0F = 0x05 (하위 4비트 마스킹: 0101)\n2. b = 0xAA: 0xAA & 0xF0 = 0xA0 (상위 4비트 마스킹: 1010 0000)\n3. c = 0x05 | 0xA0 = 0xA5 (1010 0101)\n4. printf(\"%X\", c)는 16진수 대문자로 출력하므로 'A5'가 출력됩니다.",
+    "trapPoint": "비트 마스킹 연산과 16진수 출력 포맷(%X)에 주의해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "연산식",
+        "2진수 비트",
+        "16진수 값"
+      ],
+      "rows": [
+        [
+          "a & 0x0F",
+          "0000 0101",
+          "0x05"
+        ],
+        [
+          "b & 0xF0",
+          "1010 0000",
+          "0xA0"
+        ],
+        [
+          "c = 0x05 | 0xA0",
+          "1010 0101",
+          "0xA5"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_2_2",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 오버라이딩 & 다형성",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    int x = 100;\n    void msg() {\n        System.out.print(\"P\" + x);\n    }\n}\n\nclass Child extends Parent {\n    int x = 200;\n    void msg() {\n        System.out.print(\"C\" + x);\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Parent p = new Child();\n        System.out.print(p.x + \" \");\n        p.msg();\n    }\n}",
+    "answer": "100 C200",
+    "aliases": [
+      "100 C200",
+      "100, C200",
+      "100,C200"
+    ],
+    "explanation": "1. 멤버 변수 접근(p.x): 자바에서 인스턴스 변수는 다형성(오버라이딩)이 적용되지 않고 '참조 변수의 타입(Parent)'을 따릅니다. 따라서 p.x는 Parent의 x인 100이 출력됩니다.\n2. 메서드 호출(p.msg()): 인스턴스 메서드는 동적 바인딩에 의해 '실제 생성된 인스턴스 타입(Child)'의 오버라이딩 메서드가 실행됩니다. 따라서 Child의 msg()가 실행되어 \"C200\"이 출력됩니다.\n최종 출력: 100 C200",
+    "trapPoint": "자바의 킬러 함정! 멤버 변수는 선언된 타입 기준(정적 바인딩), 메서드는 실제 객체 기준(동적 바인딩)으로 동작합니다!",
+    "traceTable": {
+      "headers": [
+        "표현식",
+        "바인딩 종류",
+        "참조 기준",
+        "결과"
+      ],
+      "rows": [
+        [
+          "p.x",
+          "정적 바인딩 (컴파일 타입)",
+          "Parent.x",
+          "100"
+        ],
+        [
+          "p.msg()",
+          "동적 바인딩 (런타임 타입)",
+          "Child.msg()",
+          "C200"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_2_3",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 리스트 컴프리헨션",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\ntrans = [[row[i] for row in matrix] for i in range(3)]\nprint(trans[1])",
+    "answer": "[2, 5, 8]",
+    "aliases": [
+      "[2, 5, 8]",
+      "[2,5,8]",
+      "2, 5, 8"
+    ],
+    "explanation": "이중 리스트 컴프리헨션을 이용한 전치행렬(Transpose) 연산입니다.\ni = 1일 때, [row[1] for row in matrix]는 각 행(row)의 1번 인덱스 원소를 추출합니다.\n- [1, 2, 3]에서 2\n- [4, 5, 6]에서 5\n- [7, 8, 9]에서 8\n따라서 trans[1]은 [2, 5, 8]이 됩니다.",
+    "trapPoint": "열(column)을 행(row)으로 바꾸는 2차원 리스트 전치 알고리즘입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_4",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 10, b = 20, c = 30;\n    int *arr[3] = {&a, &b, &c};\n    *arr[1] += 5;\n    printf(\"%d\", b);\n    return 0;\n}",
+    "answer": "25",
+    "aliases": [
+      "25"
+    ],
+    "explanation": "arr은 int형 포인터들을 저장하는 포인터 배열(int *arr[3])입니다.\narr[1]은 변수 b의 주소(&b)를 가집니다.\n*arr[1] += 5는 변수 b의 값에 5를 더하는 것이므로 b는 20 + 5 = 25가 됩니다.",
+    "trapPoint": "포인터 배열의 각 원소가 가리키는 실제 변수의 값이 수정됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_5",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 5,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "IPv4 서브넷 마스킹 계산",
+    "prompt": "IP 주소 210.100.50.0/24 네트워크를 서브넷 마스크 255.255.255.224로 서브넷팅할 때 생성되는 서브넷의 총 개수를 숫자로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "8",
+    "aliases": [
+      "8",
+      "8개"
+    ],
+    "explanation": "1. 기존 네트워크는 /24 (서브넷 마스크: 255.255.255.0)입니다.\n2. 새 서브넷 마스크의 마지막 옥텟은 224이며, 이는 2진수로 11100000(2)입니다.\n3. 추가로 빌려온 서브넷 비트 수가 3비트이므로 생성되는 서브넷의 수는 2^3 = 8개입니다.",
+    "trapPoint": "빌려온 서브넷 비트 n = 3이므로 서브넷 개수는 2^n = 8개입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_6",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 6,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "보안 공격 기법 중 통신선에 몰래 도청 장치를 설치하거나 네트워크 패킷을 무단으로 엿듣는 수동적 공격(Passive Attack)의 명칭을 영문 또는 한글로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "스니핑",
+    "aliases": [
+      "스니핑",
+      "Sniffing",
+      "sniffing"
+    ],
+    "explanation": "스니핑(Sniffing)은 네트워크 상을 지나가는 패킷을 수동적으로 엿듣고 가로채어 비밀번호, 계정 정보 등을 탈취하는 도청 행위입니다.",
+    "trapPoint": "내용을 훔쳐보는 도청은 스니핑(Sniffing), 신분을 위장하여 속이는 공격은 스푸핑(Spoofing)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_7",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 7,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int x = 3;\n        int y = 5;\n        System.out.println(x & y | 2);\n    }\n}",
+    "answer": "3",
+    "aliases": [
+      "3"
+    ],
+    "explanation": "1. 연산자 우선순위: 비트 AND(&)가 비트 OR(|)보다 우선순위가 높습니다.\n2. x & y: 3(0011) & 5(0101) = 0001(2) = 1\n3. 1 | 2: 0001 | 0010 = 0011(2) = 3\n출력: 3",
+    "trapPoint": "& 연산자가 | 연산자보다 먼저 계산된다는 비트 연산자 우선순위를 숙지해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "연산 순서",
+        "식",
+        "2진수 비트",
+        "10진수 결과"
+      ],
+      "rows": [
+        [
+          "1단계",
+          "3 & 5",
+          "0011 & 0101",
+          "1 (0001)"
+        ],
+        [
+          "2단계",
+          "1 | 2",
+          "0001 | 0010",
+          "3 (0011)"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_2_8",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 8,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "교착상태 (Deadlock) 4대 조건",
+    "prompt": "데이터베이스 동시성 제어 기법 중 트랜잭션들이 자원에 접근하기 전 잠금(Lock)을 획득하는 단계(확장 단계)와 점유했던 잠금을 해제하는 단계(축소 단계)로 엄격히 구분하여 직렬가능성을 보장하는 규약의 명칭(영문 약어 또는 한글)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "2단계 로킹 규약",
+    "aliases": [
+      "2단계 로킹 규약",
+      "2단계 로킹",
+      "2단계로킹규약",
+      "2PL",
+      "Two-Phase Locking"
+    ],
+    "explanation": "2단계 로킹 규약(2PL, Two-Phase Locking)은 확장 단계(Growing Phase, 잠금 획득만 가능)와 축소 단계(Shrinking Phase, 잠금 해제만 가능)를 거쳐 직렬성을 보장하지만 교착상태(Deadlock)는 발생할 수 있습니다.",
+    "trapPoint": "확장 단계와 축소 단계로 나뉘는 규약 = 2단계 로킹 규약(2PL).",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_9",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 9,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 재귀함수",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint f(int n) {\n    if (n <= 0) return 0;\n    return n % 10 + f(n / 10);\n}\n\nint main() {\n    printf(\"%d\", f(456));\n    return 0;\n}",
+    "answer": "15",
+    "aliases": [
+      "15"
+    ],
+    "explanation": "각 자릿수를 재귀적으로 더하는 함수입니다.\nf(456) = 6 + f(45)\nf(45) = 5 + f(4)\nf(4) = 4 + f(0)\nf(0) = 0\n합계 = 6 + 5 + 4 + 0 = 15 입니다.",
+    "trapPoint": "자릿수 합을 구하는 재귀 호출입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_10",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 10,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "개방형 시스템 상호 연결(OSI) 7계층 중 물리 계층의 오류 제어와 흐름 제어를 담당하며, 인접한 두 시스템 간의 신뢰성 있는 전송을 위해 전송 단위를 프레임(Frame)으로 처리하는 2계층의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "데이터 링크 계층",
+    "aliases": [
+      "데이터 링크 계층",
+      "데이터링크 계층",
+      "데이터링크계층",
+      "Data Link Layer",
+      "2계층"
+    ],
+    "explanation": "데이터 링크 계층(Data Link Layer)은 MAC 주소를 이용해 노드 간 프레임 전송, 에러 검출(CRC), 흐름 제어를 담당하며 스위치, 브리지가 대표 장비입니다.",
+    "trapPoint": "전송 단위가 '프레임(Frame)'이고 MAC 주소를 사용하는 계층은 2계층(데이터링크 계층)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_11",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 11,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = [1, 2, 3]\nb = [x * 2 for x in a if x != 2]\nprint(b)",
+    "answer": "[2, 6]",
+    "aliases": [
+      "[2, 6]",
+      "[2,6]",
+      "2, 6"
+    ],
+    "explanation": "x가 2가 아닌 원소는 1과 3입니다.\n각각 x * 2를 수행하므로 1*2=2, 3*2=6이 되어 [2, 6]이 됩니다.",
+    "trapPoint": "조건식 x != 2에 의해 2는 제외됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_12",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 12,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "보안 취약점 중 소프트웨어 개발자가 시스템 점검이나 유지보수의 편의를 위해 정상적인 인증 절차를 우회하여 시스템에 접근할 수 있도록 몰래 만들어 둔 비밀 통로의 명칭을 영문 또는 한글로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "백도어",
+    "aliases": [
+      "백도어",
+      "트랩도어",
+      "Backdoor",
+      "Trapdoor",
+      "backdoor"
+    ],
+    "explanation": "백도어(Backdoor, 트랩도어)는 보안 인증 절차를 우회하여 시스템 관리자 권한을 획득할 수 있도록 고의로 숨겨둔 통로입니다.",
+    "trapPoint": "비밀 통로 = 백도어(Backdoor) 또는 트랩도어(Trapdoor).",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_13",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 13,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int[] a = {5, 4, 3, 2, 1};\n        int count = 0;\n        for (int i = 0; i < a.length - 1; i++) {\n            if (a[i] > a[i + 1]) {\n                int temp = a[i];\n                a[i] = a[i + 1];\n                a[i + 1] = temp;\n                count++;\n            }\n        }\n        System.out.println(count);\n    }\n}",
+    "answer": "4",
+    "aliases": [
+      "4"
+    ],
+    "explanation": "배열 {5, 4, 3, 2, 1}에 대해 버블 정렬의 1회전(Pass 1)을 수행합니다.\n- i=0: 5 > 4 (교환 1회) -> {4, 5, 3, 2, 1}\n- i=1: 5 > 3 (교환 2회) -> {4, 3, 5, 2, 1}\n- i=2: 5 > 2 (교환 3회) -> {4, 3, 2, 5, 1}\n- i=3: 5 > 1 (교환 4회) -> {4, 3, 2, 1, 5}\n총 교환 횟수 count = 4 입니다.",
+    "trapPoint": "최대값 5가 맨 뒤로 이동하면서 인접 원소와 총 4번 연속 교환됩니다.",
+    "traceTable": {
+      "headers": [
+        "i",
+        "비교 (a[i] > a[i+1])",
+        "교환 여부",
+        "배열 상태",
+        "count"
+      ],
+      "rows": [
+        [
+          "0",
+          "5 > 4",
+          "교환 (1회)",
+          "{4, 5, 3, 2, 1}",
+          "1"
+        ],
+        [
+          "1",
+          "5 > 3",
+          "교환 (2회)",
+          "{4, 3, 5, 2, 1}",
+          "2"
+        ],
+        [
+          "2",
+          "5 > 2",
+          "교환 (3회)",
+          "{4, 3, 2, 5, 1}",
+          "3"
+        ],
+        [
+          "3",
+          "5 > 1",
+          "교환 (4회)",
+          "{4, 3, 2, 1, 5}",
+          "4"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_2_14",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 14,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 SQL 문에서 사용된 집계 함수 중 평균값을 구하는 함수의 이름을 쓰시오.",
+    "passage": null,
+    "code": "SELECT (        )(SCORE) FROM EXAM;",
+    "answer": "AVG",
+    "aliases": [
+      "AVG",
+      "avg"
+    ],
+    "explanation": "SQL에서 평균을 계산하는 표준 집계 함수는 AVG()입니다.",
+    "trapPoint": "AVERAGE가 아니라 3글자 AVG()입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_15",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 15,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int x = 1;\n    int y = (x++) + (++x);\n    printf(\"%d %d\", x, y);\n    return 0;\n}",
+    "answer": "3 4",
+    "aliases": [
+      "3 4",
+      "3, 4",
+      "3,4"
+    ],
+    "explanation": "1. (x++)는 현재 x값인 1로 평가된 후 x가 2로 증가합니다.\n2. (++x)는 x(2)가 먼저 3으로 증가된 후 3으로 평가됩니다.\n3. y = 1 + 3 = 4가 됩니다.\n4. 최종 x는 3입니다.\n출력: 3 4",
+    "trapPoint": "단일 수식 내에서 전위/후위 증감자가 순서대로 평가되는 과정입니다.",
+    "traceTable": {
+      "headers": [
+        "연산 단계",
+        "평가 값",
+        "x의 변화"
+      ],
+      "rows": [
+        [
+          "x++",
+          "1",
+          "x: 1 -> 2"
+        ],
+        [
+          "++x",
+          "3",
+          "x: 2 -> 3"
+        ],
+        [
+          "y = 1 + 3",
+          "y = 4",
+          "x = 3"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_2_16",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 16,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "GoF 디자인 패턴 중 한 객체가 다른 복잡한 서브시스템 클래스들의 복합적인 인터페이스를 단순화하여 클라이언트에게 고수준의 단일 통합 인터페이스를 제공하는 구조 패턴의 명칭을 영문 또는 한글로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "퍼사드",
+    "aliases": [
+      "퍼사드",
+      "퍼사드 패턴",
+      "Facade",
+      "facade",
+      "Facade Pattern"
+    ],
+    "explanation": "퍼사드(Facade) 패턴은 건물의 정면 외벽처럼 복잡한 내부 서브시스템의 복잡도를 감추고 단일 진입점 인터페이스를 제공하여 사용 편의성을 높이는 구조 패턴입니다.",
+    "trapPoint": "복잡한 서브시스템을 단순화된 단일 창구로 래핑 = 퍼사드(Facade) 패턴.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_17",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 17,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def outer():\n    x = 10\n    def inner():\n        nonlocal x\n        x += 5\n    inner()\n    return x\n\nprint(outer())",
+    "answer": "15",
+    "aliases": [
+      "15"
+    ],
+    "explanation": "nonlocal 키워드는 inner 함수 내에서 전역 변수가 아닌 바깥쪽 지역 변수(outer의 x)를 참조하고 수정하겠음을 선언합니다.\n따라서 x += 5로 outer의 x가 15로 변경되어 15가 반환됩니다.",
+    "trapPoint": "파이썬 클로저에서 바깥 함수의 지역 변수를 수정할 때 사용하는 nonlocal 키워드입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_18",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 18,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "소프트웨어 결합도(Coupling) 중 두 모듈이 전역 변수(Global Variable)와 같이 공통된 데이터 영역을 함께 공유하여 참조하고 갱신할 때 발생하는 결합도의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "공통 결합도",
+    "aliases": [
+      "공통 결합도",
+      "공통결합도",
+      "Common Coupling",
+      "common coupling"
+    ],
+    "explanation": "공통 결합도(Common Coupling)는 여러 모듈이 전역 데이터 영역을 함께 사용할 때 발생하며, 전역 변수 변경 시 연관 모듈 전체에 파급 효과를 미칩니다.",
+    "trapPoint": "전역 변수 공유 = 공통 결합도(Common Coupling).",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_2_19",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 19,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[3] = {10, 20, 30};\n    printf(\"%d\", 1[arr]);\n    return 0;\n}",
+    "answer": "20",
+    "aliases": [
+      "20"
+    ],
+    "explanation": "C언어에서 `arr[1]`은 `*(arr + 1)`과 같으며, 덧셈의 교환법칙에 의해 `*(1 + arr)`과도 같고, 이는 `1[arr]`과 완전히 동일합니다!\n따라서 arr[1]의 값인 20이 정상 출력됩니다.",
+    "trapPoint": "C언어 문법의 대표적인 포인터 트릭: a[i] == *(a+i) == *(i+a) == i[a] 입니다!",
+    "traceTable": {
+      "headers": [
+        "표현식",
+        "포인터 역참조 식",
+        "값"
+      ],
+      "rows": [
+        [
+          "1[arr]",
+          "*(1 + arr) = *(arr + 1) = arr[1]",
+          "20"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_2_20",
+    "round_id": "2024_2",
+    "round_title": "2024년 제2회 기출 복원 (불시험)",
+    "id": 20,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "소프트웨어 아키텍처 & 설계",
+    "prompt": "해시 함수(Hash Function)의 충돌 저항성과 관련하여, 어떤 입력값 x에 대해 해시값 H(x) = H(y)를 만족하는 서로 다른 y를 찾아내는 것이 계산적으로 불가능해야 한다는 보안 특성의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "제2 역상 저항성",
+    "aliases": [
+      "제2 역상 저항성",
+      "제2역상저항성",
+      "제2 역상 저항성(Second Preimage Resistance)",
+      "약한 충돌 저항성",
+      "약한 충돌회피성"
+    ],
+    "explanation": "암호학적 해시 함수의 성질:\n1. 역상 저항성(Preimage Resistance): 주어진 해시값 h에 대해 H(x) = h인 x를 찾기 어려움\n2. 제2 역상 저항성(Second Preimage Resistance, 약한 충돌 저항성): 주어진 x에 대해 H(x) = H(y)인 y(x!=y)를 찾기 어려움\n3. 충돌 저항성(Collision Resistance, 강한 충돌 저항성): H(x) = H(y)인 임의의 쌍 (x, y)를 찾기 어려움",
+    "trapPoint": "주어진 x에 대해 동일한 해시값을 갖는 y를 찾는 것은 '제2 역상 저항성'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_1",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 1,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java static 공유 변수",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class StaticTest {\n    static int a = 10;\n    int b = 20;\n    \n    void add() {\n        a += 10;\n        b += 10;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        StaticTest s1 = new StaticTest();\n        StaticTest s2 = new StaticTest();\n        s1.add();\n        s2.add();\n        System.out.println(s1.a + \" \" + s1.b);\n    }\n}",
+    "answer": "30 30",
+    "aliases": [
+      "30 30",
+      "30, 30",
+      "30,30"
+    ],
+    "explanation": "1. static int a는 모든 객체가 공유합니다 (초기값 10).\n2. int b는 객체마다 독립적입니다 (초기값 20).\n3. s1.add() 호출:\n   - static a: 10 -> 20\n   - s1.b: 20 -> 30\n4. s2.add() 호출:\n   - static a: 20 -> 30\n   - s2.b: 20 -> 30\n5. s1.a는 공유 변수이므로 30이고, s1.b는 30입니다.\n출력: 30 30",
+    "trapPoint": "static 변수는 객체 생성에 상관없이 단 하나의 메모리 공간을 공유하므로 10 -> 20 -> 30으로 누적됩니다.",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "실행 코드",
+        "static a",
+        "s1.b",
+        "s2.b"
+      ],
+      "rows": [
+        [
+          "초기화",
+          "인스턴스 생성",
+          "10",
+          "20",
+          "20"
+        ],
+        [
+          "1단계",
+          "s1.add()",
+          "20",
+          "30",
+          "20"
+        ],
+        [
+          "2단계",
+          "s2.add()",
+          "30",
+          "30",
+          "30"
+        ],
+        [
+          "출력",
+          "s1.a + ' ' + s1.b",
+          "30",
+          "30",
+          "-"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_1_2",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 2,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[5] = {1, 2, 3, 4, 5};\n    int *p = arr;\n    printf(\"%d\", *(p + 3) + *(p + 1));\n    return 0;\n}",
+    "answer": "6",
+    "aliases": [
+      "6"
+    ],
+    "explanation": "*(p + 3)은 arr[3]의 값인 4입니다.\n*(p + 1)은 arr[1]의 값인 2입니다.\n4 + 2 = 6이 출력됩니다.",
+    "trapPoint": "배열 인덱스는 0부터 시작하므로 arr[3]은 4번째 원소인 4, arr[1]은 2번째 원소인 2입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_3",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def calc(x):\n    return x * 2 if x > 5 else x + 5\n\nprint(calc(4), calc(7))",
+    "answer": "9 14",
+    "aliases": [
+      "9 14",
+      "9, 14",
+      "9,14"
+    ],
+    "explanation": "파이썬 삼항 표현식 `A if condition else B`:\n1. calc(4): 4 > 5가 거짓이므로 4 + 5 = 9\n2. calc(7): 7 > 5가 참이므로 7 * 2 = 14\n출력: 9 14",
+    "trapPoint": "파이썬의 인라인 if-else 조건문 평가 순서입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_4",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 4,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 [직원] 테이블과 [부서] 테이블을 조인하여 부서코드가 일치하지 않는 직원까지 모두 포함하여 조회하기 위해 사용하는 외부 조인의 명칭(영문)을 쓰시오.",
+    "passage": "SELECT E.이름, D.부서명 \nFROM 직원 E \n(  1  ) (  2  ) JOIN 부서 D \nON E.부서코드 = D.부서코드;",
+    "code": null,
+    "answer": "(1) LEFT, (2) OUTER",
+    "aliases": [
+      "LEFT OUTER",
+      "left outer",
+      "LEFT OUTER JOIN"
+    ],
+    "explanation": "직원(좌측 테이블)을 기준으로 부서가 매칭되지 않는 직원까지 모두 보존하여 출력하려면 LEFT OUTER JOIN을 사용합니다.",
+    "trapPoint": "왼쪽 기준 보존 조인은 LEFT OUTER JOIN입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_5",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 5,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int sum = 0;\n    for (int i = 1; i <= 5; i++) {\n        if (i == 3) continue;\n        sum += i;\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "12",
+    "aliases": [
+      "12"
+    ],
+    "explanation": "1부터 5까지의 수 중 i가 3일 때 continue로 건너뜁니다.\n1 + 2 + 4 + 5 = 12.\n따라서 12가 출력됩니다.",
+    "trapPoint": "i == 3일 때의 덧셈만 제외됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_6",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 6,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "애자일(Agile) 소프트웨어 개발 방법론의 핵심 프레임워크 중 하나로, 스프린트(Sprint), 일일 스크럼 미팅(Daily Scrum), 백로그(Backlog), 스크럼 마스터(Scrum Master) 등의 역할을 중심으로 기민하게 개발을 진행하는 방법론의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "스크럼",
+    "aliases": [
+      "스크럼",
+      "스크럼 방법론",
+      "Scrum",
+      "scrum"
+    ],
+    "explanation": "스크럼(Scrum)은 짧은 반복 주기(Sprint)를 통해 요구사항 변경에 유연하게 대처하며 완성도 높은 결과물을 점진적으로 출시하는 애자일 방법론입니다.",
+    "trapPoint": "XP, 칸반과 더불어 애자일의 가장 대표적인 프레임워크입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_7",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 7,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 10, b = 20;\n        int res = a > b ? a - b : b - a;\n        System.out.println(res);\n    }\n}",
+    "answer": "10",
+    "aliases": [
+      "10"
+    ],
+    "explanation": "10 > 20은 거짓이므로 b - a = 20 - 10 = 10이 계산됩니다.\n출력: 10",
+    "trapPoint": "두 수의 절댓값 차이를 계산하는 삼항 연산자 로직입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_8",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 8,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "네트워크 관리 프로토콜로, 네트워크 장비(라우터, 스위치, 서버 등)의 동작 상태 및 통신 정보를 모니터링하고 제어하기 위해 UDP 161/162번 포트를 사용하는 인터넷 표준 관리 프로토콜의 명칭(영문 약어 4글자)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "SNMP",
+    "aliases": [
+      "SNMP",
+      "snmp",
+      "Simple Network Management Protocol"
+    ],
+    "explanation": "SNMP(Simple Network Management Protocol)는 네트워크 관리자(Manager)와 장비 에이전트(Agent) 간에 관리 정보(MIB)를 교환하는 프로토콜입니다.",
+    "trapPoint": "네트워크 관리 프로토콜 = SNMP.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_9",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 9,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int n = 5;\n    int fact = 1;\n    for (int i = 1; i <= n; i++) {\n        fact *= i;\n    }\n    printf(\"%d\", fact);\n    return 0;\n}",
+    "answer": "120",
+    "aliases": [
+      "120"
+    ],
+    "explanation": "5!(팩토리얼)을 구하는 반복문입니다.\n1 * 2 * 3 * 4 * 5 = 120이 출력됩니다.",
+    "trapPoint": "5! = 120.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_10",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 10,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "교착상태 (Deadlock) 4대 조건",
+    "prompt": "데이터베이스에서 둘 이상의 트랜잭션이 서로가 점유하고 있는 자원의 잠금(Lock)이 해제되기를 무한정 대기하여 더 이상 처리가 진행되지 못하는 교착 상태의 영문 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "Deadlock",
+    "aliases": [
+      "Deadlock",
+      "deadlock",
+      "데드락",
+      "교착상태",
+      "교착 상태"
+    ],
+    "explanation": "교착상태(Deadlock)는 상호 배제, 점유와 대기, 비선점, 환형 대기의 4가지 조건이 동시에 충족될 때 발생합니다.",
+    "trapPoint": "영문 데드락(Deadlock) 또는 한글 교착상태입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_11",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 11,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = \"2024-04-14\"\nprint(a.replace(\"-\", \"/\"))",
+    "answer": "2024/04/14",
+    "aliases": [
+      "2024/04/14"
+    ],
+    "explanation": "문자열 내의 모든 '-' 문자를 '/'로 치환하므로 '2024/04/14'가 출력됩니다.",
+    "trapPoint": "파이썬 replace 메서드는 일치하는 모든 하위 문자열을 치환합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_12",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 12,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 결합도(Coupling)의 유형 중 두 모듈이 매개변수로 단순한 자료값(원시 타입)만을 주고받는 가장 결합도가 낮고(약하고) 독립성이 우수한 결합도의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "자료 결합도",
+    "aliases": [
+      "자료 결합도",
+      "자료결합도",
+      "Data Coupling",
+      "data coupling"
+    ],
+    "explanation": "자료 결합도(Data Coupling)는 모듈 간 인터페이스가 단순한 데이터 파라미터로만 구성되어 모듈 간 종속성이 가장 적은 가장 바람직한 결합도입니다.",
+    "trapPoint": "최고의 결합도(가장 약함) = 자료 결합도, 최악의 결합도(가장 강함) = 내용 결합도.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_13",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 13,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        String str = \"Hello\";\n        str.concat(\" World\");\n        System.out.println(str);\n    }\n}",
+    "answer": "Hello",
+    "aliases": [
+      "Hello"
+    ],
+    "explanation": "자바의 String 객체는 불변(Immutable) 객체입니다.\nstr.concat(\" World\")는 새로운 문자열 객체를 반환할 뿐, str 변수 자체가 가리키는 원본 객체를 수정하지 않습니다 (재할당 str = str.concat(...)을 하지 않음).\n따라서 str은 여전히 \"Hello\"입니다.",
+    "trapPoint": "자바 String 클래스의 불변성(Immutability)에 관한 대표적인 단골 함정 문제입니다!",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "코드",
+        "설명",
+        "str 변수 값"
+      ],
+      "rows": [
+        [
+          "1",
+          "str = 'Hello'",
+          "새 String 객체 참조",
+          "'Hello'"
+        ],
+        [
+          "2",
+          "str.concat(' World')",
+          "새 객체 생성되나 반환값을 받지 않음",
+          "'Hello' 유지"
+        ],
+        [
+          "3",
+          "System.out.println(str)",
+          "출력",
+          "Hello"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_1_14",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 14,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "뷰(View) & 인덱스 최적화",
+    "prompt": "다음 SQL 문의 빈칸에 들어갈 키워드를 쓰시오. 테이블 구조를 삭제할 때 참조하고 있는 외래키나 연관된 뷰, 제약조건까지 연쇄적으로 함께 삭제하도록 지정하는 옵션이다.",
+    "passage": "DROP TABLE STUDENT (        );",
+    "code": null,
+    "answer": "CASCADE",
+    "aliases": [
+      "CASCADE",
+      "cascade",
+      "카스케이드"
+    ],
+    "explanation": "CASCADE 옵션은 참조하고 있는 다른 모든 객체(외래키, 뷰 등)를 연쇄적으로 함께 삭제합니다. 반대로 참조 중인 객체가 있으면 삭제를 취소하는 옵션은 RESTRICT입니다.",
+    "trapPoint": "연쇄 삭제 옵션은 CASCADE, 참조 시 거부 옵션은 RESTRICT입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_15",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 15,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[] = {10, 20, 30};\n    int *p = arr;\n    printf(\"%d \", *p++);\n    printf(\"%d\", *p);\n    return 0;\n}",
+    "answer": "10 20",
+    "aliases": [
+      "10 20",
+      "10, 20",
+      "10,20"
+    ],
+    "explanation": "1. *p++는 후위 증가 연산자가 적용되므로 먼저 현재 p가 가리키는 arr[0]의 값(10)을 역참조하여 출력한 뒤 p가 다음 위치(arr[1])로 증가합니다.\n2. 두 번째 printf에서 *p는 증가된 위치인 arr[1]의 값(20)을 출력합니다.\n출력: 10 20",
+    "trapPoint": "*p++와 (*p)++의 차이를 알아야 합니다. *p++는 포인터 주소가 1칸 증가합니다.",
+    "traceTable": {
+      "headers": [
+        "순서",
+        "표현식",
+        "역참조 값",
+        "연산 후 p 위치"
+      ],
+      "rows": [
+        [
+          "1번째 printf",
+          "*p++",
+          "10",
+          "arr[1]로 이동"
+        ],
+        [
+          "2번째 printf",
+          "*p",
+          "20",
+          "arr[1] 유지"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2024_1_16",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 16,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "소프트웨어 아키텍처 패턴 중 대화형 애플리케이션을 세 가지 구성요소인 데이터 및 비즈니스 로직(Model), 사용자 인터페이스(View), 사용자 입력을 처리하여 모델과 뷰를 갱신하는 제어기(Controller)로 분리하는 패턴의 영문 약어(3글자)를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "MVC",
+    "aliases": [
+      "MVC",
+      "mvc",
+      "Model-View-Controller",
+      "MVC 패턴"
+    ],
+    "explanation": "MVC 패턴은 Model(데이터/로직), View(UI 화면), Controller(흐름 제어)의 독립성을 부여하여 유지보수성을 극대화하는 아키텍처 패턴입니다.",
+    "trapPoint": "소프트웨어 아키텍처 패턴의 기본인 MVC 패턴입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_17",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 17,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "x = [1, 2, 3]\ny = x\ny.append(4)\nprint(len(x))",
+    "answer": "4",
+    "aliases": [
+      "4"
+    ],
+    "explanation": "파이썬에서 `y = x`는 리스트의 얕은 복사(참조 복사)이므로 x와 y는 동일한 힙 메모리 객체를 가리킵니다.\ny.append(4)를 하면 원본 객체에 4가 추가되므로 x도 [1, 2, 3, 4]가 됩니다.\nlen(x)는 4입니다.",
+    "trapPoint": "파이썬 객체 참조 할당의 특성입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_18",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 18,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "TCP/IP 프로토콜 중 IP 패킷 전송 중 발생하는 에러 보고(예: 목적지 도달 불가)나 네트워크 상태 진단(ping, traceroute 등)을 위해 사용하는 인터넷 제어 메시지 프로토콜의 명칭(영문 약어 4글자)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "ICMP",
+    "aliases": [
+      "ICMP",
+      "icmp",
+      "Internet Control Message Protocol"
+    ],
+    "explanation": "ICMP(Internet Control Message Protocol)는 IP 프로토콜의 신뢰성 부재를 보완하기 위해 제어 및 에러 메시지를 송신하는 프로토콜로 ping 명령의 기반입니다.",
+    "trapPoint": "ping 명령어에 사용되는 진단 프로토콜 = ICMP.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_19",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 19,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 0;\n    for (int i = 0; i < 3; i++) {\n        for (int j = 0; j < 2; j++) {\n            a += 1;\n        }\n    }\n    printf(\"%d\", a);\n    return 0;\n}",
+    "answer": "6",
+    "aliases": [
+      "6"
+    ],
+    "explanation": "외부 루프 3회 * 내부 루프 2회 = 총 6회 반복됩니다.\na에 1씩 더해지므로 최종 값은 6입니다.",
+    "trapPoint": "단순 이중 for문의 총 반복 횟수 계산 문제입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2024_1_20",
+    "round_id": "2024_1",
+    "round_title": "2024년 제1회 기출 복원",
+    "id": 20,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "데이터베이스 보안 및 접근 제어 모델 중 주체와 객체의 보안 등급(Security Level)을 비교하여 접근을 통제하는 모델로, 군사적 기밀 유지 목적 등에 사용되는 강제적 접근 통제(MAC)의 영문 약어 풀네임을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "Mandatory Access Control",
+    "aliases": [
+      "Mandatory Access Control",
+      "MAC",
+      "강제적 접근 통제",
+      "강제적 접근통제"
+    ],
+    "explanation": "MAC(Mandatory Access Control)은 관리자만이 접근 제어 규칙을 설정할 수 있으며 주체와 객체의 보안 라벨(기밀, 대외비 등)에 따라 접근을 허가합니다 (사용자가 권한을 부여하는 것은 DAC, 역할 기반은 RBAC).",
+    "trapPoint": "DAC(임의적 접근 통제), MAC(강제적 접근 통제), RBAC(역할 기반 접근 통제) 3대 접근 제어 모델을 구분하세요.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_1",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 1,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class A {\n    public void paint() {\n        System.out.print(\"A\");\n        draw();\n    }\n    public void draw() {\n        System.out.print(\"B\");\n        draw();\n    }\n}\n\nclass B extends A {\n    public void paint() {\n        super.draw();\n        System.out.print(\"C\");\n        this.draw();\n    }\n    public void draw() {\n        System.out.print(\"D\");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        A b = new B();\n        b.paint();\n        b.draw();\n    }\n}",
+    "answer": "BDCDD",
+    "aliases": [
+      "BDCDD"
+    ],
+    "explanation": "다형성 및 동적 바인딩 추적:\n1. `A b = new B();` 로 인스턴스 B 생성.\n2. `b.paint();` 호출 -> 오버라이딩된 B의 paint() 실행:\n   - `super.draw()`: A의 draw() 호출 -> \"B\" 출력 후, 내부의 `draw()`는 동적 바인딩에 의해 실제 인스턴스인 B의 draw()가 호출되어 \"D\" 출력.\n   - `System.out.print(\"C\")`: \"C\" 출력.\n   - `this.draw()`: B의 draw() 호출 -> \"D\" 출력.\n   - (paint 결과: BDCD)\n3. `b.draw();` 호출 -> B의 draw() 호출 -> \"D\" 출력.\n4. 최종 누적 출력: \"BDCDD\"",
+    "trapPoint": "부모 클래스 A의 draw() 내부에서 다시 draw()를 호출할 때, 실제 객체 타입이 B이므로 오버라이딩된 B의 draw()가 실행됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_2",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 2,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 설명에 해당하는 인증 및 인가 프로토콜을 보기에서 찾아 기호(또는 명칭)를 쓰시오.",
+    "passage": "- 사용자가 사용자 이름과 암호와 같은 자격 증명을 직접 공유하지 않고도 타사 애플리케이션이 리소스에 접근할 수 있도록 권한을 부여하는 인터넷 표준 인가 프로토콜이다.\n- 액세스 토큰(Access Token)을 발급하여 타사 애플리케이션이 사용자를 대신해 데이터에 접근하도록 한다.\n- Google, Facebook, Twitter, GitHub 등 소셜 로그인 기능에 널리 활용된다.\n\n[보기]\nㄱ. NFT   ㄴ. JWT   ㄷ. SAML   ㄹ. AccessToken   ㅁ. SSO\nㅂ. OIDC  ㅅ. Authentication   ㅇ. OAuth   ㅈ. Cookie   ㅊ. Refresh Token",
+    "code": null,
+    "answer": "ㅇ",
+    "aliases": [
+      "ㅇ",
+      "OAuth",
+      "oauth",
+      "OAuth 2.0",
+      "OAuth2.0"
+    ],
+    "explanation": "OAuth(Open Authorization)는 사용자의 비밀번호 노출 없이 접근 권한을 위임하기 위해 액세스 토큰(Access Token)을 발급하는 표준 인증/인가 프로토콜입니다.",
+    "trapPoint": "자격 증명을 공유하지 않고 Access Token을 발급받아 타사 리소스에 접근 권한을 위임하는 프로토콜은 OAuth입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_3",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 3,
+    "category": "운영체제",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "Linux 환경에서 test.txt 파일에 대해 소유자에게는 읽기/쓰기/실행 권한을, 그룹에게는 읽기/실행 권한을, 기타 사용자에게는 실행 권한만을 부여하고자 한다. 빈칸에 들어갈 명령어와 8진수 권한 숫자를 순서대로 쓰시오.",
+    "passage": "(     1     ) (     2     ) test.txt",
+    "code": null,
+    "answer": "(1) chmod, (2) 751",
+    "aliases": [
+      "(1) chmod, (2) 751",
+      "chmod, 751",
+      "chmod 751"
+    ],
+    "explanation": "1. 파일의 접근 권한을 변경하는 리눅스 명령어는 `chmod`입니다.\n2. 8진수 권한 계산:\n   - r(읽기)=4, w(쓰기)=2, x(실행)=1\n   - 소유자: r+w+x = 4 + 2 + 1 = 7\n   - 그룹: r+x = 4 + 1 = 5\n   - 기타: x = 1\n   따라서 8진수 권한은 `751`입니다.",
+    "trapPoint": "소유자=7, 그룹=5, 기타=1로 순서대로 나열하여 751입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_4",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint test(int n) {\n    int i, sum = 0;\n    for (i = 1; i <= n / 2; i++) {\n        if (n % i == 0) sum += i;\n    }\n    if (n == sum) return 1;\n    return 0;\n}\n\nint main() {\n    int i, sum = 0;\n    for (i = 2; i <= 100; i++) {\n        if (test(i)) sum += i;\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "34",
+    "aliases": [
+      "34"
+    ],
+    "explanation": "test(n) 함수는 자신을 제외한 약수들의 합이 자기 자신과 같은 '완전수(Perfect Number)'인지를 판별합니다.\n2부터 100 사이의 완전수는 6과 28 두 개입니다.\n- 6의 진약수: 1, 2, 3 -> 합 = 6 (완전수)\n- 28의 진약수: 1, 2, 4, 7, 14 -> 합 = 28 (완전수)\n따라서 sum = 6 + 28 = 34가 출력됩니다.",
+    "trapPoint": "100 이하의 완전수는 6과 28뿐이므로, 그 합은 6 + 28 = 34입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_5",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 5,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 코드에서 구조체 포인터 변수 d2를 통해 멤버 numPtr에 접근하기 위해 빈칸에 공통으로 들어갈 연산자 기호를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct Data {\n    char c;\n    int *numPtr;\n} Data;\n\nint main() {\n    int num = 10;\n    Data d1;\n    Data *d2 = malloc(sizeof(struct Data));\n\n    d1.numPtr = &num;\n    d2(   )numPtr = &num;\n\n    printf(\"%d\\n\", *d1.numPtr);\n    printf(\"%d\\n\", *d2(   )numPtr);\n\n    free(d2);\n    return 0;\n}",
+    "answer": "->",
+    "aliases": [
+      "->"
+    ],
+    "explanation": "일반 구조체 변수(d1)는 점(.) 연산자로 멤버에 접근하지만, 구조체 포인터 변수(d2)는 화살표(`->`) 연산자를 사용하여 멤버에 접근합니다.\n`d2->numPtr`",
+    "trapPoint": "구조체 포인터 변수의 멤버 참조 연산자는 `->` (하이픈 + 오른쪽 꺾쇠)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_6",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 6,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 테이블 T1과 T2에 대해 UNION 연산 쿼리를 실행한 결과를 내림차순 정렬된 숫자 순서대로 쓰시오.",
+    "passage": "[테이블 T1]\n| A |\n| --- |\n| 3 |\n| 1 |\n| 4 |\n\n[테이블 T2]\n| A |\n| --- |\n| 2 |\n| 4 |\n| 3 |\n\n[쿼리]\nSELECT A FROM T1\nUNION\nSELECT A FROM T2\nORDER BY A DESC;",
+    "code": null,
+    "answer": "4 3 2 1",
+    "aliases": [
+      "4 3 2 1",
+      "4, 3, 2, 1",
+      "4\n3\n2\n1",
+      "4,3,2,1"
+    ],
+    "explanation": "1. UNION 연산은 합집합을 구하면서 중복된 값을 자동으로 제거합니다.\n- T1: {3, 1, 4}\n- T2: {2, 4, 3}\n- 합집합(중복 제거): {1, 2, 3, 4}\n2. ORDER BY A DESC로 내림차순 정렬하므로 결과는 4, 3, 2, 1 순서로 출력됩니다.",
+    "trapPoint": "UNION은 중복을 제거하므로 3과 4가 한 번씩만 포함됩니다. (UNION ALL인 경우 중복 유지).",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_7",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 7,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 서버 접근 통제 정책의 유형에 해당하는 영문 약어를 각각 쓰시오.",
+    "passage": "( 1 ) 주체와 객체의 보안 등급을 비교하여 시스템이 접근 권한을 결정하는 규칙 기반(Rule-Based) 접근통제 정책\n( 2 ) 사용자의 직무나 조직 내 맡은 역할(Role)에 기초하여 권한을 부여하고 접근을 제어하는 방식\n( 3 ) 데이터 소유자(사용자)가 신분에 따라 객체에 대한 접근 권한을 임의로 설정하는 신분 기반(Identity-Based) 접근통제 정책",
+    "code": null,
+    "answer": "(1) MAC, (2) RBAC, (3) DAC",
+    "aliases": [
+      "MAC, RBAC, DAC",
+      "MAC RBAC DAC"
+    ],
+    "explanation": "1. MAC(Mandatory Access Control, 강제적 접근 통제): 관리자/시스템이 보안 레이블 기반 통제\n2. RBAC(Role-Based Access Control, 역할 기반 접근 통제): 직무/역할 기반 통제\n3. DAC(Discretionary Access Control, 임의적 접근 통제): 소유자가 권한 부여",
+    "trapPoint": "보안 등급 기반 = MAC, 역할 기반 = RBAC, 소유자 기반 = DAC입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_8",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 8,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 재귀 함수 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint f(int n) {\n    if (n <= 1) return 1;\n    else return n * f(n - 1);\n}\n\nint main() {\n    printf(\"%d\", f(7));\n    return 0;\n}",
+    "answer": "5040",
+    "aliases": [
+      "5040"
+    ],
+    "explanation": "팩토리얼(Factorial) 7!을 계산하는 재귀 함수입니다.\n7! = 7 * 6 * 5 * 4 * 3 * 2 * 1\n= 7 * 720 = 5040이 출력됩니다.",
+    "trapPoint": "f(7) = 7 * 6 * 5 * 4 * 3 * 2 * 1 = 5040입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_9",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 9,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "다음 설명에 해당하는 광대역 통신망 전송 기술의 영문 약어를 쓰시오.",
+    "passage": "- 고정 길이 53바이트(헤더 5바이트 + 페이로드 48바이트)의 셀(Cell) 단위로 데이터를 전송하는 방식이다.\n- 회선 교환의 실시간성과 패킷 교환의 유연성을 결합한 비동기식 전송 모드이다.\n- B-ISDN의 핵심 기술로 사용되었다.",
+    "code": null,
+    "answer": "ATM",
+    "aliases": [
+      "ATM",
+      "atm",
+      "Asynchronous Transfer Mode"
+    ],
+    "explanation": "ATM(Asynchronous Transfer Mode, 비동기 전송 방식)은 53바이트의 고정 길이 셀을 사용하여 고속 데이터 전송을 제공하는 통신 기술입니다.",
+    "trapPoint": "53바이트 고정 크기 셀 단위 전송 프로토콜은 ATM입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_10",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 10,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 포인터 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    char* p = \"KOREA\";\n    printf(\"%s\\n\", p);\n    printf(\"%s\\n\", p + 1);\n    printf(\"%c\\n\", *p);\n    printf(\"%c\\n\", *(p + 3));\n    printf(\"%c\\n\", *p + 4);\n    return 0;\n}",
+    "answer": "KOREA OREA K E O",
+    "aliases": [
+      "KOREA OREA K E O",
+      "KOREA, OREA, K, E, O",
+      "KOREA\nOREA\nK\nE\nO"
+    ],
+    "explanation": "1. printf(\"%s\\n\", p): p가 가리키는 시작부터 전체 문자열 -> \"KOREA\"\n2. printf(\"%s\\n\", p + 1): 1번 인덱스부터 문자열 -> \"OREA\"\n3. printf(\"%c\\n\", *p): p가 가리키는 첫 글자 -> 'K'\n4. printf(\"%c\\n\", *(p + 3)): 3번 인덱스 글자 -> 'E'\n5. printf(\"%c\\n\", *p + 4): 'K'의 아스키 코드에 4를 더한 문자 -> 'K'(75) + 4 = 79 ('O')\n따라서 KOREA / OREA / K / E / O 가 순서대로 출력됩니다.",
+    "trapPoint": "*p + 4는 *(p + 4)가 아니라, 첫 번째 문자 'K'의 아스키 코드값에 4를 더한 것이므로 K->L->M->N->O가 되어 'O'가 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_11",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 11,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 오버라이딩 & 다형성",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    int compute(int num) {\n        if (num <= 1) return num;\n        return compute(num - 1) + compute(num - 2);\n    }\n}\n\nclass Child extends Parent {\n    int compute(int num) {\n        if (num <= 1) return num;\n        return compute(num - 1) + compute(num - 3);\n    }\n}\n\npublic class Main {\n    public static void main(String args[]) {\n        Parent obj = new Child();\n        System.out.print(obj.compute(7));\n    }\n}",
+    "answer": "2",
+    "aliases": [
+      "2"
+    ],
+    "explanation": "Child 인스턴스가 생성되었고 compute 메소드가 오버라이딩되어 있으므로 Child의 compute(7)이 호출됩니다.\nChild의 compute(n) = compute(n-1) + compute(n-3):\n- compute(0) = 0, compute(1) = 1\n- compute(2) = compute(1) + compute(-1) = 1 + (-1) = 0\n- compute(3) = compute(2) + compute(0) = 0 + 0 = 0\n- compute(4) = compute(3) + compute(1) = 0 + 1 = 1\n- compute(5) = compute(4) + compute(2) = 1 + 0 = 1\n- compute(6) = compute(5) + compute(3) = 1 + 0 = 1\n- compute(7) = compute(6) + compute(4) = 1 + 1 = 2\n따라서 최종 출력은 2입니다.",
+    "trapPoint": "부모 클래스의 피보나치(n-1 + n-2)가 아니라 오버라이딩된 자식 클래스의 (n-1 + n-3) 수식이 적용됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_12",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 12,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "내부 사설 IP 주소를 외부 공인 IP 주소로 변환하여 라우터를 통해 통신하도록 지원하는 네트워크 주소 변환 기술의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "NAT",
+    "aliases": [
+      "NAT",
+      "nat",
+      "Network Address Translation"
+    ],
+    "explanation": "NAT(Network Address Translation, 네트워크 주소 변환)는 한정된 공인 IPv4 주소를 절약하고 내부망 보안을 강화하기 위해 사설 IP와 공인 IP를 상호 변환해 주는 기술입니다.",
+    "trapPoint": "사설 IP <-> 공인 IP 변환 기술은 NAT입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_13",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 13,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java static 공유 변수",
+    "prompt": "다음 Java 코드에서 컴파일 에러가 발생하는 코드 라인 번호를 숫자로 쓰시오.",
+    "passage": null,
+    "code": "1: class Person {\n2:     private String name;\n3:     public Person(String val) {\n4:         name = val;\n5:     }\n6:     public static String get() {\n7:         return name;\n8:     }\n9:     public void print() {\n10:        System.out.println(name);\n11:    }\n12: }\n13: public class Main {\n14:    public static void main(String[] args) {\n15:        Person obj = new Person(\"Kim\");\n16:        obj.print();\n17:    }\n18: }",
+    "answer": "7",
+    "aliases": [
+      "7",
+      "7번",
+      "7행",
+      "라인 7",
+      "Line 7"
+    ],
+    "explanation": "7번 라인의 `return name;`에서 static(정적) 메소드인 `get()`은 인스턴스가 생성되기 전에 클래스 로딩 시점에 메모리에 올라가므로, 인스턴스 멤버 변수인 `name`에 직접 접근할 수 없어 컴파일 에러가 발생합니다.",
+    "trapPoint": "static 메소드 내에서는 인스턴스 변수(non-static)를 직접 참조할 수 없습니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_14",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 14,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 코드에서 공백으로 구분된 문자열을 분리하여 여러 변수에 저장하기 위해 빈칸에 들어갈 메소드명을 쓰시오.",
+    "passage": null,
+    "code": "num1, num2 = input().______()\nnum1 = int(num1)\nnum2 = int(num2)\nnum3 = num1 + num2\nprint(num1, \"+\", num2, \"=\", num3)",
+    "answer": "split",
+    "aliases": [
+      "split",
+      "split()"
+    ],
+    "explanation": "파이썬에서 한 줄로 입력된 문자열을 공백(기본 구분자)을 기준으로 나누어 리스트로 반환하는 메소드는 `split()`입니다.",
+    "trapPoint": "문자열 분리 메소드는 split입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_15",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 15,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "UML 다이어그램 중 여러 모델 요소(클래스 등)들을 그룹화하여 시스템의 논리적 구조를 패키지 단위로 표현하는 다이어그램의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "패키지 다이어그램",
+    "aliases": [
+      "패키지 다이어그램",
+      "패키지다이어그램",
+      "Package Diagram",
+      "패키지"
+    ],
+    "explanation": "패키지 다이어그램(Package Diagram)은 시스템의 서로 관련된 모델 요소들을 폴더 형태의 패키지 단위로 그룹화하고 패키지 간의 의존 관계를 표현하는 구조적 다이어그램입니다.",
+    "trapPoint": "요소들을 그룹화하여 표현하는 구조 다이어그램은 패키지 다이어그램입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_16",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 16,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "블랙박스 테스팅 기법",
+    "prompt": "다음 설명에 해당하는 블랙박스 테스트 기법을 보기에서 찾아 기호를 쓰시오.",
+    "passage": "- 소프트웨어 프로그램의 입력 조건들을 유효한 값과 유효하지 않은 값의 그룹(동등 클래스)으로 나누어, 각 그룹에서 대표값을 하나씩 선택하여 테스트 케이스를 설계하는 기법이다.\n- 같은 그룹의 모든 입력값은 시스템에 의해 동일하게 취급될 것이라는 가정에 기반한다.\n\n[보기]\nㄱ. Equivalence Partitioning   ㄴ. Statement Coverage   ㄷ. Boundary Value Analysis\nㄹ. Branch Coverage            ㅁ. Error Guessing       ㅂ. Condition Coverage",
+    "code": null,
+    "answer": "ㄱ",
+    "aliases": [
+      "ㄱ",
+      "Equivalence Partitioning",
+      "동등분할",
+      "동치분할",
+      "동등 분할"
+    ],
+    "explanation": "동등 분할(Equivalence Partitioning, 동치 분할)은 입력 영역을 여러 개의 동등 클래스로 나누고 각 클래스의 대표값을 테스트 케이스로 선정하는 대표적인 블랙박스 테스트 기법입니다.",
+    "trapPoint": "대표값을 그룹별로 추출하여 테스트하는 기법은 동등 분할(Equivalence Partitioning, ㄱ)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_17",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 17,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "소프트웨어 아키텍처 & 설계",
+    "prompt": "다음 클라우드 서비스 모델의 설명에 알맞은 영문 약어를 각각 쓰시오.",
+    "passage": "( 1 ) 가상 서버, 네트워크, 스토리지 등 순수 하드웨어 IT 인프라 자원을 서비스 형태로 제공하는 모델 (AWS EC2 등)\n( 2 ) 개발자가 애플리케이션을 개발하고 실행할 수 있도록 실행 환경 및 개발 플랫폼(OS, 런타임, DB)을 제공하는 모델\n( 3 ) 최종 사용자가 별도의 설치 없이 웹 브라우저를 통해 완전한 소프트웨어를 이용할 수 있도록 제공하는 서비스 모델 (구글 Docs 등)",
+    "code": null,
+    "answer": "(1) IaaS, (2) PaaS, (3) SaaS",
+    "aliases": [
+      "IaaS, PaaS, SaaS",
+      "IaaS PaaS SaaS"
+    ],
+    "explanation": "클라우드 3대 서비스 모델:\n1. IaaS(Infrastructure as a Service): 서버, 저장소 등 인프라 제공\n2. PaaS(Platform as a Service): 애플리케이션 개발/실행 플랫폼 제공\n3. SaaS(Software as a Service): 완성된 소프트웨어 애플리케이션 제공",
+    "trapPoint": "인프라=IaaS, 플랫폼=PaaS, 소프트웨어=SaaS입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_18",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 18,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "다음 설명에 해당하는 거리 벡터(Distance Vector) 라우팅 프로토콜의 약어를 쓰시오.",
+    "passage": "- 최단 경로를 선택하기 위해 홉 수(Hop Count)를 거리 척도로 사용하는 대표적인 내부 라우팅 프로토콜(IGP)이다.\n- 벨만-포드(Bellman-Ford) 알고리즘을 기반으로 동작한다.\n- 최대 홉 수가 15로 제한되어 있어 소규모 네트워크에 적합하다.",
+    "code": null,
+    "answer": "RIP",
+    "aliases": [
+      "RIP",
+      "rip",
+      "Routing Information Protocol"
+    ],
+    "explanation": "RIP(Routing Information Protocol)는 거리 벡터 알고리즘을 사용하며, 홉 카운트를 기준으로 경로를 결정하고 최대 홉 수가 15인 소규모용 IGP 라우팅 프로토콜입니다.",
+    "trapPoint": "최대 홉 수 15 제한, 거리 벡터 라우팅 프로토콜은 RIP입니다. (다익스트라 링크 상태 프로토콜은 OSPF).",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_19",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 19,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "관계대수 & 릴레이션 이론",
+    "prompt": "다음 순수 관계 연산자의 연산 명칭과 일치하는 관계대수 기호를 보기에서 찾아 각각 쓰시오.",
+    "passage": "1. Join : (   1   )\n2. Project : (   2   )\n3. Select : (   3   )\n4. Division : (   4   )\n\n[보기: ㄱ. σ   ㄴ. π   ㄷ. ⋈   ㄹ. ÷]",
+    "code": null,
+    "answer": "(1) ㄷ, (2) ㄴ, (3) ㄱ, (4) ㄹ",
+    "aliases": [
+      "ㄷ, ㄴ, ㄱ, ㄹ",
+      "ㄷ ㄴ ㄱ ㄹ",
+      "(1) ㄷ, (2) ㄴ, (3) ㄱ, (4) ㄹ"
+    ],
+    "explanation": "순수 관계대수 기호:\n- Select(행 추출): 시그마 σ (ㄱ)\n- Project(열 추출): 파이 π (ㄴ)\n- Join(조인): 보타이 ⋈ (ㄷ)\n- Division(나누기): 나누기 ÷ (ㄹ)",
+    "trapPoint": "Select는 σ(시그마), Project는 π(파이), Join은 ⋈입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_3_20",
+    "round_id": "2023_3",
+    "round_title": "2023년 제3회 기출 복원",
+    "id": 20,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "관계 데이터베이스에서 두 테이블 간의 관계에서 외래 키 값은 참조하는 부모 테이블의 기본 키 값과 동일하거나 NULL이어야 한다는 제약 조건을 무슨 무결성이라고 하는지 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "참조 무결성",
+    "aliases": [
+      "참조 무결성",
+      "참조무결성",
+      "참조",
+      "Referential Integrity"
+    ],
+    "explanation": "참조 무결성(Referential Integrity)은 외래 키(Foreign Key) 값이 참조하는 테이블의 기본 키(Primary Key) 값과 반드시 일치하거나, 정의에 따라 NULL이어야 함을 보장하는 제약 조건입니다.",
+    "trapPoint": "기본키가 NULL이나 중복이 안 되는 것은 개체 무결성, 외래키와 기본키의 일치성은 참조 무결성입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_1",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 코드에서 보기의 조건에 맞도록 빈칸에 알맞은 코드를 작성하시오.",
+    "passage": "[보기]\n입력값이 54321일 경우 출력값이 43215로 회전되어 출력되어야 한다.",
+    "code": "#include <stdio.h>\n\nint main(void) {\n    int n[5];\n    int i;\n\n    for (i = 0; i < 5; i++) {\n        scanf(\"%d\", &n[i]);\n    }\n\n    for (i = 0; i < 5; i++) {\n        printf(\"%d\", (        ));\n    }\n\n    return 0;\n}",
+    "answer": "n[(i+1) % 5]",
+    "aliases": [
+      "n[(i+1) % 5]",
+      "n[(i + 1) % 5]",
+      "n[(i+1)%5]",
+      "n[(1+i)%5]"
+    ],
+    "explanation": "배열 요소를 왼쪽으로 1칸씩 회전(shift)하여 출력하는 문제입니다.\n- i = 0일 때: n[1]의 값(4) 출력\n- i = 1일 때: n[2]의 값(3) 출력\n- i = 2일 때: n[3]의 값(2) 출력\n- i = 3일 때: n[4]의 값(1) 출력\n- i = 4일 때: n[5 % 5] = n[0]의 값(5) 출력\n따라서 인덱스를 `(i + 1) % 5`로 순환시키는 `n[(i+1) % 5]`가 정답입니다.",
+    "trapPoint": "배열의 크기가 5이므로 나머지 연산자 % 5를 사용하여 마지막 인덱스 4 다음이 0번 인덱스로 순환되도록 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_2",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램에서 총 4620원을 1000원, 500원, 100원, 10원으로 거슬러 줄 때 각 화폐의 개수를 최소 동전 개수로 계산하고자 한다. 빈칸에 들어갈 알맞은 수식을 쓰시오.",
+    "passage": "[사용 가능 요소: 변수 m, 연산자 /, %, 정수 1000, 500, 100, 10]",
+    "code": "public class Problem {\n    public static void main(String[] args) {\n        int m = 4620;\n\n        int a = (     1     ); // 천원짜리 4장\n        int b = (     2     ); // 오백원짜리 1개\n        int c = (     3     ); // 백원짜리 1개\n        int d = (     4     ); // 십원짜리 2개\n\n        System.out.println(a);\n        System.out.println(b);\n        System.out.println(c);\n        System.out.println(d);\n    }\n}",
+    "answer": "(1) m / 1000, (2) (m % 1000) / 500, (3) (m % 500) / 100, (4) (m % 100) / 10",
+    "aliases": [
+      "m / 1000, (m % 1000) / 500, (m % 500) / 100, (m % 100) / 10",
+      "m/1000, (m%1000)/500, (m%500)/100, (m%100)/10"
+    ],
+    "explanation": "화폐 거스름돈 계산 로직:\n1. 1000원: m / 1000 = 4 (몫)\n2. 500원: (m % 1000) / 500 = 620 / 500 = 1\n3. 100원: (m % 500) / 100 = 120 / 100 = 1\n4. 10원: (m % 100) / 10 = 20 / 10 = 2",
+    "trapPoint": "큰 단위 화폐로 나눈 나머지를 구한 후 다음 단위 화폐로 나누는 `/` 와 `%` 연산자의 조합입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_3",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 3,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오. (단, 입력값은 홍길동, 김철수, 박영희 순서로 주어진다.)",
+    "passage": null,
+    "code": "#include <stdio.h>\n#include <stdlib.h>\n\nchar n[30];\n\nchar* test() {\n    printf(\"입력하세요 : \");\n    gets(n);\n    return n;\n}\n\nint main() {\n    char* test1;\n    char* test2;\n    char* test3;\n\n    test1 = test();\n    test2 = test();\n    test3 = test();\n\n    printf(\"%s\\n\", test1);\n    printf(\"%s\\n\", test2);\n    printf(\"%s\", test3);\n\n    return 0;\n}",
+    "answer": "박영희 박영희 박영희",
+    "aliases": [
+      "박영희 박영희 박영희",
+      "박영희, 박영희, 박영희",
+      "박영희\n박영희\n박영희"
+    ],
+    "explanation": "1. char n[30]은 전역 변수로 단 하나의 메모리 공간에 할당되어 있습니다.\n2. test() 함수는 매번 전역 배열 n의 시작 주소를 반환합니다.\n3. test1, test2, test3 포인터는 모두 동일한 전역 배열 n의 주소를 가리킵니다.\n4. 마지막 입력값 \"박영희\"가 배열 n에 덮어써지므로, test1, test2, test3 모두 \"박영희\"를 가리키게 되어 3번 연속 \"박영희\"가 출력됩니다.",
+    "trapPoint": "test1, test2, test3가 각자 다른 문자열을 저장하는 것이 아니라 단 하나의 전역 변수 메모리 주소를 공유하므로 마지막 입력값으로 모두 덮어써집니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_4",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 4,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 [학생] 테이블에 데이터를 삽입하기 위한 표준 SQL INSERT 문을 작성하시오. (단, 문자열은 작은따옴표를 사용하고 세미콜론은 생략 가능)",
+    "passage": "[학생 테이블 스키마]\nCREATE TABLE 학생 (\n  학번 int,\n  이름 varchar(20),\n  학년 int,\n  전공 varchar(30),\n  전화번호 varchar(20)\n);\n\n[삽입할 데이터]\n- 학번: 9830287\n- 이름: 뉴진스\n- 학년: 3\n- 전공: 경영학개론\n- 전화번호: 010-1234-1234",
+    "code": null,
+    "answer": "INSERT INTO 학생(학번, 이름, 학년, 전공, 전화번호) VALUES(9830287, '뉴진스', 3, '경영학개론', '010-1234-1234');",
+    "aliases": [
+      "INSERT INTO 학생(학번, 이름, 학년, 전공, 전화번호) VALUES(9830287, '뉴진스', 3, '경영학개론', '010-1234-1234');",
+      "INSERT INTO 학생(학번, 이름, 학년, 전공, 전화번호) VALUES(9830287, '뉴진스', 3, '경영학개론', '010-1234-1234')",
+      "INSERT INTO 학생 VALUES(9830287, '뉴진스', 3, '경영학개론', '010-1234-1234');",
+      "INSERT INTO 학생 VALUES(9830287, '뉴진스', 3, '경영학개론', '010-1234-1234')",
+      "insert into 학생 values (9830287, '뉴진스', 3, '경영학개론', '010-1234-1234');"
+    ],
+    "explanation": "테이블에 새로운 레코드를 삽입하는 SQL DML 구문:\n`INSERT INTO 테이블명(컬럼1, 컬럼2, ...) VALUES (값1, 값2, ...);`",
+    "trapPoint": "숫자 데이터(9830287, 3)는 따옴표 없이 입력하고, 문자열('뉴진스', '경영학개론', '010-1234-1234')은 작은따옴표로 감싸야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_5",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 5,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nvoid main() {\n    int n[3] = {73, 95, 82};\n    int sum = 0;\n\n    for (int i = 0; i < 3; i++) {\n        sum += n[i];\n    }\n\n    switch (sum / 30) {\n        case 10:\n        case 9: printf(\"A\");\n        case 8: printf(\"B\");\n        case 7:\n        case 6: printf(\"C\");\n        default: printf(\"D\");\n    }\n}",
+    "answer": "BCD",
+    "aliases": [
+      "BCD",
+      "B C D"
+    ],
+    "explanation": "1. sum = 73 + 95 + 82 = 250\n2. sum / 30 = 250 / 30 = 8 (정수 나눗셈)\n3. switch (8) 평가:\n   - case 8로 점프 -> printf(\"B\") 실행\n   - break 문이 없으므로 아래 case들로 fall-through(계속 실행)됨\n   - case 7, case 6 -> printf(\"C\") 실행\n   - default -> printf(\"D\") 실행\n4. 따라서 \"BCD\"가 연속 출력됩니다.",
+    "trapPoint": "switch문에 break 문이 전혀 없으므로 case 8부터 끝까지 모두 실행되어 BCD가 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_6",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 6,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "화이트박스 테스팅 & 순환복잡도",
+    "prompt": "다음 설명에 해당하는 화이트박스 테스트 커버리지를 보기에서 찾아 기호를 쓰시오.",
+    "passage": "- 프로그램 내에 있는 결정 포인트 내의 모든 각 개별 조건식에 대해 모든 가능한 결과(True/False)가 적어도 한 번은 수행되도록 테스트한다.\n- 개별 조건식의 참/거짓 결과가 전체 조건식의 결과(결정)에 영향을 미치지 못할 수 있는 한계점을 갖는다.\n\n[보기]\nㄱ. 구문 커버리지   ㄴ. 경로 커버리지   ㄷ. 조건/결정 커버리지   ㄹ. 변형 조건/결정 커버리지\nㅁ. 다중 조건 커버리지   ㅂ. 결정 커버리지   ㅅ. 조건 커버리지",
+    "code": null,
+    "answer": "ㅅ",
+    "aliases": [
+      "ㅅ",
+      "조건 커버리지",
+      "조건커버리지",
+      "Condition Coverage"
+    ],
+    "explanation": "조건 커버리지(Condition Coverage)는 전체 결정문 결과와 상관없이, 결정문 내부의 각 '개별 조건식'이 참(True)과 거짓(False)을 적어도 한 번씩 갖도록 테스트하는 기법입니다.",
+    "trapPoint": "전체 결정문의 참/거짓을 다루는 것은 결정 커버리지(분기 커버리지)이고, 개별 조건식의 참/거짓을 다루는 것은 조건 커버리지입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_7",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 7,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int c = 0;\n    for (int i = 1; i <= 2023; i++) {\n        if (i % 4 == 0) c++;\n    }\n    printf(\"%d\", c);\n    return 0;\n}",
+    "answer": "505",
+    "aliases": [
+      "505"
+    ],
+    "explanation": "1부터 2023까지의 정수 중 4의 배수의 개수를 구하는 문제입니다.\n2023 / 4 = 505 (나머지 3).\n따라서 c는 505가 출력됩니다.",
+    "trapPoint": "2023을 4로 나눈 몫인 505입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_8",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 8,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 설명에 해당하는 소프트웨어 보안 및 역공학 방지 기술의 명칭을 쓰시오.",
+    "passage": "- 소프트웨어가 불법적으로 변조(Unauthorized Modifications)되었을 경우 정상적으로 실행되지 않도록 방지하는 기법이다.\n- 프로그램 내부에 변조 검증 코드(Tamper-proofing Code)를 삽입하여 프로그램 위변조 여부를 탐지하고, 변조가 감지되면 즉시 실행을 중단시킨다.\n- 전자상거래, 디지털 콘텐츠 보호, 금융 앱 등의 무단 역공학 방지에 활용된다.",
+    "code": null,
+    "answer": "템퍼프루핑",
+    "aliases": [
+      "템퍼프루핑",
+      "템퍼 프루핑",
+      "tamper proofing",
+      "Tamper Proofing",
+      "Tamper-Proofing"
+    ],
+    "explanation": "템퍼프루핑(Tamper Proofing)은 소프트웨어의 위·변조를 방지하기 위해 프로그램에 변조 감지 코드를 삽입하여, 불법 변조가 감지되면 실행을 중단시키는 기술입니다.",
+    "trapPoint": "위변조 탐지 및 실행 차단 역공학 방지 기술은 템퍼프루핑(Tamper Proofing)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_9",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 9,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 스택(Stack) 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n#define MAX_SIZE 10\n\nint isWhat[MAX_SIZE];\nint point = -1;\n\nint isEmpty() {\n    if (point == -1) return 1;\n    return 0;\n}\n\nvoid into(int num) {\n    if (point >= 10) printf(\"Full\");\n    else isWhat[++point] = num;\n}\n\nint take() {\n    if (isEmpty() == 1) printf(\"Empty\");\n    else return isWhat[point--];\n    return 0;\n}\n\nint main() {\n    into(5);\n    into(2);\n\n    while (!isEmpty()) {\n        printf(\"%d\", take());\n        into(4);\n        into(1);\n        printf(\"%d\", take());\n        into(3);\n        printf(\"%d\", take());\n        printf(\"%d\", take());\n        into(6);\n        printf(\"%d\", take());\n        printf(\"%d\", take());\n    }\n    return 0;\n}",
+    "answer": "213465",
+    "aliases": [
+      "213465"
+    ],
+    "explanation": "스택(LIFO) 동작 추적:\n1. into(5), into(2) -> 스택: [5, 2]\n2. while 루프 1회차:\n   - take() -> 2 팝 및 출력 (남은 스택: [5])\n   - into(4), into(1) -> 스택: [5, 4, 1]\n   - take() -> 1 팝 및 출력 (남은 스택: [5, 4])\n   - into(3) -> 스택: [5, 4, 3]\n   - take() -> 3 팝 및 출력 (남은 스택: [5, 4])\n   - take() -> 4 팝 및 출력 (남은 스택: [5])\n   - into(6) -> 스택: [5, 6]\n   - take() -> 6 팝 및 출력 (남은 스택: [5])\n   - take() -> 5 팝 및 출력 (남은 스택: [])\n3. isEmpty()가 참이 되어 while 종료.\n출력 순서: 2 -> 1 -> 3 -> 4 -> 6 -> 5 = 213465",
+    "trapPoint": "take()는 LIFO(후입선출) 방식으로 가장 최근에 들어간 요소를 꺼내며, into와 take 순서를 꼼꼼히 추적해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "연산",
+        "출력",
+        "스택 상태 (Top은 맨 오른쪽)"
+      ],
+      "rows": [
+        [
+          "초기",
+          "-",
+          "[5, 2]"
+        ],
+        [
+          "take()",
+          "2",
+          "[5]"
+        ],
+        [
+          "into(4), into(1)",
+          "-",
+          "[5, 4, 1]"
+        ],
+        [
+          "take()",
+          "1",
+          "[5, 4]"
+        ],
+        [
+          "into(3)",
+          "-",
+          "[5, 4, 3]"
+        ],
+        [
+          "take()",
+          "3",
+          "[5, 4]"
+        ],
+        [
+          "take()",
+          "4",
+          "[5]"
+        ],
+        [
+          "into(6)",
+          "-",
+          "[5, 6]"
+        ],
+        [
+          "take()",
+          "6",
+          "[5]"
+        ],
+        [
+          "take()",
+          "5",
+          "[]"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2023_2_10",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 10,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "다음 데이터베이스 설계 5단계를 올바른 순서대로 나열하시오.",
+    "passage": "[보기: 물리적 설계, 개념적 설계, 구현, 요구조건 분석, 논리적 설계]",
+    "code": null,
+    "answer": "요구조건 분석 -> 개념적 설계 -> 논리적 설계 -> 물리적 설계 -> 구현",
+    "aliases": [
+      "요구조건 분석, 개념적 설계, 논리적 설계, 물리적 설계, 구현",
+      "요구조건 분석 -> 개념적 설계 -> 논리적 설계 -> 물리적 설계 -> 구현",
+      "요구조건분석, 개념적설계, 논리적설계, 물리적설계, 구현",
+      "요구조건분석 -> 개념적설계 -> 논리적설계 -> 물리적설계 -> 구현"
+    ],
+    "explanation": "데이터베이스 설계 5단계 표준 순서:\n1. 요구조건 분석 (Requirements Analysis)\n2. 개념적 설계 (Conceptual Design, ERD 도출)\n3. 논리적 설계 (Logical Design, 정규화, 릴레이션 매핑)\n4. 물리적 설계 (Physical Design, 인덱스/성능/저장구조)\n5. 데이터베이스 구현 (Implementation, DDL 작성)",
+    "trapPoint": "'개념 -> 논리 -> 물리' 순서(개-논-물)를 정확히 기억해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_11",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 11,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "다음 설명에 해당하는 GoF 디자인 패턴을 보기에서 찾아 각각 쓰시오.",
+    "passage": "( 1 ) 객체의 생성자가 여러 차례 호출되더라도 실제로 생성되는 인스턴스는 단 하나뿐이며, 이후 호출 시 최초 생성된 객체를 반환하는 패턴 (DBCP 등에 사용)\n( 2 ) 기존 코드를 변경하지 않고 호스트 객체 구조의 각 원소들에 새로운 연산을 추가하거나 기능을 확장할 수 있도록 분리하는 행위 패턴\n\n[보기]\n생성 패턴: Singleton, Factory Method, Builder\n구조 패턴: Adapter, Bridge, Decorator\n행위 패턴: Observer, Strategy, Visitor",
+    "code": null,
+    "answer": "(1) Singleton, (2) Visitor",
+    "aliases": [
+      "Singleton, Visitor",
+      "싱글톤, 방문자",
+      "Singleton Visitor"
+    ],
+    "explanation": "1. Singleton(싱글톤): 단 하나의 인스턴스만 보장하는 생성 패턴.\n2. Visitor(방문자): 데이터 구조와 연산(기능)을 분리하여 객체 구조를 변경하지 않고 새로운 연산을 적용하는 행위 패턴.",
+    "trapPoint": "단 하나의 인스턴스는 Singleton, 객체 구조를 유지한 채 새로운 기능을 추가/순회하는 패턴은 Visitor입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_12",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 12,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 오류 검출 및 제어 기술에 대한 설명에 알맞은 용어를 보기에서 찾아 각각 쓰시오.",
+    "passage": "( 1 ) 미국의 벨 연구소의 리처드 해밍이 고안한 코드로, 데이터 전송 시 1비트의 오류를 검출하고 스스로 정정할 수 있는 부호\n( 2 ) 송신측이 부가적 오류 정정 정보를 함께 전송하여 수신측이 역방향 재전송 없이 스스로 오류를 검출하고 정정하는 방식 (순방향 오류 정정)\n( 3 ) 데이터 전송 과정에서 오류가 발생하면 송신측에 재전송(ARQ)을 요청하여 오류를 복구하는 방식 (역방향 오류 정정)\n( 4 ) 데이터 전송 시 데이터 비트 외에 1비트의 체크 비트를 추가하여 1의 개수가 짝수(Even) 또는 홀수(Odd)가 되도록 맞춰 1비트 오류를 검출하는 검사\n( 5 ) 데이터를 다항식 코드로 나누어 나머지를 체크값(FCS)으로 프레임 끝에 붙여 전송하는 집단 오류 검출 방식\n\n[보기: FEC, BEC, Hamming, CRC, Parity, EAC, PDS]",
+    "code": null,
+    "answer": "(1) Hamming, (2) FEC, (3) BEC, (4) Parity, (5) CRC",
+    "aliases": [
+      "Hamming, FEC, BEC, Parity, CRC",
+      "해밍, FEC, BEC, 패리티, CRC"
+    ],
+    "explanation": "1. Hamming Code: 1비트 오류 정정 부호\n2. FEC(Forward Error Correction): 순방향 오류 정정 (스스로 정정)\n3. BEC(Backward Error Correction): 역방향 오류 정정 (재전송 ARQ)\n4. Parity: 패리티 검사 (1의 개수 짝/홀 검사)\n5. CRC(Cyclic Redundancy Check): 순환 중복 검사 (다항식 나눗셈)",
+    "trapPoint": "스스로 정정은 FEC(Forward), 재전송 요구는 BEC(Backward)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_13",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 13,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 HDLC(High-level Data Link Control) 프로토콜의 프레임 종류 및 통신 모드에 대한 설명에 알맞은 기호를 보기에서 찾아 쓰시오.",
+    "passage": "( 1 ) 사용자 데이터를 전달하는 역할을 하며, 순서 번호(Seq), 확인 응답 번호(Next), P/F 필드를 갖는 프레임\n( 2 ) 사용자 데이터는 전송하지 않고 순서 제어, 에러 제어, 흐름 제어(RR, RNR, REJ 등)의 응답 기능을 수행하는 프레임\n( 3 ) 프레임 순서 번호가 없으며, 링크의 설정 및 해제, 비정상 동작 복구 등 링크 제어 기능을 수행하는 프레임\n( 4 ) 두 호스트가 모두 혼합국으로 동작하며, 양쪽에서 주국의 허락 없이도 대등하게 명령과 응답을 전송할 수 있는 통신 모드\n( 5 ) 주국과 종국으로 나뉘어 있는 불균형 모드로, 종국이 주국의 허가 없이도 데이터를 전송할 수 있는 통신 모드\n\n[보기]\nㄱ. 연결제어   ㄴ. 감독(S) 프레임   ㄷ. 정보(I) 프레임   ㄹ. 양방향 응답\nㅁ. 익명       ㅂ. 비번호(U) 프레임 ㅅ. 릴레이           ㅇ. 동기균형\nㅈ. 동기응답   ㅊ. 비동기 균형(ABM) ㅋ. 비동기 응답(ARM)",
+    "code": null,
+    "answer": "(1) ㄷ, (2) ㄴ, (3) ㅂ, (4) ㅊ, (5) ㅋ",
+    "aliases": [
+      "ㄷ, ㄴ, ㅂ, ㅊ, ㅋ",
+      "ㄷ ㄴ ㅂ ㅊ ㅋ"
+    ],
+    "explanation": "HDLC 프레임:\n- 정보(I) 프레임: 사용자 데이터 전송\n- 감독(S) 프레임: 오류/흐름 제어\n- 비번호(U) 프레임: 링크 제어\nHDLC 동작 모드:\n- NRM(정규 응답 모드): 주국의 명령이 있어야 종국 전송\n- ARM(비동기 응답 모드): 종국이 주국 허락 없이 전송 가능\n- ABM(비동기 균형 모드): 양쪽이 대등한 혼합국으로 작동",
+    "trapPoint": "양쪽 모두 혼합국으로 대등한 모드는 비동기 균형 모드(ABM, ㅊ)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_14",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 14,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        String str1 = \"Programming\";\n        String str2 = \"Programming\";\n        String str3 = new String(\"Programming\");\n\n        System.out.println(str1 == str2);\n        System.out.println(str1 == str3);\n        System.out.println(str1.equals(str3));\n        System.out.print(str2.equals(str3));\n    }\n}",
+    "answer": "true false true true",
+    "aliases": [
+      "true false true true",
+      "true, false, true, true",
+      "true\nfalse\ntrue\ntrue"
+    ],
+    "explanation": "1. str1 == str2: 문자열 리터럴 \"Programming\"은 String Constant Pool에 동일한 참조 주소로 캐싱되므로 true.\n2. str1 == str3: new String()은 힙 메모리에 새로운 인스턴스를 생성하므로 주소 비교(==) 결과 false.\n3. str1.equals(str3): 문자열의 실제 내용이 \"Programming\"으로 같으므로 true.\n4. str2.equals(str3): 내용이 같으므로 true.",
+    "trapPoint": "Java에서 ==는 객체의 참조 주소를 비교하고, equals()는 문자열의 실제 내용을 비교합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_15",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 15,
+    "category": "보안",
+    "unit": 4,
+    "topic": "암호화 알고리즘 (대칭키/공개키/해시)",
+    "prompt": "다음 암호화 알고리즘 목록을 (1) 대칭키(비밀키) 암호화와 (2) 비대칭키(공개키) 암호화로 각각 분류하여 쓰시오.",
+    "passage": "[보기]\nDES, RSA, AES, ECC, ARIA, SEED\n\n(1) 대칭키(비밀키) 암호화 알고리즘\n(2) 비대칭키(공개키) 암호화 알고리즘",
+    "code": null,
+    "answer": "대칭키: DES, AES, ARIA, SEED / 비대칭키: RSA, ECC",
+    "aliases": [
+      "대칭키: DES, AES, ARIA, SEED, 비대칭키: RSA, ECC",
+      "대칭키: DES, AES, ARIA, SEED / 비대칭키: RSA, ECC"
+    ],
+    "explanation": "- 대칭키(비밀키) 암호화 알고리즘: DES, 3-DES, AES, SEED(한국 KISA), ARIA(한국 국정원), IDEA\n- 비대칭키(공개키) 암호화 알고리즘: RSA, ECC(타원곡선), Diffie-Hellman, ElGamal",
+    "trapPoint": "RSA와 ECC는 대표적인 소인수분해 및 타원곡선 이산대수 기반 비대칭키(공개키) 암호 알고리즘입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_16",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 16,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 설명에 해당하는 자료구조 및 알고리즘 기법의 명칭을 쓰시오.",
+    "passage": "- 임의의 길이를 가진 데이터(Key)를 고정된 길이의 고유한 값(Value)으로 매핑하여 저장하고 검색하는 기법이다.\n- 키에 대한 결과값을 인덱스로 사용하여 테이블에 접근하므로 평균적인 탐색 시간 복잡도가 O(1)로 매우 빠르다.\n- 동일한 인덱스로 매핑되어 발생하는 충돌(Collision)을 해결하기 위해 체이닝(Chaining)이나 개방 주소법(Open Addressing) 등을 사용한다.",
+    "code": null,
+    "answer": "해시",
+    "aliases": [
+      "해시",
+      "해싱",
+      "Hash",
+      "hash",
+      "Hashing",
+      "hashing"
+    ],
+    "explanation": "해시(Hash)/해싱(Hashing)은 임의 길이의 데이터를 고정 길이의 해시값으로 변환하여 O(1)의 빠른 검색을 가능하게 하는 기법입니다.",
+    "trapPoint": "키-값 매핑, 고정 길이 변환, O(1) 검색 시간은 해시(Hash)의 핵심 특징입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_17",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 17,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "뷰(View) & 인덱스 최적화",
+    "prompt": "다음 SQL 문에서 학생 뷰를 삭제할 때, 학생 뷰를 참조하는 다른 모든 뷰나 제약 조건까지 연쇄적으로 함께 삭제하기 위한 빈칸의 키워드를 쓰시오.",
+    "passage": "DROP VIEW 학생 (        );",
+    "code": null,
+    "answer": "CASCADE",
+    "aliases": [
+      "CASCADE",
+      "cascade"
+    ],
+    "explanation": "DROP 문에서 참조하는 다른 개체까지 연쇄적으로 함께 삭제할 때는 CASCADE 옵션을 사용하며, 반대로 참조하는 개체가 있을 때 삭제를 거부 취소하려면 RESTRICT 옵션을 사용합니다.",
+    "trapPoint": "연쇄 삭제는 CASCADE, 참조 시 삭제 거부는 RESTRICT입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_18",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 18,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 선택 정렬(Selection Sort) 프로그램에서 배열을 오름차순으로 정렬하기 위해 빈칸에 들어갈 알맞은 비교 연산자를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int E[] = {64, 25, 12, 22, 11};\n    int n = sizeof(E) / sizeof(E[0]);\n    int i = 0;\n\n    do {\n        int j = i + 1;\n        do {\n            if (E[i] (    ) E[j]) {\n                int tmp = E[i];\n                E[i] = E[j];\n                E[j] = tmp;\n            }\n            j++;\n        } while (j < n);\n        i++;\n    } while (i < n - 1);\n\n    for (int i = 0; i < 5; i++)\n        printf(\"%d \", E[i]);\n\n    return 0;\n}",
+    "answer": ">",
+    "aliases": [
+      ">"
+    ],
+    "explanation": "선택 정렬에서 오름차순(작은 값이 앞)으로 정렬하려면, 앞쪽의 원소 E[i]가 뒤쪽 원소 E[j]보다 클 때(`E[i] > E[j]`) 두 값을 swap하여 작은 값을 앞쪽으로 이동시킵니다.\n따라서 비교 연산자는 `>`입니다.",
+    "trapPoint": "오름차순 정렬에서 앞의 값 E[i]가 뒤의 값 E[j]보다 크면(`>`) 자리를 바꾸어야 작은 수가 앞에 오게 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_19",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 19,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 슬라이싱 연산",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = \"engineer information processing\"\nb = a[:3]\nc = a[4:6]\nd = a[28:]\ne = b + c + d\nprint(e)",
+    "answer": "engneing",
+    "aliases": [
+      "engneing"
+    ],
+    "explanation": "문자열 슬라이싱:\n- a = \"engineer information processing\"\n- b = a[:3] -> 인덱스 0~2: \"eng\"\n- c = a[4:6] -> 인덱스 4~5: \"ne\"\n- d = a[28:] -> 인덱스 28부터 끝까지 (\"processing\"의 뒷부분): \"ing\"\n- e = \"eng\" + \"ne\" + \"ing\" = \"engneing\"",
+    "trapPoint": "슬라이싱 `[start:end]`에서 end 인덱스는 포함되지 않으므로 `a[:3]`은 0, 1, 2번째 글자입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_2_20",
+    "round_id": "2023_2",
+    "round_title": "2023년 제2회 기출 복원",
+    "id": 20,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "V-모델 & 테스트 레벨",
+    "prompt": "다음 통합 테스트에서 사용되는 테스트 모듈에 대한 설명에 알맞은 용어를 쓰시오.",
+    "passage": "( 1 ) 하향식(Top-Down) 통합 테스트에서 상위 모듈은 구현되어 있으나 하위 모듈이 아직 개발되지 않았을 때, 상위 모듈의 호출에 임시로 응답을 반환해 주는 가상의 더미 하위 모듈\n( 2 ) 상향식(Bottom-Up) 통합 테스트에서 하위 모듈은 구현되어 있으나 이를 제어할 상위 모듈이 아직 개발되지 않았을 때, 하위 모듈에 테스트 데이터를 전달하고 실행을 구동하는 가상의 상위 모듈",
+    "code": null,
+    "answer": "(1) 스텁, (2) 드라이버",
+    "aliases": [
+      "스텁, 드라이버",
+      "스텁 드라이버",
+      "Stub, Driver"
+    ],
+    "explanation": "1. 스텁(Stub): 하향식 테스트 시 미완성된 '하위 모듈'을 대체하는 더미 모듈 (하향식-스텁).\n2. 드라이버(Driver): 상향식 테스트 시 미완성된 '상위 모듈'을 대체하여 입출력을 제어하는 구동 모듈 (상향식-드라이버).",
+    "trapPoint": "하향식 통합 테스트 = 스텁(하-스), 상향식 통합 테스트 = 드라이버(상-드)로 암기합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_1",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 1,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java static 공유 변수",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Static {\n    public int a = 20;\n    static int b = 0;\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        int a;\n        a = 10;\n        Static.b = a;\n\n        Static st = new Static();\n\n        System.out.println(Static.b++);\n        System.out.println(st.b);\n        System.out.println(a);\n        System.out.print(st.a);\n    }\n}",
+    "answer": "10 11 10 20",
+    "aliases": [
+      "10 11 10 20",
+      "10, 11, 10, 20",
+      "10,11,10,20",
+      "10\n11\n10\n20"
+    ],
+    "explanation": "1. a = 10, Static.b = 10;\n2. Static.b++: 후위 증가이므로 10을 먼저 출력하고 Static.b는 11이 됨.\n3. st.b: static 변수이므로 11 출력.\n4. a: 지역변수 a의 값인 10 출력.\n5. st.a: 인스턴스 변수 a의 값인 20 출력.",
+    "trapPoint": "Static.b++는 후위 증가 연산자이므로 현재 값인 10이 먼저 출력된 후 11로 증가합니다. st.b는 static 공유 변수이므로 증가된 11이 반영됩니다.",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "실행 코드",
+        "출력",
+        "Static.b",
+        "st.a",
+        "지역 a"
+      ],
+      "rows": [
+        [
+          "1",
+          "Static.b = a (10)",
+          "-",
+          "10",
+          "20",
+          "10"
+        ],
+        [
+          "2",
+          "println(Static.b++)",
+          "10",
+          "11",
+          "20",
+          "10"
+        ],
+        [
+          "3",
+          "println(st.b)",
+          "11",
+          "11",
+          "20",
+          "10"
+        ],
+        [
+          "4",
+          "println(a)",
+          "10",
+          "11",
+          "20",
+          "10"
+        ],
+        [
+          "5",
+          "print(st.a)",
+          "20",
+          "11",
+          "20",
+          "10"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2023_1_2",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 2,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    char a[] = \"Art\";\n    char* p = NULL;\n    p = a;\n\n    printf(\"%s\\n\", a);\n    printf(\"%c\\n\", *p);\n    printf(\"%c\\n\", *a);\n    printf(\"%s\\n\", p);\n\n    for (int i = 0; a[i] != '\\0'; i++)\n        printf(\"%c\", a[i]);\n\n    return 0;\n}",
+    "answer": "Art A A Art Art",
+    "aliases": [
+      "Art A A Art Art",
+      "Art, A, A, Art, Art",
+      "Art\nA\nA\nArt\nArt"
+    ],
+    "explanation": "1. printf(\"%s\\n\", a): 문자열 배열 a 전체 \"Art\" 출력.\n2. printf(\"%c\\n\", *p): 포인터 p가 가리키는 첫 번째 문자 'A' 출력.\n3. printf(\"%c\\n\", *a): 배열 이름 a는 첫 번째 원소 주소이므로 *a는 'A' 출력.\n4. printf(\"%s\\n\", p): 포인터 p가 가리키는 문자열 \"Art\" 출력.\n5. for 루프: NULL 문자 전까지 한 글자씩 출력하므로 \"Art\" 출력.",
+    "trapPoint": "%s 서식 지정자는 문자열 전체를 출력하고, %c 서식 지정자는 단일 문자 하나만 출력합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_3",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 3,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    char* a = \"qwer\";\n    char* b = \"qwtety\";\n\n    for (int i = 0; a[i] != '\\0'; i++) {\n        for (int j = 0; b[j] != '\\0'; j++) {\n            if (a[i] == b[j]) printf(\"%c\", a[i]);\n        }\n    }\n    return 0;\n}",
+    "answer": "qwe",
+    "aliases": [
+      "qwe",
+      "QWE"
+    ],
+    "explanation": "문자열 a (\"qwer\")의 각 문자가 문자열 b (\"qwtety\")에 포함되어 있는지 검사합니다.\n- a[0] = 'q': b[0] ('q')와 일치 -> 'q' 출력\n- a[1] = 'w': b[1] ('w')와 일치 -> 'w' 출력\n- a[2] = 'e': b[3] ('e')와 일치 -> 'e' 출력\n- a[3] = 'r': b에 없음\n따라서 최종 출력은 \"qwe\"입니다.",
+    "trapPoint": "a 문자열 순서대로 b에 존재하는지 비교하므로 q, w, e가 순서대로 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_4",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 4,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "다음 설명에서 괄호에 들어갈 알맞은 용어(Full Name 또는 약어)를 쓰시오.",
+    "passage": "(      )은/는 비동기적인 웹 애플리케이션 제작을 위해 JavaScript와 XML을 이용한 비동기적 정보 교환 기법이다.\n(      )은/는 필요한 데이터만을 웹서버에 요청해서 받은 후 클라이언트에서 데이터에 대한 처리를 할 수 있다.\n보통 SOAP이나 XML 기반 웹 서비스 프로토콜이 사용되며, 웹 서버 응답 처리를 위해 클라이언트 쪽에서는 자바스크립트를 사용한다.\nGoogle Maps 등에서 적극 활용되어 대중화되었다.",
+    "code": null,
+    "answer": "AJAX",
+    "aliases": [
+      "AJAX",
+      "Ajax",
+      "ajax",
+      "Asynchronous JavaScript and XML"
+    ],
+    "explanation": "AJAX(Asynchronous JavaScript and XML)는 웹 페이지 전체를 새로고침하지 않고도 백그라운드에서 서버와 비동기적으로 데이터를 주고받을 수 있게 하는 웹 개발 기술입니다.",
+    "trapPoint": "비동기(Asynchronous) 자바스크립트와 XML의 조합으로 페이지 새로고침 없는 동적 로딩이 핵심입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_5",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 5,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 설명을 확인하여 표 안의 빈칸 (1), (2)에 알맞은 패킷 교환 방식의 용어를 각각 쓰시오.",
+    "passage": "| 구분 | 설명 |\n| --- | --- |\n| ( 1 ) | - 회선교환 방식과 데이터그램 방식의 장점을 결합한 통신 기술이다.<br>- 첫 패킷으로 최적 경로를 설정(고정)하고, 그 이후 패킷들을 고속으로 전송한다.<br>- 연결 지향형 통신이며, 송수신 순서가 보장된다. (대표 기술: ATM, X.25) |\n| ( 2 ) | - 각 전송 패킷을 미리 정해진 경로 없이 독립적으로 처리하여 교환하는 방식이다.<br>- 비연결 지향형 통신이며, 네트워크 상황에 따라 패킷마다 전송 경로가 다를 수 있다.<br>- 특정 교환기 장애 시 우회 경로를 통해 전송 가능하여 신뢰성이 높다. |",
+    "code": null,
+    "answer": "(1) 가상회선, (2) 데이터그램",
+    "aliases": [
+      "가상회선, 데이터그램",
+      "가상회선 데이터그램",
+      "Virtual Circuit, Datagram"
+    ],
+    "explanation": "1. 가상회선(Virtual Circuit) 방식은 연결 설정 후 고정 경로를 통해 패킷을 전송하여 순서가 보장됩니다.\n2. 데이터그램(Datagram) 방식은 독립적인 경로로 전송하는 비연결형 방식으로 순서가 바뀔 수 있어 수신측 재조립이 필요합니다.",
+    "trapPoint": "가상회선은 '경로 고정/순서 보장', 데이터그램은 '독립 경로/순서 보장 안 됨'으로 구별합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_6",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 6,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "다음 설명에 해당하는 데이터링크 계층의 터널링 프로토콜을 쓰시오.",
+    "passage": "- OSI 2계층(데이터링크 계층)에서 구현되는 터널링 기술이다.\n- 마이크로소프트의 PPTP와 시스코의 L2F가 결합되어 IETF 표준으로 제정된 프로토콜이다.\n- 자체 암호화 기능이 없으므로 주로 IPsec과 결합하여 VPN 환경에서 사용된다.",
+    "code": null,
+    "answer": "L2TP",
+    "aliases": [
+      "L2TP",
+      "l2tp",
+      "Layer 2 Tunneling Protocol"
+    ],
+    "explanation": "L2TP(Layer 2 Tunneling Protocol)는 PPTP와 L2F의 장점을 결합한 2계층 터널링 프로토콜로, 암호화 기능이 없어 통상 IPsec과 함께 사용됩니다.",
+    "trapPoint": "PPTP + L2F 결합 2계층 터널링 프로토콜은 L2TP입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_7",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 7,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 설명에 해당하는 보안 프로토콜의 명칭을 쓰시오.",
+    "passage": "- 네트워크 상의 다른 컴퓨터에 안전하게 로그인하거나 원격 명령을 실행할 수 있도록 해주는 프로토콜이다.\n- 기본 포트 번호는 22번이다.\n- 기존의 안전하지 않은 rlogin, rsh, telnet 등을 대체하기 위해 설계되었으며, 모든 전송 데이터를 암호화한다.",
+    "code": null,
+    "answer": "SSH",
+    "aliases": [
+      "SSH",
+      "ssh",
+      "Secure Shell"
+    ],
+    "explanation": "SSH(Secure Shell)는 기본 포트 22번을 사용하며, 암호화되지 않은 텔넷(Telnet, 23번) 등을 대체하여 안전한 원격 터미널 접속 및 파일 전송을 제공하는 프로토콜입니다.",
+    "trapPoint": "기본 포트 22번과 원격 암호화 접속 키워드로 SSH를 유추할 수 있습니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_8",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 8,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 설명에 해당하는 악성코드 유형을 보기에서 찾아 쓰시오.",
+    "passage": "[보기: 웜, 트로이 목마, 바이러스, 랜섬웨어, 스파이웨어]\n\n( 1 ) 다른 프로그램에 기생하지 않고 독자적으로 실행되며, 네트워크를 통해 스스로 복제하여 다른 컴퓨터로 전파되는 악성 프로그램\n( 2 ) 정상적인 프로그램으로 위장하여 사용자가 직접 설치하도록 유도하며, 시스템 내부에 백도어를 설치하거나 정보를 유출하지만 자기 복제 능력은 없음\n( 3 ) 정상 파일에 감염되는 형태로 기생하며, 감염 대상 파일이 실행될 때 함께 실행되고 자기 복제 능력이 있음",
+    "code": null,
+    "answer": "(1) 웜, (2) 트로이 목마, (3) 바이러스",
+    "aliases": [
+      "웜, 트로이 목마, 바이러스",
+      "웜 트로이목마 바이러스"
+    ],
+    "explanation": "1. 웜(Worm): 독자 실행 가능, 네트워크를 통한 자가 복제/전파.\n2. 트로이 목마(Trojan Horse): 정상 프로그램 위장, 백도어 설치, 자가 복제 능력 없음.\n3. 바이러스(Virus): 숙주 파일에 기생, 감염을 통한 자가 복제.",
+    "trapPoint": "웜은 '독자적 실행 + 자가 복제', 트로이 목마는 '자가 복제 불가 + 위장', 바이러스는 '숙주 필요 + 자가 복제'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_9",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 9,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 코드에서 이진수 형태의 정수를 10진수로 변환하고자 한다. 빈칸 (a), (b)에 들어갈 연산자 및 숫자를 순서대로 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int input = 101110;\n    int di = 1;\n    int sum = 0;\n\n    while (1) {\n        if (input == 0) break;\n        else {\n            sum = sum + (input ( a ) ( b )) * di;\n            di = di * 2;\n            input = input / 10;\n        }\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "(a) %, (b) 10",
+    "aliases": [
+      "(a) %, (b) 10",
+      "% 10",
+      "%, 10",
+      "(a) %, (b) 2"
+    ],
+    "explanation": "input에 저장된 이진수 모양의 십진수(101110)에서 각 자릿수의 숫자(0 또는 1)를 추출하려면 10으로 나눈 나머지 연산자 %(모듈로)와 10을 사용합니다.\ninput % 10을 통해 일의 자리(0 또는 1)를 구하고, di(1, 2, 4, 8, 16...)를 곱해 sum에 누적합니다.",
+    "trapPoint": "마지막 일의 자리 숫자를 추출하기 위해 input % 10을 수행하고, 이후 input = input / 10으로 다음 자릿수로 이동합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_10",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 10,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "다음 설명에 해당하는 TCP/IP 프로토콜의 명칭(약어)을 쓰시오.",
+    "passage": "- TCP/IP 네트워크에서 IP 패킷을 처리할 때 발생하는 오류를 보고하고 제어 메시지를 전달하는 프로토콜이다.\n- 호스트나 게이트웨이 간 통신 가능 여부를 점검하기 위한 목적으로 주로 사용된다.\n- ping 명령어나 traceroute(tracert)의 기반이 되는 프로토콜이다.",
+    "code": null,
+    "answer": "ICMP",
+    "aliases": [
+      "ICMP",
+      "icmp",
+      "Internet Control Message Protocol"
+    ],
+    "explanation": "ICMP(Internet Control Message Protocol, 인터넷 제어 메시지 프로토콜)는 IP의 비연결성과 신뢰성 결여를 보완하기 위해 에러 보고 및 네트워크 상태 진단(ping) 메시지를 제공하는 프로토콜입니다.",
+    "trapPoint": "ping 명령어와 패킷 전송 오류 보고 프로토콜은 ICMP입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_11",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 11,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "다음 설명에 해당하는 GoF 디자인 패턴의 명칭(영문 또는 한글)을 쓰시오.",
+    "passage": "- 다른 객체로의 접근을 제어하기 위해 대리자(대행자) 역할을 하는 객체를 제공하는 구조 패턴이다.\n- 원본 객체에 대한 참조를 유지하면서, 실제 객체가 생성되기 전이나 접근하기 전/후에 부가 작업(캐싱, 보안 검사, 로깅 등)을 수행할 수 있다.\n- 가상(Virtual), 원격(Remote), 보호(Protection) 등의 변형이 있다.",
+    "code": null,
+    "answer": "Proxy",
+    "aliases": [
+      "Proxy",
+      "proxy",
+      "프록시",
+      "프록시 패턴",
+      "Proxy Pattern"
+    ],
+    "explanation": "Proxy(프록시) 패턴은 어떤 객체에 대한 접근을 제어하기 위해 그 객체의 대리 객체(Proxy)를 중간에 두는 GoF 구조 패턴입니다.",
+    "trapPoint": "대리자, 대행자 역할을 수행하여 객체 접근을 제어하는 구조 패턴은 프록시(Proxy)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_12",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 12,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 관계 데이터베이스 모델의 설명에 알맞은 용어를 각각 쓰시오.",
+    "passage": "( 1 ) 릴레이션(테이블)에서 행(Row)을 의미하며, 파일 구조에서는 레코드(Record)에 해당한다.\n( 2 ) 어느 한 시점에 릴레이션에 저장되어 있는 튜플들의 집합(실제 데이터 전체)을 의미하며, 릴레이션 외연(Extension)이라고도 한다.\n( 3 ) 하나의 릴레이션에서 튜플(행)의 전체 개수를 의미한다.",
+    "code": null,
+    "answer": "(1) 튜플, (2) 릴레이션 인스턴스, (3) 카디널리티",
+    "aliases": [
+      "튜플, 릴레이션 인스턴스, 카디널리티",
+      "튜플 인스턴스 카디널리티"
+    ],
+    "explanation": "1. 튜플(Tuple): 릴레이션의 각 행(Row).\n2. 릴레이션 인스턴스(Relation Instance): 특정 시점에 릴레이션에 존재하는 튜플들의 집합.\n3. 카디널리티(Cardinality): 튜플(행)의 수. (속성의 수는 차수/Degree).",
+    "trapPoint": "행의 개수는 카디널리티(기수), 열의 개수는 차수(Degree)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_13",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 13,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 [학생] 테이블에서 학생 이름이 '민수'인 튜플을 삭제하는 SQL 문을 작성하시오. (단, 문자열은 작은따옴표를 사용하고 세미콜론은 생략 가능)",
+    "passage": "[학생 테이블]\n| 학번 | 이름 | 학년 | 전화번호 |\n| 1001 | 민수 | 3 | 010-1111-2222 |\n| 1002 | 영희 | 2 | 010-3333-4444 |\n| 1003 | 철수 | 4 | 010-5555-6666 |",
+    "code": null,
+    "answer": "DELETE FROM 학생 WHERE 이름 = '민수';",
+    "aliases": [
+      "DELETE FROM 학생 WHERE 이름 = '민수';",
+      "DELETE FROM 학생 WHERE 이름 = '민수'",
+      "DELETE FROM 학생 WHERE 이름='민수';",
+      "DELETE FROM 학생 WHERE 이름='민수'",
+      "delete from 학생 where 이름 = '민수';",
+      "delete from 학생 where 이름 = '민수'"
+    ],
+    "explanation": "데이터 조작어(DML) 중 특정 튜플을 삭제할 때는 DELETE FROM 테이블명 WHERE 조건식을 사용합니다.\n`DELETE FROM 학생 WHERE 이름 = '민수';`",
+    "trapPoint": "DROP이나 TRUNCATE는 테이블 자체를 지우거나 전체를 비울 때 사용하며, 특정 조건의 튜플 삭제는 DELETE FROM ~ WHERE 문입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_14",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 14,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java로 구현된 버블 정렬 프로그램에서 빈칸 (1), (2)에 들어갈 올바른 변수명을 쓰시오.",
+    "passage": null,
+    "code": "public class Sort {\n    public static void swap(int[] arr, int idx1, int idx2) {\n        int temp = arr[idx1];\n        arr[idx1] = arr[idx2];\n        arr[(  1  )] = temp;\n    }\n\n    public static void Usort(int[] array, int length) {\n        for (int i = 0; i < length; i++) {\n            for (int j = 0; j < length - i - 1; j++) {\n                if (array[j] > array[j + 1]) {\n                    swap(array, j, j + 1);\n                }\n            }\n        }\n    }\n\n    public static void main(String[] args) {\n        int[] item = new int[] { 5, 3, 8, 1, 2, 7 };\n        int nx = 6;\n        Usort(item, (  2  ));\n\n        for (int data : item) {\n            System.out.print(data + \" \");\n        }\n    }\n}",
+    "answer": "(1) idx2, (2) nx",
+    "aliases": [
+      "(1) idx2, (2) nx",
+      "idx2, nx",
+      "idx2 nx"
+    ],
+    "explanation": "1. swap 함수에서 두 원소를 맞바꾸려면 arr[idx1]의 값을 temp에 보관한 뒤 arr[idx1]에 arr[idx2]를 넣고, arr[idx2]에 temp를 넣어야 하므로 (1)은 idx2입니다.\n2. main에서 Usort 함수에 배열 크기 6을 전달해야 하므로 6이 저장된 변수 (2)는 nx입니다.",
+    "trapPoint": "일반적인 swap 3단계: temp = a; a = b; b = temp; 원리입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_15",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 15,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 컬렉션 자료구조",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = {'한국', '중국', '일본'}\na.add('베트남')\na.add('중국')\na.remove('일본')\na.update({'홍콩', '한국', '태국'})\nprint(sorted(list(a)))",
+    "answer": "['베트남', '중국', '태국', '한국', '홍콩']",
+    "aliases": [
+      "['베트남', '중국', '태국', '한국', '홍콩']",
+      "{'한국', '중국', '베트남', '홍콩', '태국'}",
+      "{'베트남', '중국', '태국', '한국', '홍콩'}",
+      "베트남 중국 태국 한국 홍콩",
+      "한국 중국 베트남 홍콩 태국"
+    ],
+    "explanation": "세트(set) 자료형의 집합 연산:\n1. 초기 집합: {'한국', '중국', '일본'}\n2. add('베트남'): {'한국', '중국', '일본', '베트남'}\n3. add('중국'): 이미 존재하므로 중복 무시\n4. remove('일본'): '일본' 제거 -> {'한국', '중국', '베트남'}\n5. update({'홍콩', '한국', '태국'}): 여러 원소 추가, 중복된 '한국' 무시 -> {'한국', '중국', '베트남', '홍콩', '태국'}\n원소는 한국, 중국, 베트남, 홍콩, 태국 총 5개입니다.",
+    "trapPoint": "파이썬 set은 중복을 허용하지 않으므로 '중국'과 '한국'을 다시 add/update해도 원소가 1개만 유지됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_16",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 16,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 [성적] 테이블에서 과목별 점수의 평균이 90점 이상인 '과목이름', '최소점수', '최대점수'를 검색하는 SQL 문을 작성하시오.",
+    "passage": "[조건]\n- WHERE 절을 사용하지 말아야 한다.\n- SELECT 절에 AS 별칭('최소점수', '최대점수')을 명시해야 한다.\n- GROUP BY 절과 HAVING 절을 반드시 사용해야 한다.\n- 집계 함수 MIN, MAX, AVG를 사용해야 한다.",
+    "code": null,
+    "answer": "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90;",
+    "aliases": [
+      "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90;",
+      "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90",
+      "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수)>=90;",
+      "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수)>=90"
+    ],
+    "explanation": "그룹별 집계 조건은 HAVING 절에 작성합니다:\n```sql\nSELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수\nFROM 성적\nGROUP BY 과목이름\nHAVING AVG(점수) >= 90;\n```",
+    "trapPoint": "그룹화된 결과에 대한 필터링 조건(평균 90점 이상)은 WHERE가 아니라 반드시 HAVING 절에 작성해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_17",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 17,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "abstract class Vehicle {\n    String name;\n    abstract public String getName(String val);\n\n    public String getName() {\n        return \"Vehicle name: \" + name;\n    }\n}\n\nclass Car extends Vehicle {\n    public Car(String val) {\n        name = super.name = val;\n    }\n\n    public String getName(String val) {\n        return \"Car name:\" + val;\n    }\n\n    public String getName(byte val[]) {\n        return \"Car name:\" + val;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Vehicle obj = new Car(\"Spark\");\n        System.out.println(obj.getName());\n    }\n}",
+    "answer": "Vehicle name: Spark",
+    "aliases": [
+      "Vehicle name: Spark",
+      "Vehicle name:Spark"
+    ],
+    "explanation": "1. `Vehicle obj = new Car(\"Spark\");` 호출 시 Car 생성자에서 name = \"Spark\"로 초기화됩니다.\n2. `obj.getName()` 호출 시 인자가 없는 getName() 메소드를 찾습니다.\n3. Car 클래스에는 인자가 없는 getName()이 오버라이딩되어 있지 않으므로 부모 클래스 Vehicle의 `public String getName()`이 호출됩니다.\n4. 따라서 \"Vehicle name: Spark\"가 리턴되어 출력됩니다.",
+    "trapPoint": "Car 클래스에 정의된 getName은 매개변수가 있는 오버로딩 메소드이므로, 매개변수가 없는 obj.getName() 호출 시 부모 클래스 Vehicle의 getName()이 실행됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_18",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 18,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "뷰(View) & 인덱스 최적화",
+    "prompt": "다음 설명에 해당하는 데이터베이스 3단계 스키마 구조의 명칭을 각각 쓰시오.",
+    "passage": "| 구분 | 설명 |\n| --- | --- |\n| ( 1 ) 스키마 | - 사용자나 응용 프로그래머의 개인적 입장에서 필요한 데이터베이스의 논리적 구조를 정의한다.<br>- 서브 스키마(Sub Schema)라고도 부르며, 여러 개가 존재할 수 있다. |\n| ( 2 ) 스키마 | - 조직 전체 입장에서 데이터베이스 전체의 논리적 구조를 정의한 것으로, 단 하나만 존재한다.<br>- 모든 응용 프로그램이나 사용자가 필요로 하는 데이터를 통합 정의하며 접근 권한, 무결성 규칙을 포함한다. |\n| ( 3 ) 스키마 | - 물리적 저장장치 입장에서 데이터가 실제로 저장되는 물리적 구조를 정의한다.<br>- 레코드의 물리적 배치, 저장 형식, 인덱스 유무 등을 다룬다. |",
+    "code": null,
+    "answer": "(1) 외부, (2) 개념, (3) 내부",
+    "aliases": [
+      "(1) 외부, (2) 개념, (3) 내부",
+      "외부, 개념, 내부",
+      "외부 개념 내부"
+    ],
+    "explanation": "ANSI/SPARC 3단계 스키마 구조:\n1. 외부 스키마(External Schema): 사용자/응용 프로그램 뷰 (서브 스키마)\n2. 개념 스키마(Conceptual Schema): 조직 전체 관점의 통합 논리적 구조 (단 1개 존재)\n3. 내부 스키마(Internal Schema): 물리적 저장장치 관점의 물리적 구조",
+    "trapPoint": "사용자 관점 = 외부 스키마, 기관/전체 관점 = 개념 스키마, 물리적 저장 = 내부 스키마입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_19",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 19,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "화이트박스 테스팅 & 순환복잡도",
+    "prompt": "다음 제어 흐름 그래프가 분기 커버리지(Branch Coverage)를 100% 만족하기 위한 테스트 경로 2가지를 쓰시오.",
+    "passage": "[제어 흐름 그래프]\n       ┌─── ( 1 ) ───┐ <───────────┐\n       │             │             │\n       ▼             │             │\n     ◇ ( 2 )         │             │\n    /        \\       │             │\n   / YES      \\ NO   │             │\n  ▼            ▼     │             │\n( 3 )          │     │             │\n  │            │     │             │\n  └───► ( 4 ) ◄┘     │             │\n         │           │             │\n         ▼           │             │\n       ( 5 )         │             │\n         │           │             │\n         ▼           │             │\n       ◇ ( 6 )       │             │\n        / YES        │             │\n       └─────────────┘             │\n        \\ NO                       │\n         ▼                         │\n       ( 7 )                       │\n\n※ 분기점 조건:\n- 2번 노드: YES(3번 경유하여 4번 진입) / NO(4번으로 직행)\n- 6번 노드: YES(1번으로 복귀 루프) / NO(7번으로 종료)\n모든 분기(Decision edge)를 적어도 한 번씩 통과하는 두 경로를 쓰시오.",
+    "code": null,
+    "answer": "1234561, 124567",
+    "aliases": [
+      "1234561, 124567",
+      "124567, 1234561",
+      "1234567, 124561",
+      "124561, 1234567",
+      "1-2-3-4-5-6-1, 1-2-4-5-6-7",
+      "1->2->3->4->5->6->1, 1->2->4->5->6->7",
+      "1234561 124567",
+      "124567 1234561"
+    ],
+    "explanation": "분기 커버리지(Branch Coverage, 결정 커버리지)는 제어 흐름 그래프 내의 모든 분기문(조건식)이 True와 False의 모든 결과를 적어도 한 번씩 실행해야 합니다.\n- 2번 분기: True (3 경유 후 4 진입), False (4로 직행)\n- 6번 분기: True (1로 루프), False (7로 이동)\n따라서 두 분기점의 참/거짓 분기 간선을 모두 통과하는 최소 경로는 `1234561, 124567` (또는 `1234567, 124561`) 입니다.",
+    "trapPoint": "2번 노드에서 3번을 거쳐 4번으로 합류하는 구조이므로 3을 거치는 경로는 1->2->3->4->5... 가 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2023_1_20",
+    "round_id": "2023_1",
+    "round_title": "2023년 제1회 기출 복원",
+    "id": 20,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    int x = 100;\n\n    Parent() {\n        this(500);\n    }\n\n    Parent(int x) {\n        this.x = x;\n    }\n\n    int getX() {\n        return x;\n    }\n}\n\nclass Child extends Parent {\n    int x = 4000;\n\n    Child() {\n        this(5000);\n    }\n\n    Child(int x) {\n        this.x = x;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Child obj = new Child();\n        System.out.println(obj.getX());\n    }\n}",
+    "answer": "500",
+    "aliases": [
+      "500"
+    ],
+    "explanation": "1. `Child obj = new Child();` 호출:\n   - `this(5000)` 호출 -> `Child(int x)` 실행\n   - 부모 기본 생성자 `super()`가 묵시적으로 먼저 호출됨\n2. 부모 생성자 `Parent()` 실행:\n   - `this(500)` 호출 -> `Parent(int x)` 실행 -> 부모의 x = 500 세팅\n3. 다시 자식 생성자 `Child(int x)` 실행 -> 자식의 x = 5000 세팅\n4. `obj.getX()` 호출:\n   - getX()는 부모 클래스 Parent에만 정의되어 있음\n   - getX() 내부의 `return x;`는 Parent 클래스의 멤버 변수 x를 반환하므로 500이 반환됨.",
+    "trapPoint": "Child는 getX()를 오버라이딩하지 않았으므로 부모 Parent의 getX()가 호출되며, Parent의 x값인 500이 반환됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_1",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램은 지뢰찾기 맵(field)에서 주변 8방향의 지뢰 개수를 계산하여 mines 배열에 저장한다. 실행 결과로 출력되는 mines 배열의 4x4 행렬 값을 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint calculate(int w, int h, int j, int i) {\n    if (i >= 0 && i < h && j >= 0 && j < w) return 1;\n    return 0;\n}\n\nint main() {\n    int field[4][4] = {\n        {0, 1, 0, 1},\n        {0, 0, 0, 1},\n        {1, 1, 1, 0},\n        {0, 1, 1, 1}\n    };\n    int mines[4][4] = {0};\n    int w = 4, h = 4;\n\n    for (int y = 0; y < h; y++) {\n        for (int x = 0; x < w; x++) {\n            if (field[y][x] == 0) continue;\n            for (int i = y - 1; i <= y + 1; i++) {\n                for (int j = x - 1; j <= x + 1; j++) {\n                    if (calculate(w, h, j, i) == 1) {\n                        mines[i][j] += 1;\n                    }\n                }\n            }\n        }\n    }\n\n    for (int y = 0; y < h; y++) {\n        for (int x = 0; x < w; x++)\n            printf(\"%d \", mines[y][x]);\n        printf(\"\\n\");\n    }\n    return 0;\n}",
+    "answer": "1 1 3 2\n3 4 5 3\n3 5 6 4\n3 5 5 3",
+    "aliases": [
+      "1 1 3 2\n3 4 5 3\n3 5 6 4\n3 5 5 3",
+      "1, 1, 3, 2 / 3, 4, 5, 3 / 3, 5, 6, 4 / 3, 5, 5, 3",
+      "1 1 3 2 3 4 5 3 3 5 6 4 3 5 5 3"
+    ],
+    "explanation": "지뢰 위치 field[y][x] == 1 인 칸 주변 3x3 범위(자신 포함 유효 좌표)의 mines[i][j]를 1씩 증가시킵니다.\n각 위치에 겹치는 지뢰 영향권의 합계를 계산하면:\n- 1행: 1 1 3 2\n- 2행: 3 4 5 3\n- 3행: 3 5 6 4\n- 4행: 3 5 5 3",
+    "trapPoint": "자신의 위치를 포함하여 주변 8방향까지 총 9개 좌표에 대해 유효한 보드 범위 내이면 1씩 카운트를 누적합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_2",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 2,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "관계대수 & 릴레이션 이론",
+    "prompt": "관계대수 연산의 다음 명칭에 해당하는 기호를 순서대로 쓰시오.",
+    "passage": "(1) 합집합 (Union)\n(2) 차집합 (Difference)\n(3) 카티션 프로덕트 (교차곱, Cartesian Product)\n(4) 프로젝트 (Project)\n(5) 자연 조인 (Natural Join)",
+    "code": null,
+    "answer": "(1) ∪, (2) -, (3) ×, (4) π, (5) ⋈",
+    "aliases": [
+      "∪, -, ×, π, ⋈",
+      "U, -, X, π, ⋈",
+      "U - X π ⋈"
+    ],
+    "explanation": "일반 집합 연산자 및 순수 관계 연산자 기호:\n- 합집합: ∪ (U)\n- 차집합: -\n- 교차곱: × (X)\n- 프로젝트: π\n- 조인: ⋈",
+    "trapPoint": "Select는 σ(시그마), Project는 π(파이), Join은 ⋈(보타이)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_3",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 3,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "다음 설명에 해당하는 GoF 디자인 패턴을 각각 쓰시오.",
+    "passage": "( 1 ) 기능의 계층과 구현의 계층을 분리하여 두 계층이 독립적으로 확장할 수 있도록 연결하는 구조 패턴\n( 2 ) 한 객체의 상태가 바뀌면 그 객체에 의존하는 다른 객체들에게 연락이 가고 자동으로 내용이 갱신되는 일대다(1:N) 의존성 행위 패턴 (발행/구독 모델)",
+    "code": null,
+    "answer": "(1) Bridge, (2) Observer",
+    "aliases": [
+      "Bridge, Observer",
+      "브릿지, 옵저버",
+      "Bridge Observer"
+    ],
+    "explanation": "1. Bridge(브리지): 기능 계층과 구현 계층을 분리하여 상호 독립적 확장 지원.\n2. Observer(옵서버): 한 객체의 상태 변화를 구독자 객체들에게 통지하는 발행-구독 패턴.",
+    "trapPoint": "기능과 구현의 분리는 Bridge, 발행-구독 일대다 통지는 Observer입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_4",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 석차(순위) 알고리즘 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int result[5];\n    int arr[5] = {77, 32, 10, 99, 50};\n\n    for (int i = 0; i < 5; i++) {\n        result[i] = 1;\n        for (int j = 0; j < 5; j++) {\n            if (arr[i] < arr[j]) result[i]++;\n        }\n    }\n\n    for (int k = 0; k < 5; k++) {\n        printf(\"%d\", result[k]);\n    }\n    return 0;\n}",
+    "answer": "24513",
+    "aliases": [
+      "24513",
+      "2 4 5 1 3"
+    ],
+    "explanation": "배열 arr = {77, 32, 10, 99, 50}의 각 원소보다 큰 원소의 개수를 세어 석차를 매깁니다.\n- 99: 가장 크므로 1등 -> result[3] = 1\n- 77: 99보다 작으므로 2등 -> result[0] = 2\n- 50: 99, 77보다 작으므로 3등 -> result[4] = 3\n- 32: 99, 77, 50보다 작으므로 4등 -> result[1] = 4\n- 10: 가장 작으므로 5등 -> result[2] = 5\nresult 배열 순서대로 출력하면: 2, 4, 5, 1, 3 -> \"24513\"",
+    "trapPoint": "석차는 초기값 1에서 시작하여 나보다 큰 원소를 만날 때마다 순위가 1씩 밀려납니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_5",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 5,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "IPv4 서브넷 마스킹 계산",
+    "prompt": "C클래스 네트워크 주소 192.168.1.0/24를 고정 길이 서브넷 마스크(FLSM)를 사용하여 서브넷당 동일한 크기로 3개 이상의 네트워크로 분할하고자 할 때, 서브넷 마스크를 /26으로 설정하였다. 이 때 두 번째 서브넷의 브로드캐스트 IP 주소를 10진수로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "192.168.1.127",
+    "aliases": [
+      "192.168.1.127"
+    ],
+    "explanation": "192.168.1.0/24를 4개의 서브넷(/26, 서브넷 크기 64)으로 분할:\n- 1번째 서브넷: 192.168.1.0 ~ 192.168.1.63 (브로드캐스트: .63)\n- 2번째 서브넷: 192.168.1.64 ~ 192.168.1.127 (브로드캐스트: .127)\n- 3번째 서브넷: 192.168.1.128 ~ 192.168.1.191 (브로드캐스트: .191)\n- 4번째 서브넷: 192.168.1.192 ~ 192.168.1.255 (브로드캐스트: .255)\n두 번째 서브넷의 마지막 주소(브로드캐스트)는 `192.168.1.127`입니다.",
+    "trapPoint": "두 번째 서브넷의 범위는 .64 ~ .127이며, 마지막 주소가 브로드캐스트 주소입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_6",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 6,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "블랙박스 테스팅 기법",
+    "prompt": "블랙박스 테스트 기법 중 입력 조건의 경계에 있는 값(최솟값, 최댓값, 바로 위/아래 값 등)에서 오류가 발생할 확률이 높다는 점을 이용하여 테스트 케이스를 도출하는 기법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "경계값 분석",
+    "aliases": [
+      "경계값 분석",
+      "경계값분석",
+      "Boundary Value Analysis",
+      "BVA"
+    ],
+    "explanation": "경계값 분석(Boundary Value Analysis)은 동등 분할의 경계 부분(유효 범위의 양 끝값)에서 오류가 집중적으로 발생한다는 경험적 사실에 기초한 블랙박스 테스트 기법입니다.",
+    "trapPoint": "입력 조건의 경계(Boundary)에 위치한 값들을 집중 테스트하는 기법은 경계값 분석입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_7",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 7,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "다음 트랜잭션 SQL 문들이 순차적으로 실행된 후, 마지막 두 SELECT COUNT(*) 쿼리의 실행 결과를 순서대로 쓰시오.",
+    "passage": "[초기 테이블 T에 데이터 3건 존재]\nINSERT INTO T VALUES (4);\nSAVEPOINT sp1;\nINSERT INTO T VALUES (5);\nROLLBACK TO sp1;\n\n( 1 ) SELECT COUNT(*) FROM T; -- sp1 롤백 직후 건수\n\nINSERT INTO T VALUES (6);\nCOMMIT;\n\n( 2 ) SELECT COUNT(*) FROM T; -- 최종 커밋 후 건수",
+    "code": null,
+    "answer": "(1) 4, (2) 5",
+    "aliases": [
+      "(1) 4, (2) 5",
+      "4, 5",
+      "4 5"
+    ],
+    "explanation": "1. 초기 3건 + INSERT(4) -> 4건\n2. SAVEPOINT sp1 지정\n3. INSERT(5) -> 5건\n4. ROLLBACK TO sp1: 5가 취소되고 sp1 시점(4건)으로 복구 -> (1)은 4\n5. INSERT(6) -> 4건 + 1건 = 5건\n6. COMMIT 후 최종 건수 -> (2)는 5",
+    "trapPoint": "ROLLBACK TO sp1을 수행하면 SAVEPOINT sp1 이후의 작업(INSERT 5)만 취소됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_8",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 8,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 설명에 해당하는 보안 용어를 각각 쓰시오.",
+    "passage": "( 1 ) 기술적인 해킹 기법이 아닌, 인간의 신뢰, 호기심, 동정심 등 심리적 취약점을 이용하여 패스워드나 기밀 정보를 탈취하는 비기술적 해킹 기법\n( 2 ) 조직에서 수집하여 저장하고 있지만 활용되지 않고 방치되어 공간만 차지하며 보안 위협을 유발하는 구조화되지 않은 데이터",
+    "code": null,
+    "answer": "(1) 사회공학, (2) 다크 데이터",
+    "aliases": [
+      "사회공학, 다크 데이터",
+      "사회공학 다크데이터",
+      "Social Engineering, Dark Data"
+    ],
+    "explanation": "1. 사회공학(Social Engineering): 인간 상호작용의 신뢰를 악용하는 비기술적 공격.\n2. 다크 데이터(Dark Data): 수집 후 저장만 되고 분석/활용되지 않은 채 방치된 데이터.",
+    "trapPoint": "인간 심리 공격 = 사회공학, 방치된 미활용 데이터 = 다크 데이터입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_9",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 9,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 람다 & 함수형 기법",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "TestList = [1, 2, 3, 4, 5]\nTestList = list(map(lambda num: num + 100, TestList))\nprint(TestList)",
+    "answer": "[101, 102, 103, 104, 105]",
+    "aliases": [
+      "[101, 102, 103, 104, 105]",
+      "[101,102,103,104,105]",
+      "101 102 103 104 105"
+    ],
+    "explanation": "map() 함수와 람다식을 이용하여 TestList의 모든 원소에 100을 더한 새로운 리스트를 생성합니다.\n[1+100, 2+100, 3+100, 4+100, 5+100] = [101, 102, 103, 104, 105]",
+    "trapPoint": "파이썬 리스트 출력 형식이므로 대괄호와 쉼표를 포함한 `[101, 102, 103, 104, 105]` 형태로 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_10",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 10,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "네트워크 내의 다양한 이기종 보안 장비 및 서버에서 발생하는 방대한 로그 및 이벤트를 중앙에서 통합 수집, 상관분석하여 위협을 조기에 탐지하고 대응하는 보안 관제 솔루션의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "SIEM",
+    "aliases": [
+      "SIEM",
+      "siem",
+      "Security Information and Event Management"
+    ],
+    "explanation": "SIEM(Security Information and Event Management)은 SIM(정보관리)과 SEM(이벤트관리)을 결합하여 다양한 보안 로그를 실시간 수집 및 상관분석하는 통합 보안 관제 솔루션입니다.",
+    "trapPoint": "이기종 장비 로그 수집 및 실시간 상관분석 솔루션은 SIEM입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_11",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 11,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "소프트웨어 형상 관리 (SCM)",
+    "prompt": "소프트웨어 개발에서 소스 코드의 변경 사항을 추적하고 관리하기 위해 사용되는 형상 관리(버전 관리) 도구 3가지를 쓰시오.",
+    "passage": "[보기: CVS, SVN, GIT, JUnit, Docker, Jenkins]",
+    "code": null,
+    "answer": "CVS, SVN, GIT",
+    "aliases": [
+      "CVS, SVN, GIT",
+      "CVS SVN GIT",
+      "GIT, SVN, CVS"
+    ],
+    "explanation": "버전 관리(형상 관리) 시스템:\n- CVS: 초기 중앙 집중형 버전 관리\n- SVN(Subversion): CVS를 개선한 중앙 집중형 버전 관리\n- Git: 리누스 토르발스가 개발한 분산형 버전 관리 시스템",
+    "trapPoint": "JUnit은 단위 테스트 도구, Docker는 컨테이너 가상화, Jenkins는 CI/CD 도구입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_12",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 12,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "STUDENT 테이블에 컴퓨터과 50명, 전기과 100명, 인터넷과 50명의 학생 데이터가 있을 때, 다음 3개 SQL 문의 결과 튜플 수를 각각 쓰시오.",
+    "passage": "1) SELECT DEPT FROM STUDENT;\n2) SELECT DISTINCT DEPT FROM STUDENT;\n3) SELECT COUNT(DISTINCT DEPT) FROM STUDENT WHERE DEPT = '인터넷과';",
+    "code": null,
+    "answer": "(1) 200, (2) 3, (3) 1",
+    "aliases": [
+      "(1) 200, (2) 3, (3) 1",
+      "200, 3, 1",
+      "200 3 1"
+    ],
+    "explanation": "1) 전체 튜플 조회: 50 + 100 + 50 = 200건\n2) 중복 제거된 학과 종류: 컴퓨터과, 전기과, 인터넷과 = 3건\n3) 인터넷과에 대해 중복 제거한 학과 수: 인터넷과 1건",
+    "trapPoint": "DISTINCT는 중복을 제거하여 고유값만 추출하므로 학과 종류의 수는 3개입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_13",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 13,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int n, k, s;\n    int el = 0;\n\n    for (n = 6; n <= 30; n++) {\n        s = 0;\n        k = n / 2;\n        for (int j = 1; j <= k; j++) {\n            if (n % j == 0) s += j;\n        }\n        if (s == n) el++;\n    }\n\n    printf(\"%d\", el);\n    return 0;\n}",
+    "answer": "2",
+    "aliases": [
+      "2"
+    ],
+    "explanation": "6부터 30까지의 정수 중 완전수(자신을 제외한 약수의 합이 자신과 같은 수)의 개수 el을 구하는 문제입니다.\n- 6의 진약수: 1, 2, 3 -> 합 = 6 (완전수 1개)\n- 28의 진약수: 1, 2, 4, 7, 14 -> 합 = 28 (완전수 2개)\n6과 28 총 2개이므로 el = 2가 출력됩니다.",
+    "trapPoint": "6부터 30 사이의 완전수는 6과 28 딱 2개입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_14",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 14,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 설명에 해당하는 보안 용어를 각각 쓰시오.",
+    "passage": "( 1 ) ARM 사에서 개발한 기술로, 하나의 프로세서 내에 일반 구역(Normal World)과 보안 구역(Secure World)을 하드웨어적으로 격리하여 결제나 생체 정보 등 중요 데이터를 안전하게 보호하는 기술\n( 2 ) 사용자가 유명 사이트의 도메인 주소를 입력할 때 발생할 수 있는 오타나 철자 실수를 노리고 유사한 도메인을 미리 등록해 두는 사이버 범죄 (URL 하이재킹)",
+    "code": null,
+    "answer": "(1) TrustZone, (2) 타이포스쿼팅",
+    "aliases": [
+      "TrustZone, 타이포스쿼팅",
+      "트러스트존, 타이포스쿼팅",
+      "TrustZone typosquatting"
+    ],
+    "explanation": "1. TrustZone: ARM 사의 하드웨어 기반 보안 격리 환경 기술.\n2. 타이포스쿼팅(Typosquatting): URL 철자 오타를 악용하는 도메인 사칭 공격.",
+    "trapPoint": "ARM 보안 구역 = TrustZone, 오타 노린 도메인 등록 = 타이포스쿼팅입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_15",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 15,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "사용자가 한 번의 로그인 인증만으로 권한을 가진 모든 시스템 및 웹 애플리케이션 서비스에 별도의 추가 로그인 없이 접근할 수 있도록 해주는 통합 인증 기술의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "SSO",
+    "aliases": [
+      "SSO",
+      "sso",
+      "Single Sign-On",
+      "Single Sign On"
+    ],
+    "explanation": "SSO(Single Sign-On)는 한 번의 시스템 인증을 통해 연계된 여러 서비스 시스템을 추가 로그인 없이 이용할 수 있게 해주는 통합 인증 솔루션입니다.",
+    "trapPoint": "1회 로그인으로 모든 연계 시스템을 이용하는 기술은 SSO입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_16",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 16,
+    "category": "운영체제",
+    "unit": 5,
+    "topic": "CPU 스케줄링 & HRN 공식",
+    "prompt": "CPU 프로세스 스케줄링 알고리즘 중 다음 설명에 해당하는 기법의 명칭을 각각 쓰시오.",
+    "passage": "( 1 ) 준비 큐에 있는 프로세스 중 CPU 점유 시간이 가장 짧은 작업에 CPU를 우선 할당하는 비선점형 방식\n( 2 ) 각 프로세스에 동일한 CPU 시간 할당량(Time Slice)을 부여하고, 시간 내에 완료하지 못하면 준비 큐의 맨 뒤로 보내는 선점형 방식\n( 3 ) 남은 실행 시간이 가장 짧은 프로세스에게 CPU를 우선 할당하며, 새로운 프로세스가 들어왔을 때 남은 시간이 더 짧으면 CPU를 빼앗는 선점형 SJF 방식",
+    "code": null,
+    "answer": "(1) SJF, (2) RR, (3) SRT",
+    "aliases": [
+      "SJF, RR, SRT",
+      "SJF RR SRT"
+    ],
+    "explanation": "1. SJF: 최단 작업 우선 (비선점형)\n2. RR(Round Robin): 시분할 라운드 로빈 (선점형)\n3. SRT: 최소 잔여 시간 우선 (SJF의 선점형 버전)",
+    "trapPoint": "비선점 최단작업은 SJF, 선점형 최단잔여시간은 SRT, 시간할당량 순환은 RR입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_17",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 17,
+    "category": "소프트웨어공학",
+    "unit": 4,
+    "topic": "보안 솔루션 & 침입 차단",
+    "prompt": "UML 모델링의 3대 구성 요소는 사물(Things), ( 1 ), 다이어그램(Diagrams)이다. 이 중 시스템의 구조적 측면에서 객체 타입과 정적 관계를 표현하는 대표적 다이어그램은 ( 2 ) 다이어그램이며, 클래스가 반드시 구현해야 하는 오퍼레이션의 집합을 정의하는 모델 요소를 ( 3 )라고 한다. 빈칸에 들어갈 용어를 순서대로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "(1) 관계, (2) 클래스, (3) 인터페이스",
+    "aliases": [
+      "(1) 관계, (2) 클래스, (3) 인터페이스",
+      "관계, 클래스, 인터페이스"
+    ],
+    "explanation": "1. UML 3대 구성 요소: 사물(Things), 관계(Relationships), 다이어그램(Diagrams)\n2. 정적 구조 다이어그램: 클래스 다이어그램\n3. 구현 오퍼레이션 집합: 인터페이스",
+    "trapPoint": "사물, 관계, 다이어그램이 UML 3대 요소입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_18",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 18,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "E-R 다이어그램(피터 첸 표기법)에서 사용되는 기호에 대한 설명으로 알맞은 명칭을 쓰시오.",
+    "passage": "1. 사각형(Rectangle): (     1     )\n2. 마름모(Diamond): (     2     )\n3. 타원(Ellipse): (     3     )\n4. 밑줄 타원(Underlined Ellipse): (     4     )",
+    "code": null,
+    "answer": "(1) 개체, (2) 관계, (3) 속성, (4) 기본키",
+    "aliases": [
+      "개체, 관계, 속성, 기본키",
+      "개체 관계 속성 기본키"
+    ],
+    "explanation": "E-R 다이어그램 기호:\n- 사각형: 개체(Entity)\n- 마름모: 관계(Relationship)\n- 타원: 속성(Attribute)\n- 밑줄 타원: 기본키(Primary Key) 속성\n- 이중 타원: 복합 속성 / 다중값 속성",
+    "trapPoint": "사각형 = 개체, 마름모 = 관계, 타원 = 속성, 밑줄 = 기본키입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_19",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 19,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    static int[] MakeArray() {\n        int[] tempArr = new int[4];\n        for (int i = 0; i < tempArr.length; i++) {\n            tempArr[i] = i;\n        }\n        return tempArr;\n    }\n\n    public static void main(String[] args) {\n        int[] intArr = MakeArray();\n        for (int i = 0; i < intArr.length; i++) {\n            System.out.print(intArr[i]);\n        }\n    }\n}",
+    "answer": "0123",
+    "aliases": [
+      "0123"
+    ],
+    "explanation": "MakeArray() 함수에서 크기 4인 배열 tempArr을 생성하고 인덱스 0~3에 각각 i 값을 대입하여 반환합니다.\nmain 메소드에서 배열을 받아 출력하므로 0, 1, 2, 3이 공백 없이 연속 출력되어 \"0123\"이 됩니다.",
+    "trapPoint": "System.out.print는 줄바꿈 없이 출력하므로 0123이 한 줄로 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_3_20",
+    "round_id": "2022_3",
+    "round_title": "2022년 제3회 기출 복원",
+    "id": 20,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Exam {\n    public static void main(String[] args) {\n        int a = 0;\n        for (int i = 1; i < 999; i++) {\n            if (i % 3 == 0 && i % 2 != 0) {\n                a = i;\n            }\n        }\n        System.out.print(a);\n    }\n}",
+    "answer": "993",
+    "aliases": [
+      "993"
+    ],
+    "explanation": "1부터 998(i < 999)까지의 정수 중, 3의 배수(i % 3 == 0)이면서 홀수(i % 2 != 0)인 가장 큰 수 a를 찾는 문제입니다.\n- 998: 짝수\n- 997: 3의 배수 아님\n- 996: 3의 배수이지만 짝수\n- 995: 3의 배수 아님\n- 994: 3의 배수 아님\n- 993: 993 % 3 == 0 이고 993 % 2 != 0 (홀수) 만족!\n따라서 마지막으로 갱신되는 a의 값은 993입니다.",
+    "trapPoint": "i < 999이므로 999는 검사 대상이 아니며, 999 미만에서 조건을 만족하는 최댓값은 993입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_1",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 1,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "관계대수 & 릴레이션 이론",
+    "prompt": "다음 설명에 해당하는 관계 데이터 모델의 연산 표현 방식을 쓰시오.",
+    "passage": "- 관계 데이터의 연산을 표현하는 방법으로, 원하는 정보를 정의할 때 계산 수식을 사용한다.\n- 수학의 술어 해석(Predicate Calculus)에 기반을 두고 있으며, 관계 데이터 모델의 창시자인 E.F. Codd 박사가 제안하였다.\n- 원하는 정보가 무엇(What)인지만 정의하고 어떻게(How) 유도하는지는 명시하지 않는 비절차적 특성을 갖는다.\n- 튜플 단위와 도메인 단위의 두 가지 형태로 나뉜다.",
+    "code": null,
+    "answer": "관계해석",
+    "aliases": [
+      "관계해석",
+      "관계 해석",
+      "Relational Calculus"
+    ],
+    "explanation": "관계해석(Relational Calculus)은 원하는 정보가 무엇인지 비절차적으로 기술하는 방법이며, 절차적으로 어떻게 유도하는지 기술하는 것은 관계대수(Relational Algebra)입니다.",
+    "trapPoint": "비절차적 연산은 관계해석, 절차적 연산은 관계대수입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_2",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 2,
+    "category": "보안",
+    "unit": 4,
+    "topic": "암호화 알고리즘 (대칭키/공개키/해시)",
+    "prompt": "다음 설명에 해당하는 대칭키 암호화 알고리즘의 명칭을 각각 쓰시오.",
+    "passage": "( 1 ) 1990년 라이(Lai)와 매시(Massey)가 개발한 PES를 개선하여 1991년에 제작된 128비트 키, 64비트 블록 암호 알고리즘으로 스위스 연방공과대학에서 발표되었다.\n( 2 ) 미국 NSA(국가안보국)에서 개발한 음성 암호화 칩(Clipper Chip)에 내장된 대칭키 블록 암호화 알고리즘으로, 64비트 블록에 80비트 키를 사용한다.",
+    "code": null,
+    "answer": "(1) IDEA, (2) SKIPJACK",
+    "aliases": [
+      "IDEA, SKIPJACK",
+      "IDEA, 스킵잭",
+      "IDEA 스킵잭"
+    ],
+    "explanation": "1. IDEA: 스위스에서 개발된 128비트 키, 64비트 블록 암호화 알고리즘.\n2. SKIPJACK: 미국 NSA에서 클리퍼 칩(Clipper Chip)에 탑재하기 위해 개발한 80비트 키 대칭 암호화 알고리즘.",
+    "trapPoint": "Clipper Chip에 내장된 알고리즘은 SKIPJACK입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_3",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 3,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 [제품] 테이블에서 제조사가 'H'인 모든 제품들의 단가보다 더 큰 단가를 가진 제품을 조회하고자 한다. 빈칸에 들어갈 알맞은 SQL 다중행 비교 연산자를 쓰시오.",
+    "passage": "SELECT 제조사, 제품명, 단가\nFROM 제품\nWHERE 단가 > (     ) (SELECT 단가 FROM 제품 WHERE 제조사 = 'H');",
+    "code": null,
+    "answer": "ALL",
+    "aliases": [
+      "ALL",
+      "all"
+    ],
+    "explanation": "서브쿼리 결과의 '모든' 값보다 커야 하므로 `ALL` 연산자를 사용합니다. (ANY나 SOME은 만족하는 값이 '하나라도' 있으면 참이 됨).",
+    "trapPoint": "모든 값보다 커야 하므로(최댓값보다 큼) ALL을 사용합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_4",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 4,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 [TABLE]에 대해 SQL 쿼리를 실행한 결과(출력되는 카운트 숫자)를 쓰시오.",
+    "passage": "[TABLE]\n| col1 | col2 |\n| --- | --- |\n| 1 | 2 |\n| 2 | 3 |\n| 3 | 4 |\n| 4 | 5 |\n| 5 | 5 |\n\n[쿼리]\nSELECT COUNT(col2)\nFROM TABLE\nWHERE col1 IN (2, 3) OR col2 IN (3, 5);",
+    "code": null,
+    "answer": "4",
+    "aliases": [
+      "4"
+    ],
+    "explanation": "WHERE 조건 검사:\n- 1행: col1=1, col2=2 -> 거짓\n- 2행: col1=2 (참) OR col2=3 (참) -> 포함\n- 3행: col1=3 (참) -> 포함\n- 4행: col2=5 (참) -> 포함\n- 5행: col2=5 (참) -> 포함\n조건을 만족하는 행은 2, 3, 4, 5행으로 총 4건입니다.\nCOUNT(col2)의 결과는 4입니다.",
+    "trapPoint": "OR 조건이므로 col1이 2 또는 3이거나, col2가 3 또는 5인 튜플 4개가 모두 카운트됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_5",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 5,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "보안 솔루션 & 침입 차단",
+    "prompt": "공용 인터넷망을 마치 전용 사설망처럼 이용하여 안전하게 통신할 수 있도록 터널링과 암호화 기술을 적용한 가상 사설망의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "VPN",
+    "aliases": [
+      "VPN",
+      "vpn",
+      "Virtual Private Network"
+    ],
+    "explanation": "VPN(Virtual Private Network, 가상 사설망)은 공중 네트워크를 통해 사설 네트워크의 보안 연결을 구성하는 기술입니다.",
+    "trapPoint": "가상 사설 네트워크의 약자는 VPN입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_6",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 6,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "객체지향 설계 원칙 (SOLID)",
+    "prompt": "객체지향 설계의 5대 원칙(SOLID) 중 '클라이언트는 자신이 사용하지 않는 메소드에 의존하지 않아야 한다'는 인터페이스 분리 원칙의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "ISP",
+    "aliases": [
+      "ISP",
+      "isp",
+      "Interface Segregation Principle"
+    ],
+    "explanation": "SOLID 원칙:\n- S: 단일 책임 원칙 (SRP)\n- O: 개방 폐쇄 원칙 (OCP)\n- L: 리스코프 치환 원칙 (LSP)\n- I: 인터페이스 분리 원칙 (ISP)\n- D: 의존 역전 원칙 (DIP)",
+    "trapPoint": "인터페이스 분리 원칙의 약자는 ISP입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_7",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 7,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String args[]) {\n        int i = 3;\n        int k = 1;\n\n        switch(i) {\n            case 1: k += 1;\n            case 2: k++;\n            case 3: k = 0;\n            case 4: k += 3;\n            case 5: k -= 10;\n            default: k--;\n        }\n        System.out.print(k);\n    }\n}",
+    "answer": "-8",
+    "aliases": [
+      "-8"
+    ],
+    "explanation": "switch문 fall-through 연산:\n1. i = 3이므로 case 3으로 점프\n2. case 3: k = 0\n3. break가 없으므로 아래 case 계속 실행:\n   - case 4: k = 0 + 3 = 3\n   - case 5: k = 3 - 10 = -7\n   - default: k = -7 - 1 = -8\n4. 최종 k = -8이 출력됩니다.",
+    "trapPoint": "case 3부터 시작하여 break 문을 만나지 못하므로 default까지 연속 계산되어 최종 결과는 -8이 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_8",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 8,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 구조체",
+    "prompt": "다음 C/C++ 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nstruct A {\n    int n;\n    int g;\n};\n\nint main() {\n    struct A a[2];\n    for (int i = 0; i < 2; i++) {\n        a[i].n = i;\n        a[i].g = i + 1;\n    }\n    printf(\"%d\", a[0].n + a[1].g);\n    return 0;\n}",
+    "answer": "2",
+    "aliases": [
+      "2"
+    ],
+    "explanation": "구조체 배열 연산:\n- i = 0: a[0].n = 0, a[0].g = 1\n- i = 1: a[1].n = 1, a[1].g = 2\n`a[0].n + a[1].g` = 0 + 2 = 2가 출력됩니다.",
+    "trapPoint": "a[0].n은 0이고, a[1].g는 1 + 1 = 2이므로 0 + 2 = 2입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_9",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 9,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "IPv4 서브넷 마스킹 계산",
+    "prompt": "IP 주소가 139.127.19.132이고 서브넷 마스크가 255.255.255.192일 때, 다음 물음에 10진수로 답하시오.",
+    "passage": "( 1 ) 해당 호스트가 속한 네트워크 주소: 139.127.19.(      )\n( 2 ) 해당 네트워크에서 네트워크 주소와 브로드캐스트 주소를 제외하고 실제 호스트에 할당 가능한 IP 주소의 개수",
+    "code": null,
+    "answer": "(1) 128, (2) 62",
+    "aliases": [
+      "(1) 128, (2) 62",
+      "128, 62",
+      "128 62"
+    ],
+    "explanation": "서브넷 마스크 255.255.255.192(/26) 계산:\n1. 192 = 11000000(2) -> 서브넷 블록 크기 = 256 - 192 = 64\n   - 서브넷 구간: 0~63, 64~127, 128~191, 192~255\n   - 132는 세 번째 서브넷 128~191에 포함되므로 네트워크 주소는 `139.127.19.128` (1)\n2. 호스트 비트는 6비트(2^6 = 64개)\n   - 네트워크 주소(128)와 브로드캐스트 주소(191) 2개를 제외하면 실제 할당 가능 호스트 수는 64 - 2 = 62개 (2).",
+    "trapPoint": "호스트 수 계산 시 네트워크 대표 주소와 브로드캐스트 주소 2개를 반드시 제외해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_10",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 10,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "V-모델 & 테스트 레벨",
+    "prompt": "인수 테스트(Acceptance Test)의 유형 중 다음 설명에 알맞은 용어를 각각 쓰시오.",
+    "passage": "( 1 ) 선발된 잠재 고객(사용자)으로 하여금 실제 운영 환경에서 일정 기간 무료로 사용하게 하여 오류를 발견하고 보완하는 검사로, 공식 출시 전 최종 실시하는 테스트\n( 2 ) 개발자의 통제된 환경에서 사용자가 개발자 앞에서 직접 행하는 테스트로, 오류를 개발자가 즉시 기록하고 확인하는 초기 검사",
+    "code": null,
+    "answer": "(1) 베타 테스트, (2) 알파 테스트",
+    "aliases": [
+      "베타 테스트, 알파 테스트",
+      "베타, 알파",
+      "Beta, Alpha",
+      "베타테스트, 알파테스트"
+    ],
+    "explanation": "인수 테스트의 2대 사용자 테스트:\n1. 알파 테스트(Alpha Test): 개발자의 장소(통제된 환경)에서 수행하는 테스트.\n2. 베타 테스트(Beta Test): 사용자의 실제 환경(통제되지 않은 환경)에서 다수의 사용자가 수행하는 테스트.",
+    "trapPoint": "개발자 환경 = 알파 테스트, 실제 사용자 환경 = 베타 테스트입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_11",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 11,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "소프트웨어의 오류를 수정하거나 기능을 변경한 후, 그 수정으로 인해 이미 정상 작동하던 다른 부분에 새로운 결함이 발생하지 않았는지 검증하기 위해 기존 테스트 케이스를 재실행하는 테스트 기법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "회귀 테스트",
+    "aliases": [
+      "회귀 테스트",
+      "회귀테스트",
+      "Regression",
+      "Regression Test",
+      "회귀"
+    ],
+    "explanation": "회귀 테스트(Regression Test)는 코드 변경이나 버그 수정 후 시스템에 사이드 이펙트(부작용)나 새로운 결함이 생기지 않았음을 확인하기 위해 수행하는 반복 테스트입니다.",
+    "trapPoint": "수정 후 기존 기능의 정상 동작 여부를 재시험하는 것은 회귀(Regression) 테스트입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_12",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 12,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "관계대수 & 릴레이션 이론",
+    "prompt": "다음 [employee] 테이블에서 관계대수 연산 π TTL (employee) 을 수행했을 때 추출되는 직급(TTL) 결과 집합을 쓰시오. (중복을 제거하여 나열)",
+    "passage": "[employee 테이블]\n| ID | NAME | TTL |\n| --- | --- | --- |\n| 101 | 김철수 | 부장 |\n| 102 | 이영희 | 대리 |\n| 103 | 박민수 | 과장 |\n| 104 | 최동수 | 부장 |\n| 105 | 정지훈 | 차장 |\n| 106 | 한미나 | 대리 |",
+    "code": null,
+    "answer": "부장, 대리, 과장, 차장",
+    "aliases": [
+      "부장, 대리, 과장, 차장",
+      "부장 대리 과장 차장",
+      "부장, 과장, 차장, 대리"
+    ],
+    "explanation": "관계대수의 Project 연산(π)은 특정 속성(열)만을 추출하는 연산으로, 집합 이론에 기반하므로 중복된 튜플은 자동으로 제거됩니다.\nTTL 열의 값 {'부장', '대리', '과장', '차장'} 4개가 추출됩니다.",
+    "trapPoint": "관계대수 연산 결과는 수학적 집합이므로 중복된 튜플(부장, 대리 중복)이 제거됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_13",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 13,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = \"REMEMBER NOVEMBER\"\nb = a[:3] + a[12:16]\nc = \"R AND %s\" % \"STR\"\nprint(b + c)",
+    "answer": "REMEMBER AND STR",
+    "aliases": [
+      "REMEMBER AND STR",
+      "REMEMBERAND STR"
+    ],
+    "explanation": "파이썬 문자열 연산:\n- a[:3] -> \"REM\"\n- a[12:16] -> \"EMBE\" (인덱스 12부터 15까지)\n- b = \"REM\" + \"EMBE\" = \"REMEMBE\"\n- c = \"R AND %s\" % \"STR\" = \"R AND STR\"\n- b + c = \"REMEMBE\" + \"R AND STR\" = \"REMEMBER AND STR\"\n출력은 \"REMEMBER AND STR\"입니다.",
+    "trapPoint": "슬라이싱 인덱스 계산과 문자열 포맷팅 %s 결합으로 최종 단어가 \"REMEMBER AND STR\"이 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_14",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 14,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "다음 라우팅 프로토콜에 대한 설명에 알맞은 용어(영문 약어)를 각각 쓰시오.",
+    "passage": "( 1 ) 동일한 자율 시스템(AS, Autonomous System) 내부의 라우터들 간에 라우팅 정보를 교환하는 내부 게이트웨이 프로토콜\n( 2 ) 서로 다른 자율 시스템(AS) 간에 라우팅 정보를 교환하는 외부 게이트웨이 프로토콜\n( 3 ) 다익스트라(Dijkstra) 최단 경로 알고리즘을 사용하는 대표적인 링크 상태(Link State) 내부 라우팅 프로토콜\n( 4 ) 자율 시스템(AS) 간의 라우팅에 사용되며 경로 벡터(Path Vector) 방식을 채택한 현재 인터넷의 핵심 EGP 프로토콜",
+    "code": null,
+    "answer": "(1) IGP, (2) EGP, (3) OSPF, (4) BGP",
+    "aliases": [
+      "IGP, EGP, OSPF, BGP",
+      "IGP EGP OSPF BGP"
+    ],
+    "explanation": "1. IGP: 내부 라우팅 프로토콜 (RIP, OSPF)\n2. EGP: 외부 라우팅 프로토콜\n3. OSPF: 다익스트라 기반 링크 상태 IGP\n4. BGP: 경로 벡터 기반 대표적 EGP",
+    "trapPoint": "내부 게이트웨이는 IGP, 외부 게이트웨이는 EGP, 인터넷 코어 라우팅은 BGP입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_15",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 15,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 문자열 조작",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint len(char* p);\n\nint main() {\n    char* p1 = \"2022\";\n    char* p2 = \"202207\";\n\n    int a = len(p1);\n    int b = len(p2);\n\n    printf(\"%d\", a + b);\n    return 0;\n}\n\nint len(char* p) {\n    int r = 0;\n    while (*p != '\\0') {\n        p++;\n        r++;\n    }\n    return r;\n}",
+    "answer": "10",
+    "aliases": [
+      "10"
+    ],
+    "explanation": "len() 함수는 문자열의 길이(널 문자 전까지의 글자 수)를 계산합니다.\n- len(p1) = 4 (\"2022\")\n- len(p2) = 6 (\"202207\")\n- a + b = 4 + 6 = 10이 출력됩니다.",
+    "trapPoint": "문자열 포인터 순회를 통한 문자열 길이 측정 함수로 4 + 6 = 10입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_16",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 16,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n    int a[4] = {0, 2, 4, 8};\n    int b[3] = {};\n    int i = 1;\n    int sum = 0;\n    int *p1;\n\n    for (i = 1; i < 4; i++) {\n        p1 = a + i;\n        b[i - 1] = *p1 - a[i - 1];\n        sum = sum + b[i - 1] + a[i];\n    }\n\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "22",
+    "aliases": [
+      "22"
+    ],
+    "explanation": "루프 단계별 추적:\n- i = 1: p1 = a + 1 -> *p1 = 2; b[0] = 2 - 0 = 2; sum = 0 + 2 + 2 = 4\n- i = 2: p1 = a + 2 -> *p1 = 4; b[1] = 4 - 2 = 2; sum = 4 + 2 + 4 = 10\n- i = 3: p1 = a + 3 -> *p1 = 8; b[2] = 8 - 4 = 4; sum = 10 + 4 + 8 = 22\n최종 출력: 22",
+    "trapPoint": "배열 원소 간 차이값 b[i-1]과 현재 원소 a[i]가 함께 sum에 누적됩니다.",
+    "traceTable": {
+      "headers": [
+        "i",
+        "p1 (*p1)",
+        "a[i-1]",
+        "b[i-1]",
+        "a[i]",
+        "sum 누적"
+      ],
+      "rows": [
+        [
+          "1",
+          "a+1 (2)",
+          "0",
+          "2",
+          "2",
+          "4"
+        ],
+        [
+          "2",
+          "a+2 (4)",
+          "2",
+          "2",
+          "4",
+          "10"
+        ],
+        [
+          "3",
+          "a+3 (8)",
+          "4",
+          "4",
+          "8",
+          "22"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2022_2_17",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 17,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Conv {\n    int a;\n\n    public Conv(int a) {\n        this.a = a;\n    }\n\n    int func() {\n        int b = 1;\n        for (int i = 1; i < a; i++) {\n            b = a * i + b;\n        }\n        return a + b;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Conv obj = new Conv(3);\n        obj.a = 5;\n        int b = obj.func();\n        System.out.print(obj.a + b);\n    }\n}",
+    "answer": "61",
+    "aliases": [
+      "61"
+    ],
+    "explanation": "연산 과정 추적:\n1. 생성자로 3을 넘겼으나 `obj.a = 5;`로 a가 5로 변경됨.\n2. func() 호출:\n   - 초기 b = 1, a = 5\n   - i = 1: b = 5 * 1 + 1 = 6\n   - i = 2: b = 5 * 2 + 6 = 16\n   - i = 3: b = 5 * 3 + 16 = 31\n   - i = 4: b = 5 * 4 + 31 = 51\n   - 반환값: a + b = 5 + 51 = 56\n3. main에서 `obj.a + b` 출력:\n   - 5 + 56 = 61이 출력됩니다.",
+    "trapPoint": "main에서 obj.a = 5로 변경되었으며, func() 반환값은 56이고 최종 출력은 obj.a(5) + 56 = 61입니다.",
+    "traceTable": {
+      "headers": [
+        "i",
+        "연산 식",
+        "b 값"
+      ],
+      "rows": [
+        [
+          "초기",
+          "-",
+          "1"
+        ],
+        [
+          "1",
+          "5 * 1 + 1",
+          "6"
+        ],
+        [
+          "2",
+          "5 * 2 + 6",
+          "16"
+        ],
+        [
+          "3",
+          "5 * 3 + 16",
+          "31"
+        ],
+        [
+          "4",
+          "5 * 4 + 31",
+          "51"
+        ],
+        [
+          "func 리턴",
+          "a + b = 5 + 51",
+          "56"
+        ],
+        [
+          "main 출력",
+          "obj.a + b = 5 + 56",
+          "61"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2022_2_18",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 18,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "다음 데이터베이스의 함수 종속성(Functional Dependency) 유형에 알맞은 명칭을 각각 쓰시오.",
+    "passage": "( 1 ) 기본키를 구성하는 모든 속성에 대해 종속되는 관계로, 기본키의 진부분집합에는 종속되지 않는 관계\n( 2 ) 기본키가 복합 속성일 때, 기본키의 일부 속성에만 종속되는 관계\n( 3 ) X -> Y 이고 Y -> Z 일 때 X -> Z 가 성립하는 삼단논법 형태의 종속 관계",
+    "code": null,
+    "answer": "(1) 완전 함수 종속, (2) 부분 함수 종속, (3) 이행적 함수 종속",
+    "aliases": [
+      "완전 함수 종속, 부분 함수 종속, 이행적 함수 종속",
+      "완전함수종속, 부분함수종속, 이행함수종속",
+      "Full, Partial, Transitive"
+    ],
+    "explanation": "정규화의 핵심 함수 종속성:\n1. 완전 함수 종속: 복합 기본키 전체에 종속 (제2정규형은 부분 함수 종속을 제거하여 완전 함수 종속 만족)\n2. 부분 함수 종속: 복합키의 일부분에 종속\n3. 이행적 함수 종속: X->Y, Y->Z -> X->Z (제3정규형은 이행적 함수 종속 제거)",
+    "trapPoint": "2NF는 부분 함수 종속 제거, 3NF는 이행적 함수 종속 제거입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_19",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 19,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 웹 기술에 대한 설명에 알맞은 용어를 각각 쓰시오.",
+    "passage": "( 1 ) 웹 서버와 클라이언트(웹 브라우저) 간에 하이퍼텍스트 문서를 전송하기 위한 기본 통신 규약\n( 2 ) 텍스트, 그래픽, 영상 등이 하이퍼링크를 통해 서로 거미줄처럼 연결되어 순서에 구애받지 않고 원하는 정보를 열람할 수 있는 문서 형식\n( 3 ) 웹 문서를 작성하기 위해 사용하는 표준 마크업 언어",
+    "code": null,
+    "answer": "(1) HTTP, (2) 하이퍼텍스트, (3) HTML",
+    "aliases": [
+      "HTTP, 하이퍼텍스트, HTML",
+      "HTTP, Hypertext, HTML"
+    ],
+    "explanation": "1. HTTP(HyperText Transfer Protocol): 하이퍼텍스트 전송 프로토콜\n2. Hypertext: 링크를 통해 비선형적으로 연결된 문서 형식\n3. HTML(HyperText Markup Language): 웹 페이지 구조를 만드는 마크업 언어",
+    "trapPoint": "전송 규약은 HTTP, 문서 형식은 하이퍼텍스트, 마크업 언어는 HTML입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_2_20",
+    "round_id": "2022_2",
+    "round_title": "2022년 제2회 기출 복원",
+    "id": 20,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "프로젝트 관리 & 비용 산정",
+    "prompt": "소프트웨어 모듈 구조에서 특정 모듈을 직접 호출하는 상위 모듈의 수를 ( 1 ), 그 모듈이 직접 호출하는 하위 모듈의 수를 ( 2 )이라고 한다. 빈칸에 들어갈 용어를 각각 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "(1) Fan-in, (2) Fan-out",
+    "aliases": [
+      "Fan-in, Fan-out",
+      "팬인, 팬아웃",
+      "Fan-in Fan-out"
+    ],
+    "explanation": "모듈 복잡도 지표:\n- Fan-in(팬인): 해당 모듈로 들어오는 선의 개수 (자신을 호출하는 상위 모듈 수)\n- Fan-out(팬아웃): 해당 모듈에서 나가는 선의 개수 (자신이 호출하는 하위 모듈 수)\n좋은 모듈화 설계는 Fan-in은 높고 Fan-out은 낮게 유지하는 것입니다.",
+    "trapPoint": "들어오는 것은 Fan-in, 나가는 것은 Fan-out입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_1",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 1,
+    "category": "운영체제",
+    "unit": 5,
+    "topic": "CPU 스케줄링 & HRN 공식",
+    "prompt": "다음 설명에 해당하는 RAID(Redundant Array of Independent Disks) 단계를 아라비아 숫자로 쓰시오.",
+    "passage": "- 스트라이핑(Striping) 기술을 사용하여 여러 디스크에 데이터를 분할 저장한다.\n- I/O 로드가 여러 디스크로 분산되어 입출력 처리 속도가 가장 빠르다.\n- 패리티(Parity)나 미러링(Mirroring)을 사용하지 않아 하나의 디스크만 고장 나도 전체 데이터가 손실되는 단점이 있다.",
+    "code": null,
+    "answer": "0",
+    "aliases": [
+      "0",
+      "RAID 0",
+      "RAID0",
+      "레벨 0",
+      "단계 0"
+    ],
+    "explanation": "RAID 0은 스트라이핑(Striping)을 통해 성능을 극대화하지만 데이터 중복이나 오류 복구 기능(신뢰성)이 없는 방식입니다. (미러링은 RAID 1, 패리티 분산 저장은 RAID 5).",
+    "trapPoint": "신뢰성 없이 성능 향상만을 위한 단순 스트라이핑은 RAID 0입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_2",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 2,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "데이터베이스 트랜잭션 장애 회복(Recovery) 기법에 대한 다음 설명의 빈칸에 들어갈 알맞은 용어(영문)를 각각 쓰시오.",
+    "passage": "( 1 ) 트랜잭션이 성공적으로 완료(Commit)되었으나 변경 내용이 디스크에 기록되지 않은 경우, 로그(Log)를 기반으로 트랜잭션의 연산을 재실행하는 회복 기법\n( 2 ) 트랜잭션이 비정상적으로 종료되어 데이터베이스가 일관성을 잃은 경우, 로그를 참조하여 트랜잭션이 수행한 모든 변경 연산을 취소하고 이전 상태로 되돌리는 회복 기법",
+    "code": null,
+    "answer": "(1) REDO, (2) UNDO",
+    "aliases": [
+      "REDO, UNDO",
+      "redo, undo",
+      "REDO UNDO",
+      "재실행, 취소"
+    ],
+    "explanation": "1. REDO(재실행): 커밋된 트랜잭션의 내용을 다시 실행하여 디스크에 반영.\n2. UNDO(취소): 완료되지 못한 트랜잭션의 작업을 취소하여 트랜잭션 시작 전 상태로 되돌림.",
+    "trapPoint": "연산 재실행은 REDO, 변경 취소는 UNDO입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_3",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 3,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class A {\n    int a;\n    int b;\n}\n\npublic class Main {\n    static void func1(A m) {\n        m.a *= 10;\n    }\n\n    static void func2(A m) {\n        m.a += m.b;\n    }\n\n    public static void main(String args[]) {\n        A m = new A();\n        m.a = 100;\n        func1(m);\n        m.b = m.a;\n        func2(m);\n\n        System.out.printf(\"%d\", m.a);\n    }\n}",
+    "answer": "2000",
+    "aliases": [
+      "2000"
+    ],
+    "explanation": "객체 참조 전달(Call by Reference) 추적:\n1. `A m = new A(); m.a = 100;`\n2. `func1(m);`: m.a = 100 * 10 = 1000\n3. `m.b = m.a;`: m.b = 1000\n4. `func2(m);`: m.a = m.a + m.b = 1000 + 1000 = 2000\n5. `System.out.printf(\"%d\", m.a);` -> 2000 출력.",
+    "trapPoint": "Java에서 객체는 참조값이 전달되므로 func1, func2 내부에서의 멤버 변수 수정이 main 메소드의 객체 m에 그대로 반영됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_4",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 4,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 [성적] 테이블에서 score 컬럼을 기준으로 내림차순 정렬하여 name과 score를 조회하는 SQL 문의 빈칸 (1), (2), (3)을 순서대로 쓰시오.",
+    "passage": "SELECT name, score FROM 성적 (   1   ) BY (   2   ) (   3   );",
+    "code": null,
+    "answer": "(1) ORDER, (2) score, (3) DESC",
+    "aliases": [
+      "(1) ORDER, (2) score, (3) DESC",
+      "ORDER, score, DESC",
+      "ORDER score DESC"
+    ],
+    "explanation": "SQL에서 결과를 정렬할 때는 `ORDER BY 컬럼명 [ASC|DESC]` 절을 사용합니다. 내림차순 정렬이므로 `ORDER BY score DESC`가 됩니다.",
+    "trapPoint": "정렬 키워드는 ORDER BY이며, 내림차순은 DESC (오름차순은 ASC)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_5",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 5,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "관계 데이터베이스의 이상(Anomaly) 현상 중 '삭제 이상(Deletion Anomaly)'의 개념에 대해 간략히 서술하시오.",
+    "passage": null,
+    "code": null,
+    "answer": "튜플을 삭제할 때 삭제 의도와 무관한 필수적인 정보까지 함께 연쇄적으로 삭제되는 현상",
+    "aliases": [
+      "튜플을 삭제할 때 삭제 의도와 무관한 필수적인 정보까지 함께 연쇄적으로 삭제되는 현상",
+      "데이터를 삭제할 경우 원하지 않는 다른 데이터도 삭제되어버리는 이상",
+      "어떤 정보를 삭제하면 유용한 다른 정보까지 함께 삭제되는 현상",
+      "삭제 시 원치 않는 정보까지 함께 삭제되는 현상"
+    ],
+    "explanation": "삭제 이상(Deletion Anomaly)이란 한 릴레이션에서 특정 정보를 삭제하기 위해 한 튜플을 삭제할 때, 삭제 의도와 무관한 다른 필수 정보까지 연쇄적으로 함께 유실되는 현상입니다.",
+    "trapPoint": "불필요한 데이터가 연쇄 삭제되어 중요한 정보가 손실되는 점이 핵심 키워드입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_6",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 6,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def exam(num1, num2=2):\n    print('a=', num1, 'b=', num2)\n\nexam(20)",
+    "answer": "a= 20 b= 2",
+    "aliases": [
+      "a= 20 b= 2",
+      "a=20 b=2",
+      "a= 20, b= 2"
+    ],
+    "explanation": "파이썬의 디폴트 매개변수(Default Parameter):\nexam(20) 호출 시 num1에는 20이 전달되고, 두 번째 인자가 생략되었으므로 기본값 num2=2가 사용됩니다.\nprint 함수는 인자들을 공백으로 구분하여 출력하므로 'a= 20 b= 2'가 출력됩니다.",
+    "trapPoint": "디폴트 매개변수 num2=2가 지정되어 있으므로 두 번째 인자가 없어도 에러 없이 기본값 2가 적용됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_7",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 7,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 파이썬 리스트 내장 메소드 설명에 알맞은 함수명을 각각 쓰시오.",
+    "passage": "( 1 ) 리스트의 끝에 다른 반복 가능한 객체(Iterable)의 모든 요소를 개별적으로 추가하여 리스트를 확장하는 메소드\n( 2 ) 리스트의 마지막 요소(또는 지정된 인덱스 요소)를 꺼내어 리스트에서 삭제하고 해당 값을 반환하는 메소드\n( 3 ) 리스트 내부 요소들의 순서를 역순으로 뒤집는 메소드",
+    "code": null,
+    "answer": "(1) extend, (2) pop, (3) reverse",
+    "aliases": [
+      "extend, pop, reverse",
+      "extend pop reverse"
+    ],
+    "explanation": "파이썬 리스트 주요 메소드:\n1. extend(iterable): 요소들을 풀어서 확장 추가 (append는 리스트 자체를 통째로 1개 요소로 추가)\n2. pop([index]): 요소를 삭제하며 반환\n3. reverse(): 리스트 원소 순서 뒤집기",
+    "trapPoint": "단일 원소 추가는 append, 여러 요소를 풀어 확장하는 것은 extend입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_8",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 8,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "무선 LAN 보안 표준인 WPA에서 WEP의 취약점을 보완하기 위해 개발된 암호화 프로토콜의 영문 약어를 쓰시오.",
+    "passage": "임시 키 무결성 프로토콜(Temporal Key Integrity Protocol)로, 기존 무선 통신 기기의 하드웨어 교체 없이 소프트웨어 업그레이드를 통해 패킷당 암호화 키를 동적으로 변경하는 기능을 제공한다.",
+    "code": null,
+    "answer": "TKIP",
+    "aliases": [
+      "TKIP",
+      "tkip",
+      "Temporal Key Integrity Protocol"
+    ],
+    "explanation": "TKIP(Temporal Key Integrity Protocol)는 취약한 WEP을 대체하기 위해 WPA에 채택된 임시 키 무결성 프로토콜로, 패킷마다 키를 변경하여 보안성을 강화했습니다.",
+    "trapPoint": "임시 키 무결성 프로토콜의 약자는 TKIP입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_9",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 9,
+    "category": "소프트웨어공학",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "키보드, 마우스와 같은 별도의 하드웨어 장치 없이 사용자의 말, 제스처, 표정, 시선 등 자연스러운 신체 행동으로 기기를 조작할 수 있는 사용자 인터페이스의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "NUI",
+    "aliases": [
+      "NUI",
+      "nui",
+      "Natural User Interface"
+    ],
+    "explanation": "UI의 발전 단계:\n- CLI: 텍스트 명령어 기반\n- GUI: 마우스, 아이콘, 윈도우 그래픽 기반\n- NUI(Natural User Interface): 음성, 터치, 동작, 시선 등 인간의 자연스러운 행동 기반\n- OUI: 모든 유기적 사물 기반",
+    "trapPoint": "말, 행동, 제스처 등 인간의 자연스러운 동작 기반 인터페이스는 NUI입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_10",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 10,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "소프트웨어 아키텍처 & 설계",
+    "prompt": "다음 소스 코드 분석 도구의 유형에 대한 설명에 알맞은 용어를 각각 쓰시오.",
+    "passage": "( 1 ) 프로그램을 실행하지 않고, 소스 코드 자체의 구조와 문법을 분석하여 코딩 표준 준수 여부, 잠재적 결함, 보안 취약점 등을 찾아내는 분석 기법\n( 2 ) 프로그램을 실제로 실행하면서 메모리 누수, 스레드 결함, 실행 시간 성능, 병목 현상 등을 동적으로 추적 및 분석하는 기법",
+    "code": null,
+    "answer": "(1) 정적 분석, (2) 동적 분석",
+    "aliases": [
+      "정적 분석, 동적 분석",
+      "정적, 동적",
+      "static, dynamic",
+      "정적분석, 동적분석"
+    ],
+    "explanation": "1. 정적 분석(Static Analysis): 소스 코드 미실행 상태에서 문법/결함 분석 (SonarQube 등)\n2. 동적 분석(Dynamic Analysis): 소스 코드를 실행하면서 메모리/성능/스레드 분석 (Valgrind 등)",
+    "trapPoint": "실행 없이 분석 = 정적 분석, 실행하며 분석 = 동적 분석입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_11",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 11,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 인터페이스 & 추상클래스",
+    "prompt": "다음 Java 스레드 프로그램에서 Runnable 인터페이스를 구현한 인스턴스를 Thread 생성자에 전달하기 위해 빈칸에 들어갈 클래스명을 쓰시오.",
+    "passage": null,
+    "code": "class Car implements Runnable {\n    int a;\n\n    public void run() {\n        System.out.println(\"message\");\n    }\n}\n\npublic class Main {\n    public static void main(String args[]) {\n        Thread t1 = new Thread(new _______());\n        t1.start();\n    }\n}",
+    "answer": "Car",
+    "aliases": [
+      "Car",
+      "car"
+    ],
+    "explanation": "Runnable 인터페이스를 구현한 클래스가 `Car`이므로, Thread 객체를 생성할 때 `new Thread(new Car())` 형태로 Runnable 구현 객체 인스턴스를 넘겨주어야 합니다.",
+    "trapPoint": "Thread 생성자의 매개변수로 Runnable을 구현한 클래스인 Car의 인스턴스를 생성하여 전달합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_12",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 12,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "V-모델 & 테스트 레벨",
+    "prompt": "자바 프로그래밍 언어를 위한 대표적인 단위 테스트(Unit Test) 오픈소스 프레임워크의 명칭을 쓰시오.",
+    "passage": "켄트 벡과 에릭 감마가 작성한 xUnit 계열의 자바 전용 테스트 프레임워크로, 어노테이션(@Test 등)을 사용하여 테스트 케이스를 쉽게 작성하고 자동화할 수 있다.",
+    "code": null,
+    "answer": "JUnit",
+    "aliases": [
+      "JUnit",
+      "junit",
+      "Junit"
+    ],
+    "explanation": "JUnit은 자바 기반의 단위 테스트 자동화 도구로 xUnit 계열의 대표적인 프레임워크입니다.",
+    "trapPoint": "자바 단위 테스트 프레임워크 = JUnit입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_13",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 13,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "화이트박스 테스팅 & 순환복잡도",
+    "prompt": "다음 보기 중에서 블랙박스 테스트(Black-box Test) 기법에 해당하는 항목 3가지를 골라 기호를 쓰시오.",
+    "passage": "[보기]\nㄱ. 구문 커버리지 (Statement Coverage)\nㄴ. 결정 커버리지 (Decision Coverage)\nㄷ. 동등 분할 (Equivalence Partitioning)\nㄹ. 경계값 분석 (Boundary Value Analysis)\nㅁ. 조건 커버리지 (Condition Coverage)\nㅂ. 원인-효과 그래프 (Cause-Effect Graphing)",
+    "code": null,
+    "answer": "ㄷ, ㄹ, ㅂ",
+    "aliases": [
+      "ㄷ, ㄹ, ㅂ",
+      "ㄷ ㄹ ㅂ",
+      "ㄷ,ㄹ,ㅂ"
+    ],
+    "explanation": "테스트 기법 분류:\n- 화이트박스 테스트: 구문 커버리지(ㄱ), 결정 커버리지(ㄴ), 조건 커버리지(ㅁ), 기본 경로 테스팅\n- 블랙박스 테스트: 동등 분할(ㄷ), 경계값 분석(ㄹ), 원인-효과 그래프(ㅂ), 오류 예측, 상태 전이 테스트",
+    "trapPoint": "커버리지(구문, 결정, 조건)가 붙은 것은 화이트박스 테스트 기법입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_14",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 14,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 소스코드에서 표준 입력값으로 5가 주어졌을 때의 출력값을 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint func(int a) {\n    if (a <= 1) return 1;\n    return a * func(a - 1);\n}\n\nint main() {\n    int a;\n    scanf(\"%d\", &a);\n    printf(\"%d\", func(a));\n    return 0;\n}",
+    "answer": "120",
+    "aliases": [
+      "120"
+    ],
+    "explanation": "입력값 5에 대한 팩토리얼 func(5) 계산:\n5! = 5 * 4 * 3 * 2 * 1 = 120이 출력됩니다.",
+    "trapPoint": "5! = 120입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_15",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 15,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램에서 정수 1234를 역순으로 뒤집어 4321을 출력하고자 한다. 빈칸 (1), (2), (3)에 들어갈 알맞은 연산자를 순서대로 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int number = 1234;\n    int div = 10;\n    int result = 0;\n\n    while (number (  1  ) 0) {\n        result = result * div;\n        result = result + number (  2  ) div;\n        number = number (  3  ) div;\n    }\n\n    printf(\"%d\", result);\n    return 0;\n}",
+    "answer": "(1) >, (2) %, (3) /",
+    "aliases": [
+      "(1) >, (2) %, (3) /",
+      ">, %, /",
+      "> % /"
+    ],
+    "explanation": "숫자 뒤집기 알고리즘:\n1. number가 0보다 클 동안 반복: `while (number > 0)`\n2. 일의 자리를 추출하여 누적: `number % div` (나머지)\n3. 일의 자리를 제거: `number / div` (몫)\n따라서 (1) `>`, (2) `%`, (3) `/` 입니다.",
+    "trapPoint": "일의 자리 추출은 나머지 연산자 `%`, 다음 자리로 이동은 나눗셈 연산자 `/`입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_16",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 16,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "기업이나 기관이 보유한 정보 자산의 기밀성, 완전성, 가용성을 보호하기 위해 수립·운영하는 정보보호 관리체계의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "ISMS",
+    "aliases": [
+      "ISMS",
+      "isms",
+      "Information Security Management System"
+    ],
+    "explanation": "ISMS(Information Security Management System, 정보보호 관리체계)는 정보 자산의 안전성을 확보하기 위해 종합적인 관리 대책을 수립·운영하는 체계입니다. (개인정보가 결합된 것은 ISMS-P).",
+    "trapPoint": "정보보호 관리체계의 약어는 ISMS입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_17",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 17,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 관계 데이터베이스의 키(Key) 속성에 대한 설명에서 빈칸에 공통으로 들어갈 제약 조건 명칭을 쓰시오.",
+    "passage": "1. 슈퍼키(Super Key)는 릴레이션의 튜플들을 고유하게 식별할 수 있는 (   1   )을 만족한다.\n2. 후보키(Candidate Key)는 유일성과 함께 불필요한 속성을 포함하지 않는 (   2   )을 모두 만족해야 한다.",
+    "code": null,
+    "answer": "(1) 유일성, (2) 최소성",
+    "aliases": [
+      "유일성, 최소성",
+      "유일성 최소성",
+      "Uniqueness, Minimality"
+    ],
+    "explanation": "- 슈퍼키: 유일성만 만족\n- 후보키: 유일성 + 최소성 모두 만족\n- 기본키: 후보키 중 선택된 대표 키 (유일성 + 최소성 + Not Null)",
+    "trapPoint": "슈퍼키는 유일성만, 후보키는 유일성과 최소성을 모두 만족합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_18",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 18,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "다음 설명에 해당하는 지능형 지속 위협(APT) 공격 기법의 명칭을 쓰시오.",
+    "passage": "표적으로 삼은 조직의 구성원들이 자주 방문하는 합법적인 웹사이트를 사전에 조사하여 취약점을 이용해 악성코드를 심어두고, 표적이 해당 사이트에 접속했을 때 사용자의 PC에 악성코드를 감염시키는 공격 기법이다. (사자가 물웅덩이에 매복해 먹잇감을 사냥하는 모습에 빗댐)",
+    "code": null,
+    "answer": "워터링 홀",
+    "aliases": [
+      "워터링 홀",
+      "워터링홀",
+      "Watering Hole",
+      "watering hole"
+    ],
+    "explanation": "워터링 홀(Watering Hole)은 표적 대상이 자주 방문하는 웹사이트를 미리 감염시켜 잠복하고 있다가, 대상자가 접속할 때 악성코드에 감염시키는 표적형 APT 공격 방식입니다.",
+    "trapPoint": "물웅덩이 매복 비유와 표적 웹사이트 사전 감염 키워드는 워터링 홀(Watering Hole)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_19",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 19,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint isPrime(int number) {\n    int i;\n    for (i = 2; i < number; i++) {\n        if (number % i == 0) return 0;\n    }\n    return 1;\n}\n\nint main(void) {\n    int number = 13195, max_div = 0, i;\n    for (i = 2; i < number; i++) {\n        if (isPrime(i) == 1 && number % i == 0) max_div = i;\n    }\n    printf(\"%d\", max_div);\n    return 0;\n}",
+    "answer": "29",
+    "aliases": [
+      "29"
+    ],
+    "explanation": "13195의 소인수(Prime Factors) 중 가장 큰 값(max_div)을 구하는 알고리즘입니다.\n13195를 소인수분해하면:\n13195 = 5 * 2639\n= 5 * 7 * 377\n= 5 * 7 * 13 * 29\n소인수는 5, 7, 13, 29이며, 이 중 가장 큰 소인수는 29입니다.",
+    "trapPoint": "13195의 소인수 중 최댓값을 구하는 문제로 5 * 7 * 13 * 29 = 13195에서 최대 소인수는 29입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2022_1_20",
+    "round_id": "2022_1",
+    "round_title": "2022년 제1회 기출 복원",
+    "id": 20,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "V-모델 & 테스트 레벨",
+    "prompt": "소프트웨어 개발 생명주기(SDLC)의 V-모델에서 폭포수 모형의 각 개발 단계에 대응하는 4단계 테스트 레벨을 순서대로 쓰시오.",
+    "passage": "[단위 모듈 개발] -> (     1     )\n[상세 설계] -> (     2     )\n[시스템 설계 / 아키텍처] -> (     3     )\n[요구사항 분석] -> (     4     )",
+    "code": null,
+    "answer": "(1) 단위 테스트, (2) 통합 테스트, (3) 시스템 테스트, (4) 인수 테스트",
+    "aliases": [
+      "단위 테스트, 통합 테스트, 시스템 테스트, 인수 테스트",
+      "단위테스트, 통합테스트, 시스템테스트, 인수테스트",
+      "단위, 통합, 시스템, 인수"
+    ],
+    "explanation": "V-모델의 개발 단계와 테스트 레벨 대응:\n1. 구현/코드 -> 단위 테스트 (Unit Test)\n2. 상세 설계 -> 통합 테스트 (Integration Test)\n3. 시스템 설계 -> 시스템 테스트 (System Test)\n4. 요구사항 분석 -> 인수 테스트 (Acceptance Test)",
+    "trapPoint": "V-모델 테스트 레벨 4단계는 '단위 -> 통합 -> 시스템 -> 인수' 순서(단-통-시-인)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_1",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 1,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Connection {\n    private static Connection _inst = null;\n    private int count = 0;\n\n    static public Connection get() {\n        if (_inst == null) {\n            _inst = new Connection();\n            return _inst;\n        }\n        return _inst;\n    }\n\n    public void count() { count++; }\n    public int getCount() { return count; }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Connection conn1 = Connection.get();\n        conn1.count();\n        Connection conn2 = Connection.get();\n        conn2.count();\n        Connection conn3 = Connection.get();\n        conn3.count();\n\n        System.out.print(conn1.getCount());\n    }\n}",
+    "answer": "3",
+    "aliases": [
+      "3"
+    ],
+    "explanation": "싱글톤(Singleton) 패턴 추적:\n1. `Connection.get()`은 `_inst`가 null일 때 단 한 번만 새 인스턴스를 생성하고 이후에는 동일한 인스턴스를 반환합니다.\n2. conn1, conn2, conn3는 모두 동일한 단 하나의 Connection 인스턴스를 가리킵니다.\n3. count()가 3회 호출되어 단일 인스턴스의 count 변수가 0 -> 1 -> 2 -> 3으로 누적 증가합니다.\n4. conn1.getCount()는 3을 반환하여 출력됩니다.",
+    "trapPoint": "싱글톤 패턴이므로 객체가 3개 생성되는 것이 아니라 단 하나의 객체 공간을 공유하여 count가 3이 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_2",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 2,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "보안 서비스 관리 프레임워크인 AAA의 3가지 핵심 기능에 대한 설명에 알맞은 영문 명칭을 각각 쓰시오.",
+    "passage": "( 1 ) 시스템이나 서비스에 접근을 시도하는 사용자의 신원을 검증하고 확인하는 기능\n( 2 ) 검증된 사용자에게 시스템 자원이나 서비스에 대한 적절한 권한을 부여하는 기능\n( 3 ) 사용자가 시스템 자원을 이용한 내역(시간, 사용량 등)을 측정하고 기록/수집하는 기능",
+    "code": null,
+    "answer": "(1) Authentication, (2) Authorization, (3) Accounting",
+    "aliases": [
+      "Authentication, Authorization, Accounting",
+      "인증, 인가, 계정관리",
+      "인증, 인가, 과금"
+    ],
+    "explanation": "AAA 프레임워크 3요소:\n1. Authentication(인증): 신원 확인 (패스워드, 인증서)\n2. Authorization(인가): 권한 부여 (접근 권한 통제)\n3. Accounting(계정/과금): 자원 사용량 측정 및 감사 로그 기록",
+    "trapPoint": "신원 확인은 Authentication(인증), 권한 허용은 Authorization(인가), 사용량 기록은 Accounting(계정)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_3",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 3,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "데이터 제어어(DCL) 중 GRANT 명령어의 기능에 대해 간략히 서술하시오.",
+    "passage": null,
+    "code": null,
+    "answer": "데이터베이스 사용자에게 특정 권한(객체 접근 권한, 관리자 권한 등)을 부여하는 명령어",
+    "aliases": [
+      "데이터베이스 사용자에게 특정 권한(객체 접근 권한, 관리자 권한 등)을 부여하는 명령어",
+      "사용자에게 권한을 부여하는 명령어",
+      "사용자에게 접속권한, 오브젝트 생성권한 등을 부여하는 명령어",
+      "데이터베이스 권한 부여"
+    ],
+    "explanation": "GRANT는 데이터베이스 관리자(DBA)가 특정 사용자에게 릴레이션에 대한 SELECT, INSERT, UPDATE, DELETE 권한이나 시스템 관리 권한을 부여(Grant)할 때 사용하는 DCL 명령어입니다. (권한 회수는 REVOKE).",
+    "trapPoint": "사용자에게 권한을 부여하는 명령어가 핵심입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_4",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 4,
+    "category": "보안",
+    "unit": 4,
+    "topic": "IPv4 서브넷 마스킹 계산",
+    "prompt": "다음 설명에서 빈칸에 공통으로 들어갈 프로토콜의 영문 약어를 쓰시오.",
+    "passage": "(      ) 스푸핑은 로컬 근거리 통신망(LAN) 환경에서 (      ) 응답 메시지를 희생자에게 위조하여 발송함으로써, 공격자의 MAC 주소를 게이트웨이의 MAC 주소로 변조하여 희생자의 모든 네트워크 트래픽을 가로채는 중간자(MITM) 공격 기법이다.",
+    "code": null,
+    "answer": "ARP",
+    "aliases": [
+      "ARP",
+      "arp",
+      "Address Resolution Protocol"
+    ],
+    "explanation": "ARP 스푸핑(ARP Spoofing)은 LAN 상에서 공격자가 자신의 MAC 주소를 게이트웨이 또는 다른 호스트의 IP 주소와 매핑되도록 속이는 공격입니다.",
+    "trapPoint": "IP-MAC 매핑을 변조하는 로컬 스푸핑 공격은 ARP 스푸핑입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_5",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 5,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "한 모듈이 다른 모듈의 내부 논리 조직을 제어하기 위한 목적으로 제어 신호나 플래그(Flag)를 매개변수로 전달하여 통신할 때 나타나는 결합도(Coupling)의 영문 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "Control Coupling",
+    "aliases": [
+      "Control Coupling",
+      "Control",
+      "control",
+      "control coupling",
+      "제어 결합도",
+      "제어결합도"
+    ],
+    "explanation": "제어 결합도(Control Coupling)는 상위 모듈이 하위 모듈에 무엇을 처리할지뿐 아니라 '어떻게 처리할지' 제어 플래그를 넘겨주어 하위 모듈의 처리 흐름을 통제할 때 발생하는 결합도입니다.",
+    "trapPoint": "제어 신호나 플래그를 전달하는 결합도는 Control Coupling(제어 결합도)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_6",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 6,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "다음 설명에 해당하는 OSI 7계층의 명칭을 각각 쓰시오.",
+    "passage": "( 1 ) 물리 계층을 통해 송수신되는 프레임의 에러 검출, 흐름 제어, 회선 제어를 수행하여 신뢰성 있는 전송을 보장하는 계층 (MAC 주소 사용)\n( 2 ) 패킷을 발신지로부터 목적지까지 가장 안전하고 빠른 최적의 경로(라우팅)를 선택하여 전달하는 계층 (IP 주소 사용)\n( 3 ) 송수신자 간에 서로 다른 데이터 표현 방식을 상호 변환하고, 데이터 암호화 및 압축을 수행하는 계층",
+    "code": null,
+    "answer": "(1) 데이터링크 계층, (2) 네트워크 계층, (3) 표현 계층",
+    "aliases": [
+      "데이터링크 계층, 네트워크 계층, 표현 계층",
+      "데이터링크, 네트워크, 표현"
+    ],
+    "explanation": "OSI 7계층:\n1. 2계층 데이터링크: 오류/흐름 제어, MAC 주소\n2. 3계층 네트워크: 최적 경로 라우팅, IP 패킷\n3. 6계층 표현: 암호화, 압축, 코드 변환",
+    "trapPoint": "MAC 주소 오류/흐름 제어 = 데이터링크, 라우팅 = 네트워크, 암호화/압축 = 표현 계층입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_7",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 7,
+    "category": "소프트웨어공학",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "UML 클래스 다이어그램에서 클래스 간의 관계에 대한 설명으로 빈칸 (1), (2)에 알맞은 영문 명칭을 보기에서 찾아 쓰시오.",
+    "passage": "( 1 ) 클래스들 간에 전체(Whole)와 부분(Part)의 포함 관계를 나타내며, 전체 객체가 소멸되어도 부분 객체는 독립적으로 유지될 수 있는 집합 관계 (빈 마름모)\n( 2 ) 한 클래스가 다른 클래스를 포함하는 상위 개념(IS-A)일 때의 상속 관계를 나타내는 일반화 관계 (빈 삼각형 실선)\n\n[보기: Aggregation, Generalization, Realization, Dependency, Composition]",
+    "code": null,
+    "answer": "(1) Aggregation, (2) Generalization",
+    "aliases": [
+      "Aggregation, Generalization",
+      "집약, 일반화",
+      "Aggregation Generalization"
+    ],
+    "explanation": "1. Aggregation(집약 관계): 전체-부분 관계이면서 부분 객체가 독립적 수명을 가짐 (빈 마름모).\n2. Generalization(일반화 관계): 상위 클래스와 하위 클래스의 IS-A 상속 관계 (빈 삼각형 화살표).",
+    "trapPoint": "독립적 수명의 전체-부분 관계는 Aggregation(집약), 상속 관계는 Generalization(일반화)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_8",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 8,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "IEEE 829 표준 테스트 케이스 명세서의 필수 구성 요소 3가지를 보기에서 찾아 쓰시오.",
+    "passage": "( 1 ) 테스트를 수행하기 위해 사전에 충족되어야 하는 시스템의 상태나 전제 조건\n( 2 ) 테스트 대상 프로그램에 실제로 입력하는 구체적인 입력값\n( 3 ) 테스트 입력값을 적용했을 때 프로그램이 출력해야 할 올바른 기대 출력값\n\n[보기: 테스트 조건, 테스트 데이터, 예상 결과, 테스트 스크립트, 결함 보고서]",
+    "code": null,
+    "answer": "(1) 테스트 조건, (2) 테스트 데이터, (3) 예상 결과",
+    "aliases": [
+      "테스트 조건, 테스트 데이터, 예상 결과",
+      "테스트조건, 테스트데이터, 예상결과"
+    ],
+    "explanation": "테스트 케이스 구성 요소: 식별자, 테스트 항목, 전제 조건(테스트 조건), 입력 데이터(테스트 데이터), 예상 결과(기대값).",
+    "trapPoint": "전제 조건, 입력 데이터, 예상 결과가 테스트 케이스의 3대 핵심입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_9",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 9,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "블랙박스 테스팅 기법",
+    "prompt": "소프트웨어 요구사항 명세서의 입력 조건(원인)과 출력 결과(효과) 간의 논리적 관계를 체계적으로 분석하여 Boolean 그래프로 표현한 후, 이를 의사결정표로 변환하여 테스트 케이스를 도출하는 블랙박스 테스트 기법의 영문 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "Cause-Effect Graphing",
+    "aliases": [
+      "Cause-Effect Graphing",
+      "cause-effect graph",
+      "Cause Effect Graph",
+      "원인-효과 그래프",
+      "원인 효과 그래프"
+    ],
+    "explanation": "원인-효과 그래프(Cause-Effect Graphing)는 입력 조건(Cause)과 출력 효과(Effect) 간의 논리적 관계(AND, OR, NOT)를 불리언 그래프로 표현하여 높은 품질의 테스트 케이스를 설계하는 명세 기반 기법입니다.",
+    "trapPoint": "원인과 결과의 논리적 Boolean 관계 그래프는 Cause-Effect Graph입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_10",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 10,
+    "category": "보안",
+    "unit": 4,
+    "topic": "암호화 알고리즘 (대칭키/공개키/해시)",
+    "prompt": "1977년 미국 NBS에서 표준으로 제정한 대칭키 블록 암호 알고리즘으로, 64비트 평문 블록을 56비트의 유효 키를 사용하여 16라운드의 Feistel 네트워크 구조로 암호화하는 알고리즘의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "DES",
+    "aliases": [
+      "DES",
+      "des",
+      "Data Encryption Standard"
+    ],
+    "explanation": "DES(Data Encryption Standard)는 64비트 블록, 56비트 유효키(8비트 패리티), 16라운드 페이스텔 구조를 사용하는 미국 표준 대칭 암호 알고리즘입니다.",
+    "trapPoint": "56비트 유효키, 64비트 블록 크기의 고전 대칭키 암호는 DES입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_11",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 11,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 3, b = 4, c = 3, d = 5;\n        if ((a == 2 | a == c) & !(c > d) & (1 == b ^ c != d)) {\n            a = b + c;\n            if (7 == b ^ c != a) {\n                System.out.println(a);\n            } else {\n                System.out.println(b);\n            }\n        } else {\n            a = c + d;\n            if (7 == c ^ d != a) {\n                System.out.println(a);\n            } else {\n                System.out.println(d);\n            }\n        }\n    }\n}",
+    "answer": "7",
+    "aliases": [
+      "7"
+    ],
+    "explanation": "조건문 논리 및 비트 연산 추적:\n1. 첫 번째 if 조건 검사:\n   - `(a == 2 | a == c)`: (false | true) = true\n   - `!(c > d)`: !(3 > 5) = !(false) = true\n   - `(1 == b ^ c != d)`: (false ^ true) = true (XOR: 서로 다르면 true)\n   - true & true & true -> 조건문 참!\n2. if 블록 내부 실행:\n   - `a = b + c` = 4 + 3 = 7\n   - 중첩 if: `(7 == b ^ c != a)`\n     * 7 == 4 -> false\n     * c != a -> 3 != 7 -> true\n     * false ^ true = true\n   - 중첩 if가 참이므로 `System.out.println(a);` 실행 -> 7 출력.",
+    "trapPoint": "XOR(^) 연산자는 두 피연산자의 참/거짓 값이 다를 때 true를 반환합니다.",
+    "traceTable": {
+      "headers": [
+        "항목",
+        "평가 식",
+        "결과"
+      ],
+      "rows": [
+        [
+          "조건 1",
+          "a == 2 | a == c",
+          "false | true -> true"
+        ],
+        [
+          "조건 2",
+          "!(c > d)",
+          "!(3 > 5) -> true"
+        ],
+        [
+          "조건 3",
+          "1 == b ^ c != d",
+          "false ^ true -> true"
+        ],
+        [
+          "첫 if 결과",
+          "true & true & true",
+          "true (if문 진입)"
+        ],
+        [
+          "변수 갱신",
+          "a = b + c",
+          "a = 4 + 3 = 7"
+        ],
+        [
+          "중첩 if",
+          "7 == b ^ c != a",
+          "false ^ true -> true"
+        ],
+        [
+          "출력",
+          "System.out.println(a)",
+          "7"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2021_3_12",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 12,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 포인터 배열 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int *arr[3];\n    int a = 12, b = 24, c = 36;\n    arr[0] = &a;\n    arr[1] = &b;\n    arr[2] = &c;\n\n    printf(\"%d\\n\", *arr[1] + **arr + 1);\n    return 0;\n}",
+    "answer": "37",
+    "aliases": [
+      "37"
+    ],
+    "explanation": "포인터 배열 역참조:\n1. arr[1]은 b의 주소(&b)이므로 `*arr[1]`은 b의 값인 24입니다.\n2. arr은 포인터 배열의 시작 주소이므로 `*arr`은 arr[0](&a)이고, `**arr`은 a의 값인 12입니다.\n3. `*arr[1] + **arr + 1` = 24 + 12 + 1 = 37이 출력됩니다.",
+    "trapPoint": "**arr은 arr[0]이 가리키는 실제 정수값인 a(12)를 의미합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_13",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 13,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "관계대수 & 릴레이션 이론",
+    "prompt": "다음 두 릴레이션에 대해 CROSS JOIN을 수행할 때 결과로 생성되는 전체 튜플의 수를 쓰시오.",
+    "passage": "[조건]\n- 테이블 A에서 이름이 'S'로 시작하는 사원은 2명이다.\n- 테이블 B에서 직무에 'T'가 포함된 직무는 2개이다.\n- 이 두 서브셋 간에 CROSS JOIN을 수행한다.",
+    "code": null,
+    "answer": "4",
+    "aliases": [
+      "4",
+      "4개",
+      "4건"
+    ],
+    "explanation": "교차 조인(CROSS JOIN, 카티션 프로덕트)의 결과 튜플 수는 두 테이블의 행 수를 곱한 값입니다.\n2 * 2 = 4건이 생성됩니다.",
+    "trapPoint": "CROSS JOIN의 행 수는 n * m = 2 * 2 = 4입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_14",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 14,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a, b = 100, 200\nprint(a == b)",
+    "answer": "False",
+    "aliases": [
+      "False"
+    ],
+    "explanation": "a(100)와 b(200)의 동등 비교 `a == b`는 거짓이므로 불리언 상수 `False`가 출력됩니다.\n파이썬의 불리언 값은 첫 글자가 대문자인 `False`로 출력됩니다.",
+    "trapPoint": "파이썬 불리언 출력은 소문자 false가 아니라 대문자 'False'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_15",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 15,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "UML 구조 다이어그램 중 시스템을 구성하는 객체들의 타입(이름, 속성, 연산)과 객체들 간의 정적 관계를 표현하는 가장 대표적인 다이어그램의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "클래스 다이어그램",
+    "aliases": [
+      "클래스 다이어그램",
+      "클래스다이어그램",
+      "Class Diagram",
+      "클래스"
+    ],
+    "explanation": "클래스 다이어그램(Class Diagram)은 시스템의 정적 구조를 표현하기 위해 클래스(이름, 속성, 메소드)와 그들 간의 관계(연관, 일반화, 의존 등)를 모델링하는 다이어그램입니다.",
+    "trapPoint": "클래스 구조와 정적 관계를 나타내는 것은 클래스 다이어그램입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_16",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 16,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "GoF 디자인 패턴 중 객체 생성을 위한 인터페이스를 정의하지만, 어떤 클래스의 인스턴스를 생성할지는 서브클래스(하위 클래스)가 결정하도록 위임하는 생성 패턴의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "Factory Method",
+    "aliases": [
+      "Factory Method",
+      "factory method",
+      "팩토리 메소드",
+      "팩토리 메서드",
+      "팩토리메소드",
+      "Factory Method 패턴"
+    ],
+    "explanation": "팩토리 메소드(Factory Method) 패턴은 상위 클래스에서 객체 생성 인터페이스만 정의하고, 실제 어떤 구체 클래스를 생성할지는 하위 서브클래스에서 팩토리 메소드를 오버라이딩하여 결정하도록 하는 패턴입니다.",
+    "trapPoint": "인스턴스 생성 책임을 서브클래스에 위임하는 패턴은 Factory Method(팩토리 메소드)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_17",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 17,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 구조체 포인터 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nstruct jsu {\n    char name[12];\n    int os, db, hab, hhab;\n};\n\nint main() {\n    struct jsu st[3] = {\n        {\"데이터1\", 95, 88},\n        {\"데이터2\", 84, 91},\n        {\"데이터3\", 86, 75}\n    };\n    struct jsu* p;\n    p = &st[0];\n\n    (p + 1)->hab = (p + 1)->os + (p + 2)->db;\n    (p + 1)->hhab = (p + 1)->hab + p->os + p->db;\n\n    printf(\"%d\\n\", (p + 1)->hab + (p + 1)->hhab);\n    return 0;\n}",
+    "answer": "501",
+    "aliases": [
+      "501"
+    ],
+    "explanation": "구조체 포인터 연산 추적:\n- p는 st[0]을 가리킴\n- (p + 1)은 st[1]: os = 84, db = 91\n- (p + 2)는 st[2]: os = 86, db = 75\n1. `(p + 1)->hab = (p + 1)->os + (p + 2)->db` = 84 + 75 = 159\n2. `(p + 1)->hhab = (p + 1)->hab + p->os + p->db` = 159 + 95 + 88 = 342\n3. `(p + 1)->hab + (p + 1)->hhab` = 159 + 342 = 501 출력.",
+    "trapPoint": "st[1]->hab(159)과 st[1]->hhab(342)를 더하여 최종 501이 됩니다.",
+    "traceTable": {
+      "headers": [
+        "연산 식",
+        "참조 값",
+        "결과 값"
+      ],
+      "rows": [
+        [
+          "(p+1)->os + (p+2)->db",
+          "84 + 75",
+          "hab = 159"
+        ],
+        [
+          "hab + p->os + p->db",
+          "159 + 95 + 88",
+          "hhab = 342"
+        ],
+        [
+          "hab + hhab",
+          "159 + 342",
+          "501"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2021_3_18",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 18,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "뷰(View) & 인덱스 최적화",
+    "prompt": "파일 구조(File Structure)에서 레코드들을 순차적으로 저장하면서, 키-주소 쌍을 별도로 구성하여 데이터의 빠른 검색과 직접 접근을 지원하는 편성 기법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "인덱스",
+    "aliases": [
+      "인덱스",
+      "색인",
+      "Index",
+      "index",
+      "인덱스 순차"
+    ],
+    "explanation": "인덱스(Index, 색인)는 데이터 레코드에 빠르게 접근하기 위해 <키, 주소> 쌍의 포인터 목록을 구성하는 자료구조입니다.",
+    "trapPoint": "키-주소 쌍을 모아 구성하여 직접 접근을 가능케 하는 것은 인덱스(색인)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_19",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 19,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "소프트웨어 아키텍처 & 설계",
+    "prompt": "마우스나 터치스크린을 이용하여 화면의 그래픽 아이콘, 메뉴, 창 등을 시각적으로 조작하여 컴퓨터와 상호작용하는 사용자 인터페이스의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "GUI",
+    "aliases": [
+      "GUI",
+      "gui",
+      "Graphical User Interface"
+    ],
+    "explanation": "GUI(Graphical User Interface, 그래픽 사용자 인터페이스)는 텍스트 명령어 기반의 CLI와 달리 윈도우, 아이콘, 메뉴, 포인터(WIMP)를 이용한 직관적인 시각적 조작 환경입니다.",
+    "trapPoint": "아이콘과 마우스 중심의 그래픽 인터페이스는 GUI입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_3_20",
+    "round_id": "2021_3",
+    "round_title": "2021년 제3회 기출 복원",
+    "id": 20,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "V-모델 & 테스트 레벨",
+    "prompt": "소프트웨어 점증적 통합 테스트에서 하위 모듈부터 시작하여 상위 모듈 방향으로 구축해 나가는 방식을 ( 1 ) 테스트라고 하며, 아직 개발되지 않은 상위 모듈의 역할을 대신하여 입출력을 제어하는 시험 도구를 ( 2 )라고 한다. 빈칸에 들어갈 용어를 순서대로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "(1) 상향식, (2) 테스트 드라이버",
+    "aliases": [
+      "(1) 상향식, (2) 테스트 드라이버",
+      "상향식, 테스트 드라이버",
+      "상향식, 드라이버",
+      "Bottom-Up, Driver"
+    ],
+    "explanation": "통합 테스트 방향:\n- 상향식(Bottom-Up): 하위 -> 상위 구축, 상위 더미 모듈로 '테스트 드라이버' 필요\n- 하향식(Top-Down): 상위 -> 하위 구축, 하위 더미 모듈로 '테스트 스텁' 필요",
+    "trapPoint": "상향식에는 드라이버(Driver), 하향식에는 스텁(Stub)이 필요합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_1",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 1,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "IPv4 서브넷 마스킹 계산",
+    "prompt": "별도의 유선 기반 시설(AP, 라우터 등) 없이 모바일 호스트들이 자율적으로 임시 통신망을 구성하며, 긴급 구조, 재난 현장, 군사 작전 등에 주로 활용되는 무선 분산 네트워크를 무엇이라고 하는지 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "애드혹 네트워크",
+    "aliases": [
+      "애드혹 네트워크",
+      "애드혹네트워크",
+      "애드혹",
+      "Ad-hoc Network",
+      "Ad-hoc",
+      "Adhoc"
+    ],
+    "explanation": "애드혹 네트워크(Ad-hoc Network)는 고정된 기지국이나 유선 백본 인프라 없이 무선 단말기들이 서로 중계 역할을 하여 동적으로 형성하는 임시 자율 분산 통신망입니다.",
+    "trapPoint": "기반 시설 없이 단말 간 자율 구성되는 무선 네트워크는 애드혹(Ad-hoc) 네트워크입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_2",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 2,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "개발 방법론 & SDLC",
+    "prompt": "다음 설명에 해당하는 사용자 경험 및 인터페이스 개념을 각각 쓰시오.",
+    "passage": "( 1 ) 사용자가 시스템, 제품, 서비스를 직·간접적으로 이용하면서 느끼고 생각하는 총체적인 감정과 경험의 총체\n( 2 ) 사용자와 컴퓨터 시스템 간의 상호작용이 원활하게 이루어지도록 돕는 매개체 (CLI, GUI 등)",
+    "code": null,
+    "answer": "(1) UX, (2) UI",
+    "aliases": [
+      "UX, UI",
+      "UX UI",
+      "사용자 경험, 사용자 인터페이스"
+    ],
+    "explanation": "1. UX(User Experience): 사용자가 제품을 사용하며 느끼는 주관적 감정, 만족도, 경험\n2. UI(User Interface): 사용자와 기기 간 상호작용을 위한 시각적/물리적 조작 환경",
+    "trapPoint": "경험은 UX, 인터페이스 매개체는 UI입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_3",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 3,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "데이터베이스 트랜잭션의 4대 특징(ACID) 중 '원자성(Atomicity)'의 개념에 대해 간략히 서술하시오.",
+    "passage": null,
+    "code": null,
+    "answer": "트랜잭션에 포함된 모든 연산은 데이터베이스에 모두 반영(Commit)되거나 전혀 반영되지 않아야(Rollback) 한다.",
+    "aliases": [
+      "트랜잭션에 포함된 모든 연산은 데이터베이스에 모두 반영(Commit)되거나 전혀 반영되지 않아야(Rollback) 한다.",
+      "모두 반영되거나 아니면 전혀 반영되지 않아야 한다.",
+      "트랜잭션의 연산은 전부 수행되거나 전부 취소되어야 한다.",
+      "All or Nothing"
+    ],
+    "explanation": "원자성(Atomicity, All or Nothing): 트랜잭션을 구성하는 명령들은 하나라도 오류가 발생하면 전체가 취소(Rollback)되어야 하며, 모두 정상일 때만 최종 반영(Commit)되어야 합니다.",
+    "trapPoint": "'전부 반영되거나 전부 취소되어야 한다(All or Nothing)'가 핵심 키워드입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_4",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 4,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "관계 데이터베이스 정규화 과정에서 제1정규형을 만족하는 릴레이션의 기본키가 복합 속성일 때, 기본키의 진부분집합에 종속되는 '부분 함수 종속성'을 제거하여 모든 비주요 속성이 기본키에 '완전 함수 종속'되도록 분해하는 정규형은 제 몇 정규형인지 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "제2정규형",
+    "aliases": [
+      "제2정규형",
+      "2정규형",
+      "제 2정규형",
+      "2NF"
+    ],
+    "explanation": "정규화 단계:\n- 1NF: 모든 도메인이 원자값\n- 2NF: 부분 함수 종속 제거 (완전 함수 종속 만족)\n- 3NF: 이행적 함수 종속 제거\n- BCNF: 모든 결정자가 후보키",
+    "trapPoint": "부분 함수 종속성 제거는 제2정규형(2NF)의 핵심 작업입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_5",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 5,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 테이블의 데이터를 수정하기 위한 SQL DML 문의 빈칸 (1), (2)에 들어갈 표준 SQL 키워드를 쓰시오.",
+    "passage": "(   1   ) 학생 (   2   ) 전공 = '인공지능' WHERE 점수 >= 90;",
+    "code": null,
+    "answer": "(1) UPDATE, (2) SET",
+    "aliases": [
+      "(1) UPDATE, (2) SET",
+      "UPDATE, SET",
+      "UPDATE SET"
+    ],
+    "explanation": "기존 테이블의 데이터를 수정하는 표준 SQL 문법은 `UPDATE 테이블명 SET 컬럼 = 값 WHERE 조건;` 입니다.",
+    "trapPoint": "데이터 수정은 UPDATE ~ SET 조합입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_6",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 6,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 학생정보 테이블과 학과정보 테이블을 조인하는 SQL 문의 빈칸 (1), (2)에 들어갈 알맞은 단어를 쓰시오.",
+    "passage": "SELECT a.학번, a.이름, b.학과명\nFROM 학생정보 a JOIN 학과정보 b (   1   ) a.학과 = b.(   2   );",
+    "code": null,
+    "answer": "(1) ON, (2) 학과",
+    "aliases": [
+      "(1) ON, (2) 학과",
+      "ON, 학과",
+      "ON 학과"
+    ],
+    "explanation": "명시적 JOIN 구문에서 조인 조건을 기술할 때는 `ON` 키워드를 사용하며, 두 테이블에서 공통으로 조인 키가 되는 컬럼인 `학과`를 매칭합니다.",
+    "trapPoint": "JOIN 조건절 키워드는 ON입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_7",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 7,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = 100\nresult = 0\nfor i in range(1, 3):\n    result = a >> i\n    result = result + 1\nprint(result)",
+    "answer": "26",
+    "aliases": [
+      "26"
+    ],
+    "explanation": "비트 우측 시프트(>>) 추적:\n- range(1, 3)은 i = 1, 2 반복\n- i = 1:\n  a >> 1 = 100 >> 1 = 50\n  result = 50 + 1 = 51\n- i = 2:\n  a >> 2 = 100 >> 2 = 25\n  result = 25 + 1 = 26\n최종 print(result)는 26이 출력됩니다.",
+    "trapPoint": "루프 안에서 매번 a(100)를 기준으로 시프트 연산하므로 i=2일 때 100 >> 2 = 25에 1을 더해 26이 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_8",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 8,
+    "category": "보안",
+    "unit": 4,
+    "topic": "암호화 알고리즘 (대칭키/공개키/해시)",
+    "prompt": "미국 표준기술연구소(NIST)에서 노후화된 DES를 대체하기 위해 제정한 표준 대칭키 블록 암호 알고리즘으로, 블록 크기는 128비트이며 키 길이에 따라 128, 192, 256비트를 지원하는 알고리즘의 명칭(영문 약어)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "AES",
+    "aliases": [
+      "AES",
+      "aes",
+      "Advanced Encryption Standard"
+    ],
+    "explanation": "AES(Advanced Encryption Standard)는 벨기에의 레인달(Rijndael) 알고리즘을 기반으로 NIST가 채택한 차세대 표준 대칭키 블록 암호화 알고리즘입니다.",
+    "trapPoint": "DES를 대체한 128비트 블록 대칭키 표준 알고리즘은 AES입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_9",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 9,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "화이트박스 테스팅 & 순환복잡도",
+    "prompt": "화이트박스 테스트 검증 기준 중 다음 설명에 알맞은 커버리지 명칭을 각각 쓰시오.",
+    "passage": "( 1 ) 프로그램 내의 모든 실행 가능한 문장(Statement)을 최소한 한 번 이상 수행하도록 테스트하는 기준\n( 2 ) 프로그램의 모든 분기 지점에서 전체 조건식의 참(True)과 거짓(False)이 적어도 한 번씩 수행되도록 테스트하는 기준\n( 3 ) 전체 결정문의 참/거짓 결과와 상관없이, 결정문 내부의 각 '개별 조건식'이 참과 거짓을 적어도 한 번씩 갖도록 테스트하는 기준",
+    "code": null,
+    "answer": "(1) 구문 커버리지, (2) 결정 커버리지, (3) 조건 커버리지",
+    "aliases": [
+      "구문 커버리지, 결정 커버리지, 조건 커버리지",
+      "구문, 결정, 조건",
+      "문장, 결정, 조건"
+    ],
+    "explanation": "화이트박스 커버리지 기준:\n1. 구문(문장) 커버리지: 모든 문장 1회 실행\n2. 결정(분기) 커버리지: 전체 조건식의 True/False 분기 1회 실행\n3. 조건 커버리지: 개별 조건식의 True/False 1회 실행",
+    "trapPoint": "문장은 구문 커버리지, 전체 분기는 결정 커버리지, 개별 조건은 조건 커버리지입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_10",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 10,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 SQL 문에서 '이름' 컬럼이 '이'로 시작하는 데이터를 검색하여 특정 컬럼을 기준으로 내림차순 정렬하고자 한다. 빈칸 (1), (2)에 들어갈 알맞은 키워드를 쓰시오.",
+    "passage": "SELECT * FROM 사원 WHERE 이름 LIKE (   1   ) ORDER BY 사번 (   2   );",
+    "code": null,
+    "answer": "(1) '이%', (2) DESC",
+    "aliases": [
+      "(1) '이%', (2) DESC",
+      "'이%', DESC",
+      "이%, DESC"
+    ],
+    "explanation": "1. '이'로 시작하는 임의의 문자열 패턴: `'이%'` (와일드카드 %)\n2. 내림차순 정렬: `DESC` (오름차순은 ASC)",
+    "trapPoint": "SQL 문자열 패턴 매칭에서 '이'로 시작하는 문자열은 `'이%'`로 표현합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_11",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 11,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 모듈의 응집도(Cohesion) 유형 중 다음 설명에 알맞은 명칭을 각각 쓰시오.",
+    "passage": "( 1 ) 모듈 내부의 구성 요소들이 서로 다른 기능을 수행하지만, 정해진 순서에 따라 순차적으로 수행되는 응집도\n( 2 ) 모듈 내부의 구성 요소들이 서로 다른 기능을 수행하지만 동일한 입력 자료를 사용하여 서로 다른 출력을 만들어 내거나, 동일한 출력을 만들어 내는 응집도 (통신적 응집도)\n( 3 ) 모듈 내부의 모든 기능적 요소들이 단 하나의 단일한 목적이나 기능을 수행하기 위해 밀접하게 통합되어 있는 가장 이상적인 응집도",
+    "code": null,
+    "answer": "(1) 절차적 응집도, (2) 교환적 응집도, (3) 기능적 응집도",
+    "aliases": [
+      "절차적 응집도, 교환적 응집도, 기능적 응집도",
+      "절차적, 교환적, 기능적",
+      "절차, 통신, 기능"
+    ],
+    "explanation": "응집도 강도 순서 (약함/나쁨 -> 강함/좋음):\n우연적 < 논리적 < 시간적 < 절차적 < 교환적(통신적) < 순차적 < 기능적\n1. 절차적: 실행 순서 연관\n2. 교환적(통신적): 동일 입출력 자료 공유\n3. 기능적: 단일 기능 수행",
+    "trapPoint": "동일 데이터 사용은 교환적(통신적) 응집도이고, 단일 목적 수행은 가장 높은 품질의 기능적 응집도입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_12",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 12,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "패킷 교환 방식의 두 가지 유형에 대한 설명에 알맞은 방식을 각각 쓰시오.",
+    "passage": "( 1 ) 송수신 호스트 간에 가상 논리적 연결(경로)을 먼저 수립한 후 패킷을 순차적으로 전송하는 연결 지향형 교환 방식 (순서 보장)\n( 2 ) 패킷 헤더의 목적지 주소를 기반으로 사전에 경로 설정 없이 각 패킷을 독립적으로 처리하여 최적 경로로 전송하는 비연결 지향형 방식 (순서 변경 가능)",
+    "code": null,
+    "answer": "(1) 가상 회선 방식, (2) 데이터그램 방식",
+    "aliases": [
+      "가상 회선 방식, 데이터그램 방식",
+      "가상회선, 데이터그램"
+    ],
+    "explanation": "패킷 교환 방식의 분류:\n- 가상 회선(Virtual Circuit): 사전 논리 연결 수립, 순서 보장 (연결형)\n- 데이터그램(Datagram): 독립적 패킷 전송, 우회 전송 가능, 수신측 재순서화 필요 (비연결형)",
+    "trapPoint": "연결형은 가상 회선, 비연결형 독립 전송은 데이터그램입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_13",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 13,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "GoF 디자인 패턴 중 반복적으로 사용되는 클래스나 객체 간의 상호작용 방법과 책임 분배 알고리즘을 패턴화한 것으로, Interpreter, Observer, Command, Strategy, Template Method 등이 속하는 패턴 그룹의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "행위 패턴",
+    "aliases": [
+      "행위 패턴",
+      "행위패턴",
+      "행위",
+      "Behavioral Pattern",
+      "Behavioral"
+    ],
+    "explanation": "GoF 디자인 패턴 3대 분류:\n- 생성 패턴(Creational): 객체 생성 과정 캡슐화\n- 구조 패턴(Structural): 클래스/객체 합성 및 구조화\n- 행위 패턴(Behavioral): 객체 간 상호작용 및 책임 분배 알고리즘",
+    "trapPoint": "Observer, Command, Strategy 등이 속하는 그룹은 행위(Behavioral) 패턴입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_14",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 14,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "다중 사용자 환경에서 여러 트랜잭션이 동시에 실행될 때, 한 트랜잭션이 접근한 데이터에 대한 연산을 완료할 때까지 다른 트랜잭션이 해당 데이터를 참조하거나 수정하지 못하도록 상호 배제(Mutual Exclusion)를 제공하는 병행 제어 기법을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "로킹",
+    "aliases": [
+      "로킹",
+      "로킹 기법",
+      "Locking",
+      "락킹",
+      "Lock"
+    ],
+    "explanation": "로킹(Locking)은 트랜잭션이 사용하는 자원에 잠금(Lock)을 설정하여 다른 트랜잭션의 접근을 제어함으로써 직렬 가능성을 보장하는 대표적인 병행 제어 기법입니다.",
+    "trapPoint": "트랜잭션 데이터 상호 배제 잠금 기법은 로킹(Locking)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_15",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 15,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "럼바우(Rumbaugh) 객체지향 분석 기법(OMT)의 3가지 분석 모델링 활동에 대한 설명에 알맞은 용어를 각각 쓰시오.",
+    "passage": "( 1 ) 다수의 프로세스들 간의 자료 흐름을 중심으로 처리 과정을 표현하며, 자료 흐름도(DFD)를 주 도구로 사용하는 모델링\n( 2 ) 시간에 따른 객체들의 상태 변화와 상호 작용을 표현하며, 상태 다이어그램(State Diagram)을 주 도구로 사용하는 모델링\n( 3 ) 시스템에서 요구되는 객체를 찾아내어 속성과 연산, 객체 간의 관계를 규정하며, 객체 다이어그램(ERD)을 주 도구로 사용하는 가장 먼저 수행되는 모델링",
+    "code": null,
+    "answer": "(1) 기능 모델링, (2) 동적 모델링, (3) 객체 모델링",
+    "aliases": [
+      "기능 모델링, 동적 모델링, 객체 모델링",
+      "기능, 동적, 객체",
+      "Functional, Dynamic, Object"
+    ],
+    "explanation": "럼바우(OMT) 분석 3단계 (순서: 객->동->기):\n1. 객체 모델링(Object): 정적 구조, 객체 다이어그램\n2. 동적 모델링(Dynamic): 상태 변화, 상태 다이어그램\n3. 기능 모델링(Functional): 자료 흐름, DFD",
+    "trapPoint": "자료흐름도(DFD)는 기능 모델링, 상태도는 동적 모델링, 객체 다이어그램은 객체 모델링입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_16",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 16,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어로 작성된 거듭제곱 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint mp(int base, int exp) {\n    int res = 1;\n    for (int i = 0; i < exp; i++) {\n        res = res * base;\n    }\n    return res;\n}\n\nint main() {\n    int res;\n    res = mp(2, 10);\n    printf(\"%d\", res);\n    return 0;\n}",
+    "answer": "1024",
+    "aliases": [
+      "1024"
+    ],
+    "explanation": "mp(2, 10)은 밑 2를 10번 곱하는 거듭제곱 함수입니다.\n2^10 = 1024가 계산되어 출력됩니다.",
+    "trapPoint": "2의 10제곱은 1024입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_17",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 17,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java static 공유 변수",
+    "prompt": "다음 Java 프로그램에서 클래스 인스턴스 생성 없이 `클래스명.메소드명()` 형태로 호출하여 \"positive\"를 출력하고자 할 때, 빈칸에 들어갈 알맞은 제어 키워드를 쓰시오.",
+    "passage": null,
+    "code": "public class Test {\n    public static void main(String[] args) {\n        System.out.print(Test.check(1));\n    }\n\n    (        ) static String check(int num) {\n        return (num >= 0) ? \"positive\" : \"negative\";\n    }\n}",
+    "answer": "public",
+    "aliases": [
+      "public",
+      "static",
+      "public static"
+    ],
+    "explanation": "인스턴스 생성 없이 클래스명으로 직접 호출하려면 `static` 키워드가 필요하며, 다른 클래스 및 main 메소드에서 접근하기 위해 접근 제한자 `public static`을 선언합니다.",
+    "trapPoint": "객체 생성 없이 클래스 직접 호출하는 정적 메소드 키워드는 static입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_18",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 18,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int ary[3];\n    int s = 0;\n    *(ary + 0) = 1;\n    ary[1] = *(ary + 0) + 2;\n    ary[2] = *ary + 3;\n\n    for (int i = 0; i < 3; i++) {\n        s = s + ary[i];\n    }\n\n    printf(\"%d\", s);\n    return 0;\n}",
+    "answer": "8",
+    "aliases": [
+      "8"
+    ],
+    "explanation": "배열과 포인터 연산 추적:\n1. *(ary + 0) = 1 -> ary[0] = 1\n2. ary[1] = *(ary + 0) + 2 = 1 + 2 = 3\n3. ary[2] = *ary + 3 = 1 + 3 = 4 (*ary는 ary[0]의 값)\n4. s = ary[0] + ary[1] + ary[2] = 1 + 3 + 4 = 8\n따라서 8이 출력됩니다.",
+    "trapPoint": "*ary는 ary[0]과 같으므로 ary[2]는 1 + 3 = 4가 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_19",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 19,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Ovr1 {\n    int sun(int x, int y) {\n        return x + y;\n    }\n}\n\nclass Ovr2 extends Ovr1 {\n    int sun(int x, int y) {\n        return x - y + super.sun(x, y);\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Ovr1 a1 = new Ovr1();\n        Ovr2 a2 = new Ovr2();\n        System.out.println(a1.sun(3, 2) + a2.sun(3, 2));\n    }\n}",
+    "answer": "11",
+    "aliases": [
+      "11"
+    ],
+    "explanation": "메소드 오버라이딩과 super 연산:\n1. `a1.sun(3, 2)`: Ovr1의 sun 호출 -> 3 + 2 = 5\n2. `a2.sun(3, 2)`: Ovr2의 오버라이딩된 sun 호출:\n   - `3 - 2 + super.sun(3, 2)`\n   - = 1 + (3 + 2) = 1 + 5 = 6\n3. `a1.sun(3, 2) + a2.sun(3, 2)` = 5 + 6 = 11 출력.",
+    "trapPoint": "a2.sun(3, 2)는 3 - 2 + (3 + 2) = 1 + 5 = 6이며, a1 결과 5와 합산하여 11이 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_2_20",
+    "round_id": "2021_2",
+    "round_title": "2021년 제2회 기출 복원",
+    "id": 20,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "V-모델 & 테스트 레벨",
+    "prompt": "소프트웨어 테스트 하네스(Test Harness) 구성 요소 중, 하향식(Top-Down) 통합 테스트 시 아직 개발되지 않은 하위 모듈의 역할을 임시로 대신하여 호출에 응답하도록 만들어진 더미 모듈을 무엇이라고 하는지 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "스텁",
+    "aliases": [
+      "스텁",
+      "테스트 스텁",
+      "Stub",
+      "stub",
+      "Test Stub"
+    ],
+    "explanation": "테스트 하네스 주요 구성 요소:\n- 테스트 드라이버(Driver): 상향식 테스트 시 미완성 상위 모듈 대체\n- 테스트 스텁(Stub): 하향식 테스트 시 미완성 하위 모듈 대체\n- 테스트 슈트(Suite): 테스트 케이스 집합",
+    "trapPoint": "하향식 테스트의 하위 더미 모듈은 스텁(Stub)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_1",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 1,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "IPv4 서브넷 마스킹 계산",
+    "prompt": "물리적 MAC 주소를 기반으로 해당 장비의 논리적 IP 주소를 알아내기 위해 사용하는 역순 주소 결정 프로토콜의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "RARP",
+    "aliases": [
+      "RARP",
+      "rarp",
+      "Reverse Address Resolution Protocol"
+    ],
+    "explanation": "- ARP: IP 주소를 MAC(물리) 주소로 변환\n- RARP: MAC(물리) 주소를 IP 주소로 변환 (디스크리스 호스트 부팅 시 IP 할당 요청)",
+    "trapPoint": "IP -> MAC은 ARP이고, MAC -> IP 역방향은 RARP입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_2",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 2,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "다음 데이터베이스 설계 절차에 대한 설명에서 빈칸에 들어갈 알맞은 단계를 보기에서 찾아 각각 쓰시오.",
+    "passage": "( 1 ) 특정 DBMS의 특성과 저장 장치의 성능을 고려하여 데이터베이스 저장 구조 및 인덱스 등을 설계하는 과정\n( 2 ) 현실 세계의 요구사항을 개념적 스키마(E-R 다이어그램)로 모델링하는 과정\n( 3 ) 목표 DBMS의 데이터 모델에 맞추어 개념적 구조를 테이블 스키마로 변환하고 정규화를 수행하는 과정\n\n[보기: 개념적 설계, 논리적 설계, 물리적 설계, 구현, 요구사항 분석]",
+    "code": null,
+    "answer": "(1) 물리적 설계, (2) 개념적 설계, (3) 논리적 설계",
+    "aliases": [
+      "물리적 설계, 개념적 설계, 논리적 설계",
+      "물리적, 개념적, 논리적",
+      "물리적설계, 개념적설계, 논리적설계"
+    ],
+    "explanation": "DB 설계 3단계:\n1. 개념적 설계: ERD 도출, 개념 스키마\n2. 논리적 설계: 릴레이션 매핑, 정규화, 논리 스키마\n3. 물리적 설계: 저장 레코드 양식, 인덱스, 물리 스키마",
+    "trapPoint": "저장 구조 설계는 물리적 설계, ERD 도출은 개념적 설계, 정규화/테이블 매핑은 논리적 설계입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_3",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 3,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "소프트웨어 요구사항의 분류 중 다음 설명에 알맞은 유형을 각각 쓰시오.",
+    "passage": "( 1 ) 시스템이 실제로 수행해야 하는 본연의 기능이나 사용자가 요구하는 연산 및 서비스에 관한 요구사항\n( 2 ) 시스템의 성능, 신뢰성, 보안성, 가용성, 품질, 제약사항 등 기능 이외의 특성에 관한 요구사항",
+    "code": null,
+    "answer": "(1) 기능적 요구사항, (2) 비기능적 요구사항",
+    "aliases": [
+      "기능적 요구사항, 비기능적 요구사항",
+      "기능적, 비기능적",
+      "기능, 비기능"
+    ],
+    "explanation": "요구사항 분류:\n- 기능적 요구사항: 시스템이 무엇을 하는가 (입출력, 연산, 업무 기능)\n- 비기능적 요구사항: 성능, 보안, 제약조건, 품질 기준",
+    "trapPoint": "기능 자체는 기능적 요구사항, 품질/성능/제약은 비기능적 요구사항입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_4",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 4,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "웹 서비스에 대한 서비스 명칭, 위치(URI), 전송 프로토콜, 입출력 메시지 포맷 등을 상세하게 기술한 XML 기반의 인터페이스 정의 언어의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "WSDL",
+    "aliases": [
+      "WSDL",
+      "wsdl",
+      "Web Services Description Language"
+    ],
+    "explanation": "WSDL(Web Services Description Language)은 웹 서비스가 제공하는 기능과 호출 방법, 메시지 형식 등을 기술한 XML 기반 표준 명세 언어입니다.",
+    "trapPoint": "SOAP 웹 서비스의 명세 파일 언어는 WSDL입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_5",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 5,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Good:\n    li = [\"seoul\", \"kyeonggi\", \"inchon\", \"daejeon\", \"daegu\", \"pusan\"]\n\ng = Good()\nstr01 = ''\nfor i in g.li:\n    str01 = str01 + i[0]\n\nprint(str01)",
+    "answer": "skiddp",
+    "aliases": [
+      "skiddp"
+    ],
+    "explanation": "리스트의 각 문자열에서 0번 인덱스(첫 글자)만 추출하여 str01에 이어붙입니다.\n- 's'eoul -> 's'\n- 'k'yeonggi -> 'k'\n- 'i'nchon -> 'i'\n- 'd'aejeon -> 'd'\n- 'd'aegu -> 'd'\n- 'p'usan -> 'p'\n최종 str01 = \"skiddp\"가 출력됩니다.",
+    "trapPoint": "i[0]은 각 도시명 문자열의 첫 번째 문자를 의미합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_6",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 6,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 [급여] 테이블에 대해 SQL 문을 실행한 결과(출력되는 카운트 숫자)를 쓰시오.",
+    "passage": "[급여 테이블]\n| EMPNO | SAL |\n| --- | --- |\n| 100 | 1000 |\n| 200 | 3000 |\n| 300 | 1500 |\n\n[쿼리]\nSELECT COUNT(*) FROM 급여\nWHERE EMPNO > 100 AND SAL >= 3000 OR EMPNO = 200;",
+    "code": null,
+    "answer": "1",
+    "aliases": [
+      "1"
+    ],
+    "explanation": "SQL 연산자 우선순위: AND가 OR보다 높습니다.\n1. `EMPNO > 100 AND SAL >= 3000` 평가:\n   - 100행: EMPNO > 100 거짓\n   - 200행: 200 > 100(참) AND 3000 >= 3000(참) -> 참\n   - 300행: 300 > 100(참) AND 1500 >= 3000(거짓) -> 거짓\n2. `OR EMPNO = 200` 평가:\n   - 200행이 유일하게 참\n따라서 조건을 만족하는 튜플은 200행 1개뿐이므로 COUNT(*) 결과는 1입니다.",
+    "trapPoint": "AND가 OR보다 우선 평가되며, 만족하는 행은 EMPNO=200인 단 1행입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_7",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 7,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Good {\n    public static void main(String[] args) {\n        int[][] arr = new int[][] { {45, 50, 75}, {89} };\n        System.out.println(arr[0].length);\n        System.out.println(arr[1].length);\n        System.out.println(arr[0][0]);\n        System.out.println(arr[0][1]);\n        System.out.println(arr[1][0]);\n    }\n}",
+    "answer": "3 1 45 50 89",
+    "aliases": [
+      "3 1 45 50 89",
+      "3, 1, 45, 50, 89",
+      "3\n1\n45\n50\n89"
+    ],
+    "explanation": "가변 2차원 배열 구조:\n- arr[0] = {45, 50, 75} -> 길이 3\n- arr[1] = {89} -> 길이 1\n- arr[0][0] = 45\n- arr[0][1] = 50\n- arr[1][0] = 89\n출력 순서: 3 -> 1 -> 45 -> 50 -> 89",
+    "trapPoint": "자바 2차원 배열은 행마다 열 길이가 다를 수 있는 가변 배열(Ragged Array)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_8",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 8,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "정규화된 데이터베이스에서 시스템 성능 향상과 조회 편의성을 위해 의도적으로 정규화 원칙을 위배하여 테이블 통합, 분할, 중복 컬럼 추가 등을 수행하는 기법을 무엇이라고 하는지 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "반정규화",
+    "aliases": [
+      "반정규화",
+      "비정규화",
+      "역정규화",
+      "De-normalization",
+      "Denormalization"
+    ],
+    "explanation": "반정규화(비정규화, 역정규화)는 정규화로 인해 릴레이션 간 조인이 과도하게 발생하여 성능이 저하되는 것을 방지하기 위해 중복이나 통합을 허용하는 데이터 모델링 기법입니다.",
+    "trapPoint": "성능 향상을 위한 정규화 역행 기법은 반정규화(비정규화)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_9",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 9,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "블랙박스 테스팅 기법",
+    "prompt": "다음 테스트 설명에 해당하는 블랙박스 테스트 기법의 명칭을 각각 쓰시오.",
+    "passage": "1. 유효 범위가 0 <= x <= 10 일 때, 경계값인 -1, 0, 10, 11을 테스트 케이스로 선정하여 검사하는 기법\n2. 입력 데이터의 전체 영역을 유효값 그룹과 무효값 그룹으로 분류(분할)하고, 각 그룹의 대표값을 선정하여 검사하는 기법",
+    "code": null,
+    "answer": "(1) 경계값 분석, (2) 동등 분할",
+    "aliases": [
+      "경계값 분석, 동등 분할",
+      "경계값분석, 동등분할"
+    ],
+    "explanation": "1. 경계값 분석: 경계선 부근(-1, 0, 10, 11) 검사\n2. 동등 분할: 그룹별 대표값 선정 검사",
+    "trapPoint": "경계 수치 검사는 경계값 분석, 그룹별 대표값 검사는 동등 분할입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_10",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 10,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "V-모델 & 테스트 레벨",
+    "prompt": "다음 설명에 해당하는 소프트웨어 테스트 단계를 각각 쓰시오.",
+    "passage": "( 1 ) 소프트웨어 설계의 최소 단위인 모듈이나 컴포넌트, 함수 단위의 결함을 찾아내는 테스트\n( 2 ) 모듈 간의 상호 작용 및 인터페이스가 정상적으로 연동되어 동작하는지 검증하는 테스트",
+    "code": null,
+    "answer": "(1) 단위 테스트, (2) 통합 테스트",
+    "aliases": [
+      "단위 테스트, 통합 테스트",
+      "단위, 통합",
+      "단위테스트, 통합테스트"
+    ],
+    "explanation": "1. 단위 테스트: 개별 모듈/함수 수준의 테스트\n2. 통합 테스트: 결합된 모듈 간의 인터페이스 및 연동 테스트",
+    "trapPoint": "모듈 단위는 단위 테스트, 인터페이스 연동은 통합 테스트입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_11",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 11,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "IP 주소 체계에 대한 다음 물음의 빈칸에 알맞은 숫자를 쓰시오.",
+    "passage": "- IPv6 주소 체계의 전체 비트 수는 (   1   ) 비트이다.\n- IPv4 주소 체계는 전체 32비트이며, 10진수로 표기하기 위해 (   2   ) 비트씩 4개의 옥텟으로 구분한다.",
+    "code": null,
+    "answer": "(1) 128, (2) 8",
+    "aliases": [
+      "(1) 128, (2) 8",
+      "128, 8",
+      "128 8"
+    ],
+    "explanation": "1. IPv6: 128비트 (16비트씩 8개 부분, 16진수 표기)\n2. IPv4: 32비트 (8비트씩 4개 옥텟, 10진수 표기)",
+    "trapPoint": "IPv6는 128비트이고, IPv4는 8비트씩 4마디입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_12",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 12,
+    "category": "운영체제",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "운영체제에서 독립적으로 실행 중인 둘 이상의 프로세스가 공유 메모리, 파이프, 소켓, 세마포어, 메시지 큐 등을 통해 데이터를 서로 교환하고 제어하는 기술의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "IPC",
+    "aliases": [
+      "IPC",
+      "ipc",
+      "Inter-Process Communication",
+      "Inter Process Communication"
+    ],
+    "explanation": "IPC(Inter-Process Communication, 프로세스 간 통신)는 프로세스 간에 서로 데이터를 주고받고 동기화를 수행하기 위한 메커니즘입니다.",
+    "trapPoint": "프로세스 간 통신 기술의 약자는 IPC입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_13",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 13,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "EAI & 인터페이스 연계",
+    "prompt": "기업 내의 서로 다른 플랫폼, ERP, CRM 등 다양한 이기종 애플리케이션 및 시스템을 연계·통합하여 비즈니스 프로세스를 자동화하는 엔터프라이즈 솔루션의 영문 약어를 쓰시오. (포인트 투 포인트, 허브 앤 스포크, 메시지 버스 등의 구축 유형이 있음)",
+    "passage": null,
+    "code": null,
+    "answer": "EAI",
+    "aliases": [
+      "EAI",
+      "eai",
+      "Enterprise Application Integration"
+    ],
+    "explanation": "EAI(Enterprise Application Integration)는 기업 내 다양한 시스템과 애플리케이션을 상호 연계하고 통합하는 솔루션입니다.",
+    "trapPoint": "Point-to-Point, Hub & Spoke, Message Bus 방식의 기업 애플리케이션 통합은 EAI입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_14",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 14,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 [학생] 릴레이션의 (1) 카디널리티(Cardinality)와 (2) 디그리(Degree, 차수)의 숫자를 각각 구하시오.",
+    "passage": "[학생 릴레이션]\n| 학번 | 이름 | 학년 | 학과 |\n| --- | --- | --- | --- |\n| 20202020 | 김제원 | 3 | 무역과 |\n| 20202021 | 김한국 | 1 | 통신과 |\n| 20202022 | 허달력 | 4 | 영어과 |\n| 20202023 | 이소파 | 2 | 영어과 |\n| 20202024 | 장가위 | 3 | 중국어과 |",
+    "code": null,
+    "answer": "카디널리티: 5, 디그리: 4",
+    "aliases": [
+      "카디널리티: 5, 디그리: 4",
+      "5, 4",
+      "5 4"
+    ],
+    "explanation": "- 카디널리티(Cardinality): 튜플(행)의 수 = 5행 (5)\n- 디그리(Degree, 차수): 속성(열)의 수 = {학번, 이름, 학년, 학과} 4열 (4)",
+    "trapPoint": "카디널리티는 행의 개수(5), 디그리는 열(속성)의 개수(4)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_15",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 15,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nstruct good {\n    char name[10];\n    int age;\n};\n\nint main() {\n    struct good s[] = {\"Kim\", 28, \"Lee\", 38, \"Seo\", 50, \"Park\", 35};\n    struct good *p;\n    p = s;\n    p++;\n    printf(\"%s\\n\", p->name);\n    printf(\"%d\\n\", p->age);\n    return 0;\n}",
+    "answer": "Lee 38",
+    "aliases": [
+      "Lee 38",
+      "Lee, 38",
+      "Lee\n38"
+    ],
+    "explanation": "1. `p = s;` 로 구조체 배열의 0번 원소 s[0] {\"Kim\", 28}을 가리킵니다.\n2. `p++;` 연산 시 구조체 크기만큼 포인터가 증가하여 1번 원소 s[1] {\"Lee\", 38}을 가리킵니다.\n3. `p->name`은 \"Lee\", `p->age`는 38이 출력됩니다.",
+    "trapPoint": "p++를 통해 s[0]에서 s[1]로 이동하므로 Lee와 38이 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_16",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 16,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "데이터 모델의 3대 구성 요소(연산, 구조, 제약조건)에 대한 다음 설명의 빈칸에 알맞은 용어를 각각 쓰시오.",
+    "passage": "( 1 ) 데이터베이스에 저장된 실제 데이터를 처리하는 작업에 대한 명세로서, 데이터 조작의 기본 도구\n( 2 ) 데이터베이스에 표현될 대상인 개체 타입과 이들 간의 관계를 명세한 논리적 구조\n( 3 ) 데이터베이스에 저장될 수 있는 실제 데이터 값의 유효성과 일관성을 유지하기 위한 규칙이나 조건 (개체 무결성, 참조 무결성 등)",
+    "code": null,
+    "answer": "(1) 연산, (2) 구조, (3) 제약조건",
+    "aliases": [
+      "연산, 구조, 제약조건",
+      "연산 구조 제약조건"
+    ],
+    "explanation": "데이터 모델 3대 구성 요소:\n1. 연산(Operation): 데이터 조작 및 처리 작업 명세\n2. 구조(Structure): 데이터 구조 및 정적 관계\n3. 제약조건(Constraint): 데이터 무결성 보장을 위한 제약 규칙",
+    "trapPoint": "데이터 모델 3요소는 '구조, 연산, 제약조건'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_17",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 17,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Good {\n    public static void main(String[] args) {\n        int i, j;\n        for (j = 0, i = 0; i <= 5; i++) {\n            j += i;\n            System.out.print(i);\n            if (i == 5) {\n                System.out.print(\"=\");\n                System.out.print(j);\n            } else {\n                System.out.print(\"+\");\n            }\n        }\n    }\n}",
+    "answer": "0+1+2+3+4+5=15",
+    "aliases": [
+      "0+1+2+3+4+5=15"
+    ],
+    "explanation": "i가 0부터 5까지 반복하면서 i를 출력하고, j에 i를 누적합산합니다.\n- i < 5일 때는 뒤에 \"+\"를 출력\n- i == 5일 때는 \"=\"와 총합 j(15)를 출력\n따라서 \"0+1+2+3+4+5=15\"가 출력됩니다.",
+    "trapPoint": "0부터 시작하므로 0+1+2+3+4+5=15 형식으로 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_18",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 18,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "시스템 객체에 대한 접근 권한을 사용자의 신분에 기반하여 통제하며, 객체의 소유자가 자신의 판단에 따라 다른 사용자에게 접근 권한을 부여하거나 회수할 수 있는 접근 제어 모델의 명칭(또는 영문 약어)을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "DAC",
+    "aliases": [
+      "DAC",
+      "dac",
+      "임의적 접근 통제",
+      "임의적접근통제",
+      "Discretionary Access Control"
+    ],
+    "explanation": "DAC(Discretionary Access Control, 임의적 접근 통제)는 데이터의 소유자가 임의로 권한을 부여하는 신분 기반 접근 통제 방식입니다.",
+    "trapPoint": "소유자가 임의로 권한을 부여할 수 있는 모델은 임의적 접근 통제(DAC)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_19",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 19,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 모듈의 결합도(Coupling) 유형에 대한 설명에 알맞은 용어를 보기에서 찾아 각각 쓰시오.",
+    "passage": "( 1 ) 한 모듈이 다른 모듈의 내부 논리 조직이나 내부 자료를 직접 참조하거나 수정하는 가장 결합도가 강한 상태\n( 2 ) 모듈 간의 인터페이스로 배열이나 객체, 레코드 등 복합 자료 구조가 전달될 때의 결합도\n( 3 ) 여러 모듈이 모듈 외부에 선언된 전역 변수를 공유하여 참조하거나 갱신할 때의 결합도\n\n[보기: 자료 결합도, 스탬프 결합도, 제어 결합도, 외부 결합도, 공통 결합도, 내용 결합도]",
+    "code": null,
+    "answer": "(1) 내용 결합도, (2) 스탬프 결합도, (3) 공통 결합도",
+    "aliases": [
+      "내용 결합도, 스탬프 결합도, 공통 결합도",
+      "내용, 스탬프, 공통"
+    ],
+    "explanation": "결합도 강도 순서 (약함/좋음 -> 강함/나쁨):\n자료(Data) < 스탬프(Stamp) < 제어(Control) < 외부(External) < 공통(Common) < 내용(Content)\n1. 내용 결합도: 타 모듈 내부 직접 침범\n2. 스탬프 결합도: 배열/객체 구조 전달\n3. 공통 결합도: 전역 변수 공유",
+    "trapPoint": "내부 직접 참조는 내용 결합도, 배열/자료구조 전달은 스탬프 결합도, 전역 변수는 공통 결합도입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2021_1_20",
+    "round_id": "2021_1",
+    "round_title": "2021년 제1회 기출 복원",
+    "id": 20,
+    "category": "보안",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "TCP 연결 과정에서 송수신 측 사이의 활성화된 세션을 가로채어 정상적인 연결을 리셋(RST) 패킷으로 끊고, 공격자가 희생자의 권한을 도용하여 세션을 가로채는 공격 기법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "세션 하이재킹",
+    "aliases": [
+      "세션 하이재킹",
+      "세션하이재킹",
+      "Session Hijacking",
+      "TCP 세션 하이재킹"
+    ],
+    "explanation": "세션 하이재킹(Session Hijacking)은 이미 인증이 완료되어 연결 중인 TCP 세션을 가로채 공격자가 인증 없이 해당 세션의 권한을 탈취하는 공격입니다.",
+    "trapPoint": "세션을 가로채 권한을 도용하는 기법은 세션 하이재킹입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_1",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 1,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "현재 32비트 체계인 IPv4의 주소 고갈, 보안성, 이동성 지원 등의 문제를 해결하기 위해 개발된 128비트 주소 체계를 갖는 차세대 인터넷 프로토콜의 명칭 또는 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "IPv6",
+    "aliases": [
+      "IPv6",
+      "ipv6",
+      "Internet Protocol version 6"
+    ],
+    "explanation": "IPv6는 IPv4의 주소 공간 고갈을 해결하기 위해 개발된 128비트 차세대 IP 주소 체계입니다. 16비트씩 8부분을 콜론(:)으로 구분하며 16진수로 표기하고, 유니캐스트·멀티캐스트·애니캐스트 전송 방식을 지원합니다.",
+    "trapPoint": "IPv4는 32비트, IPv6는 128비트 주소 체계입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_2",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 2,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "GoF 디자인 패턴을 목적(Purpose)에 따라 3가지 유형으로 분류할 때, 생성(Creational) 패턴, 구조(Structural) 패턴 외에 나머지 한 가지 유형의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "행위",
+    "aliases": [
+      "행위",
+      "행위 패턴",
+      "Behavioral",
+      "behavioral",
+      "행동",
+      "행동 패턴"
+    ],
+    "explanation": "GoF 디자인 패턴 목적별 3대 분류:\n1. 생성(Creational) 패턴 (5개): 객체 인스턴스 생성 과정 추상화\n2. 구조(Structural) 패턴 (7개): 클래스나 객체를 조합해 더 큰 구조 형성\n3. 행위(Behavioral) 패턴 (11개): 객체들 간의 상호작용 및 책임 분배 정의",
+    "trapPoint": "GoF 디자인 패턴 3대 목적 분류: 생성, 구조, 행위(Behavioral).",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_3",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 3,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "다음은 UML 모델 요소들을 그룹화하고 상호 의존 관계를 표현한 다이어그램이다. 해당 다이어그램의 명칭을 쓰시오.",
+    "passage": "   ┌───────────┐                      ┌───────────┐\n   │ ordering  │ - - - - - - - - - - >│  pricing  │\n   └───────────┘                      └───────────┘\n         │\n         │\n         │   <<import>>\n         ▼\n   ┌───────────┐\n   │ products  │\n   └───────────┘\n\n※ 다이어그램 특징:\n- 탭이 달린 폴더 모양 아이콘(패키지)으로 표현\n- 점선 화살표를 통한 패키지 간의 의존 관계 및 <<import>> 스테레오타입 표현",
+    "code": null,
+    "answer": "패키지 다이어그램",
+    "aliases": [
+      "패키지 다이어그램",
+      "패키지다이어그램",
+      "Package Diagram",
+      "package diagram",
+      "패키지"
+    ],
+    "explanation": "패키지 다이어그램(Package Diagram)은 시스템의 모델 요소들을 의미 있는 단위(폴더 형태의 패키지)로 그룹화하고, 패키지 간의 의존성과 포함 관계를 시각화하는 UML 구조 다이어그램입니다.",
+    "trapPoint": "폴더 모양의 패키지 아이콘과 의존성 점선 화살표로 구성된 것은 패키지 다이어그램입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_4",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 4,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "데이터베이스 로그 기반 회복(Recovery) 기법 중 트랜잭션이 데이터를 변경하면 변경 연산의 결과를 즉시 데이터베이스에 반영하며, 장애 발생 시 Redo와 Undo 연산을 모두 수행하는 기법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "즉각 갱신 회복 기법",
+    "aliases": [
+      "즉각 갱신 회복 기법",
+      "즉각 갱신 기법",
+      "즉각 갱신",
+      "즉각갱신",
+      "Immediate Update",
+      "Immediate update"
+    ],
+    "explanation": "로그 기반 회복 기법:\n- 지연 갱신(Deferred Update): 부분 완료 전까지 실제 DB 변경을 지연(로그만 기록), 장애 시 REDO만 수행\n- 즉각 갱신(Immediate Update): 갱신 연산 결과를 즉시 DB에 반영, 장애 시 REDO와 UNDO 모두 수행",
+    "trapPoint": "연산 결과를 즉시 DB에 기록하고 REDO/UNDO 모두 수행하는 기법은 '즉각 갱신 회복 기법'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_5",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 5,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음은 10진수 n(초깃값 10)을 2진수로 변환하여 8자리로 출력하는 Java 프로그램이다. 빈칸 (1), (2)에 들어갈 알맞은 조건식 또는 연산식을 쓰시오.",
+    "passage": "[출력 결과]\n00001010",
+    "code": "class good {\n    public static void main(String[] args) {\n        int[] a = new int[8];\n        int i = 0;\n        int n = 10;\n        while (   1   ) {\n            a[i++] = (   2   );\n            n /= 2;\n        }\n        for (i = 7; i >= 0; i--) {\n            System.out.print(a[i]);\n        }\n    }\n}",
+    "answer": "(1) n > 0, (2) n % 2",
+    "aliases": [
+      "n > 0, n % 2",
+      "n>0, n%2",
+      "n > 0, n%2"
+    ],
+    "explanation": "10진수를 2진수로 변환하는 원리:\n1. n이 0보다 큰 동안(`n > 0` 또는 `n >= 1`) 반복 수행\n2. n을 2로 나눈 나머지(`n % 2` 또는 `n & 1`)를 비트 배열 a에 순서대로 저장\n3. n을 2로 나눈 몫으로 갱신(`n /= 2`)",
+    "trapPoint": "반복 지속 조건은 n > 0, 2진수 비트 추출은 n % 2 (또는 n & 1)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_6",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 6,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 출력 결과를 보고 2차원 배열 선언문 빈칸 (1), (2)에 들어갈 행과 열의 크기를 각각 쓰시오.",
+    "passage": "[출력 결과]\n1 4 7 10 13\n2 5 8 11 14\n3 6 9 12 15",
+    "code": "public class good {\n    public static void main(String[] args) {\n        int[][] a = new int[( 1 )][( 2 )];\n        for (int i = 0; i < 3; i++) {\n            for (int j = 0; j < 5; j++) {\n                a[i][j] = j * 3 + (i + 1);\n                System.out.print(a[i][j] + \" \");\n            }\n            System.out.println();\n        }\n    }\n}",
+    "answer": "(1) 3, (2) 5",
+    "aliases": [
+      "3, 5",
+      "3 5",
+      "3,5"
+    ],
+    "explanation": "바깥쪽 루프가 `i < 3`으로 3회 반복(행 3개)되고, 안쪽 루프가 `j < 5`로 5회 반복(열 5개)됩니다. 따라서 생성해야 하는 2차원 배열 크기는 3행 5열(`new int[3][5]`)입니다.",
+    "trapPoint": "출력 결과가 3개 행과 5개 열로 구성되어 있으므로 행 3, 열 5 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_7",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 7,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "네트워크 통신 회선 상에 흐르는 암호화되지 않은 패킷을 엿듣고 가로채어 사용자 계정 ID, 비밀번호 등 민감한 정보를 몰래 수집하는 수동적(Passive) 네트워크 공격 기법을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "스니핑",
+    "aliases": [
+      "스니핑",
+      "Sniffing",
+      "sniffing",
+      "패킷 스니핑"
+    ],
+    "explanation": "스니핑(Sniffing)은 네트워크 인터페이스 카드를 무차별 모드(Promiscuous Mode)로 설정하여 자신이 수신 대상이 아닌 패킷까지 도청하여 가로채는 수동적 공격 기법입니다.",
+    "trapPoint": "패킷을 도청하는 행위는 스니핑(Sniffing), 신분을 위조·변조하는 행위는 스푸핑(Spoofing)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_8",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 8,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "내부 사설 네트워크에서 사용하는 다수의 사설 IP 주소를 외부 인터넷과 통신 가능한 공인 IP 주소로 변환해 주는 네트워크 주소 변환 기술의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "NAT",
+    "aliases": [
+      "NAT",
+      "nat",
+      "Network Address Translation"
+    ],
+    "explanation": "NAT(Network Address Translation)는 사설 IP 주소를 공인 IP 주소로 상호 매핑·변환하여 통신을 가능하게 하는 기술로, IPv4 주소 고갈 문제를 완화하고 내부망의 보안성을 높여줍니다.",
+    "trapPoint": "사설 IP와 공인 IP 간의 주소 변환 기술은 NAT입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_9",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 9,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "lol = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]\nprint(lol[0])\nprint(lol[2][1])\nfor sub in lol:\n    for item in sub:\n        print(item, end='')\n    print()",
+    "answer": "[1, 2, 3]\n7\n123\n45\n6789",
+    "aliases": [
+      "[1, 2, 3]\n7\n123\n45\n6789",
+      "[1, 2, 3]\n 7\n 123\n 45\n 6789",
+      "[1, 2, 3] 7 123 45 6789"
+    ],
+    "explanation": "1. `print(lol[0])` -> 0번째 원소 리스트 `[1, 2, 3]` 출력\n2. `print(lol[2][1])` -> 2번째 원소 [6, 7, 8, 9]의 1번째 인덱스인 `7` 출력\n3. 이중 루프:\n- sub = [1, 2, 3]: `123` 출력 후 개행\n- sub = [4, 5]: `45` 출력 후 개행\n- sub = [6, 7, 8, 9]: `6789` 출력 후 개행",
+    "trapPoint": "lol[2][1]은 [6,7,8,9]의 1번 인덱스 원소인 7입니다. print(리스트)는 대괄호 []를 포함하여 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_10",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 10,
+    "category": "소프트웨어공학",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "P2P 네트워크를 기반으로 참여자 간에 거래 데이터를 암호화하여 '블록'이라는 분산 장부에 기록하고 체인 형태로 연결함으로써 임의의 위·변조를 방지하고 분산 합의를 보장하는 데이터 보안 기술을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "블록체인",
+    "aliases": [
+      "블록체인",
+      "Blockchain",
+      "blockchain",
+      "분산원장",
+      "분산 원장"
+    ],
+    "explanation": "블록체인(Blockchain)은 중앙 집중형 중개자 없이 분산 네트워크 참여자 전원이 거래 장부를 공유하고 암호학적 해시 체인 및 합의 알고리즘을 통해 데이터의 신뢰성을 보장하는 분산 원장 기술(DLT)입니다.",
+    "trapPoint": "거래 정보를 블록 단위로 묶어 체인으로 연결한 분산 기술은 블록체인(Blockchain)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_11",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 11,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "프로젝트 관리 & 비용 산정",
+    "prompt": "아파치(Apache) 소프트웨어 재단에서 개발한 오픈소스 분산 컴퓨팅 프레임워크로, 일반 상용 서버들을 클러스터로 구성하여 대용량 데이터 세트를 분산 파일 시스템(HDFS)에 저장하고 맵리듀스(MapReduce)를 통해 병렬 처리하는 플랫폼의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "하둡",
+    "aliases": [
+      "하둡",
+      "Hadoop",
+      "hadoop",
+      "Apache Hadoop",
+      "아파치 하둡"
+    ],
+    "explanation": "하둡(Apache Hadoop)은 대규모 빅데이터를 저비용 컴퓨터 클러스터 환경에서 신뢰성 있게 분산 저장(HDFS)하고 병렬 처리(MapReduce)할 수 있도록 지원하는 대표적인 오픈소스 자바 프레임워크입니다.",
+    "trapPoint": "HDFS와 MapReduce를 기반으로 하는 분산 빅데이터 프레임워크는 하둡(Hadoop)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_12",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 12,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "관계 데이터베이스 설계 시 정규화를 거치지 않아 테이블 내에 불필요한 데이터 중복이 존재할 때 발생하는 데이터 이상(Anomaly) 현상 3가지를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "삽입 이상, 삭제 이상, 갱신 이상",
+    "aliases": [
+      "삽입 이상, 삭제 이상, 갱신 이상",
+      "삽입이상, 삭제이상, 갱신이상",
+      "삽입, 삭제, 갱신",
+      "삽입 이상 삭제 이상 갱신 이상"
+    ],
+    "explanation": "데이터베이스 이상의 3가지 유형:\n1. 삽입 이상(Insertion Anomaly): 불필요한 데이터를 함께 입력하지 않으면 원하는 데이터를 저장할 수 없는 현상\n2. 삭제 이상(Deletion Anomaly): 특정 튜플을 삭제할 때 의도하지 않은 연관 정보까지 연쇄 삭제되는 현상\n3. 갱신 이상(Modification/Update Anomaly): 일부 튜플만 수정되어 데이터 불일치(모순)가 발생하는 현상",
+    "trapPoint": "이상(Anomaly)의 3요소는 삽입 이상, 삭제 이상, 갱신 이상입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_13",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 13,
+    "category": "운영체제",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "다음 프로세스 상태 전이도에서 빈칸 (1), (2), (3)에 들어갈 프로세스의 상태 명칭을 각각 쓰시오.",
+    "passage": "       ┌───────────────┐\n       │   2. (   )    │ ──────── 종료 ───────► [ 완료 ]\n       └───────────────┘\n          ▲         │\n  디스패치│         │ 타이머 런 아웃\n          │         ▼\n       ┌───────────────┐           입출력 발생\n[ 생성 ]──►│   1. (   )    │◄─────── (Block)\n       └───────────────┘                │\n               ▲                        ▼\n               │      웨이크업   ┌───────────────┐\n               └─────────────────│   3. (   )    │\n                                 └───────────────┘",
+    "code": null,
+    "answer": "(1) 준비, (2) 실행, (3) 대기(블록)",
+    "aliases": [
+      "준비, 실행, 대기",
+      "준비, 실행, 블록",
+      "준비 실행 대기",
+      "Ready, Running, Waiting"
+    ],
+    "explanation": "프로세스 3대 상태 전이:\n1. 준비(Ready): CPU 할당(디스패치)을 기다리는 대기열 상태\n2. 실행(Running): CPU를 할당받아 명령어를 실행 중인 상태\n3. 대기(Waiting/Blocked): 입출력 등 외부 이벤트 발생으로 인해 완료를 기다리는 상태",
+    "trapPoint": "디스패치를 받아 실행 상태로 전이하는 것은 준비(Ready), 입출력 대기 상태는 대기(Waiting/Block)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_14",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 14,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "테스트 오라클(Test Oracle)의 4가지 유형 중 모든 입력값이 아니라 사전에 선별된 특정한 몇 개의 대표적인 입력값들에 대해서만 기대하는 결과를 제공하여 검증하는 오라클은 무엇인가?",
+    "passage": null,
+    "code": null,
+    "answer": "샘플링 오라클",
+    "aliases": [
+      "샘플링 오라클",
+      "샘플링오라클",
+      "Sampling Oracle",
+      "sampling oracle"
+    ],
+    "explanation": "테스트 오라클의 유형:\n- 참(True) 오라클: 모든 입력값에 대해 정확한 기대 결과 제공\n- 샘플링(Sampling) 오라클: 특정한 몇 개의 대표 입력값에 대해서만 기대 결과 제공\n- 휴리스틱(Heuristic) 오라클: 특정 입력값은 정확한 결과, 나머지는 추정(휴리스틱)으로 처리\n- 일관성 검사(Consistent) 오라클: 변경 전후의 결괏값이 동일한지 검사",
+    "trapPoint": "특정한 몇 개의 대표 입력값에 대해서만 기대 결과를 제공하는 오라클은 '샘플링 오라클'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_15",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 15,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "블랙박스 테스팅 기법",
+    "prompt": "다음과 같이 점수 구간별로 성적을 부여하는 모듈을 테스트하기 위해 [-10, 30, 65, 75, 85, 95, 110]의 대푯값을 선정하여 검증을 수행하였다. 사용된 블랙박스 테스트 기법의 명칭을 쓰시오.",
+    "passage": "[점수 구간 명세]\n| 점수 구간 | 부여 성적 |\n| --- | --- |\n| 0 ~ 59 | 가 |\n| 60 ~ 69 | 양 |\n| 70 ~ 79 | 미 |\n| 80 ~ 89 | 우 |\n| 90 ~ 100 | 수 |\n\n[선정된 테스트 값]: -10점(무효), 30점(가), 65점(양), 75점(미), 85점(우), 95점(수), 110점(무효)",
+    "code": null,
+    "answer": "동등 분할 테스트",
+    "aliases": [
+      "동등 분할 테스트",
+      "동등 분할",
+      "동등분할",
+      "동치 분할",
+      "동치분할",
+      "동등 분할 검사",
+      "동치 분할 검사",
+      "동치분할 테스트",
+      "Equivalence Partitioning"
+    ],
+    "explanation": "동등 분할(동치 분할, Equivalence Partitioning)은 입력 도메인을 유효/무효 영역(동치 클래스)으로 나누고 각 영역에서 대푯값을 하나씩 선정하여 테스트 케이스를 설계하는 블랙박스 테스트 기법입니다.",
+    "trapPoint": "경계값이 아닌 각 구간 내의 대표적인 중간값을 테스트 값으로 선정했으므로 '동등 분할(동치 분할)' 테스트입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_16",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 16,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "학생 테이블에서 학과별로 소속된 학생 수가 몇 명인지 구하는 SQL문을 작성하시오.",
+    "passage": "[작성 조건]\n- 대소문자를 구분하지 않는다.\n- WHERE 구문을 사용하지 않는다.\n- GROUP BY 절을 사용해야 한다.\n- 집계 함수를 사용해야 한다.\n- 학생 수에 대해 '학과별튜플수'라는 별칭(AS)을 사용해야 한다.\n- 세미콜론(;)은 생략 가능하다.\n\n[학생 테이블]\n| 학과 | 학생 |\n| --- | --- |\n| 전기 | 이순신 |\n| 컴퓨터 | 안중근 |\n| 컴퓨터 | 윤봉길 |\n| 전자 | 이봉창 |\n| 전자 | 강우규 |\n\n[조회 결과]\n| 학과 | 학과별튜플수 |\n| --- | --- |\n| 전기 | 1 |\n| 컴퓨터 | 2 |\n| 전자 | 2 |",
+    "code": null,
+    "answer": "SELECT 학과, COUNT(*) AS 학과별튜플수 FROM 학생 GROUP BY 학과;",
+    "aliases": [
+      "SELECT 학과, COUNT(*) AS 학과별튜플수 FROM 학생 GROUP BY 학과;",
+      "SELECT 학과, COUNT(*) AS 학과별튜플수 FROM 학생 GROUP BY 학과",
+      "SELECT 학과, COUNT(학과) AS 학과별튜플수 FROM 학생 GROUP BY 학과;",
+      "SELECT 학과, COUNT(학과) AS 학과별튜플수 FROM 학생 GROUP BY 학과",
+      "SELECT 학과, COUNT(학생) AS 학과별튜플수 FROM 학생 GROUP BY 학과;",
+      "SELECT 학과, COUNT(학생) AS 학과별튜플수 FROM 학생 GROUP BY 학과",
+      "select 학과, count(*) as 학과별튜플수 from 학생 group by 학과;",
+      "select 학과, count(*) as 학과별튜플수 from 학생 group by 학과"
+    ],
+    "explanation": "학과별 그룹화: `GROUP BY 학과`\n학생 수 집계 및 별칭: `COUNT(*) AS 학과별튜플수`\n전체 쿼리: `SELECT 학과, COUNT(*) AS 학과별튜플수 FROM 학생 GROUP BY 학과;`",
+    "trapPoint": "GROUP BY 절과 COUNT 집계 함수를 사용하고 AS 키워드로 별칭을 부여합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_17",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 17,
+    "category": "운영체제",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "1969년 벨 연구소의 켄 톰슨과 데니스 리치 등이 개발한 운영체제로, 대부분 C언어로 작성되어 이식성이 뛰어나며 트리 구조의 계층적 파일 시스템과 강력한 멀티유저/멀티태스킹 환경을 제공하는 대표적인 OS는 무엇인가?",
+    "passage": null,
+    "code": null,
+    "answer": "유닉스",
+    "aliases": [
+      "유닉스",
+      "UNIX",
+      "unix"
+    ],
+    "explanation": "유닉스(UNIX)는 벨 연구소에서 개발된 시분할 다중 사용자 운영체제로, 대부분 C언어로 개발되어 뛰어난 이식성과 개방성을 지니며 현대 운영체제들의 모태가 되었습니다.",
+    "trapPoint": "벨 연구소에서 C언어로 개발된 이식성 뛰어난 운영체제는 유닉스(UNIX)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_18",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 18,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 소스 코드의 출력 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nvoid main() {\n    char *p = \"KOREA\";\n    printf(\"%s\n\", p);\n    printf(\"%s\n\", p + 3);\n    printf(\"%c\n\", *p);\n    printf(\"%c\n\", *(p + 3));\n    printf(\"%c\n\", *p + 2);\n}",
+    "answer": "KOREA\nEA\nK\nE\nM",
+    "aliases": [
+      "KOREA\nEA\nK\nE\nM",
+      "KOREA EA K E M"
+    ],
+    "explanation": "문자열 포인터 p (\"KOREA\")의 연산:\n1. `p`: \"KOREA\" 문자열 전체 출력 -> KOREA\n2. `p + 3`: 인덱스 3('E')부터 출력 -> EA\n3. `*p`: 0번 문자 -> K\n4. `*(p + 3)`: 3번 문자 -> E\n5. `*p + 2`: 문자 'K'의 아스키 코드에 +2 -> 'M'",
+    "trapPoint": "*p + 2는 문자 'K'의 아스키 코드에 2를 더한 것이므로 문자 'M'이 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_19",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 19,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 오버라이딩 & 다형성",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    public int compute(int num) {\n        if (num <= 1) return num;\n        return compute(num - 1) + compute(num - 2);\n    }\n}\n\nclass Child extends Parent {\n    public int compute(int num) {\n        if (num <= 1) return num;\n        return compute(num - 1) + compute(num - 3);\n    }\n}\n\nclass good {\n    public static void main(String[] args) {\n        Parent obj = new Child();\n        System.out.print(obj.compute(4));\n    }\n}",
+    "answer": "1",
+    "aliases": [
+      "1"
+    ],
+    "explanation": "객체 인스턴스가 Child이므로 다형성에 의해 Child의 `compute()`가 호출됩니다.\nChild.compute(num):\n- compute(4) = compute(3) + compute(1)\n  - compute(1) = 1 (1 <= 1)\n  - compute(3) = compute(2) + compute(0)\n    - compute(0) = 0 (0 <= 1)\n    - compute(2) = compute(1) + compute(-1)\n      - compute(1) = 1\n      - compute(-1) = -1 (-1 <= 1)\n      - compute(2) = 1 + (-1) = 0\n    - compute(3) = 0 + 0 = 0\n  - compute(4) = 0 + 1 = 1\n최종 출력: 1",
+    "trapPoint": "부모 타입 참조 변수라도 실제 인스턴스가 Child이므로 Child의 compute가 호출되며, compute(num-1) + compute(num-3) 공식을 따릅니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_4_20",
+    "round_id": "2020_4",
+    "round_title": "2020년 제4회 기출 복원",
+    "id": 20,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "정보보안의 3대 요소(기밀성, 무결성, 가용성) 중 인가된 정당한 사용자가 정보와 정보 시스템을 필요로 할 때 언제든지 지체 없이 정상적으로 사용할 수 있도록 보장하는 특성을 무엇이라 하는가?",
+    "passage": null,
+    "code": null,
+    "answer": "가용성",
+    "aliases": [
+      "가용성",
+      "Availability",
+      "availability"
+    ],
+    "explanation": "정보보안 3대 원칙(CIA Triad):\n- 기밀성(Confidentiality): 인가되지 않은 비인가자의 열람 차단\n- 무결성(Integrity): 인가되지 않은 비인가자의 위조·변조 방지\n- 가용성(Availability): 인가된 사용자가 원할 때 언제든 자원을 정상 사용할 수 있도록 보장",
+    "trapPoint": "필요 시 언제든 정상 사용할 수 있도록 보장하는 보안 특성은 '가용성(Availability)'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_1",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 1,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "소프트웨어 아키텍처 & 설계",
+    "prompt": "소프트웨어 리팩토링(Refactoring)의 주요 목적을 서술하시오.",
+    "passage": null,
+    "code": null,
+    "answer": "소프트웨어의 외부 동작은 변경하지 않고 내부 구조를 개선하여 가독성과 유지보수성을 향상시키는 활동",
+    "aliases": [
+      "소프트웨어의 외부 동작은 변경하지 않고 내부 구조를 개선하여 가독성과 유지보수성을 향상시키는 활동",
+      "소프트웨어의 외부 동작을 바꾸지 않으면서 내부 구조를 개선하여 유지보수성을 높이는 것",
+      "코드의 가독성을 높이고 유지보수성을 향상시키기 위해 내부 구조를 개선하는 것",
+      "가독성 향상 및 유지보수성 향상"
+    ],
+    "explanation": "리팩토링(Refactoring)은 겉으로 드러나는 프로그램의 기능(외부 동작)은 전혀 바꾸지 않으면서, 내부 코드의 중복을 제거하고 구조를 개선하여 코드의 가독성, 유지보수성, 확장성을 높이는 작업입니다.",
+    "trapPoint": "새로운 기능을 추가하거나 동작을 바꾸는 것이 아니라, 오직 내부 구조 개선(클린 코드)을 통해 유지보수성을 높이는 활동입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_2",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 2,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 소스 코드의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nvoid main() {\n    int i = 0, c = 0;\n    while (i < 10) {\n        i++;\n        c *= i;\n    }\n    printf(\"%d\", c);\n}",
+    "answer": "0",
+    "aliases": [
+      "0"
+    ],
+    "explanation": "변수 c의 초깃값이 0입니다. while 루프 내부에서 `c *= i;` 연산을 반복하지만, 0에 어떤 숫자를 곱해도 0이므로 c의 값은 계속 0으로 유지됩니다.\n루프 종료 후 c의 값인 0이 출력됩니다.",
+    "trapPoint": "c의 초깃값이 0이므로 i가 아무리 커져도 c *= i의 결과는 0입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_3",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 3,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "대표적인 내부 라우팅 프로토콜(IGP)로, 다익스트라(Dijkstra)의 최단 경로 알고리즘을 사용하며 대규모 네트워크에 적합한 링크 상태(Link State) 라우팅 프로토콜의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "OSPF",
+    "aliases": [
+      "OSPF",
+      "ospf",
+      "Open Shortest Path First"
+    ],
+    "explanation": "OSPF(Open Shortest Path First)는 링크 상태 알고리즘(다익스트라 알고리즘)을 기반으로 최단 경로를 동적으로 계산하는 대표적인 내부 게이트웨이 프로토콜(IGP)입니다. 홉 수 제한이 없어 대규모 네트워크에 적합합니다.",
+    "trapPoint": "거리 벡터/벨만-포드는 RIP, 링크 상태/다익스트라는 OSPF입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_4",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 4,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "소프트웨어 형상 관리 (SCM)",
+    "prompt": "소프트웨어 형상 관리 절차 중 형상 항목의 기준선(Baseline)에 대한 변경 제안을 검토, 승인 또는 반려하여 변경 활동을 통제하는 활동의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "형상 통제",
+    "aliases": [
+      "형상 통제",
+      "형상통제",
+      "Configuration Control",
+      "configuration control"
+    ],
+    "explanation": "형상 관리 활동 4단계:\n1. 형상 식별: 관리 대상 식별 및 베이스라인 지정\n2. 형상 통제: 형상통제위원회(CCB)의 승인을 거쳐 변경 제어\n3. 형상 감사: 베이스라인의 무결성 및 반영 검증\n4. 형상 기록: 변경 이력 및 현황 추적 기록",
+    "trapPoint": "베이스라인의 변경 여부를 심의·통제하는 것은 '형상 통제'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_5",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 5,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "서로 다른 컴퓨터 시스템이나 통신 장비 간에 원활한 데이터 교환을 수행하기 위해 사전에 정의한 통신 규약이자 규칙의 총칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "프로토콜",
+    "aliases": [
+      "프로토콜",
+      "통신 규약",
+      "통신 프로토콜",
+      "Protocol",
+      "protocol"
+    ],
+    "explanation": "프로토콜(Protocol)은 컴퓨터 네트워크 환경에서 기기 간 데이터 교환을 정확하고 일관되게 수행하기 위해 정해둔 구문, 의미, 타이밍의 통신 규칙 체계입니다.",
+    "trapPoint": "기기 간 데이터 송수신 규약은 프로토콜(Protocol)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_6",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 6,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "TCP/IP 프로토콜 스위트에서 IP 패킷 전송 중 오류가 발생했을 때 진단 및 오류 메시지(Destination Unreachable, Time Exceeded 등)를 송신자에게 전달하기 위해 사용하는 네트워크 계층 프로토콜의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "ICMP",
+    "aliases": [
+      "ICMP",
+      "icmp",
+      "Internet Control Message Protocol"
+    ],
+    "explanation": "ICMP(Internet Control Message Protocol)는 IP 패킷 전송 중 발생하는 경로 이상, 패킷 폐기 등의 오류 통보 및 진단(ping, traceroute)을 수행하는 네트워크 계층의 보조 프로토콜입니다.",
+    "trapPoint": "IP 제어 및 오류 통지 프로토콜은 ICMP입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_7",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 7,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "화이트박스 테스팅 & 순환복잡도",
+    "prompt": "다음 제어 흐름 그래프에서 분기 커버리지(Branch Coverage, 결정 커버리지)를 100% 만족하기 위한 2개의 테스팅 경로 순서를 쓰시오.",
+    "passage": "       ┌─── ( 1 ) ───┐ <───────────┐\n       │   [POINTER  │             │\n       │  = FALSE]   │             │\n       ▼             │             │\n     ◇ ( 2 )         │             │\n    /  [X > K ?]     │             │\n   / YES        \\ NO │             │\n  ▼              ▼   │             │\n( 3 )            │   │             │\n[POINTER=TRUE]   │   │             │\n  │              │   │             │\n  └───► ( 4 ) ◄──┘   │             │\n       [X = X + 2]   │             │\n            │        │             │\n            ▼        │             │\n          ( 5 )      │             │\n       [CALL SUB]    │             │\n            │        │             │\n            ▼        │             │\n          ◇ ( 6 )    │             │\n      [RESULT > 1 ?] │             │\n       / YES         │             │\n      └──────────────┘             │\n       \\ NO                        │\n        ▼                          │\n      ( 7 ) [PRINT RESULT]         │\n\n※ 분기점 조건:\n- 2번 노드(X > K ?): YES(3번 경유) / NO(4번으로 직행)\n- 6번 노드(RESULT > 1 ?): YES(1번으로 복귀 루프) / NO(7번으로 종료)",
+    "code": null,
+    "answer": "1234561, 124567",
+    "aliases": [
+      "1234561, 124567",
+      "124567, 1234561",
+      "1234567, 124561",
+      "124561, 1234567",
+      "1-2-3-4-5-6-1, 1-2-4-5-6-7",
+      "1->2->3->4->5->6->1, 1->2->4->5->6->7"
+    ],
+    "explanation": "분기 커버리지(결정 커버리지)는 제어 흐름 그래프 내의 모든 분기문(조건식)이 True와 False의 모든 결과를 적어도 한 번씩 실행해야 합니다.\n- 2번 조건식: True (3 경유), False (직행)\n- 6번 조건식: True (1로 루프), False (7로 이동)\n따라서 두 분기점의 참과 거짓을 교차 수행하는 최소 두 경로는 `1234561, 124567` (또는 `1234567, 124561`) 입니다.",
+    "trapPoint": "각 분기점(2번과 6번)의 True 분기와 False 분기가 두 테스트 경로에 모두 포함되어야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_8",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 8,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "성적 테이블에서 과목별 점수의 평균이 90 이상인 과목의 과목이름, 최소점수, 최대점수를 조회하는 SQL문을 작성하시오.",
+    "passage": "[작성 조건]\n- 대소문자를 구분하지 않는다.\n- WHERE 구문을 사용하지 않는다.\n- GROUP BY, HAVING 구문을 반드시 사용한다.\n- 집계 함수 MIN, MAX, AVG를 사용한다.\n- 최소점수, 최대점수는 별칭(AS)을 사용해야 한다.\n- 세미콜론(;)은 생략 가능하다.\n\n[성적 테이블]\n| 과목코드 | 과목이름 | 학점 | 점수 |\n| --- | --- | --- | --- |\n| 1000 | 컴퓨터과학 | A+ | 95 |\n| 2000 | 운영체제 | B+ | 85 |\n| 1000 | 컴퓨터과학 | B+ | 85 |\n| 2000 | 운영체제 | B | 80 |\n\n[조회 결과]\n| 과목이름 | 최소점수 | 최대점수 |\n| --- | --- | --- |\n| 컴퓨터과학 | 85 | 95 |",
+    "code": null,
+    "answer": "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90;",
+    "aliases": [
+      "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90;",
+      "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90",
+      "select 과목이름, min(점수) as 최소점수, max(점수) as 최대점수 from 성적 group by 과목이름 having avg(점수) >= 90;",
+      "select 과목이름, min(점수) as 최소점수, max(점수) as 최대점수 from 성적 group by 과목이름 having avg(점수) >= 90"
+    ],
+    "explanation": "과목이름별 그룹화 및 그룹 조건 질의:\n`SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90;`",
+    "trapPoint": "그룹화된 결과에 대한 필터링 조건은 WHERE가 아닌 HAVING 절을 사용해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_9",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 9,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "학생 테이블에서 이름이 '민수'인 학생의 튜플을 삭제하는 SQL DML 문을 작성하시오.",
+    "passage": "[학생 테이블]\n| 학번 | 이름 | 점수 | 과목이름 |\n| --- | --- | --- | --- |\n| 1000 | 김정미 | 90 | 알고리즘 |\n| 2000 | 강은미 | 95 | 데이터베이스 |\n| 3000 | 홍길동 | 90 | 전산수학 |\n| 4000 | 민수 | 95 | 운영체제 |",
+    "code": null,
+    "answer": "DELETE FROM 학생 WHERE 이름 = '민수';",
+    "aliases": [
+      "DELETE FROM 학생 WHERE 이름 = '민수';",
+      "DELETE FROM 학생 WHERE 이름 = '민수'",
+      "DELETE FROM 학생 WHERE 이름='민수';",
+      "DELETE FROM 학생 WHERE 이름='민수'",
+      "delete from 학생 where 이름 = '민수';",
+      "delete from 학생 where 이름 = '민수'"
+    ],
+    "explanation": "특정 튜플 삭제 SQL 문법: `DELETE FROM 테이블명 WHERE 조건;`\n따라서 `DELETE FROM 학생 WHERE 이름 = '민수';` 입니다.",
+    "trapPoint": "테이블 자체를 삭제하는 DROP과 달리 특정 행을 삭제할 때는 DELETE FROM을 사용합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_10",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 10,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "관계 대수(Relational Algebra) 연산자 중 릴레이션 R, S가 있을 때 S의 모든 조건을 만족하는 R의 튜플들을 추출하여 분리해내는 디비전(Division) 연산의 수학 기호를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "÷",
+    "aliases": [
+      "÷",
+      "/",
+      "디비전",
+      "Division",
+      "division"
+    ],
+    "explanation": "순수 관계 연산자의 수학 기호:\n- 셀렉션: σ (Sigma)\n- 프로젝션: π (Pi)\n- 조인: ⋈ (Bowtie)\n- 디비전: ÷ (Division)",
+    "trapPoint": "디비전 연산의 수학 기호는 나눗셈 기호인 ÷ 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_11",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 11,
+    "category": "소프트웨어공학",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "변수나 함수의 식별자(Identifier) 명명 규칙 중 변수명 접두어에 해당 변수의 자료형(데이터 타입)을 축약하여 표기하는 명명법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "헝가리안 표기법",
+    "aliases": [
+      "헝가리안 표기법",
+      "헝가리안표기법",
+      "헝가리안",
+      "Hungarian Notation",
+      "Hungarian Case"
+    ],
+    "explanation": "헝가리안 표기법(Hungarian Notation)은 마이크로소프트의 찰스 시모니가 제안한 명명법으로, `strName`(문자열), `nAge`(정수)처럼 변수 이름 앞에 자료형 축약형을 접두어로 붙이는 표기법입니다.",
+    "trapPoint": "자료형을 접두어로 붙이는 표기법은 헝가리안 표기법입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_12",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 12,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "블랙박스 테스팅 기법",
+    "prompt": "소프트웨어 테스트 기법 중 프로그램의 내부 소스 코드를 보지 않고 기능 명세서를 기반으로 입력값에 대한 출력 결과의 일치 여부를 검증하는 기법으로 동등 분할(동치 분할), 경계값 분석, 원인-결과 그래프 등이 속하는 테스트 방식을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "블랙박스 테스트",
+    "aliases": [
+      "블랙박스 테스트",
+      "블랙박스테스트",
+      "블랙박스",
+      "Black Box Test",
+      "Black-box test",
+      "명세 기반 테스트"
+    ],
+    "explanation": "블랙박스 테스트(Black-box Test, 명세 기반 테스트)는 소프트웨어 내부 로직을 보지 않고 요구사항 명세서에 정의된 입력에 대해 예상된 출력이 정상적으로 반환되는지를 검증하는 기능 테스트 방식입니다.",
+    "trapPoint": "동등 분할, 경계값 분석 등 명세 기반 테스트 기법은 블랙박스 테스트에 해당합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_13",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 13,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 소스 코드의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint r1() {\n    return 4;\n}\n\nint r10() {\n    return (30 + r1());\n}\n\nint r100() {\n    return (200 + r10());\n}\n\nint main() {\n    printf(\"%d\n\", r100());\n    return 0;\n}",
+    "answer": "234",
+    "aliases": [
+      "234"
+    ],
+    "explanation": "함수 호출 연쇄:\n1. r100() 호출 -> 200 + r10()\n2. r10() 호출 -> 30 + r1()\n3. r1() 호출 -> 4 반환\n4. r10() 반환값 = 30 + 4 = 34\n5. r100() 반환값 = 200 + 34 = 234\n최종 출력: 234",
+    "trapPoint": "함수 반환값의 중첩 계산: 200 + (30 + 4) = 234 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_14",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 14,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "데이터베이스의 전체적인 논리적 구조, 엔티티, 속성, 관계 및 제약조건 등을 정의한 메타데이터의 기술(Description)이자 기본적인 틀을 의미하는 용어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "스키마",
+    "aliases": [
+      "스키마",
+      "Schema",
+      "schema",
+      "DB 스키마",
+      "데이터베이스 스키마"
+    ],
+    "explanation": "스키마(Schema)는 데이터베이스의 구조와 제약 조건에 관한 전반적인 명세를 기술한 메타데이터로, ANSI/SPARC 3단계 구조(외부 스키마, 개념 스키마, 내부 스키마)로 나뉩니다.",
+    "trapPoint": "데이터베이스 구조와 제약조건을 기술한 전체적인 틀은 스키마(Schema)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_15",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 15,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "abstract class Vehicle {\n    private String name;\n    abstract public String getName(String val);\n    public String getName() {\n        return \"Vehicle name:\" + name;\n    }\n    public void setName(String val) {\n        name = val;\n    }\n}\n\nclass Car extends Vehicle {\n    public Car(String val) {\n        setName(val);\n    }\n    public String getName(String val) {\n        return \"Car name : \" + val;\n    }\n    public String getName(byte val[]) {\n        return \"Car name : \" + val;\n    }\n}\n\npublic class good {\n    public static void main(String[] args) {\n        Vehicle obj = new Car(\"Spark\");\n        System.out.print(obj.getName());\n    }\n}",
+    "answer": "Vehicle name:Spark",
+    "aliases": [
+      "Vehicle name:Spark",
+      "Vehicle name: Spark",
+      "vehicle name:Spark"
+    ],
+    "explanation": "1. `Vehicle obj = new Car(\"Spark\");` 호출 시 Car의 생성자가 `setName(\"Spark\")`를 실행하여 Vehicle의 name 멤버변수에 \"Spark\"를 저장합니다.\n2. `obj.getName()` 호출 시 인자가 없습니다. Car 클래스는 매개변수가 있는 `getName(String)`과 `getName(byte[])`만 오버로딩 정의하였고, 인자가 없는 `getName()`은 오버라이딩하지 않았습니다.\n3. 따라서 상속받은 부모(Vehicle)의 `getName()`이 호출되어 `\"Vehicle name:\" + name` 즉 `Vehicle name:Spark` 가 출력됩니다.",
+    "trapPoint": "자식 클래스가 인자 없는 getName()을 재정의(오버라이딩)하지 않았으므로 부모 클래스의 getName()이 그대로 호출됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_16",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 16,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "사용자 인터페이스(UI) 설계 원칙 중 사용자가 별도의 사전 교육이나 학습 없이도 시스템의 기능을 직관적으로 쉽게 이해하고 쉽게 조작할 수 있어야 한다는 원칙의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "직관성",
+    "aliases": [
+      "직관성",
+      "Intuitiveness",
+      "intuitiveness"
+    ],
+    "explanation": "UI 4대 원칙:\n- 직관성(Intuitiveness): 누구나 쉽게 이해하고 조작 가능\n- 유효성(Effectiveness): 사용자의 목적을 정확하고 완벽하게 달성\n- 학습성(Learnability): 누구나 쉽게 학습하고 기억\n- 유연성(Flexibility): 사용자의 요구사항을 최대한 수용",
+    "trapPoint": "사전 지식 없이도 쉽게 이해하고 쓸 수 있어야 한다는 원칙은 '직관성'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_17",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 17,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class good {\n    public static void main(String[] args) {\n        int i = 0;\n        int sum = 0;\n        while (i < 10) {\n            i++;\n            if (i % 2 == 1)\n                continue;\n            sum += i;\n        }\n        System.out.println(sum);\n    }\n}",
+    "answer": "30",
+    "aliases": [
+      "30"
+    ],
+    "explanation": "i가 1부터 10까지 1씩 증가합니다. `i % 2 == 1`인 홀수는 continue로 건너뛰고, 짝수일 때만 sum에 누적됩니다.\n누적되는 짝수: 2 + 4 + 6 + 8 + 10 = 30\n출력: 30",
+    "trapPoint": "1부터 10까지 짝수의 누적합(2+4+6+8+10 = 30)을 구하는 코드입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_18",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 18,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "EAI & 인터페이스 연계",
+    "prompt": "기업 애플리케이션 통합(EAI)의 4대 구축 유형 중 빈칸 (1), (2)에 들어갈 유형을 각각 쓰시오.",
+    "passage": "( 1 ) 가장 기초적인 연계 방식으로, 애플리케이션들을 1:1로 직접 연결하는 방식\n( 2 ) 단일 접점인 중앙 허브 시스템을 두고 데이터를 전송하는 중앙 집중형 방식\n- Message Bus: 미들웨어(버스)를 두어 애플리케이션 간 대용량 메시지를 중계하는 방식\n- Hybrid: Hub & Spoke와 Message Bus 방식을 결합한 형태",
+    "code": null,
+    "answer": "(1) 포인트 투 포인트, (2) 허브 앤 스포크",
+    "aliases": [
+      "포인트 투 포인트, 허브 앤 스포크",
+      "포인트투포인트, 허브앤스포크",
+      "Point-to-point, Hub & Spoke"
+    ],
+    "explanation": "EAI의 4대 토폴로지 모델:\n1. Point-to-point: 애플리케이션 간 1:1 직접 연결\n2. Hub & Spoke: 중앙의 단일 허브를 통한 중계\n3. Message Bus: 공통 버스를 통한 비동기 메시지 교환\n4. Hybrid: 허브 앤 스포크 + 메시지 버스 혼용",
+    "trapPoint": "1:1 연결은 포인트 투 포인트, 중앙 허브 중계는 허브 앤 스포크입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_19",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 19,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "객체지향 프로그래밍(OOP)에서 클래스로부터 객체(인스턴스)가 생성될 때 멤버 변수의 초기화 등을 위해 자동으로 호출되는 특수한 메서드를 무엇이라 하는가?",
+    "passage": null,
+    "code": null,
+    "answer": "생성자",
+    "aliases": [
+      "생성자",
+      "Constructor",
+      "constructor"
+    ],
+    "explanation": "생성자(Constructor)는 객체가 new 키워드로 인스턴스화될 때 자동으로 단 한 번 호출되어 객체의 초기 상태를 설정하는 특수 메서드입니다.",
+    "trapPoint": "객체 생성 시 자동 호출되는 초기화 메서드는 생성자(Constructor)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_3_20",
+    "round_id": "2020_3",
+    "round_title": "2020년 제3회 기출 복원",
+    "id": 20,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "DDL 테이블 정의 & 제약조건",
+    "prompt": "기존의 학생 테이블에 VARCHAR(20) 타입의 '주소' 속성을 새로 추가하는 SQL DDL 문의 빈칸 (1), (2)에 알맞은 키워드를 쓰시오.",
+    "passage": "(   1   ) TABLE 학생 (   2   ) 주소 VARCHAR(20);",
+    "code": null,
+    "answer": "(1) ALTER, (2) ADD",
+    "aliases": [
+      "ALTER, ADD",
+      "alter, add",
+      "ALTER ADD",
+      "alter add"
+    ],
+    "explanation": "테이블 구조 변경(컬럼 추가) 문법: `ALTER TABLE 테이블명 ADD 컬럼명 데이터타입;`\n따라서 (1) ALTER, (2) ADD 입니다.",
+    "trapPoint": "테이블 수정 키워드는 ALTER, 컬럼 추가 키워드는 ADD 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_1",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 1,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "소프트웨어 아키텍처 & 설계",
+    "prompt": "정보시스템 운영 중 서버 다운, 자연재해, 시스템 장애 등의 비상사태로 업무가 중단되었을 때, 업무 중단 시점부터 시스템과 서비스가 복구되어 다시 정상 가동될 때까지의 목표 허용 시간을 뜻하는 용어 또는 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "RTO",
+    "aliases": [
+      "RTO",
+      "rto",
+      "목표 복구 시간",
+      "목표복구시간",
+      "재해 복구 시간",
+      "재해복구시간",
+      "Recovery Time Objective"
+    ],
+    "explanation": "- RTO(Recovery Time Objective, 목표 복구 시간): 중단 시점부터 업무가 정상 재개될 때까지 허용되는 최대 시간\n- RPO(Recovery Point Objective, 목표 복구 시점): 재해 발생 시 감수할 수 있는 최대 데이터 손실 시점",
+    "trapPoint": "복구 소요 '시간'은 RTO(Recovery Time Objective), 데이터 복구 '시점'은 RPO(Recovery Point Objective)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_2",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 2,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 컬렉션 자료구조",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = {'일본', '중국', '한국'}\na.add('베트남')\na.add('중국')\na.remove('일본')\na.update(['홍콩', '한국', '태국'])\nprint(a)",
+    "answer": "{'중국', '한국', '베트남', '홍콩', '태국'}",
+    "aliases": [
+      "{'중국', '한국', '베트남', '홍콩', '태국'}",
+      "{'중국', '한국', '베트남', '태국', '홍콩'}",
+      "{'베트남', '중국', '한국', '홍콩', '태국'}",
+      "중국, 한국, 베트남, 홍콩, 태국",
+      "중국, 한국, 베트남, 태국, 홍콩"
+    ],
+    "explanation": "파이썬 집합(set) 연산 과정:\n1. 초기: {'일본', '중국', '한국'}\n2. a.add('베트남') -> {'일본', '중국', '한국', '베트남'}\n3. a.add('중국') -> 중복이므로 변화 없음\n4. a.remove('일본') -> {'중국', '한국', '베트남'}\n5. a.update(['홍콩', '한국', '태국']) -> '한국'은 중복 무시, '홍콩', '태국' 추가 -> {'중국', '한국', '베트남', '홍콩', '태국'}\n※ set은 순서가 없으므로 5개 원소가 담긴 집합 형태로 출력됩니다.",
+    "trapPoint": "set 자료형은 중복을 허용하지 않으며 집합 기호 {}로 감싸져 출력됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_3",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 3,
+    "category": "소프트웨어공학",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "웹 브라우저의 XMLHttpRequest 객체를 이용하여 전체 페이지를 새로고침하지 않고도 백그라운드에서 서버와 비동기적으로 데이터를 주고받아 화면의 일부분만을 동적으로 갱신할 수 있는 웹 기술의 명칭 또는 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "AJAX",
+    "aliases": [
+      "AJAX",
+      "Ajax",
+      "ajax",
+      "Asynchronous JavaScript and XML",
+      "비동기 통신",
+      "비동기 자바스크립트와 XML"
+    ],
+    "explanation": "AJAX(Asynchronous JavaScript and XML)는 웹 페이지 전체를 다시 로드하지 않고 필요한 일부분의 데이터만 백그라운드에서 송수신하여 빠르게 화면을 갱신하는 비동기 웹 프로그래밍 기술입니다.",
+    "trapPoint": "XMLHttpRequest 객체를 통한 비동기 웹 통신 기술은 AJAX입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_4",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 4,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "개발 방법론 & SDLC",
+    "prompt": "절차나 도구보다는 사람이 중심이 되어 소프트웨어 개발 과정에서 변화에 유연하고 신속하게 적응하면서 짧은 주기로 반복 개발하는 신속 적응적 경량 개발 방법론을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "애자일",
+    "aliases": [
+      "애자일",
+      "애자일 방법론",
+      "Agile",
+      "agile",
+      "Agile 방법론"
+    ],
+    "explanation": "애자일(Agile) 방법론은 계획 중심의 전통적 폭포수(Waterfall) 모델과 대비되어, 짧은 주기(이터레이션/스프린트) 단위로 작동 가능한 소프트웨어를 지속 출시하며 고객 피드백을 신속히 반영하는 경량 개발 방식입니다.",
+    "trapPoint": "기민하고 신속하게 변화에 대응하는 경량 개발 방법론은 애자일(Agile)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_5",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 5,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 코드에서 Child 객체를 동적으로 생성하여 부모 클래스 참조 변수에 할당하고자 한다. 밑줄 빈칸에 들어갈 키워드를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    public void show() {\n        System.out.println(\"Parent\");\n    }\n}\n\nclass Child extends Parent {\n    public void show() {\n        System.out.println(\"Child\");\n    }\n}\n\npublic class good {\n    public static void main(String[] args) {\n        Parent pa = _____ Child();\n        pa.show();\n    }\n}",
+    "answer": "new",
+    "aliases": [
+      "new",
+      "NEW"
+    ],
+    "explanation": "자바에서 클래스의 생성자를 호출하여 힙(Heap) 메모리에 인스턴스를 동적으로 할당할 때 사용하는 연산자는 `new` 입니다. (`Parent pa = new Child();` 다형성 할당)",
+    "trapPoint": "객체 인스턴스를 생성할 때 사용하는 연산자는 new 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_6",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 6,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "학생 테이블(학번, 이름, 학년, 수강과목, 점수, 연락처)에서 학년이 3학년이거나 4학년인 학생의 학번과 이름을 조회하고자 한다. 아래 조건을 만족하는 SQL문을 작성하시오.",
+    "passage": "[조건]\n1. 학생 테이블에서 3, 4학년인 학생의 학번, 이름을 조회한다.\n2. IN 연산자를 반드시 사용해야 한다.\n3. 세미콜론(;)은 생략 가능하다.\n\n[학생 테이블]\n| 학번 | 이름 | 학년 | 수강과목 | 점수 | 연락처 |\n| --- | --- | --- | --- | --- | --- |\n| 1000 | 김이름 | 1 | 수학 | 90 | 010-1111-2222 |\n| 2000 | 장이름 | 2 | 과학 | 95 | 010-2222-2222 |\n| 3000 | 허이름 | 3 | 미술 | 90 | 010-3333-3333 |\n| 4000 | 조이름 | 4 | 음악 | 95 | 010-4444-4444 |",
+    "code": null,
+    "answer": "SELECT 학번, 이름 FROM 학생 WHERE 학년 IN (3, 4);",
+    "aliases": [
+      "SELECT 학번, 이름 FROM 학생 WHERE 학년 IN (3, 4);",
+      "SELECT 학번, 이름 FROM 학생 WHERE 학년 IN (3, 4)",
+      "SELECT 학번, 이름 FROM 학생 WHERE 학년 IN (3,4);",
+      "SELECT 학번, 이름 FROM 학생 WHERE 학년 IN (3,4)",
+      "select 학번, 이름 from 학생 where 학년 in (3, 4);",
+      "select 학번, 이름 from 학생 where 학년 in (3, 4)",
+      "select 학번, 이름 from 학생 where 학년 in (3,4);",
+      "select 학번, 이름 from 학생 where 학년 in (3,4)",
+      "SELECT 학번,이름 FROM 학생 WHERE 학년 IN (3,4);",
+      "SELECT 학번,이름 FROM 학생 WHERE 학년 IN (3,4)"
+    ],
+    "explanation": "학년이 3 또는 4인 학생을 IN 연산자로 필터링하는 질의문:\n`SELECT 학번, 이름 FROM 학생 WHERE 학년 IN (3, 4);`",
+    "trapPoint": "IN 연산자 괄호 안에 대상 값들을 콤마로 나열합니다. 조회할 속성은 학번, 이름입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_7",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 7,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "데이터베이스 트랜잭션 제어어(TCL) 중 ROLLBACK(롤백)의 개념을 서술하시오.",
+    "passage": null,
+    "code": null,
+    "answer": "트랜잭션 실행 중 오류가 발생했을 때 변경 사항을 취소하고 이전 상태로 되돌리는 연산",
+    "aliases": [
+      "트랜잭션 실행 중 오류가 발생했을 때 변경 사항을 취소하고 이전 상태로 되돌리는 연산",
+      "트랜잭션 처리 중 오류가 발생했을 때 트랜잭션의 연산을 취소하고 이전 상태로 되돌리는 명령어",
+      "트랜잭션 취소",
+      "원자성을 보장하기 위해 트랜잭션의 변경사항을 취소하고 이전 상태로 복구하는 연산"
+    ],
+    "explanation": "ROLLBACK은 트랜잭션의 비정상 종료나 오류 발생 시, 원자성(Atomicity)을 보장하기 위해 트랜잭션이 수행한 데이터베이스 변경 내용을 모두 취소하고 트랜잭션 시작 이전 또는 특정 저장점(SAVEPOINT) 상태로 되돌리는 제어어입니다.",
+    "trapPoint": "COMMIT은 영구 반영, ROLLBACK은 취소 및 이전 상태 복귀입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_8",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 8,
+    "category": "보안",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "네트워크 계층(IP 계층)에서 무결성과 인증을 보장하는 인증 헤더(AH)와 기밀성을 보장하는 암호화(ESP)를 제공하여 통신의 보안성을 향상시키는 표준 프로토콜의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "IPSec",
+    "aliases": [
+      "IPSec",
+      "IPsec",
+      "IPSEC",
+      "Internet Protocol Security"
+    ],
+    "explanation": "IPSec(IP Security)은 3계층(네트워크 계층)에서 IP 패킷을 보호하기 위한 표준 프로토콜로, 인증 헤더(AH)와 암호화 캡슐화 페이로드(ESP), 키 교환 프로토콜(IKE)을 사용합니다.",
+    "trapPoint": "네트워크 계층 보안 표준 프로토콜이자 AH와 ESP로 구성된 것은 IPSec입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_9",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 9,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "애플리케이션 프로그램을 직접 실행하지 않고 소스 코드 자체를 분석하여 코딩 표준 준수 여부, 스타일, 복잡도 및 잠재적 결함을 사전에 검출하기 위해 사용하는 테스트 도구 유형을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "정적 분석 도구",
+    "aliases": [
+      "정적 분석 도구",
+      "정적 분석",
+      "정적 테스트 도구",
+      "정적 테스트",
+      "Static Analysis Tool",
+      "Static Analysis"
+    ],
+    "explanation": "정적 분석 도구(Static Analysis Tool)는 소스 코드를 실행하지 않고 구문 분석, 타입 검사, 잠재 결함 및 코딩 표준 준수 여부를 검사하는 도구입니다 (예: SonarQube, Checkstyle). 반대로 실행하면서 검사하는 것은 동적 분석 도구입니다.",
+    "trapPoint": "실행하지 않고 코드를 분석하는 것은 정적 분석(Static Analysis)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_10",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 10,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "GoF 디자인 패턴 중 다음 설명에 해당하는 행위 패턴의 영문 명칭(Full Name)을 쓰시오.",
+    "passage": "[보기]\n한 객체의 상태가 바뀌면 그 객체에 의존하는 다른 모든 객체들에게 자동으로 통지가 가고 내용이 갱신되는 1:N 의존 관계를 정의하는 패턴으로, 발행-구독(Publish-Subscribe) 모델로도 잘 알려져 있다.",
+    "code": null,
+    "answer": "Observer Pattern",
+    "aliases": [
+      "Observer Pattern",
+      "Observer pattern",
+      "observer pattern",
+      "Observer",
+      "옵저버 패턴",
+      "옵서버 패턴"
+    ],
+    "explanation": "옵저버 패턴(Observer Pattern)은 한 객체(Subject)의 상태 변화가 있을 때 이를 등록된 모든 관찰자(Observer) 객체들에게 자동으로 알림으로써 느슨한 결합을 유지하는 행위 디자인 패턴입니다.",
+    "trapPoint": "영문 풀네임 요구 시 `Observer Pattern`으로 작성합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_11",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 11,
+    "category": "운영체제",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "리눅스(Linux) 커널을 기반으로 모바일 기기를 위해 개발된 오픈소스 운영체제로, 자바와 코틀린으로 앱을 작성할 수 있으며 ART(Android Runtime) 라이브러리를 제공하는 구글의 대표적인 모바일 OS는 무엇인가?",
+    "passage": null,
+    "code": null,
+    "answer": "안드로이드",
+    "aliases": [
+      "안드로이드",
+      "Android",
+      "android"
+    ],
+    "explanation": "안드로이드(Android)는 구글이 주도하는 오픈 핸드셋 얼라이언스(OHA)가 개발한 모바일 운영체제로, 리눅스 커널 기반의 오픈소스 플랫폼입니다.",
+    "trapPoint": "리눅스 기반 모바일 운영체제는 안드로이드(Android)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_12",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 12,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "뷰(View) & 인덱스 최적화",
+    "prompt": "학생 테이블의 NAME 속성에 대해 `IDX_NAME`이라는 이름으로 인덱스를 생성하는 표준 SQL DDL 문을 작성하시오.",
+    "passage": "[학생 테이블]\n| STID | NAME | SCORE | DEPTID |\n| --- | --- | --- | --- |\n| 1000 | 김이름 | 90 | 1 |\n| 2000 | 허이름 | 95 | 2 |\n| 3000 | 조이름 | 90 | 3 |\n| 4000 | 장이름 | 95 | 4 |",
+    "code": null,
+    "answer": "CREATE INDEX IDX_NAME ON 학생(NAME);",
+    "aliases": [
+      "CREATE INDEX IDX_NAME ON 학생(NAME);",
+      "CREATE INDEX IDX_NAME ON 학생(NAME)",
+      "create index idx_name on 학생(name);",
+      "create index idx_name on 학생(name)",
+      "CREATE INDEX IDX_NAME ON 학생 (NAME);",
+      "CREATE INDEX IDX_NAME ON 학생 (NAME)"
+    ],
+    "explanation": "인덱스 생성 DDL 문법:\n`CREATE INDEX 인덱스명 ON 테이블명(속성명);`\n따라서 `CREATE INDEX IDX_NAME ON 학생(NAME);` 입니다.",
+    "trapPoint": "CREATE INDEX [인덱스명] ON [테이블명]([컬럼명]); 구문을 정확히 지켜야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_13",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 13,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "EAI & 인터페이스 연계",
+    "prompt": "HTTP, HTTPS, SMTP 등을 통해서 XML 기반의 메시지를 네트워크상에서 교환하는 웹 서비스 표준 프로토콜로, WSDL 및 UDDI와 함께 웹 서비스 기술의 핵심을 구성하는 프로토콜의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "SOAP",
+    "aliases": [
+      "SOAP",
+      "soap",
+      "Simple Object Access Protocol"
+    ],
+    "explanation": "SOAP(Simple Object Access Protocol)은 분산 환경에서 이기종 시스템 간 정보 교환을 위해 XML 기반 메시지 봉투(Envelope), 헤더(Header), 바디(Body) 규격을 정의한 프로토콜입니다.",
+    "trapPoint": "XML 기반의 웹 서비스 통신 프로토콜은 SOAP입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_14",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 14,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "웹 애플리케이션의 취약점을 악용하여 공격자가 사용자 입력 폼이나 URL 파라미터에 악의적인 SQL 구문을 삽입·실행시켜 데이터베이스의 정보를 무단 열람, 조작하거나 인증을 우회하는 공격 기법을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "SQL 인젝션",
+    "aliases": [
+      "SQL 인젝션",
+      "SQL인젝션",
+      "SQL 삽입",
+      "SQL 삽입 공격",
+      "SQL Injection",
+      "SQL injection"
+    ],
+    "explanation": "SQL 인젝션(SQL Injection, SQL 삽입 공격)은 검증되지 않은 외부 입력을 동적 쿼리에 결합할 때 발생하는 취약점으로, 이를 방어하기 위해 바인드 변수(Prepared Statement)를 사용해야 합니다.",
+    "trapPoint": "데이터베이스 질의문을 삽입 조작하는 공격은 SQL 인젝션(SQL 삽입)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_15",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 15,
+    "category": "운영체제",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "리눅스/유닉스 환경에서 파일 `a.txt`에 대해 파일 소유자(사용자)에게는 읽기/쓰기/실행 권한(rwx), 그룹에게는 읽기/실행 권한(r-x), 기타 사용자에게는 실행 권한(--x)을 부여하는 명령어를 8진법 숫자를 사용하여 한 줄로 작성하시오.",
+    "passage": null,
+    "code": null,
+    "answer": "chmod 751 a.txt",
+    "aliases": [
+      "chmod 751 a.txt",
+      "chmod 751 ./a.txt"
+    ],
+    "explanation": "권한 8진수 계산:\n- 소유자: r(4) + w(2) + x(1) = 7\n- 그룹: r(4) + -(0) + x(1) = 5\n- 기타: -(0) + -(0) + x(1) = 1\n따라서 명령어는 `chmod 751 a.txt` 입니다.",
+    "trapPoint": "8진수 권한값은 (소유자, 그룹, 기타) 순서로 751 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_16",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 16,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "사용자 인터페이스(UI) 설계의 4대 기본 원칙 중 다음 설명에 해당하는 원칙의 명칭을 쓰시오.",
+    "passage": "[설명]\n사용자가 의도하고 목표하는 바를 시스템을 통해 정확하고 완벽하게 달성할 수 있도록 보장해야 한다는 원칙",
+    "code": null,
+    "answer": "유효성",
+    "aliases": [
+      "유효성",
+      "Effectiveness",
+      "effectiveness"
+    ],
+    "explanation": "UI 설계 4대 원칙:\n1. 직관성(Intuitiveness): 누구나 쉽게 이해하고 사용\n2. 유효성(Effectiveness): 사용자의 목적을 정확하고 완전하게 달성\n3. 학습성(Learnability): 누구나 쉽게 학습\n4. 유연성(Flexibility): 사용자의 요구사항을 최대한 수용",
+    "trapPoint": "목적 달성의 정확성과 완전성을 의미하는 원칙은 '유효성'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_17",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 17,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "전 세계의 개방된 데이터(Open Data)들을 웹상에서 URI로 식별하고 시맨틱 웹 표준(RDF)을 통해 상호 연결(Linked Data)함으로써 거대한 지식 네트워크를 구축하는 기술의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "LOD",
+    "aliases": [
+      "LOD",
+      "lod",
+      "Linked Open Data",
+      "연계 오픈 데이터"
+    ],
+    "explanation": "LOD(Linked Open Data)는 Linked Data(연결 데이터)와 Open Data(개방 데이터)의 합성어로, 전 세계의 데이터를 웹상에서 상호 연결하여 컴퓨터가 의미를 이해하고 질의할 수 있게 하는 시맨틱 웹 기술입니다.",
+    "trapPoint": "Linked Data + Open Data = LOD 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_18",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 18,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "다음은 데이터 모델링 절차이다. 빈칸 (1), (2), (3)에 들어갈 단계를 보기에서 찾아 순서대로 쓰시오.",
+    "passage": "요구사항 분석 > ( 1 ) > ( 2 ) > ( 3 )\n\n[보기]\n개념적 데이터 모델링, 논리적 데이터 모델링, 물리적 데이터 모델링",
+    "code": null,
+    "answer": "(1) 개념적 데이터 모델링, (2) 논리적 데이터 모델링, (3) 물리적 데이터 모델링",
+    "aliases": [
+      "개념적 데이터 모델링, 논리적 데이터 모델링, 물리적 데이터 모델링",
+      "개념적, 논리적, 물리적",
+      "개념적 모델링, 논리적 모델링, 물리적 모델링"
+    ],
+    "explanation": "데이터 모델링 3단계:\n1. 개념적 데이터 모델링: 핵심 엔티티와 관계 정의 (ERD)\n2. 논리적 데이터 모델링: 관계 스키마 변환, 정규화\n3. 물리적 데이터 모델링: DBMS 저장 구조 및 인덱스 설계",
+    "trapPoint": "개념적 -> 논리적 -> 물리적 순서입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_19",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 19,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class A {\n    private int a;\n    public A(int a) {\n        this.a = a;\n    }\n    public void display() {\n        System.out.println(\"a=\" + a);\n    }\n}\n\nclass B extends A {\n    public B(int a) {\n        super(a);\n        super.display();\n    }\n}\n\npublic class good {\n    public static void main(String[] args) {\n        B obj = new B(10);\n    }\n}",
+    "answer": "a=10",
+    "aliases": [
+      "a=10",
+      "a = 10"
+    ],
+    "explanation": "1. `new B(10);` 실행 시 자식 클래스 B의 생성자 호출\n2. `super(a);`에 의해 부모 클래스 A의 생성자 호출 -> 멤버변수 a에 10 저장\n3. `super.display();`에 의해 부모 클래스의 display() 호출 -> \"a=\" + 10 즉 `a=10` 출력",
+    "trapPoint": "출력 형식 \"a=\" + a 이므로 공백 없이 a=10 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_2_20",
+    "round_id": "2020_2",
+    "round_title": "2020년 제2회 기출 복원",
+    "id": 20,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "소프트웨어 형상 관리 (SCM)",
+    "prompt": "소프트웨어 개발 수명주기 전반에 걸쳐 요구사항 명세서, 설계 문서, 소스 코드 등 모든 산출물의 변경 사항을 체계적으로 추적, 기록, 통제하는 관리 활동을 무엇이라 하는가? (CVS, SVN, Git 등이 이 활동을 지원하는 대표적 도구이다.)",
+    "passage": null,
+    "code": null,
+    "answer": "형상 관리",
+    "aliases": [
+      "형상 관리",
+      "형상관리",
+      "SCM",
+      "Software Configuration Management"
+    ],
+    "explanation": "형상 관리(SCM, Software Configuration Management)는 소프트웨어 개발 과정에서 발생하는 각종 변경 사항을 체계적으로 관리하여 무결성과 일관성을 유지하는 소프트웨어 공학 활동입니다.",
+    "trapPoint": "Git, SVN과 같은 도구를 활용한 버전 및 변경 관리는 '형상 관리'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_1",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 1,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "테스팅 7대 기본 원칙",
+    "prompt": "애플리케이션 테스트의 기본 원리 중 '동일한 테스트 케이스로 반복 실행하면 더 이상 새로운 결함을 찾아낼 수 없으므로 주기적으로 테스트 케이스를 점검하고 개선해야 한다'는 원리를 의미하는 용어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "살충제 패러독스",
+    "aliases": [
+      "살충제 패러독스",
+      "살충제패러독스",
+      "Pesticide Paradox",
+      "살충제 패러독스(Pesticide Paradox)"
+    ],
+    "explanation": "살충제 패러독스(Pesticide Paradox)는 동일한 테스트 케이스로 반복 테스트하면 새로운 결함을 발견할 수 없으므로, 테스트 케이스를 지속적으로 개선하고 새로운 기법을 도입해야 한다는 소프트웨어 테스팅의 기본 원리입니다.",
+    "trapPoint": "살충제를 반복 사용하면 해충에 내성이 생기듯, 테스트 케이스도 갱신하지 않으면 새로운 버그를 찾지 못합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_2",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 2,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "대규모로 저장된 데이터 안에서 통계적 기법, 기계학습 등을 활용하여 체계적이고 자동적으로 숨겨진 규칙이나 유의미한 패턴을 찾아내는 데이터 분석 기술을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "데이터 마이닝",
+    "aliases": [
+      "데이터 마이닝",
+      "데이터마이닝",
+      "Data Mining",
+      "DataMining"
+    ],
+    "explanation": "데이터 마이닝(Data Mining)은 대용량 데이터 웨어하우스나 데이터베이스로부터 유의미한 상관관계, 패턴, 추세 등을 자동으로 발견하여 의사결정에 활용하는 기술입니다.",
+    "trapPoint": "데이터 웨어하우스는 대용량 통합 저장소이고, 그 안에서 패턴을 발굴·분석하는 기술은 데이터 마이닝입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_3",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 3,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "통신 프로토콜(Protocol)의 기본 구성 3요소를 쓰시오.",
+    "passage": "( 1 ) 데이터의 형식(Format), 부호화 및 신호 레벨 등을 규정\n( 2 ) 전송 제어, 오류 제어 및 정보의 의미를 규정\n( 3 ) 통신 개체 간의 타이밍, 통신 속도 조정 및 메시지 순서 제어를 규정",
+    "code": null,
+    "answer": "(1) 구문, (2) 의미, (3) 순서(타이밍)",
+    "aliases": [
+      "구문, 의미, 타이밍",
+      "구문, 의미, 순서",
+      "구문 의미 타이밍",
+      "구문 의미 순서",
+      "Syntax, Semantics, Timing"
+    ],
+    "explanation": "프로토콜 3대 요소:\n1. 구문(Syntax): 데이터 형식, 부호화, 신호 규격\n2. 의미(Semantics): 전송 제어, 오류 검출 및 복구\n3. 타이밍/순서(Timing): 통신 속도 조정, 메시지 송수신 순서 제어",
+    "trapPoint": "구문(Syntax), 의미(Semantics), 타이밍/순서(Timing) 세 가지를 정확히 구분해야 합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_4",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 4,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "EAI & 인터페이스 연계",
+    "prompt": "W3C(World Wide Web Consortium)에서 개발하였으며, 웹 브라우저 간 비호환 문제와 SGML의 복잡함을 해결하기 위해 HTML의 한계를 극복하고 사용자가 임의로 태그를 정의할 수 있도록 고안된 다목적 마크업 언어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "XML",
+    "aliases": [
+      "XML",
+      "xml",
+      "eXtensible Markup Language"
+    ],
+    "explanation": "XML(eXtensible Markup Language)은 W3C가 제안한 마크업 언어로, HTML과 달리 사용자가 커스텀 태그를 정의할 수 있어 이기종 시스템 간 구조화된 데이터 교환 표준으로 널리 사용됩니다.",
+    "trapPoint": "SGML의 단순화 버전이자 사용자 정의 태그를 지원하는 마크업 언어는 XML입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_5",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 5,
+    "category": "소프트웨어공학",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "속성-값(Attribute-Value Pair) 쌍으로 이루어진 데이터 오브젝트를 전달하기 위해 사용하는 개방형 표준 텍스트 포맷으로, Ajax 통신에서 XML을 대체하여 널리 쓰이는 경량 데이터 포맷의 영문 약어를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "JSON",
+    "aliases": [
+      "JSON",
+      "json",
+      "JavaScript Object Notation"
+    ],
+    "explanation": "JSON(JavaScript Object Notation)은 경량의 텍스트 기반 데이터 교환 형식으로, { key: value } 형태의 사람이 읽기 쉬운 구조를 가져 현대 웹 API 및 Ajax 통신의 사실상 표준으로 자리 잡았습니다.",
+    "trapPoint": "Ajax 및 RESTful API에서 가장 널리 사용되는 경량 키-값 데이터 포맷은 JSON입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_6",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 6,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "STUDENT 테이블에 컴퓨터과 학생 50명, 인터넷과 학생 100명, 사무자동화과 학생 50명의 정보(총 200명)가 저장되어 있을 때, 다음 SQL문 (1), (2), (3)의 실행 결과에 따른 튜플 수(행 수)를 각각 쓰시오. (단, DEPT 컬럼은 학과명이다.)",
+    "passage": "1) SELECT DEPT FROM STUDENT;\n2) SELECT DISTINCT DEPT FROM STUDENT;\n3) SELECT COUNT(DISTINCT DEPT) FROM STUDENT WHERE DEPT = '컴퓨터과';",
+    "code": null,
+    "answer": "(1) 200, (2) 3, (3) 1",
+    "aliases": [
+      "200, 3, 1",
+      "200 3 1",
+      "200,3,1"
+    ],
+    "explanation": "1) SELECT DEPT FROM STUDENT: 중복을 포함한 모든 학생의 DEPT 튜플 출력 -> 200개\n2) SELECT DISTINCT DEPT FROM STUDENT: 중복 학과 제거(컴퓨터과, 인터넷과, 사무자동화과) -> 3개\n3) SELECT COUNT(DISTINCT DEPT)... : 집계 함수 COUNT의 결과는 단일 행(1튜플)으로 출력 -> 1개",
+    "trapPoint": "COUNT() 집계 함수는 결과 행(튜플) 수가 1개입니다. 결과값도 1이지만 질문은 '튜플 수'이므로 1입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_7",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 7,
+    "category": "운영체제",
+    "unit": 5,
+    "topic": "CPU 스케줄링 & HRN 공식",
+    "prompt": "비선점형 프로세스 스케줄링 방식 중 SJF(Shortest Job First)의 약점인 긴 작업의 기아 현상을 보완하기 위해 고안된 HRN(Highest Response ratio Next) 스케줄링의 우선순위 계산식을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "(대기 시간 + 서비스 시간) / 서비스 시간",
+    "aliases": [
+      "(대기 시간 + 서비스 시간) / 서비스 시간",
+      "(대기시간 + 서비스시간) / 서비스시간",
+      "(대기시간+서비스시간)/서비스시간",
+      "(대기 시간 + 서비스 시간)/서비스 시간",
+      "(대기시간 + 서비스 시간) / 서비스 시간",
+      "(대기시간+서비스시간) / 서비스시간",
+      "대기시간+서비스시간/서비스시간"
+    ],
+    "explanation": "HRN 우선순위 계산식:\n우선순위 = (대기 시간 + 서비스 시간) / 서비스 시간\n대기 시간이 길어질수록 우선순위 수치가 커져 먼저 실행될 수 있도록 보장합니다.",
+    "trapPoint": "분자는 (대기 시간 + 서비스 시간), 분모는 서비스 시간입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_8",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 8,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "트랜잭션의 4대 특징(ACID) 중 일관성(Consistency)과 지속성(Durability) 외 나머지 2가지 특성을 쓰시오.",
+    "passage": "( 1 ) 트랜잭션의 모든 연산은 데이터베이스에 완전히 반영되거나 전혀 반영되지 않아야 한다(All or Nothing).\n( 2 ) 둘 이상의 트랜잭션이 동시 실행될 때, 어느 하나의 트랜잭션도 다른 트랜잭션의 연산에 끼어들 수 없다.",
+    "code": null,
+    "answer": "(1) 원자성, (2) 독립성(격리성)",
+    "aliases": [
+      "원자성, 독립성",
+      "원자성, 격리성",
+      "원자성 독립성",
+      "원자성 격리성",
+      "Atomicity, Isolation"
+    ],
+    "explanation": "트랜잭션의 ACID 특성:\n- Atomicity(원자성): All or Nothing\n- Consistency(일관성): 트랜잭션 완료 후에도 무결성 제약 만족\n- Isolation(독립성/격리성): 트랜잭션 간 간섭 불가\n- Durability(지속성): 커밋된 결과 영구 보존",
+    "trapPoint": "All or Nothing은 원자성, 동시 실행 간섭 배제는 독립성(격리성)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_9",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 9,
+    "category": "보안",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "공격자가 패킷 전송 시 송신지(출발지) IP 주소와 수신지(목적지) IP 주소를 공격 대상의 IP 주소와 동일하게 조작하여, 대상 시스템이 자기 자신에게 응답 패킷을 반복 전송하게 만듦으로써 시스템 자원을 고갈시키는 서비스 거부(DoS) 공격 기법은 무엇인가?",
+    "passage": null,
+    "code": null,
+    "answer": "랜드 어택",
+    "aliases": [
+      "랜드 어택",
+      "랜드어택",
+      "Land Attack",
+      "LAND Attack",
+      "LAND attack"
+    ],
+    "explanation": "랜드 어택(LAND Attack)은 출발지 IP와 수신지 IP를 공격 대상의 IP와 동일하게 조작하여 전송함으로써, 타깃 시스템이 루프에 빠져 CPU 및 네트워크 자원을 고갈시키는 DoS 공격 기법입니다.",
+    "trapPoint": "출발지 IP = 목적지 IP 조작 공격은 LAND Attack입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_10",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 10,
+    "category": "보안",
+    "unit": 4,
+    "topic": "암호화 알고리즘 (대칭키/공개키/해시)",
+    "prompt": "RFC 1321로 지정되어 있으며, 파일의 원본 무결성 검증 등에 주로 사용되는 알고리즘으로, 1991년 로널드 라이베스트가 MD4를 보완하여 개발한 128비트 단방향 암호화 해시 함수는 무엇인가?",
+    "passage": null,
+    "code": null,
+    "answer": "MD5",
+    "aliases": [
+      "MD5",
+      "md5",
+      "Message-Digest algorithm 5"
+    ],
+    "explanation": "MD5(Message-Digest algorithm 5)는 128비트 고정 길이 해시값을 생성하는 암호학적 해시 알고리즘입니다. 현재는 해시 충돌 취약점으로 인해 SHA-256 등 더 안전한 알고리즘이 권장됩니다.",
+    "trapPoint": "로널드 라이베스트가 개발한 128비트 해시 함수는 MD5입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_11",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 11,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "다음은 공통 모듈 구현 및 소프트웨어 설계 원칙에 대한 설명이다. 괄호 (1), (2) 안에 알맞은 소프트웨어 공학 용어를 쓰시오.",
+    "passage": "- 소프트웨어 개발에 있어 기능을 분할하고 추상화하여 성능 향상 및 유지보수성을 극대화하기 위해 공통 모듈을 구현한다.\n- 바람직한 모듈 설계 원칙에 따르면, 모듈 간의 상호 의존성을 나타내는 ( 1 )은/는 낮추고, 모듈 내부 요소들이 단일한 목적을 달성하기 위해 집중된 정도를 나타내는 ( 2 )은/는 높여야 한다.",
+    "code": null,
+    "answer": "(1) 결합도, (2) 응집도",
+    "aliases": [
+      "결합도, 응집도",
+      "결합도 응집도",
+      "Coupling, Cohesion"
+    ],
+    "explanation": "소프트웨어 모듈화의 황금 원칙은 '약한 결합도(Low Coupling), 강한 응집도(High Cohesion)'입니다. 결합도는 모듈 간 상호 의존성, 응집도는 모듈 내부 요소 간 관련성입니다.",
+    "trapPoint": "줄여야 하는 것은 결합도(Coupling), 높여야 하는 것은 응집도(Cohesion)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_12",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 12,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 소스 코드의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nvoid main() {\n    int i, j;\n    int temp;\n    int a[5] = {75, 95, 85, 100, 50};\n\n    for (i = 0; i < 4; i++) {\n        for (j = 0; j < 4 - i; j++) {\n            if (a[j] > a[j + 1]) {\n                temp = a[j];\n                a[j] = a[j + 1];\n                a[j + 1] = temp;\n            }\n        }\n    }\n\n    for (i = 0; i < 5; i++) {\n        printf(\"%d\", a[i]);\n    }\n}",
+    "answer": "50758595100",
+    "aliases": [
+      "50758595100"
+    ],
+    "explanation": "배열 {75, 95, 85, 100, 50}에 대해 버블 정렬(오름차순)을 수행합니다.\n정렬 완료 후 배열: {50, 75, 85, 95, 100}\n서식 문자 %d 뒤에 공백이나 줄바꿈이 없으므로 각 원소가 바로 이어져 출력됩니다.\n출력: 50758595100",
+    "trapPoint": "printf 출력 시 공백이 없으므로 50, 75, 85, 95, 100이 그대로 붙어서 50758595100으로 출력됩니다.",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "배열 상태"
+      ],
+      "rows": [
+        [
+          "초기 상태",
+          "{75, 95, 85, 100, 50}"
+        ],
+        [
+          "i=0 완료 (최댓값 뒤로)",
+          "{75, 85, 95, 50, 100}"
+        ],
+        [
+          "i=1 완료",
+          "{75, 85, 50, 95, 100}"
+        ],
+        [
+          "i=2 완료",
+          "{75, 50, 85, 95, 100}"
+        ],
+        [
+          "i=3 완료 (최종 정렬)",
+          "{50, 75, 85, 95, 100}"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "2020_1_13",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 13,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class good {\n    public static void main(String[] args) {\n        int i;\n        int[] a = {0, 1, 2, 3};\n        for (i = 0; i < 4; i++) {\n            System.out.print(a[i] + \" \");\n        }\n    }\n}",
+    "answer": "0 1 2 3",
+    "aliases": [
+      "0 1 2 3 ",
+      "0 1 2 3"
+    ],
+    "explanation": "배열 a = {0, 1, 2, 3}을 순회하며 각 원소와 공백 1칸을 출력합니다.\ni=0 -> '0 '\ni=1 -> '1 '\ni=2 -> '2 '\ni=3 -> '3 '\n전체 출력 결과: 0 1 2 3 ",
+    "trapPoint": "System.out.print()로 출력하며 각 숫자 뒤에 공백이 포함됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_14",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 14,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class good {\n    public static void main(String[] args) {\n        int i = 3;\n        int k = 1;\n        switch (i) {\n            case 0:\n            case 1:\n            case 2:\n            case 3: k = 0;\n            case 4: k += 3;\n            case 5: k -= 10;\n            default: k--;\n        }\n        System.out.print(k);\n    }\n}",
+    "answer": "-8",
+    "aliases": [
+      "-8"
+    ],
+    "explanation": "switch (i)에서 i=3이므로 case 3으로 점프합니다.\ncase문에 break문이 존재하지 않으므로 fall-through 현상으로 아래 모든 케이스가 순차 실행됩니다:\n- case 3: k = 0;\n- case 4: k += 3; (k = 3)\n- case 5: k -= 10; (k = 3 - 10 = -7)\n- default: k--; (k = -7 - 1 = -8)\n최종 출력: -8",
+    "trapPoint": "break가 없는 switch-case문은 일치하는 레이블부터 아래 모든 명령을 fall-through로 순차 실행합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_15",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 15,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "소프트웨어 아키텍처 & 설계",
+    "prompt": "다음 보기가 설명하는 소프트웨어 제품 패키지 릴리스 노트(Release Note)의 작성 항목은 무엇인가?",
+    "passage": "[보기]\n문서 이름(릴리스 노트 이름), 제품 이름, 버전 번호, 릴리스 날짜, 참고 날짜, 노트 버전 등의 기본 메타 정보를 포함하는 항목",
+    "code": null,
+    "answer": "헤더",
+    "aliases": [
+      "헤더",
+      "머릿말",
+      "Header",
+      "header",
+      "해더"
+    ],
+    "explanation": "릴리스 노트의 헤더(Header) 항목에는 문서 이름, 제품 이름, 버전 번호, 릴리스 날짜, 작성자, 문서 버전 등의 기본 식별 정보가 포함됩니다.",
+    "trapPoint": "문서 식별 메타 정보가 들어가는 최상단 항목은 헤더(Header)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_16",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 16,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "프로젝트 관리 & 비용 산정",
+    "prompt": "LoC(Line of Code) 기법을 사용한 개발 비용 산정에서 개발할 전체 코드 라인 수가 30,000라인이고, 개발자가 5명 투입되며, 개발자 1인의 월평균 생산성이 300라인일 때 프로젝트의 개발 소요 기간(개월)을 구하시오.",
+    "passage": null,
+    "code": null,
+    "answer": "20개월",
+    "aliases": [
+      "20개월",
+      "20",
+      "20 개월",
+      "20달"
+    ],
+    "explanation": "계산 공식:\n1. 총 노력(Man-Month) = 30,000라인 / 300라인 = 100인월(MM)\n2. 개발 기간 = 총 노력(MM) / 투입 인원 = 100 / 5 = 20개월",
+    "trapPoint": "전체 소요 인월(100인월)을 개발자 수(5명)로 나누어 기간(20개월)을 도출합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_17",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 17,
+    "category": "데이터베이스",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "정규화된 엔티티, 속성, 관계에 대해 데이터베이스의 성능 향상과 시스템 개발·운영의 단순화를 목적으로 의도적으로 중복, 통합, 분리를 수행하는 데이터 모델링 기법을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "비정규화",
+    "aliases": [
+      "비정규화",
+      "반정규화",
+      "역정규화",
+      "De-normalization",
+      "Denormalization",
+      "de-normalization"
+    ],
+    "explanation": "비정규화(반정규화, De-normalization)는 정규화로 분해된 테이블 간 빈번한 JOIN 연산으로 인한 성능 저하를 방지하기 위해 중복 속성 추가, 테이블 통합 및 분할 등을 수행하는 물리적 설계 기법입니다.",
+    "trapPoint": "정규화 원칙에 위배되더라도 읽기 성능 및 운영 편의를 위해 의도적으로 중복을 허용하는 것은 비정규화(반정규화)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_18",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 18,
+    "category": "네트워크",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "OSI 7계층 중 물리적 전송 매체를 통해 비트(Bit) 스트림 형태의 전기적·광학적 신호를 전달하는 최하위 계층의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "물리 계층",
+    "aliases": [
+      "물리 계층",
+      "물리계층",
+      "물리",
+      "Physical Layer",
+      "physical layer",
+      "Physical",
+      "1계층"
+    ],
+    "explanation": "물리 계층(Physical Layer, 1계층)은 케이블, 커넥터, 전압 규격 등을 다루며 전송 매체를 통해 0과 1의 비트(Bit) 신호를 물리적으로 송수신하는 계층입니다.",
+    "trapPoint": "전송 단위가 '비트(Bit)'인 계층은 1계층인 물리 계층입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_19",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 19,
+    "category": "소프트웨어공학",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "다음은 애플리케이션의 성능을 측정하기 위한 4대 지표에 대한 설명이다. 빈칸 (1), (2), (3)에 알맞은 지표명을 각각 쓰시오.",
+    "passage": "| 지표 | 설명 |\n| --- | --- |\n| ( 1 ) | 애플리케이션이 주어진 시간 동안 처리할 수 있는 트랜잭션의 수 (시간당 처리량) |\n| ( 2 ) | 사용자 입력이 완료된 후, 시스템에서 첫 응답 출력이 시작될 때까지 걸리는 시간 |\n| ( 3 ) | 사용자가 요청을 입력한 시점부터 트랜잭션 처리 후 전체 결과 출력이 완료될 때까지 걸리는 시간 |\n| 자원 사용률 | 애플리케이션이 트랜잭션을 처리하는 동안 사용하는 CPU, 메모리, 네트워크 자원의 비율 |",
+    "code": null,
+    "answer": "(1) 처리량, (2) 응답 시간, (3) 경과 시간",
+    "aliases": [
+      "처리량, 응답 시간, 경과 시간",
+      "처리량, 응답시간, 경과시간",
+      "처리량 응답시간 경과시간"
+    ],
+    "explanation": "성능 측정 4대 지표:\n1. 처리량(Throughput): 단위 시간당 처리 트랜잭션 수\n2. 응답 시간(Response Time): 요청 후 첫 반응이 올 때까지의 지연\n3. 경과 시간(Turnaround Time): 요청부터 전체 작업 완료까지의 총 소요 시간\n4. 자원 사용률(Resource Usage): CPU, 메모리 등 하드웨어 점유율",
+    "trapPoint": "첫 응답 개시까지는 응답 시간, 전체 처리 완료까지는 경과 시간(Turnaround Time)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "2020_1_20",
+    "round_id": "2020_1",
+    "round_title": "2020년 제1회 기출 복원",
+    "id": 20,
+    "category": "소프트웨어공학",
+    "unit": 1,
+    "topic": "요구사항 분석 & UML",
+    "prompt": "다음 모듈 간 호출 관계 다이어그램을 분석하여, Fan-in(팬인) 개수가 2 이상인 모듈의 명칭을 모두 쓰시오.",
+    "passage": "       ┌─── [ A ] ───┐\n       │      │      │\n       ▼      ▼      ▼\n     [ B ]  [ C ]  [ D ]\n      │ ╲    ╱ │     │\n      │  ╲  ╱  │     │\n      ▼   ▼▼   ▼     ▼\n     [ E ] [ F ] [ G ] [ J ]\n      │     │     │\n      └──┬──┘     ▼\n         ▼      [ I ]\n       [ H ]\n\n※ 모듈 호출(화살표) 관계:\n- A -> B, C, D\n- B -> E, F\n- C -> F, G\n- D -> J\n- E -> H\n- F -> H\n- G -> I",
+    "code": null,
+    "answer": "F, H",
+    "aliases": [
+      "F, H",
+      "F,H",
+      "H, F",
+      "H,F",
+      "F H",
+      "H F"
+    ],
+    "explanation": "Fan-in(팬인)은 해당 모듈을 호출하는 상위 모듈의 수(해당 모듈로 들어오는 화살표 수)입니다.\n- A: 0\n- B, C, D: 1 (모두 A로부터)\n- E: 1 (B로부터)\n- F: 2 (B와 C로부터 -> Fan-in >= 2 만족)\n- G: 1 (C로부터)\n- J: 1 (D로부터)\n- H: 2 (E와 F로부터 -> Fan-in >= 2 만족)\n- I: 1 (G로부터)\n따라서 Fan-in 수가 2 이상인 모듈은 F, H 입니다.",
+    "trapPoint": "Fan-in은 들어오는 화살표(자신을 호출하는 모듈), Fan-out은 나가는 화살표(자신이 호출하는 모듈)입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_1",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[2][3] = {{1, 2, 3}, {4, 5, 6}};\n    printf(\"%d\", *(*(arr + 1) + 2));\n    return 0;\n}",
+    "answer": "6",
+    "aliases": [
+      "6"
+    ],
+    "explanation": "*(*(arr + i) + j)는 arr[i][j]와 동일합니다.\ni = 1, j = 2이므로 arr[1][2]의 값인 6이 출력됩니다.",
+    "trapPoint": "arr[1][2]는 2번째 행, 3번째 열의 원소인 6입니다.",
+    "traceTable": {
+      "headers": [
+        "포인터 식",
+        "배열 첨자 표기",
+        "가리키는 원소 값"
+      ],
+      "rows": [
+        [
+          "arr + 1",
+          "&arr[1][0]",
+          "1행 시작 주소"
+        ],
+        [
+          "*(arr + 1) + 2",
+          "&arr[1][2]",
+          "arr[1][2] 주소"
+        ],
+        [
+          "*(*(arr + 1) + 2)",
+          "arr[1][2]",
+          "6"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "killer_programming_2",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    public void print() {\n        System.out.print(\"P\");\n    }\n}\n\nclass Child extends Parent {\n    public void print() {\n        System.out.print(\"C\");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Parent p = new Child();\n        p.print();\n    }\n}",
+    "answer": "C",
+    "aliases": [
+      "C"
+    ],
+    "explanation": "Parent 타입의 참조 변수 p가 Child 인스턴스를 참조하고 있으나, 자바는 동적 바인딩(가상 메서드 테이블)을 지원하므로 자식 클래스에서 오버라이딩된 `Child.print()`가 실행됩니다.\n출력: C",
+    "trapPoint": "부모 타입 변수라도 실제 런타임 객체의 오버라이딩 메서드가 우선 호출됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_3",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = [1, 2, 3, 4, 5]\nprint(a[-3:5])",
+    "answer": "[3, 4, 5]",
+    "aliases": [
+      "[3, 4, 5]",
+      "[3,4,5]",
+      "3, 4, 5"
+    ],
+    "explanation": "음수 인덱스 -3은 뒤에서 3번째 원소인 3(인덱스 2)을 의미합니다.\na[-3:5]는 인덱스 2부터 4(5 미만)까지 추출하므로 [3, 4, 5]가 출력됩니다.",
+    "trapPoint": "파이썬 음수 인덱스 계산: -1(5), -2(4), -3(3).",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_4",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 재귀함수",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint f(int n) {\n    if (n <= 1) return 1;\n    return n + f(n - 1);\n}\n\nint main() {\n    printf(\"%d\", f(5));\n    return 0;\n}",
+    "answer": "15",
+    "aliases": [
+      "15"
+    ],
+    "explanation": "1부터 5까지의 합을 재귀적으로 구합니다: 5 + 4 + 3 + 2 + 1 = 15.\n출력: 15",
+    "trapPoint": "재귀 호출의 기저 조건(n <= 1)까지의 누적합입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_5",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 5,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 10;\n        int b = a++;\n        int c = ++a;\n        System.out.println(b + c);\n    }\n}",
+    "answer": "22",
+    "aliases": [
+      "22"
+    ],
+    "explanation": "1. a = 10\n2. b = a++: b = 10, a는 11이 됨\n3. c = ++a: a가 먼저 12가 된 후 c = 12\n4. b + c = 10 + 12 = 22\n출력: 22",
+    "trapPoint": "후증가와 선증가가 연달아 발생할 때의 변수 상태 변화를 정확히 추적해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "연산",
+        "대입된 값",
+        "a의 변화"
+      ],
+      "rows": [
+        [
+          "b = a++",
+          "b = 10",
+          "a: 10 -> 11"
+        ],
+        [
+          "c = ++a",
+          "c = 12",
+          "a: 11 -> 12"
+        ],
+        [
+          "b + c",
+          "10 + 12 = 22",
+          "a = 12"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "killer_programming_6",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 6,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    char str[] = \"ABCD\";\n    char *p = str + 1;\n    printf(\"%c %c\", *p, *(p + 2));\n    return 0;\n}",
+    "answer": "B D",
+    "aliases": [
+      "B D",
+      "B, D",
+      "B,D"
+    ],
+    "explanation": "p는 str + 1이므로 'B'를 가리킵니다 (*p = 'B').\np + 2는 'D'를 가리킵니다 (*(p + 2) = 'D').\n출력: B D",
+    "trapPoint": "포인터 위치 이동에 따른 문자 역참조입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_7",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 7,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "nums = [1, 2, 3, 4]\nres = [x for x in nums if x % 2 == 1]\nprint(sum(res))",
+    "answer": "4",
+    "aliases": [
+      "4"
+    ],
+    "explanation": "홀수는 1과 3입니다.\nres = [1, 3]이며, sum(res) = 1 + 3 = 4입니다.",
+    "trapPoint": "1과 3의 합 = 4.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_8",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 8,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 오버라이딩 & 다형성",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    int x = 10;\n}\nclass Child extends Parent {\n    int x = 20;\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Parent p = new Child();\n        System.out.println(p.x);\n    }\n}",
+    "answer": "10",
+    "aliases": [
+      "10"
+    ],
+    "explanation": "자바에서 필드(멤버 변수)는 다형성이 적용되지 않으며, 참조 변수의 타입(Parent)에 의해 정적으로 결정됩니다.\n따라서 p.x는 Parent의 x인 10이 출력됩니다.",
+    "trapPoint": "메서드는 오버라이딩되어 자식 것이 실행되지만, 변수는 선언 타입(부모)의 것이 참조됩니다!",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_9",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 9,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 16;\n    printf(\"%d\", a >> 3);\n    return 0;\n}",
+    "answer": "2",
+    "aliases": [
+      "2"
+    ],
+    "explanation": "우측 시프트 a >> 3은 a를 2^3(8)로 나눈 몫입니다.\n16 / 8 = 2가 출력됩니다.",
+    "trapPoint": "16 >> 3 = 16 / 8 = 2.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_10",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 10,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def f(x, y=[]):\n    y.append(x)\n    return len(y)\n\nf(1)\nf(2)\nprint(f(3))",
+    "answer": "3",
+    "aliases": [
+      "3"
+    ],
+    "explanation": "가변 기본 인자 y=[]는 모든 호출 간에 유지됩니다.\n1번째 호출: y = [1] (길이 1)\n2번째 호출: y = [1, 2] (길이 2)\n3번째 호출: y = [1, 2, 3] (길이 3)\n따라서 3이 출력됩니다.",
+    "trapPoint": "파이썬 디폴트 리스트 인자의 지속성입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_11",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 11,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[] = {10, 20, 30};\n    int *p = arr;\n    printf(\"%d\", ++*p);\n    return 0;\n}",
+    "answer": "11",
+    "aliases": [
+      "11"
+    ],
+    "explanation": "연산자 우선순위에서 `++*p`는 역참조 `*p`가 먼저 평가되어 arr[0]의 값인 10을 가져온 후, 전위 증가 연산자가 적용되어 11로 증가합니다.\n따라서 11이 출력됩니다.",
+    "trapPoint": "++*p는 포인터가 가리키는 값을 1 증가시킵니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_12",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 12,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        String s1 = \"abc\";\n        String s2 = \"abc\";\n        System.out.println(s1 == s2);\n    }\n}",
+    "answer": "true",
+    "aliases": [
+      "true",
+      "True"
+    ],
+    "explanation": "문자열 리터럴로 생성된 \"abc\"는 자바의 문자열 상수 풀(String Constant Pool)에 저장되어 동일한 객체를 재사용합니다.\n따라서 s1과 s2는 동일한 주소를 참조하므로 s1 == s2는 true입니다.",
+    "trapPoint": "new String()은 새 객체를 만들지만 리터럴 \"abc\"는 String Pool에서 공유되어 == 비교 시 true가 됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_13",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 13,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = [1, 2, 3]\nb = [x * 10 for x in a]\nprint(b[1])",
+    "answer": "20",
+    "aliases": [
+      "20"
+    ],
+    "explanation": "b = [10, 20, 30] 입니다.\nb[1]은 20입니다.",
+    "trapPoint": "1번 인덱스는 두 번째 원소인 20입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_14",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 14,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[3] = {1, 2, 3};\n    int sum = 0;\n    for (int i = 0; i < 3; i++) {\n        sum += i[arr];\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "6",
+    "aliases": [
+      "6"
+    ],
+    "explanation": "i[arr]은 arr[i]와 완전히 동일합니다!\n1 + 2 + 3 = 6이 출력됩니다.",
+    "trapPoint": "i[arr] == arr[i] 문법을 알면 1초 만에 풀 수 있는 문제입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_15",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 15,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int x = 0;\n        for (int i = 0; i < 3; i++) {\n            for (int j = 0; j < 3; j++) {\n                if (i == j) x++;\n            }\n        }\n        System.out.println(x);\n    }\n}",
+    "answer": "3",
+    "aliases": [
+      "3"
+    ],
+    "explanation": "i == j인 쌍은 (0,0), (1,1), (2,2)로 총 3회입니다.\n따라서 x = 3이 출력됩니다.",
+    "trapPoint": "대각선 일치 조건의 반복 횟수 3입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_16",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 16,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 10;\n    int b = 20;\n    int *p1 = &a;\n    int *p2 = &b;\n    p1 = p2;\n    *p1 = 30;\n    printf(\"%d %d\", a, b);\n    return 0;\n}",
+    "answer": "10 30",
+    "aliases": [
+      "10 30",
+      "10, 30",
+      "10,30"
+    ],
+    "explanation": "1. p1 = p2에 의해 p1도 변수 b의 주소를 가리키게 됩니다.\n2. *p1 = 30은 변수 b의 값을 30으로 변경합니다.\n3. a의 값은 변경되지 않고 그대로 10입니다.\n출력: 10 30",
+    "trapPoint": "포인터 변수 자체에 주소를 덮어쓴 후 역참조하는 흐름입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_17",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 17,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def func(a, b=2, c=3):\n    return a + b * c\n\nprint(func(4, c=5))",
+    "answer": "14",
+    "aliases": [
+      "14"
+    ],
+    "explanation": "a=4, b는 기본값 2, c는 키워드 인자로 5가 전달됩니다.\nfunc = 4 + 2 * 5 = 4 + 10 = 14 입니다.",
+    "trapPoint": "키워드 인자 지정과 기본 매개변수 혼합 계산입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_18",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 18,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 1;\n        while (a <= 10) {\n            a *= 2;\n        }\n        System.out.println(a);\n    }\n}",
+    "answer": "16",
+    "aliases": [
+      "16"
+    ],
+    "explanation": "a = 1 -> 2 -> 4 -> 8 -> 16\n16 <= 10은 거짓이므로 탈출합니다.\n출력: 16",
+    "trapPoint": "탈출 시점의 a값은 16입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_19",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 19,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[] = {5, 10, 15};\n    int *p = arr + 1;\n    printf(\"%d\", p[1]);\n    return 0;\n}",
+    "answer": "15",
+    "aliases": [
+      "15"
+    ],
+    "explanation": "p가 arr[1](10)을 가리킬 때, p[1]은 *(p + 1)이므로 arr[2]의 값인 15가 됩니다.",
+    "trapPoint": "포인터 기준 상대 인덱스 1은 arr[2]입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "killer_programming_20",
+    "round_id": "killer_programming",
+    "round_title": "🔥 [테마] 프로그래밍 킬러 20선",
+    "id": 20,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "s = \"a-b-c-d\"\nprint(len(s.split('-')))",
+    "answer": "4",
+    "aliases": [
+      "4"
+    ],
+    "explanation": "s.split('-')는 ['a', 'b', 'c', 'd'] 리스트를 반환합니다.\n리스트의 길이는 4입니다.",
+    "trapPoint": "구분자로 분할된 요소의 개수는 4개입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_1",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 1,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 SQL 문에서 사용된 키워드 중 부서별(DEPT) 평균 급여가 3000 이상인 부서를 필터링할 때 사용하는 올바른 절의 키워드를 쓰시오.",
+    "passage": "SELECT DEPT, AVG(SALARY) \nFROM EMP \nGROUP BY DEPT \n(        ) AVG(SALARY) >= 3000;",
+    "code": null,
+    "answer": "HAVING",
+    "aliases": [
+      "HAVING",
+      "having"
+    ],
+    "explanation": "GROUP BY 절로 그룹화된 결과에 집계 조건 필터링을 걸 때는 WHERE가 아닌 HAVING 절을 사용합니다.",
+    "trapPoint": "집계 함수 조건은 무조건 HAVING 절입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_2",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 2,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 SQL 문의 실행 결과로 반환되는 레코드 수(행 수)를 숫자로 쓰시오.",
+    "passage": "[A 테이블]\n| ID |\n| 1 |\n| 2 |\n| 3 |\n\n[B 테이블]\n| ID |\n| 2 |\n| 3 |\n| 4 |\n\n[SQL문]\nSELECT A.ID \nFROM A \nINNER JOIN B ON A.ID = B.ID;",
+    "code": null,
+    "answer": "2",
+    "aliases": [
+      "2",
+      "2개",
+      "2행"
+    ],
+    "explanation": "INNER JOIN은 양쪽 테이블 모두에 존재하는 공통 키만 추출합니다.\n공통 ID는 2, 3으로 총 2개의 행이 반환됩니다.",
+    "trapPoint": "INNER JOIN은 교집합에 해당하므로 2행입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_3",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 3,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 [STUDENT] 테이블에서 점수(SCORE)가 가장 높은 상위 1등부터 순위를 부여하되, 동점자가 발생할 경우 동일 순위를 부여하고 그 다음 순위는 건너뛰지 않고 연속된 숫자를 부여하는 윈도우 함수의 이름을 쓰시오 (예: 1등, 2등, 2등, 3등).",
+    "passage": null,
+    "code": null,
+    "answer": "DENSE_RANK",
+    "aliases": [
+      "DENSE_RANK",
+      "dense_rank",
+      "DENSE_RANK()",
+      "dense_rank()"
+    ],
+    "explanation": "순위 함수 비교:\n- RANK(): 1등, 2등, 2등, 4등 (중복 순위 수만큼 건너뜀)\n- DENSE_RANK(): 1등, 2등, 2등, 3등 (건너뛰지 않고 연속 부여)\n- ROW_NUMBER(): 1등, 2등, 3등, 4등 (고유 번호)",
+    "trapPoint": "동점 시 건너뛰지 않는 연속 순위는 DENSE_RANK입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_4",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 4,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "DDL 테이블 정의 & 제약조건",
+    "prompt": "데이터베이스 테이블에서 기존 테이블 구조의 컬럼을 삭제할 때 사용하는 SQL DDL 문의 빈칸을 쓰시오.",
+    "passage": "ALTER TABLE EMP (  1  ) (  2  ) TEL;",
+    "code": null,
+    "answer": "(1) DROP, (2) COLUMN",
+    "aliases": [
+      "DROP COLUMN",
+      "DROP, COLUMN",
+      "drop column"
+    ],
+    "explanation": "기존 테이블의 컬럼을 삭제하는 DDL 문법은 `ALTER TABLE 테이블명 DROP COLUMN 컬럼명;` 입니다.",
+    "trapPoint": "컬럼 삭제는 DROP COLUMN입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_5",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 5,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "관계 데이터베이스 정규화 과정 중 테이블 R의 모든 도메인이 더 이상 분해될 수 없는 원자값(Atomic Value)만으로 구성되도록 하는 정규형의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "제1정규형",
+    "aliases": [
+      "제1정규형",
+      "1NF",
+      "제 1 정규형",
+      "1정규형",
+      "First Normal Form"
+    ],
+    "explanation": "제1정규형(1NF)은 릴레이션에 속한 모든 속성의 도메인이 원자값이어야 한다는 규칙입니다.",
+    "trapPoint": "원자값 = 1NF.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_6",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 6,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 SQL 문에서 사용된 키워드 중 NULL 값을 다른 기본값으로 치환할 때 사용하는 표준 SQL 함수의 명칭을 쓰시오 (Oracle의 NVL과 유사한 표준 함수).",
+    "passage": "SELECT (        )(COMMISSION, 0) FROM EMP;",
+    "code": null,
+    "answer": "COALESCE",
+    "aliases": [
+      "COALESCE",
+      "coalesce",
+      "NVL",
+      "nvl",
+      "IFNULL",
+      "ifnull"
+    ],
+    "explanation": "표준 SQL에서 인자 중 첫 번째로 NULL이 아닌 값을 반환하는 함수는 `COALESCE(표현식, 기본값)` 입니다 (Oracle 전용은 NVL, MySQL은 IFNULL도 인정).",
+    "trapPoint": "ANSI 표준 NULL 대체 함수는 COALESCE입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_7",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 7,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 SQL 문의 실행 결과를 쓰시오.",
+    "passage": "[EMP 테이블]\n| ID | NAME | DEPT | SALARY |\n| 1 | 김철수 | IT | 4000 |\n| 2 | 이영희 | IT | NULL |\n| 3 | 박민수 | HR | NULL |\n| 4 | 최유리 | IT | NULL |",
+    "code": "SELECT COUNT(*) FROM EMP WHERE DEPT = 'IT' AND SALARY IS NULL;",
+    "answer": "2",
+    "aliases": [
+      "2",
+      "2개"
+    ],
+    "explanation": "DEPT = 'IT'이면서 SALARY IS NULL인 레코드는 ID 2번(이영희)과 ID 4번(최유리)으로 총 2개입니다.\n따라서 COUNT(*) 결과는 2입니다.",
+    "trapPoint": "NULL 비교는 IS NULL로 정상 판별됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_8",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 8,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "데이터베이스 언어(SQL)를 3가지로 분류할 때 데이터 정의어(DDL), 데이터 조작어(DML), 그리고 권한 부여 및 트랜잭션 관리를 담당하는 언어의 영문 약어(3글자)를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "DCL",
+    "aliases": [
+      "DCL",
+      "dcl",
+      "Data Control Language",
+      "데이터 제어어"
+    ],
+    "explanation": "DCL(Data Control Language, 데이터 제어어)은 GRANT, REVOKE, COMMIT, ROLLBACK 등 데이터의 보안, 무결성, 회복, 병행 제어를 수행합니다.",
+    "trapPoint": "DDL, DML, DCL의 3대 분류입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_9",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 9,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "다음 SQL 문에서 서브쿼리의 결과가 하나라도 존재하는지 여부를 검사하는 조건 연산자 키워드를 쓰시오.",
+    "passage": "SELECT * FROM DEPT D WHERE (        ) (SELECT 1 FROM EMP E WHERE E.DEPT_ID = D.ID);",
+    "code": null,
+    "answer": "EXISTS",
+    "aliases": [
+      "EXISTS",
+      "exists"
+    ],
+    "explanation": "EXISTS 연산자는 서브쿼리의 결과 집합에 1건 이상의 행이 존재하는지 여부를 참/거짓으로 검사합니다.",
+    "trapPoint": "존재 여부 판별 = EXISTS.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_10",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 10,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "관계 대수 연산 중 두 릴레이션 R과 S에 대하여 R에는 속하고 S에는 속하지 않는 튜플들로 구성된 릴레이션을 구하는 순수 집합 연산자의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "차집합",
+    "aliases": [
+      "차집합",
+      "Difference",
+      "difference",
+      "EXCEPT",
+      "MINUS"
+    ],
+    "explanation": "차집합(Difference, R - S)은 R의 튜플 중 S와 겹치는 부분을 제거한 집합입니다.",
+    "trapPoint": "합집합, 교집합, 차집합, 카티션 프로덕트 4대 일반 집합 연산자 중 차집합입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_11",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 11,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 SQL 문의 결과로 출력되는 건수를 숫자로 쓰시오.",
+    "passage": "[EMP 테이블]\n| ID | NAME | COMMISSION |\n| 1 | A | 100 |\n| 2 | B | NULL |\n| 3 | C | 200 |\n| 4 | D | NULL |",
+    "code": "SELECT COUNT(COMMISSION) FROM EMP;",
+    "answer": "2",
+    "aliases": [
+      "2",
+      "2개"
+    ],
+    "explanation": "집계 함수 `COUNT(컬럼명)`은 NULL 값을 제외하고 카운트합니다!\nCOMMISSION 컬럼에서 NULL이 아닌 값은 100과 200으로 총 2개입니다.\n(참고: COUNT(*)는 NULL을 포함하여 4개가 됩니다).",
+    "trapPoint": "COUNT(*)는 NULL을 포함하지만 COUNT(컬럼명)은 NULL을 제외한다는 핵심 함정입니다!",
+    "traceTable": {
+      "headers": [
+        "함수",
+        "NULL 처리 방식",
+        "결과"
+      ],
+      "rows": [
+        [
+          "COUNT(*)",
+          "모든 행 카운트 (NULL 포함)",
+          "4"
+        ],
+        [
+          "COUNT(COMMISSION)",
+          "NULL 제외 카운트",
+          "2"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "sql_master_12",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 12,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "데이터베이스에서 특정 이벤트(INSERT, UPDATE, DELETE 등)가 발생할 때마다 DBMS에 의해 자동으로 실행되도록 작성된 특수한 데이터베이스 프로시저의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "트리거",
+    "aliases": [
+      "트리거",
+      "Trigger",
+      "trigger"
+    ],
+    "explanation": "트리거(Trigger)는 테이블의 데이터가 변경될 때 연쇄적으로 무결성을 유지하거나 감사 로그를 남기기 위해 자동 실행되는 저장 서브프로그램입니다.",
+    "trapPoint": "자동 연쇄 실행 프로시저 = 트리거(Trigger).",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_13",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 13,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "SQL 집계·조인·윈도우 함수",
+    "prompt": "다음 SQL 문에서 사용된 키워드 중 여러 열의 소계(Subtotal)와 총계(Grand Total)를 계층적으로 한 번에 생성해 주는 다차원 집계 확장 구문의 명칭을 쓰시오.",
+    "passage": "SELECT DEPT, JOB, SUM(SALARY) \nFROM EMP \nGROUP BY (        )(DEPT, JOB);",
+    "code": null,
+    "answer": "ROLLUP",
+    "aliases": [
+      "ROLLUP",
+      "rollup",
+      "ROLLUP()"
+    ],
+    "explanation": "ROLLUP은 인자로 주어진 컬럼들의 계층적 단계별 소계 및 총합계를 자동 산출해 주는 GROUP BY 확장 절입니다.",
+    "trapPoint": "소계 및 총계 생성 = ROLLUP.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_14",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 14,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "데이터베이스 모델링 & SQL",
+    "prompt": "데이터베이스 무결성 제약조건 중 한 테이블의 컬럼에 NULL 값이 들어가지 못하도록 강제하는 제약조건의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "NOT NULL",
+    "aliases": [
+      "NOT NULL",
+      "not null"
+    ],
+    "explanation": "NOT NULL 제약조건은 해당 컬럼에 공백 또는 빈 값(NULL)의 저장을 금지합니다.",
+    "trapPoint": "NULL 허용 안 함 = NOT NULL.",
+    "traceTable": null
+  },
+  {
+    "uid": "sql_master_15",
+    "round_id": "sql_master",
+    "round_title": "💾 [테마] SQL & DB 완전정복 15선",
+    "id": 15,
+    "category": "SQL",
+    "unit": 3,
+    "topic": "뷰(View) & 인덱스 최적화",
+    "prompt": "다음 SQL 문의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "SELECT SUBSTR('KOREA2026', 1, 5) FROM DUAL;",
+    "answer": "KOREA",
+    "aliases": [
+      "KOREA",
+      "korea"
+    ],
+    "explanation": "SQL의 SUBSTR(문자열, 시작위치, 길이) 함수는 1번째 위치부터 5글자를 추출하므로 \"KOREA\"가 됩니다 (SQL 인덱스는 1부터 시작).",
+    "trapPoint": "SQL 문자열 인덱스는 프로그래밍 언어(0)와 달리 1부터 시작합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_1",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 1,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "테스팅 7대 기본 원칙",
+    "prompt": "동일한 테스트 케이스로 반복 실행하면 더 이상 새로운 결함을 발견할 수 없으므로 주기적으로 테스트 케이스를 개선해야 한다는 소프트웨어 테스트의 기본 원리를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "살충제 패러독스",
+    "aliases": [
+      "살충제 패러독스",
+      "살충제패러독스",
+      "Pesticide Paradox",
+      "살충제 역설"
+    ],
+    "explanation": "동일한 테스트 케이스로 반복 실행하면 더 이상 새로운 결함을 발견하기 어렵다는 원리입니다. 주기적으로 테스트 케이스를 리뷰하고 새로운 시각에서 갱신해야 합니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_2",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 2,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "GoF 디자인 패턴 중 클래스의 인스턴스가 오직 하나만 생성되도록 보장하고 이에 대한 전역적인 접근점을 제공하는 생성 패턴의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "싱글톤",
+    "aliases": [
+      "싱글톤",
+      "싱글톤 패턴",
+      "Singleton",
+      "Singleton Pattern"
+    ],
+    "explanation": "GoF 디자인 패턴의 생성 패턴 중 하나로, 어떤 클래스의 인스턴스가 오직 하나만 생성됨을 보장하고, 어디서든 이 인스턴스에 접근할 수 있도록 전역적인 접근점을 제공합니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_3",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 3,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "GoF 디자인 패턴",
+    "prompt": "객체의 상태 변화가 발생했을 때 연관된 다른 관찰자 객체들에게 통보하고 자동으로 갱신되도록 1:N 의존성을 정의하는 GoF 행위 패턴의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "옵저버",
+    "aliases": [
+      "옵저버",
+      "옵저버 패턴",
+      "옵서버",
+      "Observer",
+      "Observer Pattern"
+    ],
+    "explanation": "GoF 디자인 패턴의 행위 패턴 중 하나로, 한 객체의 상태가 바뀌면 그 객체에 의존하는 다른 객체들에게 자동으로 내용이 갱신되는 1:N 의존 관계를 정의합니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_4",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 4,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 결합도(Coupling) 중 가장 결합도가 낮고 독립성이 우수한 이상적인 결합도의 명칭을 쓰시오 (두 모듈이 단순 데이터 파라미터만 교환).",
+    "passage": null,
+    "code": null,
+    "answer": "자료 결합도",
+    "aliases": [
+      "자료 결합도",
+      "자료결합도",
+      "Data Coupling"
+    ],
+    "explanation": "모듈 간의 인터페이스가 단순한 자료 요소(파라미터)로만 구성되어 가장 결합도가 낮고 독립성이 높은 가장 이상적인 결합도입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_5",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 5,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 결합도(Coupling) 중 가장 결합도가 강하여 최악의 품질을 갖는 결합도의 명칭을 쓰시오 (다른 모듈의 내부 데이터나 코드를 직접 조작).",
+    "passage": null,
+    "code": null,
+    "answer": "내용 결합도",
+    "aliases": [
+      "내용 결합도",
+      "내용결합도",
+      "Content Coupling"
+    ],
+    "explanation": "한 모듈이 다른 모듈의 내부 데이터나 코드를 직접 참조하거나 수정하는 형태로, 결합도가 가장 높아 유지보수성이 가장 나쁜 결합도입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_6",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 6,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 응집도(Cohesion) 중 가장 응집도가 높아 가장 바람직한 유형으로, 모듈 내의 모든 요소가 단 하나의 고유 기능을 완벽히 수행하는 응집도를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "기능적 응집도",
+    "aliases": [
+      "기능적 응집도",
+      "기능적응집도",
+      "Functional Cohesion"
+    ],
+    "explanation": "모듈 내부의 모든 요소들이 단 하나의 고유하고 명확한 기능을 수행하기 위해 구성된 응집도로, 응집도 유형 중 가장 높고 가장 이상적입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_7",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 7,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "소프트웨어 응집도(Cohesion) 중 모듈 내 요소들이 아무런 의미적 연관성 없이 우연히 모여 있는 가장 낮은 품질의 응집도를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "우연적 응집도",
+    "aliases": [
+      "우연적 응집도",
+      "우연적응집도",
+      "Coincidental Cohesion"
+    ],
+    "explanation": "모듈 내부의 요소들이 아무런 의미적, 논리적 연관성 없이 우연히 같은 모듈에 모여 있는 형태로, 응집도가 가장 낮아 품질이 가장 나쁩니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_8",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 8,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "정규화 6단계 & 이상현상",
+    "prompt": "관계 데이터베이스 정규화 과정에서 1NF, 2NF, 3NF를 거칠 때 각각 제거해야 하는 대상을 순서대로 나열하시오: 1NF=( 1 ), 2NF=( 2 ), 3NF=( 3 ).",
+    "passage": "1NF: (  1  ) 제거 (도메인이 원자값)\n2NF: (  2  ) 제거 (완전 함수 종속 만족)\n3NF: (  3  ) 제거",
+    "code": null,
+    "answer": "(1) 비원자값, (2) 부분 함수 종속, (3) 이행 함수 종속",
+    "aliases": [
+      "비원자값, 부분 함수 종속, 이행 함수 종속"
+    ],
+    "explanation": "관계 데이터베이스 정규화 단계:\n- 1NF: 도메인이 원자값만 갖도록 비원자값 제거\n- 2NF: 기본키에 완전 함수 종속되도록 부분 함수 종속 제거\n- 3NF: 기본키가 아닌 일반 컬럼 간의 종속을 없애기 위해 이행 함수 종속 제거",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_9",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 9,
+    "category": "단답형",
+    "unit": 3,
+    "topic": "트랜잭션 ACID & 병행제어",
+    "prompt": "트랜잭션의 4대 특징(ACID) 중 트랜잭션의 모든 연산이 데이터베이스에 완전히 반영되거나 아니면 전혀 반영되지 않아야 한다는 특성(All or Nothing)의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "원자성",
+    "aliases": [
+      "원자성",
+      "Atomicity",
+      "atomicity"
+    ],
+    "explanation": "트랜잭션 4대 특성(ACID) 중 하나로, 트랜잭션 내의 모든 연산이 데이터베이스에 완전히 반영(Commit)되거나, 실패 시 전혀 반영되지 않고 원상 복구(Rollback)되어야 한다는 All-or-Nothing 원칙입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_10",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 10,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "블랙박스 테스팅 기법",
+    "prompt": "소프트웨어 테스트 기법 중 프로그램 내부 코드를 보지 않고 오직 요구사항 명세서를 기반으로 입출력의 정확성을 검증하는 테스트 기법의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "블랙박스 테스트",
+    "aliases": [
+      "블랙박스 테스트",
+      "블랙박스테스트",
+      "Black Box Test",
+      "Black-box Testing"
+    ],
+    "explanation": "소프트웨어 내부 구조나 소스 코드를 보지 않고, 요구사항 명세서를 기반으로 프로그램의 기능이 명세서대로 동작하는지 입력값에 따른 출력값을 검증하는 테스트 기법입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_11",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 11,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "소프트웨어 테스팅 & 운영체제",
+    "prompt": "오류 수정이나 기능 변경 후 기존의 정상 작동하던 기능에 부작용(사이드 이펙트)이나 새로운 결함이 발생하지 않았는지 확인하기 위해 반복 수행하는 재테스트의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "회귀 테스트",
+    "aliases": [
+      "회귀 테스트",
+      "회귀테스트",
+      "Regression Test",
+      "Regression Testing"
+    ],
+    "explanation": "오류 수정, 기능 개선 또는 변경 작업 후, 이전에 정상 작동하던 다른 기능이나 모듈에 예상치 못한 부작용(사이드 이펙트)이나 새로운 결함이 발생하지 않았는지 검증하기 위해 기존 테스트 케이스를 재수행하는 테스트입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_12",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 12,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "공격자가 신뢰할 수 있는 사용자로 위장하여 사용자의 브라우저를 통해 악의적인 요청을 서버로 전송하도록 유도하는 웹 취약점의 영문 약어(4글자)를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "CSRF",
+    "aliases": [
+      "CSRF",
+      "csrf",
+      "Cross-Site Request Forgery",
+      "크로스 사이트 요청 변조"
+    ],
+    "explanation": "크로스 사이트 요청 변조(Cross-Site Request Forgery)는 공격자가 사용자의 브라우저 세션 권한을 도용하여 사용자가 의도하지 않은 악의적 요청(송금, 정보 수정 등)을 서버로 전송하게 만드는 웹 취약점입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_13",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 13,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "웹 페이지의 입력 폼에 악의적인 자바스크립트 코드를 삽입하여 방문자의 세션 토큰이나 쿠키를 탈취하는 웹 보안 취약점의 영문 약어(3글자)를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "XSS",
+    "aliases": [
+      "XSS",
+      "xss",
+      "Cross-Site Scripting",
+      "크로스 사이트 스크립팅"
+    ],
+    "explanation": "크로스 사이트 스크립팅(Cross-Site Scripting)은 게시판이나 입력 폼에 악의적인 자바스크립트 코드를 삽입하여, 이를 열람하는 피해자의 브라우저에서 스크립트가 실행되어 세션 쿠키 탈취, 악성코드 유포 등을 유발하는 취약점입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_14",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 14,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "동적 쿼리를 생성할 때 사용자 입력값 검증 부재를 악용하여 데이터베이스를 무단 조작하거나 탈취하는 대표적인 취약점의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "SQL 삽입",
+    "aliases": [
+      "SQL 삽입",
+      "SQL Injection",
+      "sql injection",
+      "SQL 인젝션"
+    ],
+    "explanation": "SQL 인젝션(SQL Injection)은 사용자 입력값에 대한 유효성 검증(입력 필터링 및 Prepared Statement 미사용)이 부재할 때 악의적인 SQL 구문을 삽입하여 데이터베이스를 무단 열람, 조작, 삭제하는 대표적인 공격입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_15",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 15,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 공격 기법 & 취약점",
+    "prompt": "네트워크 상을 지나가는 패킷을 수동적으로 엿듣고 가로채어 정보를 탈취하는 도청 행위의 명칭을 영문 또는 한글로 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "스니핑",
+    "aliases": [
+      "스니핑",
+      "Sniffing",
+      "sniffing"
+    ],
+    "explanation": "스니핑(Sniffing)은 네트워크 상을 지나가는 패킷을 수동적으로 엿듣고 가로채어 암호화되지 않은 계정 정보, 패스워드 등을 탈취하는 수동적(Passive) 도청 공격 기법입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_16",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 16,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "OSI 7계층 중 종단 간(End-to-End)의 신뢰성 있는 데이터 전송을 담당하며 전송 단위가 세그먼트(Segment)인 4계층의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "전송 계층",
+    "aliases": [
+      "전송 계층",
+      "전송계층",
+      "Transport Layer",
+      "4계층"
+    ],
+    "explanation": "OSI 7계층 중 4계층으로, 송신자와 수신자 간의 종단(End-to-End) 프로세스 간 신뢰성 있는 데이터 전송을 담당합니다. 데이터 단위는 세그먼트(Segment)이며 대표 프로토콜로 TCP, UDP가 있습니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_17",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 17,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "논리적 IP 주소를 기반으로 물리적 MAC 주소를 알아내기 위해 브로드캐스트로 질의하는 프로토콜의 영문 약어(3글자)를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "ARP",
+    "aliases": [
+      "ARP",
+      "arp",
+      "Address Resolution Protocol"
+    ],
+    "explanation": "ARP(Address Resolution Protocol, 주소 결정 프로토콜)는 네트워크 통신을 위해 3계층 논리적 IP 주소를 2계층 물리적 MAC 주소로 변환(매핑)하는 프로토콜입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_18",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 18,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "OSI 7계층 & TCP/UDP 프로토콜",
+    "prompt": "TCP 연결 수립을 위해 클라이언트와 서버 간에 수행하는 SYN, SYN+ACK, ACK 3단계 절차의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "3-Way Handshake",
+    "aliases": [
+      "3-Way Handshake",
+      "3-way handshake",
+      "3웨이 핸드셰이크",
+      "3 way handshake"
+    ],
+    "explanation": "TCP 프로토콜에서 신뢰성 있는 연결을 수립하기 위해 사용하는 3단계 절차로, SYN(동기화 요청) -> SYN+ACK(수락 및 요청) -> ACK(확인 응답)의 순서로 진행됩니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_19",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 19,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "라우팅 프로토콜 (OSPF/RIP)",
+    "prompt": "링크 상태 기반 라우팅 프로토콜로, 다익스트라(Dijkstra) 최단 경로 알고리즘을 사용하는 대표적인 내부 라우팅 프로토콜의 영문 약어(4글자)를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "OSPF",
+    "aliases": [
+      "OSPF",
+      "ospf",
+      "Open Shortest Path First"
+    ],
+    "explanation": "OSPF(Open Shortest Path First)는 링크 상태(Link-State) 알고리즘을 사용하며, 다익스트라(Dijkstra) 최단 경로 알고리즘을 기반으로 대규모 자율 시스템(AS) 내부에서 최적의 경로를 찾는 대표적인 IGP 라우팅 프로토콜입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_20",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 20,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "암호화 알고리즘 (대칭키/공개키/해시)",
+    "prompt": "양자 컴퓨터의 쇼어 알고리즘 공격에도 안전성을 보장할 수 있도록 격자 기반 등의 수학적 난제로 설계된 차세대 암호 체계의 영문 약어(3글자)를 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "PQC",
+    "aliases": [
+      "PQC",
+      "pqc",
+      "양자내성암호",
+      "Post-Quantum Cryptography"
+    ],
+    "explanation": "양자내성암호(Post-Quantum Cryptography)는 양자 컴퓨터의 쇼어(Shor) 알고리즘 등으로 기존 RSA, ECC 등 공개키 암호가 무력화되는 위협에 대응하여 격자 기반, 다변수 기반 등 양자 컴퓨터로도 풀기 어려운 수학적 난제를 이용해 설계된 차세대 암호 체계입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_21",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 21,
+    "category": "단답형",
+    "unit": 4,
+    "topic": "네트워크 프로토콜 & 정보 보안",
+    "prompt": "제3자 애플리케이션에 비밀번호를 노출하지 않고 사용자 자원에 대한 접근 권한을 위임할 수 있도록 정의된 표준 인가 프레임워크의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "OAuth 2.0",
+    "aliases": [
+      "OAuth 2.0",
+      "OAuth",
+      "oauth",
+      "OAuth2.0"
+    ],
+    "explanation": "OAuth 2.0은 제3자 애플리케이션이 사용자의 비밀번호를 직접 보거나 저장하지 않고도 접근 토큰(Access Token)을 발급받아 사용자의 제한된 자원에 접근할 수 있도록 권한을 위임하는 업계 표준 인가(Authorization) 프레임워크입니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_22",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 22,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "객체지향 설계 원칙 (SOLID)",
+    "prompt": "객체지향 설계 원칙(SOLID) 중 '하위 클래스는 상위 클래스의 기능을 온전히 대체할 수 있어야 한다'는 원칙의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "리스코프 치환 원칙",
+    "aliases": [
+      "리스코프 치환 원칙",
+      "리스코프치환원칙",
+      "LSP",
+      "Liskov Substitution Principle"
+    ],
+    "explanation": "SOLID 객체지향 설계 원칙 중 L에 해당하며, 자식 클래스(하위 타입)는 언제나 자신의 부모 클래스(상위 타입)를 대체할 수 있어야 한다는 원칙입니다. 즉 하위 클래스는 상위 클래스의 명세와 규약을 위배하지 않아야 합니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_23",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 23,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "객체지향 설계 원칙 (SOLID)",
+    "prompt": "객체지향 설계 원칙(SOLID) 중 '소프트웨어 개체는 확장에 열려 있고, 수정에는 닫혀 있어야 한다'는 원칙의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "개방 폐쇄 원칙",
+    "aliases": [
+      "개방 폐쇄 원칙",
+      "개방폐쇄원칙",
+      "OCP",
+      "Open-Closed Principle"
+    ],
+    "explanation": "SOLID 객체지향 설계 원칙 중 O에 해당하며, 소프트웨어의 구성 요소(클래스, 모듈 등)는 기능의 확장에는 열려 있어야 하고(Open), 기존 코드의 수정에는 닫혀 있어야(Closed) 한다는 원칙입니다. 주로 인터페이스와 다형성을 통해 실현합니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_24",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 24,
+    "category": "단답형",
+    "unit": 5,
+    "topic": "교착상태 (Deadlock) 4대 조건",
+    "prompt": "데이터베이스에서 둘 이상의 트랜잭션이 서로가 점유한 자원의 잠금 해제를 무한정 대기하는 상태를 일컫는 용어의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "교착 상태",
+    "aliases": [
+      "교착 상태",
+      "교착상태",
+      "Deadlock",
+      "deadlock",
+      "데드락"
+    ],
+    "explanation": "교착 상태(Deadlock)는 다중 프로세스 또는 트랜잭션 환경에서 둘 이상의 작업이 서로가 가진 자원의 잠금(Lock) 해제를 무한정 기다리며 진행이 멈춰버리는 현상입니다. 상호 배제, 점유와 대기, 비선점, 환형 대기 4대 조건이 모두 충족될 때 발생합니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "practical_cheatsheet_25",
+    "round_id": "practical_cheatsheet",
+    "round_title": "📑 [테마] 실기 빈출 족보 단답형 25선",
+    "id": 25,
+    "category": "단답형",
+    "unit": 1,
+    "topic": "모듈 결합도 & 응집도",
+    "prompt": "객체지향 설계 원칙(SOLID) 중 '고수준 모듈은 저수준 모듈의 구현에 의존해서는 안 되며, 둘 모두 추상화(인터페이스)에 의존해야 한다'는 원칙의 명칭을 쓰시오.",
+    "passage": null,
+    "code": null,
+    "answer": "의존 역전 원칙",
+    "aliases": [
+      "의존 역전 원칙",
+      "의존역전원칙",
+      "DIP",
+      "Dependency Inversion Principle"
+    ],
+    "explanation": "SOLID 객체지향 설계 원칙 중 D에 해당하며, 고수준 모듈은 저수준 모듈의 구체적인 구현에 의존해서는 안 되며 둘 다 추상화(인터페이스)에 의존해야 한다는 원칙입니다. 구체 클래스보다 인터페이스에 의존함으로써 결합도를 낮춥니다.",
+    "trapPoint": null,
+    "traceTable": null
+  },
+  {
+    "uid": "c_special_1",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 1,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a[5] = {10, 20, 30, 40, 50};\n    int *p = a;\n    printf(\"%d, %d\", *(p + 2), *p + 2);\n    return 0;\n}",
+    "answer": "30, 12",
+    "aliases": [
+      "30, 12",
+      "30,12",
+      "30 12"
+    ],
+    "explanation": "1. p는 배열 a의 첫 번째 원소 a[0](10)의 주소를 가집니다.\n2. *(p + 2)는 p에서 2칸 이동한 주소(&a[2])의 역참조이므로 a[2]의 값 30입니다.\n3. *p + 2는 *p(즉 a[0]=10)에 정수 2를 더한 것이므로 10 + 2 = 12입니다.\n연산자 우선순위 차이: 괄호 *(p+2) vs *p + 2",
+    "trapPoint": "*(p + 2)는 포인터 주소 연산 후 역참조(30)이고, *p + 2는 역참조 후 2를 덧셈(12)하는 우선순위의 차이를 구별해야 합니다.",
+    "traceTable": {
+      "headers": [
+        "수식",
+        "연산 순서",
+        "결과값"
+      ],
+      "rows": [
+        [
+          "*(p + 2)",
+          "p+2 위치(a[2]) 참조",
+          "30"
+        ],
+        [
+          "*p + 2",
+          "*p(10) 참조 후 + 2",
+          "12"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "c_special_2",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 2,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[2][3] = {{1, 2, 3}, {4, 5, 6}};\n    int (*p)[3] = arr;\n    printf(\"%d\", *(*(p + 1) + 1));\n    return 0;\n}",
+    "answer": "5",
+    "aliases": [
+      "5"
+    ],
+    "explanation": "1. p는 '크기가 3인 1차원 배열을 가리키는 포인터(배열 포인터)'입니다.\n2. p + 1은 arr[1]의 시작 주소를 가리킵니다.\n3. *(p + 1) + 1은 arr[1][1]의 주소를 가리킵니다.\n4. *(*(p + 1) + 1)은 arr[1][1]의 값인 5를 역참조합니다.",
+    "trapPoint": "배열 포인터 p + 1은 1행(arr[1]) 전체를 건너뛰며, 뒤의 + 1은 열 인덱스 1로 이동합니다. arr[1][1] = 5입니다.",
+    "traceTable": {
+      "headers": [
+        "단계",
+        "포인터 식",
+        "가리키는 메모리",
+        "값"
+      ],
+      "rows": [
+        [
+          "1단계",
+          "p + 1",
+          "&arr[1][0]",
+          "arr[1]의 시작 주소"
+        ],
+        [
+          "2단계",
+          "*(p + 1) + 1",
+          "&arr[1][1]",
+          "arr[1][1] 주소"
+        ],
+        [
+          "3단계",
+          "*(*(p + 1) + 1)",
+          "arr[1][1]",
+          "5"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "c_special_3",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 3,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어로 작성된 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nvoid swap(int *x, int *y) {\n    int t = *x;\n    *x = *y;\n    *y = t;\n}\n\nint main() {\n    int a = 10, b = 20;\n    swap(&a, &b);\n    printf(\"%d %d\", a, b);\n    return 0;\n}",
+    "answer": "20 10",
+    "aliases": [
+      "20 10",
+      "20, 10",
+      "20,10"
+    ],
+    "explanation": "swap 함수에 변수 a와 b의 주소(&a, &b)를 전달하는 Call by Reference(참조에 의한 호출)입니다.\n함수 내부에서 포인터 역참조를 통해 main의 a와 b의 실제 메모리 값을 맞교환하므로 a는 20, b는 10이 됩니다.",
+    "trapPoint": "주소(&)를 전달했으므로 원본 변수의 값이 직접 변경됩니다.",
+    "traceTable": {
+      "headers": [
+        "시점",
+        "변수 a",
+        "변수 b",
+        "비고"
+      ],
+      "rows": [
+        [
+          "호출 전",
+          "10",
+          "20",
+          "main 지역변수"
+        ],
+        [
+          "swap 내부",
+          "*x(20)",
+          "*y(10)",
+          "역참조 교환"
+        ],
+        [
+          "호출 후",
+          "20",
+          "10",
+          "최종 출력"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "c_special_4",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 4,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint f(int n) {\n    if (n <= 1) return 1;\n    return n * f(n - 1);\n}\n\nint main() {\n    printf(\"%d\", f(5));\n    return 0;\n}",
+    "answer": "120",
+    "aliases": [
+      "120"
+    ],
+    "explanation": "f(n)은 n의 팩토리얼(n!)을 계산하는 재귀 함수입니다.\nf(5) = 5 * f(4) = 5 * 4 * f(3) = 5 * 4 * 3 * f(2) = 5 * 4 * 3 * 2 * f(1) = 5 * 4 * 3 * 2 * 1 = 120 입니다.",
+    "trapPoint": "기저 조건(n <= 1)에서 1을 반환하며 스택이 되돌아오며 곱해집니다.",
+    "traceTable": {
+      "headers": [
+        "호출 깊이",
+        "함수 호출",
+        "반환식",
+        "계산값"
+      ],
+      "rows": [
+        [
+          "depth 1",
+          "f(5)",
+          "5 * f(4)",
+          "5 * 24 = 120"
+        ],
+        [
+          "depth 2",
+          "f(4)",
+          "4 * f(3)",
+          "4 * 6 = 24"
+        ],
+        [
+          "depth 3",
+          "f(3)",
+          "3 * f(2)",
+          "3 * 2 = 6"
+        ],
+        [
+          "depth 4",
+          "f(2)",
+          "2 * f(1)",
+          "2 * 1 = 2"
+        ],
+        [
+          "depth 5",
+          "f(1)",
+          "1 (기저조건)",
+          "1"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "c_special_5",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 5,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 문자열 조작",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    char str[] = \"KOREA\";\n    char *p = str + 4;\n    while (p >= str) {\n        printf(\"%c\", *p);\n        p--;\n    }\n    return 0;\n}",
+    "answer": "AEROK",
+    "aliases": [
+      "AEROK"
+    ],
+    "explanation": "1. str은 'KOREA' 문자열 배열로 str[0]='K', str[1]='O', str[2]='R', str[3]='E', str[4]='A'입니다.\n2. p = str + 4는 'A'의 위치를 가리킵니다.\n3. p >= str 동안 역순으로 출력하며 p를 1씩 감소시키므로 'A', 'E', 'R', 'O', 'K' 순으로 출력되어 AEROK가 됩니다.",
+    "trapPoint": "문자열의 끝 문자 'A'부터 시작 주소 'K'까지 역순으로 순회 출력됩니다.",
+    "traceTable": {
+      "headers": [
+        "루프",
+        "가리키는 주소",
+        "*p 문자",
+        "출력 누적"
+      ],
+      "rows": [
+        [
+          "1회차",
+          "str + 4",
+          "'A'",
+          "A"
+        ],
+        [
+          "2회차",
+          "str + 3",
+          "'E'",
+          "AE"
+        ],
+        [
+          "3회차",
+          "str + 2",
+          "'R'",
+          "AER"
+        ],
+        [
+          "4회차",
+          "str + 1",
+          "'O'",
+          "AERO"
+        ],
+        [
+          "5회차",
+          "str + 0",
+          "'K'",
+          "AEROK"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "c_special_6",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 6,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nvoid count() {\n    static int x = 0;\n    int y = 0;\n    x++;\n    y++;\n    printf(\"%d%d\", x, y);\n}\n\nint main() {\n    count();\n    count();\n    return 0;\n}",
+    "answer": "1121",
+    "aliases": [
+      "1121",
+      "1 1 2 1"
+    ],
+    "explanation": "1. static 변수 x는 프로그램 시작 시 정적 메모리에 단 한 번 0으로 초기화되며 함수가 끝나도 값이 유지됩니다.\n2. 일반 지역변수 y는 count()가 호출될 때마다 스택에 새로 생성되어 0으로 초기화됩니다.\n3. 첫 번째 count(): x=1, y=1 -> 출력 '11'\n4. 두 번째 count(): x=2(유지된 1에서 증가), y=1(새로 초기화) -> 출력 '21'\n최종 연속 출력: 1121",
+    "trapPoint": "정적 변수(static)는 함수가 반환되어도 소멸하지 않고 값이 누적된다는 점이 핵심입니다.",
+    "traceTable": {
+      "headers": [
+        "함수 호출",
+        "static x 변화",
+        "auto y 변화",
+        "출력값"
+      ],
+      "rows": [
+        [
+          "1번째 count()",
+          "0 -> 1",
+          "0 -> 1",
+          "11"
+        ],
+        [
+          "2번째 count()",
+          "1 -> 2",
+          "0 -> 1",
+          "21"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "c_special_7",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 7,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nstruct Student {\n    int id;\n    int score;\n};\n\nint main() {\n    struct Student s[2] = {{1, 80}, {2, 95}};\n    struct Student *p = s;\n    p++;\n    printf(\"%d, %d\", p->id, p->score);\n    return 0;\n}",
+    "answer": "2, 95",
+    "aliases": [
+      "2, 95",
+      "2,95",
+      "2 95"
+    ],
+    "explanation": "1. s는 Student 구조체 2개짜리 배열입니다. s[0]={1,80}, s[1]={2,95}\n2. p는 구조체 포인터로 s[0]을 가리키다가 p++에 의해 다음 구조체인 s[1]을 가리킵니다.\n3. p->id는 s[1].id인 2이고, p->score는 s[1].score인 95입니다.\n출력: 2, 95",
+    "trapPoint": "구조체 포인터 증가(p++)는 구조체 크기(sizeof(Student))만큼 주소가 증가하여 다음 원소인 s[1]을 가리킵니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "c_special_8",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 8,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 12; // 2진수: 0000 1100\n    int b = 10; // 2진수: 0000 1010\n    int c = a ^ b;\n    int d = a & b;\n    printf(\"%d, %d\", c, d);\n    return 0;\n}",
+    "answer": "6, 8",
+    "aliases": [
+      "6, 8",
+      "6,8",
+      "6 8"
+    ],
+    "explanation": "1. a = 12 (1100₂), b = 10 (1010₂)\n2. XOR 연산 (^)은 두 비트가 서로 다를 때 1: 1100 ^ 1010 = 0110₂ = 6\n3. AND 연산 (&)은 두 비트가 모두 1일 때 1: 1100 & 1010 = 1000₂ = 8\n따라서 6, 8이 출력됩니다.",
+    "trapPoint": "XOR(^)은 배타적 논리합으로 같으면 0, 다르면 1입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "c_special_9",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 9,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int x = 5;\n    int y = (x > 3) ? (x < 10 ? 100 : 200) : 300;\n    printf(\"%d\", y);\n    return 0;\n}",
+    "answer": "100",
+    "aliases": [
+      "100"
+    ],
+    "explanation": "삼항 조건 연산자의 중첩입니다.\n1. x > 3 은 5 > 3 이므로 참(True)입니다.\n2. 참이므로 (x < 10 ? 100 : 200)이 평가됩니다.\n3. 5 < 10 은 참이므로 100이 선택됩니다.\n결과: 100",
+    "trapPoint": "중첩된 삼항 연산자의 조건 평가 흐름을 차례대로 추적합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "c_special_10",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 10,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int sum = 0;\n    for (int i = 1; i <= 10; i++) {\n        if (i % 2 == 0) continue;\n        if (i > 7) break;\n        sum += i;\n    }\n    printf(\"%d\", sum);\n    return 0;\n}",
+    "answer": "16",
+    "aliases": [
+      "16"
+    ],
+    "explanation": "1. 루프 i = 1부터 10까지:\n- i=1: 홀수, sum = 1\n- i=2: 짝수 continue\n- i=3: 홀수, sum = 1 + 3 = 4\n- i=4: 짝수 continue\n- i=5: 홀수, sum = 4 + 5 = 9\n- i=6: 짝수 continue\n- i=7: 홀수, sum = 9 + 7 = 16\n- i=8: i%2==0 continue\n- i=9: i > 7 이므로 break로 반복문 탈출!\n따라서 sum = 16 입니다.",
+    "trapPoint": "i=9일 때 break를 만나 루프가 즉시 종료되므로 i=9는 sum에 더해지지 않습니다.",
+    "traceTable": {
+      "headers": [
+        "i 값",
+        "i % 2 == 0",
+        "i > 7",
+        "sum 누적"
+      ],
+      "rows": [
+        [
+          "1",
+          "거짓",
+          "거짓",
+          "1"
+        ],
+        [
+          "2",
+          "참(continue)",
+          "-",
+          "1"
+        ],
+        [
+          "3",
+          "거짓",
+          "거짓",
+          "4"
+        ],
+        [
+          "4",
+          "참(continue)",
+          "-",
+          "4"
+        ],
+        [
+          "5",
+          "거짓",
+          "거짓",
+          "9"
+        ],
+        [
+          "6",
+          "참(continue)",
+          "-",
+          "9"
+        ],
+        [
+          "7",
+          "거짓",
+          "거짓",
+          "16"
+        ],
+        [
+          "8",
+          "참(continue)",
+          "-",
+          "16"
+        ],
+        [
+          "9",
+          "거짓",
+          "참(break)",
+          "16 (탈출)"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "c_special_11",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 11,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint add(int a, int b) { return a + b; }\nint mul(int a, int b) { return a * b; }\n\nint main() {\n    int (*fp)(int, int);\n    fp = add;\n    int res1 = fp(3, 4);\n    fp = mul;\n    int res2 = fp(res1, 2);\n    printf(\"%d\", res2);\n    return 0;\n}",
+    "answer": "14",
+    "aliases": [
+      "14"
+    ],
+    "explanation": "1. int (*fp)(int, int)는 매개변수 두 개(int, int)를 받아 int를 반환하는 함수 포인터입니다.\n2. fp = add 일 때 fp(3, 4)는 3 + 4 = 7을 반환하여 res1 = 7이 됩니다.\n3. fp = mul 일 때 fp(7, 2)는 7 * 2 = 14를 반환하여 res2 = 14가 됩니다.\n따라서 출력은 14입니다.",
+    "trapPoint": "함수 포인터를 통해 동적으로 호출할 함수를 변경할 수 있습니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "c_special_12",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 12,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int a = 1;\n    int b = a << 3;\n    int c = b >> 1;\n    printf(\"%d, %d\", b, c);\n    return 0;\n}",
+    "answer": "8, 4",
+    "aliases": [
+      "8, 4",
+      "8,4",
+      "8 4"
+    ],
+    "explanation": "1. 비트 좌측 시프트(<<)는 2를 곱하는 효과가 있습니다: 1 << 3 = 1 * 2³ = 8\n2. 비트 우측 시프트(>>)는 2로 나누는 효과가 있습니다: 8 >> 1 = 8 / 2¹ = 4\n따라서 8, 4가 출력됩니다.",
+    "trapPoint": "시프트 연산자: a << n은 a * 2^n, a >> n은 a / 2^n 입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "c_special_13",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 13,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 제어문 & 연산",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    int arr[5] = {5, 4, 3, 2, 1};\n    int temp;\n    for (int i = 0; i < 4; i++) {\n        for (int j = 0; j < 4 - i; j++) {\n            if (arr[j] > arr[j + 1]) {\n                temp = arr[j];\n                arr[j] = arr[j + 1];\n                arr[j + 1] = temp;\n            }\n        }\n    }\n    printf(\"%d %d %d\", arr[0], arr[2], arr[4]);\n    return 0;\n}",
+    "answer": "1 3 5",
+    "aliases": [
+      "1 3 5",
+      "1, 3, 5",
+      "1,3,5"
+    ],
+    "explanation": "주어진 코드는 버블 정렬(Bubble Sort)을 오름차순으로 수행하는 알고리즘입니다.\n원래 배열 {5, 4, 3, 2, 1}이 정렬된 후 {1, 2, 3, 4, 5}가 됩니다.\narr[0] = 1, arr[2] = 3, arr[4] = 5 이므로 '1 3 5'가 출력됩니다.",
+    "trapPoint": "버블 정렬 후 인덱스 0, 2, 4 위치의 원소를 골라 공백 구분으로 출력합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "c_special_14",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 14,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint main() {\n    char s[] = \"Information\";\n    printf(\"%c%c\", *(s + 2), s[5]);\n    return 0;\n}",
+    "answer": "fm",
+    "aliases": [
+      "fm",
+      "f m"
+    ],
+    "explanation": "문자열 'Information':\n인덱스: 0:I, 1:n, 2:f, 3:o, 4:r, 5:m, 6:a, 7:t, 8:i, 9:o, 10:n\n*(s + 2)는 s[2]인 'f'\ns[5]는 'm'\n따라서 fm 이 출력됩니다.",
+    "trapPoint": "C언어 배열 인덱스는 0부터 시작하므로 s[2]는 3번째 글자 'f', s[5]는 6번째 글자 'm'입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "c_special_15",
+    "round_id": "c_special",
+    "round_title": "⚡ [언어특화] C언어 기출 집중 15선",
+    "id": 15,
+    "category": "C",
+    "unit": 2,
+    "topic": "C언어 포인터 & 다차원 배열",
+    "prompt": "다음 C언어 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "#include <stdio.h>\n\nint gcd(int a, int b) {\n    if (b == 0) return a;\n    return gcd(b, a % b);\n}\n\nint main() {\n    printf(\"%d\", gcd(48, 18));\n    return 0;\n}",
+    "answer": "6",
+    "aliases": [
+      "6"
+    ],
+    "explanation": "유클리드 호제법(Euclidean Algorithm)을 이용한 최대공약수(GCD) 계산 재귀함수입니다.\n1. gcd(48, 18) -> 48 % 18 = 12 -> gcd(18, 12)\n2. gcd(18, 12) -> 18 % 12 = 6 -> gcd(12, 6)\n3. gcd(12, 6) -> 12 % 6 = 0 -> gcd(6, 0)\n4. b == 0 이므로 a인 6을 반환합니다.\n출력: 6",
+    "trapPoint": "유클리드 호제법의 원리 gcd(a, b) = gcd(b, a % b)와 b가 0이 될 때의 a가 최대공약수입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_1",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 1,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class SuperClass {\n    SuperClass() {\n        System.out.print(\"A\");\n    }\n    SuperClass(int x) {\n        System.out.print(\"B\" + x);\n    }\n}\n\nclass SubClass extends SuperClass {\n    SubClass() {\n        super(10);\n        System.out.print(\"C\");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        SubClass obj = new SubClass();\n    }\n}",
+    "answer": "B10C",
+    "aliases": [
+      "B10C",
+      "B10 C"
+    ],
+    "explanation": "1. `new SubClass()` 호출 시 SubClass 생성자가 실행됩니다.\n2. SubClass 생성자의 첫 줄에 명시적으로 `super(10)`이 작성되어 있으므로 부모의 `SuperClass(int x)` 생성자가 호출되어 'B10'이 먼저 출력됩니다.\n3. 부모 생성자가 끝난 후 자식 생성자의 나머지 `System.out.print(\"C\")`가 실행되어 'C'가 출력됩니다.\n따라서 'B10C'가 출력됩니다.",
+    "trapPoint": "자식 생성자 첫 줄의 명시적 super(10) 호출로 인해 기본 생성자 SuperClass()('A')는 실행되지 않습니다.",
+    "traceTable": {
+      "headers": [
+        "실행 순서",
+        "코드",
+        "출력",
+        "누적 출력"
+      ],
+      "rows": [
+        [
+          "1단계",
+          "super(10)",
+          "B10",
+          "B10"
+        ],
+        [
+          "2단계",
+          "System.out.print(\"C\")",
+          "C",
+          "B10C"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "java_special_2",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 2,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 오버라이딩 & 다형성",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Parent {\n    int x = 10;\n    void print() {\n        System.out.print(x);\n    }\n}\n\nclass Child extends Parent {\n    int x = 20;\n    void print() {\n        System.out.print(x);\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Parent p = new Child();\n        System.out.print(p.x + \" \");\n        p.print();\n    }\n}",
+    "answer": "10 20",
+    "aliases": [
+      "10 20",
+      "10, 20",
+      "10,20"
+    ],
+    "explanation": "자바의 핵심 다형성 규칙:\n1. 인스턴스 변수(필드)는 참조 변수의 선언 타입에 따라 결정됩니다(정적 바인딩). `p.x`에서 p는 Parent 타입이므로 `Parent.x`인 10이 참조됩니다.\n2. 인스턴스 메서드는 실제 생성된 인스턴스 객체의 오버라이딩된 메서드가 호출됩니다(동적 바인딩). `p.print()`는 Child의 `print()`가 실행되어 Child의 x인 20이 출력됩니다.\n출력: '10 20'",
+    "trapPoint": "멤버 변수는 오버라이딩되지 않고 참조 변수 타입(Parent)을 따르지만, 메서드는 오버라이딩되어 실제 객체(Child)의 메서드가 실행됩니다.",
+    "traceTable": {
+      "headers": [
+        "구문",
+        "바인딩 방식",
+        "적용 클래스",
+        "값"
+      ],
+      "rows": [
+        [
+          "p.x",
+          "정적 바인딩 (변수)",
+          "Parent",
+          "10"
+        ],
+        [
+          "p.print()",
+          "동적 바인딩 (메서드)",
+          "Child (오버라이딩)",
+          "20"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "java_special_3",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 3,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java static 공유 변수",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Counter {\n    static int count = 0;\n    int num = 0;\n    Counter() {\n        count++;\n        num++;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Counter c1 = new Counter();\n        Counter c2 = new Counter();\n        Counter c3 = new Counter();\n        System.out.println(c3.count + \", \" + c3.num);\n    }\n}",
+    "answer": "3, 1",
+    "aliases": [
+      "3, 1",
+      "3,1",
+      "3 1"
+    ],
+    "explanation": "1. static int count는 모든 Counter 객체가 공유하는 정적 클래스 변수입니다. 객체가 3번 생성(c1, c2, c3)되는 동안 count++가 3회 실행되어 3이 됩니다.\n2. int num은 각 객체마다 별도로 할당되는 인스턴스 변수입니다. c3 객체 생성 시 num++가 1회 실행되어 1이 됩니다.\n따라서 c3.count는 3, c3.num은 1입니다.",
+    "trapPoint": "static 변수는 인스턴스마다 별개로 존재하는 것이 아니라 클래스 로딩 시 단 하나만 생성되어 모든 인스턴스가 공유합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_4",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 4,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        String s1 = \"Hello\";\n        s1.concat(\" World\");\n        System.out.println(s1);\n    }\n}",
+    "answer": "Hello",
+    "aliases": [
+      "Hello"
+    ],
+    "explanation": "Java에서 String 클래스는 불변(Immutable) 객체입니다.\n`s1.concat(\" World\")`는 \"Hello World\"라는 새로운 String 객체를 생성하지만, 그 반환값을 s1에 다시 대입하지 않았으므로 s1은 여전히 원래의 \"Hello\"를 유지합니다.",
+    "trapPoint": "String 객체의 불변성(Immutability) 함정입니다. s1 = s1.concat(...) 처럼 재할당하지 않으면 원래 변수는 절대 변하지 않습니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_5",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 5,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 예외 처리",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static int test() {\n        try {\n            int a = 10 / 2;\n            return a;\n        } catch (Exception e) {\n            return 0;\n        } finally {\n            System.out.print(\"F\");\n        }\n    }\n\n    public static void main(String[] args) {\n        System.out.print(test());\n    }\n}",
+    "answer": "F5",
+    "aliases": [
+      "F5",
+      "F 5"
+    ],
+    "explanation": "1. `test()` 메서드 실행 시 `try` 블록에서 `a = 10 / 2 = 5`가 계산되고 `return a;`를 만나지만, 반환하기 전에 반드시 `finally` 블록이 먼저 실행됩니다.\n2. `finally` 블록의 `System.out.print(\"F\")`가 먼저 콘솔에 'F'를 출력합니다.\n3. 그 후 `try`에서 준비된 반환값 5가 `main`으로 반환되어 `System.out.print(5)`에 의해 '5'가 출력됩니다.\n최종 출력: F5",
+    "trapPoint": "try 블록에서 return이 실행되더라도 finally 블록은 무조건 실행된 후 실제 반환이 이루어집니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_6",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 6,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 인터페이스 & 추상클래스",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "interface Calc {\n    int operate(int a, int b);\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Calc add = (x, y) -> x + y;\n        Calc mul = (x, y) -> x * y;\n        System.out.println(add.operate(mul.operate(2, 3), 4));\n    }\n}",
+    "answer": "10",
+    "aliases": [
+      "10"
+    ],
+    "explanation": "1. 함수형 인터페이스 Calc를 람다식으로 구현합니다.\n2. mul.operate(2, 3)은 2 * 3 = 6을 반환합니다.\n3. add.operate(6, 4)는 6 + 4 = 10을 반환하여 출력합니다.",
+    "trapPoint": "람다식을 활용한 중첩 호출 연산 순서(안쪽 mul.operate(2, 3) 먼저 계산)를 확인합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_7",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 7,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 상속 & 부모 생성자",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "abstract class Animal {\n    abstract void sound();\n    void sleep() {\n        System.out.print(\"Z\");\n    }\n}\n\nclass Dog extends Animal {\n    void sound() {\n        System.out.print(\"W\");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Animal a = new Dog();\n        a.sound();\n        a.sleep();\n    }\n}",
+    "answer": "WZ",
+    "aliases": [
+      "WZ",
+      "W Z"
+    ],
+    "explanation": "1. Animal은 추상 클래스(abstract class)입니다.\n2. `Animal a = new Dog()` 다형성에 의해 `a.sound()`는 자식 클래스 Dog에서 구현된 `sound()`가 호출되어 'W'가 출력됩니다.\n3. `a.sleep()`은 부모 추상 클래스에 정의된 일반 메서드로 'Z'가 출력됩니다.\n따라서 'WZ'가 출력됩니다.",
+    "trapPoint": "추상 클래스의 추상 메서드 오버라이딩과 부모의 일반 상속 메서드 호출 흐름입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_8",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 8,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        String s = \"KOREA2026\";\n        System.out.print(s.substring(2, 5));\n        System.out.print(s.indexOf('2'));\n    }\n}",
+    "answer": "REA5",
+    "aliases": [
+      "REA5",
+      "REA 5"
+    ],
+    "explanation": "문자열 s = \"KOREA2026\"\n인덱스: 0:K, 1:O, 2:R, 3:E, 4:A, 5:2, 6:0, 7:2, 8:6\n1. `s.substring(2, 5)`는 인덱스 2부터 5 이전(2, 3, 4)까지 자르므로 \"REA\"입니다.\n2. `s.indexOf('2')`는 문자 '2'가 처음 등장하는 인덱스인 5를 반환합니다.\n따라서 REA와 5가 연속 출력되어 REA5가 됩니다.",
+    "trapPoint": "substring(begin, end)에서 end 인덱스는 포함되지 않는다는 점(end-1까지)에 주의합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_9",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 9,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int[][] arr = {{1, 2, 3}, {4, 5, 6}};\n        int sum = 0;\n        for (int[] row : arr) {\n            for (int val : row) {\n                if (val % 2 == 0) sum += val;\n            }\n        }\n        System.out.println(sum);\n    }\n}",
+    "answer": "12",
+    "aliases": [
+      "12"
+    ],
+    "explanation": "향상된 for문(Enhanced for loop)으로 2차원 배열을 순회합니다.\n짝수(val % 2 == 0)인 원소만 추출: 2, 4, 6\nsum = 2 + 4 + 6 = 12 입니다.",
+    "trapPoint": "2차원 배열의 행(row) 순회 후 각 행의 짝수 요소만 누적합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_10",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 10,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Vehicle {\n    void drive() { System.out.print(\"V\"); }\n}\n\nclass Car extends Vehicle {\n    void drive() { System.out.print(\"C\"); }\n    void turbo() { System.out.print(\"T\"); }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Vehicle v = new Car();\n        v.drive();\n        if (v instanceof Car) {\n            ((Car) v).turbo();\n        }\n    }\n}",
+    "answer": "CT",
+    "aliases": [
+      "CT",
+      "C T"
+    ],
+    "explanation": "1. `Vehicle v = new Car();` 에서 `v.drive()`는 동적 바인딩에 의해 Car의 `drive()`가 호출되어 'C'를 출력합니다.\n2. `v instanceof Car`는 v가 가리키는 실제 인스턴스가 Car이므로 true입니다.\n3. `((Car) v).turbo()` 다운캐스팅(Downcasting)을 통해 Car 전용 메서드 turbo()를 호출하여 'T'를 출력합니다.\n출력: CT",
+    "trapPoint": "부모 참조 타입 변수를 자식 타입으로 다운캐스팅하기 전 instanceof 연산자로 실제 인스턴스 타입을 안전하게 확인하는 패턴입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_11",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 11,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 10, b = 20;\n        int max = (a > b) ? a : b;\n        System.out.println(max);\n    }\n}",
+    "answer": "20",
+    "aliases": [
+      "20"
+    ],
+    "explanation": "a > b (10 > 20) 조건이 거짓(false)이므로 콜론 뒤의 b(20)가 선택됩니다.\n출력: 20",
+    "trapPoint": "삼항 조건식의 기본 평가입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_12",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 12,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Box<T> {\n    private T item;\n    public void set(T item) { this.item = item; }\n    public T get() { return item; }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Box<Integer> box = new Box<>();\n        box.set(100);\n        System.out.println(box.get() + 50);\n    }\n}",
+    "answer": "150",
+    "aliases": [
+      "150"
+    ],
+    "explanation": "제네릭 클래스 Box<T>에 타입 인자로 Integer를 지정했습니다.\nbox.set(100)으로 저장된 100을 꺼내 50을 더하므로 150이 출력됩니다.",
+    "trapPoint": "제네릭(Generics)의 기본 동작 및 타입 안전성 개념입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_13",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 13,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        String a = new String(\"test\");\n        String b = new String(\"test\");\n        String c = \"test\";\n        String d = \"test\";\n        System.out.print((a == b) + \" \" + (c == d) + \" \" + a.equals(b));\n    }\n}",
+    "answer": "false true true",
+    "aliases": [
+      "false true true",
+      "false, true, true",
+      "false,true,true"
+    ],
+    "explanation": "1. `a == b`: new 연산자로 각각 힙(Heap) 메모리에 별도 생성된 서로 다른 객체이므로 주소 비교 false입니다.\n2. `c == d`: 문자열 리터럴로 생성되어 문자열 상수 풀(String Constant Pool)의 동일한 주소를 공유하므로 true입니다.\n3. `a.equals(b)`: 문자열의 실제 내용(\"test\")을 비교하므로 true입니다.\n출력: 'false true true'",
+    "trapPoint": "Java의 `==` (참조 주소 비교)와 `.equals()` (내용 비교), 그리고 문자열 리터럴의 상수 풀 공유 차이를 묻는 대표적인 빈출 문제입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_14",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 14,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Printer {\n    void print(int x) { System.out.print(\"INT\"); }\n    void print(String s) { System.out.print(\"STR\"); }\n    void print(double d) { System.out.print(\"DBL\"); }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Printer p = new Printer();\n        p.print(10);\n        p.print(\"10\");\n        p.print(10.0);\n    }\n}",
+    "answer": "INTSTRDBL",
+    "aliases": [
+      "INTSTRDBL",
+      "INT STR DBL"
+    ],
+    "explanation": "메서드 오버로딩(Method Overloading) 규칙에 따라 전달되는 인자의 타입에 가장 잘 맞는 메서드가 호출됩니다.\n1. `p.print(10)`: 정수 int -> 'INT'\n2. `p.print(\"10\")`: 문자열 String -> 'STR'\n3. `p.print(10.0)`: 실수 double -> 'DBL'\n연속 출력: INTSTRDBL",
+    "trapPoint": "메서드 이름은 같지만 매개변수의 타입에 따라 컴파일 타임에 호출 메서드가 결정되는 오버로딩입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "java_special_15",
+    "round_id": "java_special",
+    "round_title": "☕ [언어특화] Java 기출 집중 15선",
+    "id": 15,
+    "category": "Java",
+    "unit": 2,
+    "topic": "Java 객체지향 프로그래밍",
+    "prompt": "다음 Java 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = {10, 20, 30, 40, 50};\n        int sum = 0;\n        for (int i = 0; i < arr.length; i += 2) {\n            sum += arr[i];\n        }\n        System.out.println(sum);\n    }\n}",
+    "answer": "90",
+    "aliases": [
+      "90"
+    ],
+    "explanation": "루프 증감식이 `i += 2`이므로 짝수 인덱스 원소만 순회합니다.\ni=0: arr[0] = 10\ni=2: arr[2] = 30\ni=4: arr[4] = 50\nsum = 10 + 30 + 50 = 90 입니다.",
+    "trapPoint": "증감식 i += 2로 건너뛰며 인덱스 0, 2, 4 원소를 더합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_1",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 1,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 슬라이싱 연산",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a = [10, 20, 30, 40, 50, 60]\nprint(a[1:5:2])",
+    "answer": "[20, 40]",
+    "aliases": [
+      "[20, 40]",
+      "[20,40]",
+      "20, 40",
+      "20 40"
+    ],
+    "explanation": "슬라이싱 문법 `a[start:stop:step]`:\n- start: 1 (a[1] = 20)\n- stop: 5 (인덱스 5 이전인 4까지 탐색)\n- step: 2 (2칸씩 건너뜀)\n인덱스 1(20)과 3(40)이 선택되어 리스트 [20, 40]이 출력됩니다.",
+    "trapPoint": "stop 인덱스 5(원소 60)는 포함되지 않으며, step 2에 따라 인덱스 1, 3의 원소만 추출됩니다.",
+    "traceTable": {
+      "headers": [
+        "인덱스",
+        "원소",
+        "선택 여부"
+      ],
+      "rows": [
+        [
+          "1",
+          "20",
+          "선택 (시작)"
+        ],
+        [
+          "2",
+          "30",
+          "건너뜀 (step 2)"
+        ],
+        [
+          "3",
+          "40",
+          "선택"
+        ],
+        [
+          "4",
+          "50",
+          "건너뜀 (step 2)"
+        ],
+        [
+          "5",
+          "60",
+          "종료 (stop 미포함)"
+        ]
+      ]
+    }
+  },
+  {
+    "uid": "python_special_2",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 2,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 리스트 컴프리헨션",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "numbers = [1, 2, 3, 4, 5, 6]\nresult = [x * x for x in numbers if x % 2 == 1]\nprint(result)",
+    "answer": "[1, 9, 25]",
+    "aliases": [
+      "[1, 9, 25]",
+      "[1,9,25]",
+      "1, 9, 25",
+      "1 9 25"
+    ],
+    "explanation": "리스트 컴프리헨션(List Comprehension):\n1. numbers에서 홀수(x % 2 == 1)인 원소 추출: 1, 3, 5\n2. 각각 제곱(x * x) 계산:\n   - 1 * 1 = 1\n   - 3 * 3 = 9\n   - 5 * 5 = 25\n출력: [1, 9, 25]",
+    "trapPoint": "조건식 if x % 2 == 1에 의해 홀수만 필터링된 후 거듭제곱됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_3",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 3,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "d = {\"apple\": 100, \"banana\": 200}\nd[\"cherry\"] = 300\nd[\"apple\"] = 150\nprint(d.get(\"grape\", 0) + d[\"apple\"])",
+    "answer": "150",
+    "aliases": [
+      "150"
+    ],
+    "explanation": "1. d[\"cherry\"] = 300 추가, d[\"apple\"] = 150 갱신\n2. d.get(\"grape\", 0)은 \"grape\" 키가 없으므로 기본값 0을 반환합니다.\n3. d[\"apple\"]은 150입니다.\n4. 0 + 150 = 150이 출력됩니다.",
+    "trapPoint": "dict.get(key, default) 메서드는 키가 존재하지 않을 때 KeyError 대신 기본값을 반환합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_4",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 4,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "a, *b, c = [1, 2, 3, 4, 5]\nprint(b)",
+    "answer": "[2, 3, 4]",
+    "aliases": [
+      "[2, 3, 4]",
+      "[2,3,4]",
+      "2, 3, 4",
+      "2 3 4"
+    ],
+    "explanation": "가변 언패킹(Starred Unpacking):\n- a에는 첫 번째 원소 1이 할당됩니다.\n- c에는 마지막 원소 5가 할당됩니다.\n- *b에는 나머지 중간 원소들이 리스트 [2, 3, 4]로 패킹되어 할당됩니다.\n출력: [2, 3, 4]",
+    "trapPoint": "Starred expression *b는 리스트 형태로 중간 원소들을 수집합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_5",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 5,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 람다 & 함수형 기법",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "data = [1, 2, 3, 4]\nres = list(map(lambda x: x + 10, filter(lambda x: x > 2, data)))\nprint(res)",
+    "answer": "[13, 14]",
+    "aliases": [
+      "[13, 14]",
+      "[13,14]",
+      "13, 14",
+      "13 14"
+    ],
+    "explanation": "1. `filter(lambda x: x > 2, data)`는 2보다 큰 원소 [3, 4]를 걸러냅니다.\n2. `map(lambda x: x + 10, ...)`은 걸러진 원소들에 10을 더하여 [13, 14]를 만듭니다.\n따라서 [13, 14]가 출력됩니다.",
+    "trapPoint": "filter 함수가 먼저 적용되어 [3, 4]가 되고, map 함수로 각각 10이 더해집니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_6",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 6,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 컬렉션 자료구조",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "s1 = {1, 2, 3, 4}\ns2 = {3, 4, 5, 6}\nprint(len(s1 & s2) + len(s1 ^ s2))",
+    "answer": "6",
+    "aliases": [
+      "6"
+    ],
+    "explanation": "1. s1 & s2 는 교집합: {3, 4} -> 길이는 2\n2. s1 ^ s2 는 대칭차집합(서로 다른 원소들의 합집합): {1, 2, 5, 6} -> 길이는 4\n3. 2 + 4 = 6 이 출력됩니다.",
+    "trapPoint": "집합(set) 연산자: &는 교집합, ^는 대칭차집합입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_7",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 7,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "text = \"  Information Processing Engineer  \"\nwords = text.strip().split()\nprint(\"-\".join(words))",
+    "answer": "Information-Processing-Engineer",
+    "aliases": [
+      "Information-Processing-Engineer"
+    ],
+    "explanation": "1. text.strip()으로 앞뒤 공백 제거\n2. .split()으로 공백 기준 단어 분리: ['Information', 'Processing', 'Engineer']\n3. \"-\".join(words)로 각 단어를 하이픈으로 연결: 'Information-Processing-Engineer'\n출력: Information-Processing-Engineer",
+    "trapPoint": "split() 후 join() 연결 연산의 최종 결과 문자열을 정확히 작성합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_8",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 8,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def gen():\n    for i in range(1, 4):\n        yield i * 10\n\ng = gen()\nprint(next(g) + next(g))",
+    "answer": "30",
+    "aliases": [
+      "30"
+    ],
+    "explanation": "제너레이터(Generator)와 yield 키워드:\n1. 첫 번째 next(g) 호출 시 i=1에서 yield 10 -> 10 반환\n2. 두 번째 next(g) 호출 시 i=2에서 yield 20 -> 20 반환\n3. 10 + 20 = 30이 출력됩니다.",
+    "trapPoint": "yield는 함수의 상태를 유지한 채 값을 반환하고 대기하며, next() 호출마다 다음 yield까지 진행합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_9",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 9,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def append_item(val, lst=[]):\n    lst.append(val)\n    return lst\n\nappend_item(1)\nappend_item(2)\nprint(append_item(3))",
+    "answer": "[1, 2, 3]",
+    "aliases": [
+      "[1, 2, 3]",
+      "[1,2,3]",
+      "1, 2, 3",
+      "1 2 3"
+    ],
+    "explanation": "파이썬의 가장 유명한 기본 인자 함정(Default Argument Gotcha):\n함수의 기본 매개변수 `lst=[]`는 함수 정의 시점에 단 한 번만 생성되어 공유됩니다.\n1. append_item(1) -> lst는 [1]\n2. append_item(2) -> 같은 lst에 2 추가되어 [1, 2]\n3. append_item(3) -> 같은 lst에 3 추가되어 [1, 2, 3]\n최종 반환 및 출력: [1, 2, 3]",
+    "trapPoint": "기본값으로 전달된 가변 객체(리스트, 딕셔너리)는 함수 호출마다 새로 생성되지 않고 계속 누적됩니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_10",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 10,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 컬렉션 자료구조",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "keys = ['a', 'b', 'c']\nvals = [10, 20, 30]\nd = dict(zip(keys, vals))\nprint(d['b'])",
+    "answer": "20",
+    "aliases": [
+      "20"
+    ],
+    "explanation": "zip(keys, vals)는 두 리스트의 동일 인덱스 요소를 튜플로 묶습니다: [('a', 10), ('b', 20), ('c', 30)]\ndict()로 변환하면 {'a': 10, 'b': 20, 'c': 30} 딕셔너리가 생성됩니다.\nd['b']는 20입니다.",
+    "trapPoint": "zip 함수를 활용한 딕셔너리 생성 패턴입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_11",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 11,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 람다 & 함수형 기법",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "students = [(\"Lee\", 85), (\"Kim\", 95), (\"Park\", 70)]\nstudents.sort(key=lambda x: x[1])\nprint(students[0][0])",
+    "answer": "Park",
+    "aliases": [
+      "Park"
+    ],
+    "explanation": "students.sort(key=lambda x: x[1])은 튜플의 2번째 원소(점수)를 기준으로 오름차순 정렬합니다.\n정렬 후: [('Park', 70), ('Lee', 85), ('Kim', 95)]\n인덱스 0번 학생은 ('Park', 70)이며, [0][0]은 이름인 'Park'입니다.",
+    "trapPoint": "lambda 키 정렬 후 최하위 점수를 가진 학생의 이름을 추출합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_12",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 12,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "stack = [10, 20, 30, 40]\nstack.pop()\nstack.append(50)\nprint(stack[-1] - stack[0])",
+    "answer": "40",
+    "aliases": [
+      "40"
+    ],
+    "explanation": "1. stack.pop()으로 맨 뒤 원소 40 제거 -> [10, 20, 30]\n2. stack.append(50)으로 50 추가 -> [10, 20, 30, 50]\n3. stack[-1]은 마지막 원소 50\n4. stack[0]은 첫 번째 원소 10\n5. 50 - 10 = 40이 출력됩니다.",
+    "trapPoint": "음수 인덱스 stack[-1]은 리스트의 마지막 원소를 의미합니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_13",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 13,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "def recur(n):\n    if n <= 0:\n        return 0\n    return n + recur(n - 2)\n\nprint(recur(7))",
+    "answer": "16",
+    "aliases": [
+      "16"
+    ],
+    "explanation": "재귀 호출 추적:\nrecur(7) = 7 + recur(5)\nrecur(5) = 5 + recur(3)\nrecur(3) = 3 + recur(1)\nrecur(1) = 1 + recur(-1)\nrecur(-1) = 0 (n <= 0 기저조건)\n합산: 7 + 5 + 3 + 1 + 0 = 16 입니다.",
+    "trapPoint": "n이 2씩 감소하여 7, 5, 3, 1 홀수들의 합(16)을 구하는 재귀입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_14",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 14,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "x = 0 or 10 and 20\nprint(x)",
+    "answer": "20",
+    "aliases": [
+      "20"
+    ],
+    "explanation": "파이썬 논리 연산자의 단락 평가(Short-circuit Evaluation)와 우선순위:\n1. 'and' 연산자가 'or'보다 우선순위가 높습니다.\n2. 10 and 20: 10이 참(truthy)이므로 뒤의 20까지 평가되어 20이 됩니다.\n3. 0 or 20: 0이 거짓(falsy)이므로 뒤의 20이 선택됩니다.\n따라서 20이 출력됩니다.",
+    "trapPoint": "논리 연산자 우선순위(not > and > or) 및 파이썬에서 논리 연산자는 불리언(True/False) 대신 평가된 피연산자의 실제 값을 반환한다는 점입니다.",
+    "traceTable": null
+  },
+  {
+    "uid": "python_special_15",
+    "round_id": "python_special",
+    "round_title": "🐍 [언어특화] Python 기출 집중 15선",
+    "id": 15,
+    "category": "Python",
+    "unit": 2,
+    "topic": "Python 프로그래밍 기초",
+    "prompt": "다음 Python 프로그램의 실행 결과를 쓰시오.",
+    "passage": null,
+    "code": "class Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def move(self, dx, dy):\n        self.x += dx\n        self.y += dy\n\np = Point(3, 4)\np.move(2, -1)\nprint(f\"{p.x}, {p.y}\")",
+    "answer": "5, 3",
+    "aliases": [
+      "5, 3",
+      "5,3",
+      "5 3"
+    ],
+    "explanation": "1. Point(3, 4)로 p.x = 3, p.y = 4 초기화\n2. p.move(2, -1) 호출 시 p.x = 3 + 2 = 5, p.y = 4 + (-1) = 3\n3. f-string 출력: '5, 3'",
+    "trapPoint": "파이썬 클래스의 __init__ 생성자와 self 인스턴스 변수 조작의 기본 흐름입니다.",
+    "traceTable": null
+  }
+]
+};

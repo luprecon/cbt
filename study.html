@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>정보처리기사 실기 핵심 개념서 &amp; 전 회차 기출 해설총람 (2020~2026)</title>
+  
+  <!-- Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS Variables & Global Reset
+       ========================================================================== */
+    :root {
+      --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-code: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      
+      --color-primary: #2563eb;
+      --color-primary-dark: #1d4ed8;
+      --color-header-bg: #111827;
+      --color-sidebar-bg: #1f2937;
+      --color-sidebar-hover: #374151;
+      --color-sidebar-active: #2563eb;
+      --color-bg: #f8fafc;
+      --color-card-bg: #ffffff;
+      --color-border: #e2e8f0;
+      --color-text-main: #0f172a;
+      --color-text-muted: #64748b;
+      
+      --color-trap-bg: #fffbeb;
+      --color-trap-border: #f59e0b;
+      --color-trap-text: #92400e;
+      
+      --color-answer-bg: #f0fdf4;
+      --color-answer-border: #22c55e;
+      --color-answer-text: #166534;
+      
+      --color-code-bg: #0f172a;
+      --color-code-text: #f8fafc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       Top Header Bar
+       ========================================================================== */
+    .study-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--color-header-bg);
+      color: #ffffff;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      border-bottom: 1px solid #374151;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-logo {
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-logo-badge {
+      background: #dc2626;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .mode-toggle-group {
+      display: flex;
+      background: #1f2937;
+      padding: 3px;
+      border-radius: 6px;
+      border: 1px solid #374151;
+    }
+
+    .btn-mode-tab {
+      background: none;
+      border: none;
+      color: #9ca3af;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: var(--font-body);
+    }
+
+    .btn-mode-tab:hover {
+      color: #ffffff;
+    }
+
+    .btn-mode-tab.active {
+      background: var(--color-primary);
+      color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input {
+      background: #1f2937;
+      border: 1px solid #4b5563;
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 13px;
+      padding: 6px 12px 6px 32px;
+      width: 260px;
+      outline: none;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .search-input:focus {
+      border-color: var(--color-primary);
+      width: 320px;
+      background: #111827;
+      box-shadow: 0 0 0 2px rgba(37,99,235,0.3);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      font-size: 13px;
+      color: #9ca3af;
+      pointer-events: none;
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      color: #9ca3af;
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
+
+    .btn-action-tool {
+      background: #374151;
+      color: #e5e7eb;
+      border: 1px solid #4b5563;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn-action-tool:hover {
+      background: #4b5563;
+      color: #ffffff;
+    }
+
+    .btn-action-cbt {
+      background: #2563eb;
+      border-color: #1d4ed8;
+      color: #ffffff;
+    }
+
+    .btn-action-cbt:hover {
+      background: #1d4ed8;
+    }
+
+    /* ==========================================================================
+       Main App Layout
+       ========================================================================== */
+    .app-layout {
+      display: flex;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ==========================================================================
+       Sidebar Navigation
+       ========================================================================== */
+    .sidebar {
+      width: 310px;
+      background: var(--color-sidebar-bg);
+      color: #e5e7eb;
+      border-right: 1px solid #374151;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 56px;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+
+    .sidebar-section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #9ca3af;
+      padding: 16px 16px 8px 16px;
+    }
+
+    .sidebar-list {
+      list-style: none;
+      padding: 0 8px 16px 8px;
+    }
+
+    .sidebar-item-btn {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      color: #d1d5db;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s;
+      font-family: var(--font-body);
+      line-height: 1.4;
+      margin-bottom: 2px;
+    }
+
+    .sidebar-item-btn:hover {
+      background: var(--color-sidebar-hover);
+      color: #ffffff;
+    }
+
+    .sidebar-item-btn.active {
+      background: var(--color-sidebar-active);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .sidebar-badge {
+      font-size: 11px;
+      background: #374151;
+      color: #9ca3af;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+      margin-left: 8px;
+      white-space: nowrap;
+    }
+
+    .sidebar-item-btn.active .sidebar-badge {
+      background: #1d4ed8;
+      color: #ffffff;
+    }
+
+    .sidebar-subtopics {
+      padding: 4px 0 8px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .subtopic-chip {
+      background: none;
+      border: none;
+      text-align: left;
+      color: #9ca3af;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .subtopic-chip:hover {
+      color: #ffffff;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .subtopic-chip.active {
+      color: #60a5fa;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       Content Area
+       ========================================================================== */
+    .main-content {
+      flex: 1;
+      padding: 28px 36px;
+      max-width: 1100px;
+      margin: 0 auto;
+      overflow-y: visible;
+    }
+
+    /* Top Summary / Theory Banner */
+    .unit-hero-card {
+      background: #ffffff;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .unit-hero-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .unit-hero-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .unit-hero-badge {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .unit-hero-summary {
+      font-size: 15px;
+      color: #475569;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .theory-drawer-toggle {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+
+    .theory-drawer-toggle:hover {
+      background: #f1f5f9;
+    }
+
+    .theory-body-container {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14.5px;
+      line-height: 1.7;
+    }
+
+    .theory-body-container h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 20px 0 10px 0;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .theory-body-container h3:first-child {
+      margin-top: 0;
+    }
+
+    .theory-body-container p, .theory-body-container ul {
+      margin-bottom: 12px;
+    }
+
+    .theory-body-container ul {
+      padding-left: 20px;
+    }
+
+    .theory-body-container li {
+      margin-bottom: 6px;
+    }
+
+    .theory-body-container table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13.5px;
+      background: #ffffff;
+    }
+
+    .theory-body-container th, .theory-body-container td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .theory-body-container th {
+      background: #f1f5f9;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .theory-body-container .formula-card {
+      background: #f0fdfa;
+      border-left: 4px solid #0d9488;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+      font-weight: 600;
+      color: #134e4a;
+      box-shadow: 0 1px 2px rgba(13, 148, 136, 0.08);
+    }
+
+    .theory-body-container .formula-card ul {
+      margin: 6px 0 0 0;
+      padding-left: 18px;
+    }
+
+    .theory-body-container .formula-card li {
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .theory-body-container blockquote.theory-quote {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 10px 0;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+
+    .theory-body-container hr {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 20px 0;
+    }
+
+    /* Search Results Banner */
+    .search-status-bar {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #1e40af;
+      font-weight: 600;
+    }
+
+    .search-reset-link {
+      color: #2563eb;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 13px;
+    }
+
+    /* Section Control Header */
+    .questions-control-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .questions-count-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .btn-toggle-all-answers {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #475569;
+    }
+
+    .btn-toggle-all-answers:hover {
+      background: #f8fafc;
+      color: #0f172a;
+    }
+
+    /* ==========================================================================
+       Question Card Styles
+       ========================================================================== */
+    .question-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .question-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .q-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .q-badge-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .badge-round {
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .badge-category {
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .badge-topic {
+      background: #ecfdf5;
+      color: #065f46;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .btn-toggle-answer {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-toggle-answer:hover {
+      background: #e2e8f0;
+    }
+
+    .q-prompt-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .q-passage-box {
+      background: #f8fafc;
+      border-left: 4px solid #64748b;
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: #334155;
+      white-space: pre-wrap;
+    }
+
+    .q-code-container {
+      background: var(--color-code-bg);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      border: 1px solid #1e293b;
+    }
+
+    .q-code-header {
+      background: #1e293b;
+      color: #94a3b8;
+      font-size: 11px;
+      font-family: var(--font-code);
+      padding: 6px 14px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+    }
+
+    .q-code-block {
+      color: var(--color-code-text);
+      font-family: var(--font-code);
+      font-size: 13.5px;
+      line-height: 1.5;
+      padding: 14px 16px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    /* Explanation & Solution Drawer */
+    .q-solution-drawer {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed #cbd5e1;
+    }
+
+    .q-answer-card {
+      background: var(--color-answer-bg);
+      border: 1px solid var(--color-answer-border);
+      color: var(--color-answer-text);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 14.5px;
+    }
+
+    .q-answer-card strong {
+      color: #14532d;
+    }
+
+    .q-aliases-text {
+      font-size: 12px;
+      color: #15803d;
+      margin-top: 4px;
+    }
+
+    .q-trap-box {
+      background: var(--color-trap-bg);
+      border-left: 4px solid var(--color-trap-border);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 13.5px;
+      color: var(--color-trap-text);
+      line-height: 1.5;
+    }
+
+    .q-trap-title {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .q-trace-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+    }
+
+    .q-trace-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .q-trace-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-code);
+      font-size: 12px;
+    }
+
+    .q-trace-table th, .q-trace-table td {
+      border: 1px solid #cbd5e1;
+      padding: 6px 10px;
+      text-align: left;
+    }
+
+    .q-trace-table th {
+      background: #e2e8f0;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .q-exp-text {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #334155;
+      white-space: pre-wrap;
+    }
+
+    /* Search Highlight */
+    mark.highlight {
+      background: #fef08a;
+      color: #713f12;
+      padding: 0 2px;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+    }
+
+    .empty-state-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .empty-state-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    /* ==========================================================================
+       Print Optimization Stylesheet (@media print)
+       ========================================================================== */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 11pt !important;
+      }
+
+      .study-header,
+      .sidebar,
+      .btn-toggle-answer,
+      .btn-toggle-all-answers,
+      .theory-drawer-toggle,
+      .search-wrapper,
+      .header-right {
+        display: none !important;
+      }
+
+      .app-layout {
+        display: block !important;
+      }
+
+      .main-content {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .unit-hero-card {
+        border: 2px solid #000000 !important;
+        box-shadow: none !important;
+        page-break-after: always;
+        break-after: page;
+        margin-bottom: 20px !important;
+      }
+
+      .theory-body-container {
+        display: block !important;
+        background: #ffffff !important;
+        border: 1px solid #666666 !important;
+      }
+
+      .question-card {
+        border: 1px solid #444444 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-bottom: 20px !important;
+        padding: 16px !important;
+      }
+
+      .q-solution-drawer {
+        display: block !important;
+      }
+
+      .q-code-container {
+        background: #ffffff !important;
+        border: 1px solid #000000 !important;
+      }
+
+      .q-code-header {
+        background: #f0f0f0 !important;
+        color: #000000 !important;
+        border-bottom: 1px solid #000000 !important;
+      }
+
+      .q-code-block {
+        color: #000000 !important;
+      }
+
+      .q-answer-card {
+        background: #f9f9f9 !important;
+        border: 1px solid #000000 !important;
+        color: #000000 !important;
+      }
+
+      .q-trap-box {
+        background: #f9f9f9 !important;
+        border-left: 4px solid #000000 !important;
+        color: #000000 !important;
+      }
+
+      .q-trace-box {
+        background: #ffffff !important;
+        border: 1px solid #000000 !important;
+      }
+
+      .theory-body-container .formula-card,
+      .theory-body-container blockquote.theory-quote {
+        background: #f9f9f9 !important;
+        border-left: 4px solid #000000 !important;
+        color: #000000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header class="study-header">
+    <div class="header-left">
+      <div class="header-logo">
+        정보처리기사 실기 <span class="header-logo-badge">핵심개념서 &amp; 해설총람</span>
+      </div>
+
+      <div class="mode-toggle-group">
+        <button class="btn-mode-tab active" id="btnModeConcept" onclick="switchMode('concept')">
+          🏛️ 개념서 모드 (5대 단원)
+        </button>
+        <button class="btn-mode-tab" id="btnModeRound" onclick="switchMode('round')">
+          📅 회차별 모드 (2020~2026)
+        </button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="liveSearchInput" class="search-input" placeholder="키워드 검색 (포인터, 서브넷, 결합도, 정규화)..." oninput="handleSearchInput()">
+        <button class="search-clear-btn" id="btnSearchClear" onclick="clearSearch()">✕</button>
+      </div>
+
+      <button class="btn-action-tool" id="btnGlobalAnswerToggle" onclick="toggleAllAnswers()">
+        👁️ 정답 전체 펼치기
+      </button>
+
+      <button class="btn-action-tool" onclick="window.print()" title="A4 책자 형태로 인쇄하거나 PDF로 저장합니다.">
+        🖨️ 인쇄 / PDF
+      </button>
+
+      <a href="index.html" class="btn-action-tool btn-action-cbt" title="CBT 시험 모드로 이동">
+        🎯 CBT 시험 모드로 돌아가기
+      </a>
+    </div>
+  </header>
+
+  <!-- App Layout -->
+  <div class="app-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="sidebar" id="appSidebar">
+      <!-- Injected by JavaScript based on active mode -->
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent">
+      <!-- Injected by JavaScript -->
+    </main>
+  </div>
+
+  <!-- Data Scripts -->
+  <script src="data/exam-index.js"></script>
+  <script src="data/concept-data.js"></script>
+
+  <script>
+    // =========================================================================
+    // Core State
+    // =========================================================================
+    const state = {
+      mode: 'concept', // 'concept' | 'round'
+      activeUnit: 1,
+      activeRoundId: '2026_1',
+      activeTopic: null,
+      searchQuery: '',
+      allAnswersExpanded: false,
+      theoryExpanded: true
+    };
+
+    // Fast Lookup
+    let questionsData = [];
+    let unitsData = {};
+    let roundsCatalog = [];
+
+    // =========================================================================
+    // Markdown to HTML Micro-Renderer
+    // =========================================================================
+    function parseMarkdownToHtml(md) {
+      if (!md) return '';
+      let html = md;
+      
+      // Escape HTML special chars inside code blocks first
+      const codeBlocks = [];
+      html = html.replace(/```([a-z]*)\n([\s\S]*?)```/gi, (match, lang, code) => {
+        const placeholder = `__CODE_BLOCK_${codeBlocks.length}__`;
+        codeBlocks.push(`<pre class="q-code-container"><div class="q-code-header"><span>${lang.toUpperCase() || 'CODE'}</span><span>Source</span></div><code class="q-code-block">${escapeHtml(code.trim())}</code></pre>`);
+        return placeholder;
+      });
+
+      // Extract and HTML-escape inline code (`...`) before italic/bold/blockquote processing
+      // so C pointer syntax like `*p` or `p->val` is never corrupted by `*...*` or `>` rules
+      const inlineCodes = [];
+      html = html.replace(/`([^`]+)`/g, (match, code) => {
+        const placeholder = `__INLINE_CODE_${inlineCodes.length}__`;
+        inlineCodes.push(`<code>${escapeHtml(code)}</code>`);
+        return placeholder;
+      });
+
+      // Horizontal rules
+      html = html.replace(/^---\s*$/gim, '<hr>');
+
+      // Headers
+      html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+      html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+      html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+      // Bold & Italic
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+      // Blockquotes & Formula Callout Cards (> ...)
+      html = html.replace(/(?:^>\s?.*(?:\r?\n|$))+/gm, (quoteMatch) => {
+        const lines = quoteMatch.trim().split(/\r?\n/).map(l => l.replace(/^>\s?/, '').trim());
+        const isFormula = lines.some(l => l.includes('📐') || l.includes('공식') || l.includes('📌'));
+        let innerHtml = '';
+        let inList = false;
+        lines.forEach(line => {
+          if (line.startsWith('- ')) {
+            if (!inList) { innerHtml += '<ul>'; inList = true; }
+            innerHtml += `<li>${line.substring(2).trim()}</li>`;
+          } else {
+            if (inList) { innerHtml += '</ul>'; inList = false; }
+            if (line) innerHtml += `<div>${line}</div>`;
+          }
+        });
+        if (inList) innerHtml += '</ul>';
+        if (isFormula) {
+          return `<div class="formula-card">${innerHtml}</div>\n`;
+        }
+        return `<blockquote class="theory-quote">${innerHtml}</blockquote>\n`;
+      });
+
+      // Tables
+      html = html.replace(/(?:^\|.*\|\r?\n)+/gm, (tableMatch) => {
+        const lines = tableMatch.trim().split(/\r?\n/).filter(l => l.trim().length > 0);
+        if (lines.length < 2) return tableMatch;
+        
+        let tHtml = '<table>';
+        // Headers
+        const headerCols = lines[0].split('|').map(s => s.trim()).filter((s, idx, arr) => idx > 0 && idx < arr.length - 1);
+        tHtml += '<thead><tr>' + headerCols.map(c => `<th>${c}</th>`).join('') + '</tr></thead><tbody>';
+
+        // Skip separator line at lines[1]
+        for (let i = 2; i < lines.length; i++) {
+          const rowCols = lines[i].split('|').map(s => s.trim()).filter((s, idx, arr) => idx > 0 && idx < arr.length - 1);
+          tHtml += '<tr>' + rowCols.map(c => `<td>${c}</td>`).join('') + '</tr>';
+        }
+        tHtml += '</tbody></table>';
+        return tHtml;
+      });
+
+      // Bullet lists
+      html = html.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+      html = html.replace(/(<li>.*<\/li>(\r?\n)?)+/gim, '<ul>$&</ul>');
+
+      // Restore inline codes & code blocks
+      inlineCodes.forEach((ic, idx) => {
+        html = html.replace(`__INLINE_CODE_${idx}__`, ic);
+      });
+      codeBlocks.forEach((cb, idx) => {
+        html = html.replace(`__CODE_BLOCK_${idx}__`, cb);
+      });
+
+      // Line breaks
+      html = html.replace(/\n\n/g, '<p></p>');
+
+      return html;
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // =========================================================================
+    // Initialization
+    // =========================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.CONCEPT_BOOK) {
+        questionsData = window.CONCEPT_BOOK.questions || [];
+        unitsData = window.CONCEPT_BOOK.units || {};
+      }
+      if (window.EXAM_CATALOG) {
+        roundsCatalog = window.EXAM_CATALOG;
+        if (roundsCatalog.length > 0) {
+          state.activeRoundId = roundsCatalog[0].id;
+        }
+      }
+
+      renderSidebar();
+      renderContent();
+    });
+
+    // =========================================================================
+    // Mode Switcher
+    // =========================================================================
+    function switchMode(newMode) {
+      state.mode = newMode;
+      state.searchQuery = '';
+      document.getElementById('liveSearchInput').value = '';
+      document.getElementById('btnSearchClear').style.display = 'none';
+
+      document.getElementById('btnModeConcept').classList.toggle('active', newMode === 'concept');
+      document.getElementById('btnModeRound').classList.toggle('active', newMode === 'round');
+
+      renderSidebar();
+      renderContent();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // Sidebar Renderer
+    // =========================================================================
+    function renderSidebar() {
+      const sidebar = document.getElementById('appSidebar');
+      if (!sidebar) return;
+
+      if (state.mode === 'concept') {
+        let html = `<div class="sidebar-section-title">5대 핵심 단원별 개념서</div><ul class="sidebar-list">`;
+        
+        for (let u = 1; u <= 5; u++) {
+          const unit = unitsData[u] || {};
+          const count = questionsData.filter(q => q.unit === u).length;
+          const isActive = state.activeUnit === u && !state.searchQuery;
+
+          html += `
+            <li>
+              <button class="sidebar-item-btn ${isActive ? 'active' : ''}" data-unit="${u}" onclick="selectUnit(Number(this.dataset.unit))">
+                <span>${unit.shortTitle || `제${u}단원`}</span>
+                <span class="sidebar-badge">${count}제</span>
+              </button>
+            </li>
+          `;
+
+          // If active, list subtopics
+          if (state.activeUnit === u && !state.searchQuery) {
+            const unitQuestions = questionsData.filter(q => q.unit === u);
+            const topicsMap = {};
+            unitQuestions.forEach(q => {
+              if (q.topic) topicsMap[q.topic] = (topicsMap[q.topic] || 0) + 1;
+            });
+
+            html += `<div class="sidebar-subtopics">`;
+            html += `<button class="subtopic-chip ${!state.activeTopic ? 'active' : ''}" onclick="selectTopic(null)">전체 보기 (${unitQuestions.length})</button>`;
+            for (const [topic, tCount] of Object.entries(topicsMap)) {
+              const isTopicActive = state.activeTopic === topic;
+              html += `<button class="subtopic-chip ${isTopicActive ? 'active' : ''}" data-topic="${escapeHtml(topic)}" onclick="selectTopic(this.dataset.topic)">• ${escapeHtml(topic)} (${tCount})</button>`;
+            }
+            html += `</div>`;
+          }
+        }
+        html += `</ul>`;
+        sidebar.innerHTML = html;
+
+      } else {
+        // Round Mode
+        let html = `<div class="sidebar-section-title">기출 전 회차 (2020~2026)</div><ul class="sidebar-list">`;
+        
+        const standardRounds = roundsCatalog.filter(r => !r.id.startsWith('killer_') && !r.id.startsWith('sql_') && !r.id.startsWith('practical_') && !r.id.startsWith('c_') && !r.id.startsWith('java_') && !r.id.startsWith('python_'));
+        const themeRounds = roundsCatalog.filter(r => !standardRounds.includes(r));
+
+        standardRounds.forEach(r => {
+          const isActive = state.activeRoundId === r.id && !state.searchQuery;
+          html += `
+            <li>
+              <button class="sidebar-item-btn ${isActive ? 'active' : ''}" data-round-id="${escapeHtml(r.id)}" onclick="selectRound(this.dataset.roundId)">
+                <span>${r.title}</span>
+                <span class="sidebar-badge">${r.questionCount}문항</span>
+              </button>
+            </li>
+          `;
+        });
+
+        html += `</ul><div class="sidebar-section-title">⚡ 6대 특화 테마 기출</div><ul class="sidebar-list">`;
+
+        themeRounds.forEach(r => {
+          const isActive = state.activeRoundId === r.id && !state.searchQuery;
+          html += `
+            <li>
+              <button class="sidebar-item-btn ${isActive ? 'active' : ''}" data-round-id="${escapeHtml(r.id)}" onclick="selectRound(this.dataset.roundId)">
+                <span>${r.title}</span>
+                <span class="sidebar-badge">${r.questionCount}문항</span>
+              </button>
+            </li>
+          `;
+        });
+
+        html += `</ul>`;
+        sidebar.innerHTML = html;
+      }
+    }
+
+    function selectUnit(u) {
+      state.activeUnit = u;
+      state.activeTopic = null;
+      state.searchQuery = '';
+      document.getElementById('liveSearchInput').value = '';
+      document.getElementById('btnSearchClear').style.display = 'none';
+      renderSidebar();
+      renderContent();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function selectTopic(t) {
+      state.activeTopic = (t && t !== 'null' && t !== 'undefined') ? t : null;
+      renderSidebar();
+      renderContent();
+    }
+
+    function selectRound(rid) {
+      state.activeRoundId = rid;
+      state.searchQuery = '';
+      document.getElementById('liveSearchInput').value = '';
+      document.getElementById('btnSearchClear').style.display = 'none';
+      renderSidebar();
+      renderContent();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // Content Renderer
+    // =========================================================================
+    function renderContent() {
+      const container = document.getElementById('mainContent');
+      if (!container) return;
+
+      // Case 1: Search Active
+      if (state.searchQuery.trim().length > 0) {
+        renderSearchResults(container);
+        return;
+      }
+
+      // Case 2: Concept Mode
+      if (state.mode === 'concept') {
+        renderConceptMode(container);
+        return;
+      }
+
+      // Case 3: Round Mode
+      renderRoundMode(container);
+    }
+
+    function renderConceptMode(container) {
+      const unit = unitsData[state.activeUnit] || {};
+      let qs = questionsData.filter(q => q.unit === state.activeUnit);
+      if (state.activeTopic) {
+        qs = qs.filter(q => q.topic === state.activeTopic);
+      }
+
+      let html = '';
+
+      // Hero Card (Theory Summary)
+      html += `
+        <div class="unit-hero-card">
+          <div class="unit-hero-header">
+            <h1 class="unit-hero-title">${unit.title || `제${state.activeUnit}단원`}</h1>
+            <span class="unit-hero-badge">기출 총 ${questionsData.filter(q => q.unit === state.activeUnit).length}문항 수록</span>
+          </div>
+          <p class="unit-hero-summary">${unit.summary || ''}</p>
+          <button class="theory-drawer-toggle" onclick="toggleTheoryDrawer()">
+            <span>${state.theoryExpanded ? '📖 핵심 이론 요약 접기 ▲' : '📖 핵심 이론 & 암기 공식 펼쳐보기 ▼'}</span>
+          </button>
+          <div class="theory-body-container" id="theoryBodyContainer" style="display: ${state.theoryExpanded ? 'block' : 'none'};">
+            ${parseMarkdownToHtml(unit.markdown || '')}
+          </div>
+        </div>
+      `;
+
+      // Question Controls
+      html += `
+        <div class="questions-control-header">
+          <span class="questions-count-text">
+            🎯 실전 기출문제 총람 ${state.activeTopic ? `[${state.activeTopic}]` : ''} (${qs.length}문항)
+          </span>
+          <button class="btn-toggle-all-answers" onclick="toggleAllAnswers()">
+            ${state.allAnswersExpanded ? '전체 정답 접기 ▲' : '전체 정답 펼치기 ▼'}
+          </button>
+        </div>
+      `;
+
+      // Render Questions
+      html += renderQuestionsList(qs);
+      container.innerHTML = html;
+    }
+
+    function renderRoundMode(container) {
+      const roundMeta = roundsCatalog.find(r => r.id === state.activeRoundId) || {};
+      const qs = questionsData.filter(q => q.round_id === state.activeRoundId);
+
+      let html = '';
+      html += `
+        <div class="unit-hero-card">
+          <div class="unit-hero-header">
+            <h1 class="unit-hero-title">${roundMeta.title || state.activeRoundId}</h1>
+            <span class="unit-hero-badge">합격률: ${roundMeta.passRate || '-'} | 난이도: ${roundMeta.difficulty || '-'}</span>
+          </div>
+          <p class="unit-hero-summary">${roundMeta.description || ''}</p>
+        </div>
+        <div class="questions-control-header">
+          <span class="questions-count-text">
+            📋 회차 전체 문항 (${qs.length}문항)
+          </span>
+          <button class="btn-toggle-all-answers" onclick="toggleAllAnswers()">
+            ${state.allAnswersExpanded ? '전체 정답 접기 ▲' : '전체 정답 펼치기 ▼'}
+          </button>
+        </div>
+      `;
+
+      html += renderQuestionsList(qs);
+      container.innerHTML = html;
+    }
+
+    function renderSearchResults(container) {
+      const q = state.searchQuery.toLowerCase().trim();
+      const results = questionsData.filter(item => {
+        const text = `${item.prompt} ${item.answer} ${item.explanation} ${item.category} ${item.topic} ${item.code || ''} ${item.passage || ''} ${item.trapPoint || ''} ${item.round_title}`.toLowerCase();
+        return text.includes(q);
+      });
+
+      let html = `
+        <div class="search-status-bar">
+          <span>🔍 '<strong>${escapeHtml(state.searchQuery)}</strong>' 검색 결과: 총 <strong>${results.length}</strong>개 문항 발견</span>
+          <span class="search-reset-link" onclick="clearSearch()">검색 닫기 ✕</span>
+        </div>
+        <div class="questions-control-header">
+          <span class="questions-count-text">검색 일치 문항 목록</span>
+          <button class="btn-toggle-all-answers" onclick="toggleAllAnswers()">
+            ${state.allAnswersExpanded ? '전체 정답 접기 ▲' : '전체 정답 펼치기 ▼'}
+          </button>
+        </div>
+      `;
+
+      if (results.length === 0) {
+        html += `
+          <div class="empty-state">
+            <div class="empty-state-icon">🔍</div>
+            <div class="empty-state-title">검색된 문제가 없습니다</div>
+            <p>다른 검색어를 입력하시거나 철자를 확인해 주세요 (예: 포인터, 서브넷, 결합도, 정규화, ACID).</p>
+          </div>
+        `;
+      } else {
+        html += renderQuestionsList(results, true);
+      }
+
+      container.innerHTML = html;
+    }
+
+    function renderQuestionsList(qs, isSearch = false) {
+      let html = '';
+      qs.forEach((q, idx) => {
+        const uid = q.uid || `${q.round_id}_${q.id}`;
+        const isExpanded = state.allAnswersExpanded;
+
+        html += `
+          <div class="question-card" id="card_${uid}">
+            <div class="q-meta-row">
+              <div class="q-badge-group">
+                <span class="badge-round">${highlightQuery(q.round_title, isSearch)} (Q${q.id})</span>
+                <span class="badge-category">${highlightQuery(q.category, isSearch)}</span>
+                <span class="badge-topic">${highlightQuery(q.topic, isSearch)}</span>
+              </div>
+              <button class="btn-toggle-answer" id="btn_toggle_${uid}" onclick="toggleSingleAnswer('${uid}')">
+                ${isExpanded ? '정답 접기 ▲' : '정답 & 해설 보기 ▼'}
+              </button>
+            </div>
+
+            <div class="q-prompt-text">${highlightQuery(q.prompt, isSearch)}</div>
+
+            ${q.passage ? `<div class="q-passage-box">${highlightQuery(q.passage, isSearch)}</div>` : ''}
+
+            ${q.code ? `
+              <div class="q-code-container">
+                <div class="q-code-header">
+                  <span>${(q.category || 'CODE').toUpperCase()}</span>
+                  <span>Source Code</span>
+                </div>
+                <pre class="q-code-block">${highlightQuery(q.code, isSearch)}</pre>
+              </div>
+            ` : ''}
+
+            <div class="q-solution-drawer" id="drawer_${uid}" style="display: ${isExpanded ? 'block' : 'none'};">
+              <div class="q-answer-card">
+                <div>🔑 <strong>모범 정답:</strong> <code>${highlightQuery(q.answer, isSearch)}</code></div>
+                ${q.aliases && q.aliases.length > 1 ? `
+                  <div class="q-aliases-text">인정 유사 답안: ${q.aliases.filter(a => a !== q.answer).map(a => `<code>${escapeHtml(a)}</code>`).join(', ')}</div>
+                ` : ''}
+              </div>
+
+              ${q.trapPoint ? `
+                <div class="q-trap-box">
+                  <div class="q-trap-title">⚠️ 단골 함정 (Trap Point)</div>
+                  <div>${highlightQuery(q.trapPoint, isSearch)}</div>
+                </div>
+              ` : ''}
+
+              ${renderTraceTableHtml(q.traceTable)}
+
+              <div class="q-exp-text"><strong>📖 [상세 해설]</strong>\n${highlightQuery(q.explanation, isSearch)}</div>
+            </div>
+          </div>
+        `;
+      });
+      return html;
+    }
+
+    function renderTraceTableHtml(trace) {
+      if (!trace || !trace.headers || !trace.rows) return '';
+      let html = `
+        <div class="q-trace-box">
+          <div class="q-trace-title">🔍 루프 변수 추적표 (Trace Table)</div>
+          <table class="q-trace-table">
+            <thead>
+              <tr>${trace.headers.map(h => `<th>${escapeHtml(h)}</th>`).join('')}</tr>
+            </thead>
+            <tbody>
+              ${trace.rows.map(r => `<tr>${r.map(c => `<td>${escapeHtml(String(c))}</td>`).join('')}</tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      return html;
+    }
+
+    function highlightQuery(text, isSearch) {
+      if (!text) return '';
+      if (!isSearch || !state.searchQuery.trim()) return escapeHtml(text);
+      const q = state.searchQuery.trim();
+      const regex = new RegExp(`(${escapeRegex(q)})`, 'gi');
+      const parts = String(text).split(regex);
+      const qLower = q.toLowerCase();
+      return parts.map(part => {
+        if (part.toLowerCase() === qLower) {
+          return `<mark class="highlight">${escapeHtml(part)}</mark>`;
+        }
+        return escapeHtml(part);
+      }).join('');
+    }
+
+    function escapeRegex(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // =========================================================================
+    // UI Event Handlers
+    // =========================================================================
+    function toggleTheoryDrawer() {
+      state.theoryExpanded = !state.theoryExpanded;
+      const el = document.getElementById('theoryBodyContainer');
+      if (el) el.style.display = state.theoryExpanded ? 'block' : 'none';
+      const btn = document.querySelector('.theory-drawer-toggle span');
+      if (btn) btn.textContent = state.theoryExpanded ? '📖 핵심 이론 요약 접기 ▲' : '📖 핵심 이론 & 암기 공식 펼쳐보기 ▼';
+    }
+
+    function toggleSingleAnswer(uid) {
+      const drawer = document.getElementById(`drawer_${uid}`);
+      const btn = document.getElementById(`btn_toggle_${uid}`);
+      if (!drawer || !btn) return;
+      const isOpen = drawer.style.display !== 'none';
+      drawer.style.display = isOpen ? 'none' : 'block';
+      btn.textContent = isOpen ? '정답 & 해설 보기 ▼' : '정답 접기 ▲';
+    }
+
+    function toggleAllAnswers() {
+      state.allAnswersExpanded = !state.allAnswersExpanded;
+      const drawers = document.querySelectorAll('.q-solution-drawer');
+      const buttons = document.querySelectorAll('.btn-toggle-answer');
+      drawers.forEach(d => d.style.display = state.allAnswersExpanded ? 'block' : 'none');
+      buttons.forEach(b => b.textContent = state.allAnswersExpanded ? '정답 접기 ▲' : '정답 & 해설 보기 ▼');
+      
+      const gBtn = document.getElementById('btnGlobalAnswerToggle');
+      if (gBtn) gBtn.textContent = state.allAnswersExpanded ? '🙈 정답 전체 접기' : '👁️ 정답 전체 펼치기';
+      const cBtns = document.querySelectorAll('.btn-toggle-all-answers');
+      cBtns.forEach(cb => cb.textContent = state.allAnswersExpanded ? '전체 정답 접기 ▲' : '전체 정답 펼치기 ▼');
+    }
+
+    function handleSearchInput() {
+      const val = document.getElementById('liveSearchInput').value;
+      state.searchQuery = val;
+      const clearBtn = document.getElementById('btnSearchClear');
+      clearBtn.style.display = val.length > 0 ? 'inline-block' : 'none';
+      renderContent();
+    }
+
+    function clearSearch() {
+      state.searchQuery = '';
+      document.getElementById('liveSearchInput').value = '';
+      document.getElementById('btnSearchClear').style.display = 'none';
+      renderContent();
+    }
+  </script>
+</body>
+</html>
