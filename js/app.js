@@ -3,7 +3,7 @@
  * - 2020~2026년 15개 회차 기출 및 언어별/테마별 특화 세트
  * - 동적 배점 계산 및 주관식 다중 빈칸 부분 점수(Partial Credit) 지원
  * - 완벽한 오답 복습 모드 (재도전 정복률 및 누적 종합 점수 반영)
- * - A4 연습지 1장 시뮬레이터 & 문제 추적표 1클릭 복사
+ * - CBT 250×250 캔버스 메모장 (문제별 저장/복원)
  * - 실기 핵심 요약 & 학습 가이드
  */
 
@@ -19,10 +19,8 @@
   let gradedResults = {}; // { [qId]: { isCorrect, scoreRatio, ... } }
   let examMode = 'practice'; // 'practice' | 'real'
   let isRetakeMode = false;
-  let retakeSourceIds = []; // IDs of questions being retaken
 
   let timer = null;
-  let scratchPad = null;
   let memoPad = null;
 
   // DOM Elements
@@ -62,12 +60,6 @@
   const expTraceContainer = document.getElementById('expTraceContainer');
   const expTraceTable = document.getElementById('expTraceTable');
   const expBodyText = document.getElementById('expBodyText');
-  const btnCopyTraceToPad = document.getElementById('btnCopyTraceToPad');
-
-  // Footer Nav Buttons & Tools Column Nav Button
-  const btnPrevQ = document.getElementById('btnPrevQ');
-  const btnNextQ = document.getElementById('btnNextQ');
-  const btnNext = document.getElementById('btnNext');
 
   // companyTest Memo Pad Elements
   const memoCanvas = document.getElementById('memoCanvas');
@@ -96,36 +88,11 @@
   const csTabs = document.getElementById('csTabs');
   const csBody = document.getElementById('csBody');
 
-  // A4 Scratch Pad Elements (for backwards compatibility)
-  const a4Paper = document.getElementById('a4Paper');
-  const a4Canvas = document.getElementById('a4Canvas');
-  const a4TraceLayer = document.getElementById('a4TraceLayer');
-  const liveTraceTable = document.getElementById('liveTraceTable');
-  const liveTraceNotes = document.getElementById('liveTraceNotes');
-
-  const btnUndo = document.getElementById('btnUndo');
-  const btnRedo = document.getElementById('btnRedo');
-  const btnClearCanvas = document.getElementById('btnClearCanvas');
-  const btnEraser = document.getElementById('btnEraser');
-  const colorDots = document.querySelectorAll('.color-dot');
-  const penSizeSelect = document.getElementById('penSizeSelect');
-  const paperPatternSelect = document.getElementById('paperPatternSelect');
-  const tabCanvas = document.getElementById('tabCanvas');
-  const tabTrace = document.getElementById('tabTrace');
-
-  const btnAddCol = document.getElementById('btnAddCol');
-  const btnDelCol = document.getElementById('btnDelCol');
-  const btnAddRow = document.getElementById('btnAddRow');
-  const btnDelRow = document.getElementById('btnDelRow');
-  const btnClearTrace = document.getElementById('btnClearTrace');
-  const traceTemplateSelect = document.getElementById('traceTemplateSelect');
-
   // Init App
   function init() {
     if (!examSelectDropdown) return;
     initExamCatalog();
     initMemoPad();
-    initA4Pad();
     initTimer();
     loadExam(currentRoundId);
     bindEvents();
@@ -148,32 +115,6 @@
     }
   }
 
-  function initA4Pad() {
-    if (a4Paper && a4Canvas && typeof A4ScratchPad === 'function') {
-      scratchPad = new A4ScratchPad({
-        paperEl: a4Paper,
-        canvasEl: a4Canvas,
-        traceLayerEl: a4TraceLayer,
-        traceTableEl: liveTraceTable,
-        traceNotesEl: liveTraceNotes,
-        undoBtn: btnUndo,
-        redoBtn: btnRedo,
-        clearBtn: btnClearCanvas,
-        eraserBtn: btnEraser,
-        colorDots: colorDots,
-        sizeSelect: penSizeSelect,
-        patternSelect: paperPatternSelect,
-        tabCanvasBtn: tabCanvas,
-        tabTraceBtn: tabTrace,
-        addColBtn: btnAddCol,
-        delColBtn: btnDelCol,
-        addRowBtn: btnAddRow,
-        delRowBtn: btnDelRow,
-        clearTraceBtn: btnClearTrace,
-        templateSelect: traceTemplateSelect
-      });
-    }
-  }
 
   function initTimer() {
     timer = new ExamTimer({
@@ -211,7 +152,6 @@
     activeQuestions = [...fullExamData.questions];
     currentQIndex = 0;
     isRetakeMode = false;
-    retakeSourceIds = [];
     retakeBanner.style.display = 'none';
 
     if (!retainAnswers) {
@@ -351,11 +291,6 @@
     // Render Explanation if available
     renderExplanation(q);
 
-    // Update Nav Buttons if present
-    if (btnPrevQ) btnPrevQ.disabled = currentQIndex === 0;
-    if (btnNextQ) btnNextQ.disabled = currentQIndex === activeQuestions.length - 1;
-    if (btnNext) btnNext.disabled = currentQIndex === activeQuestions.length - 1;
-
     // Restore Memo for Current Question
     if (memoPad) memoPad.restore(currentQIndex);
 
@@ -436,26 +371,24 @@
   }
 
   function highlightSyntaxLine(rawLine, category, inBlockComment = false) {
+    if (rawLine === null || rawLine === undefined) {
+      return { html: '', inBlockComment: Boolean(inBlockComment) };
+    }
+    const rawStr = String(rawLine);
     const cat = (category || '').toLowerCase();
-    const len = rawLine.length;
+    const len = rawStr.length;
     let out = '';
 
-    const esc = (s) => String(s || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-
+    const esc = escapeHtml;
     let startIdx = 0;
 
     // Handle ongoing multi-line block comment
     if (inBlockComment) {
-      const closeIdx = rawLine.indexOf('*/');
+      const closeIdx = rawStr.indexOf('*/');
       if (closeIdx === -1) {
-        return { html: `<span class="c-com">${esc(rawLine)}</span>`, inBlockComment: true };
+        return { html: `<span class="c-com">${esc(rawStr)}</span>`, inBlockComment: true };
       } else {
-        out += `<span class="c-com">${esc(rawLine.slice(0, closeIdx + 2))}</span>`;
+        out += `<span class="c-com">${esc(rawStr.slice(0, closeIdx + 2))}</span>`;
         startIdx = closeIdx + 2;
         inBlockComment = false;
         if (startIdx >= len) {
@@ -464,10 +397,10 @@
       }
     }
 
-    const remaining = rawLine.slice(startIdx);
+    let remaining = rawStr.slice(startIdx);
 
     // 1. C/C++ Preprocessor (#include, #define)
-    if ((cat === 'c' || cat === 'java') && startIdx === 0 && /^\s*#(include|define)\b/.test(remaining)) {
+    if ((cat !== 'python' && cat !== 'py') && startIdx === 0 && /^\s*#(include|define)\b/.test(remaining)) {
       const match = remaining.match(/^(\s*)(#(?:include|define))(\s*)(<[^>]+>|"[^"]+")?(.*)$/);
       if (match) {
         out += esc(match[1]);
@@ -476,10 +409,12 @@
         if (match[4]) {
           out += `<span class="c-str">${esc(match[4])}</span>`;
         }
-        if (match[5]) {
-          out += esc(match[5]);
+        if (match[5] && match[5].trim()) {
+          remaining = match[5];
+        } else {
+          if (match[5]) out += esc(match[5]);
+          return { html: out, inBlockComment: false };
         }
-        return { html: out, inBlockComment: false };
       }
     }
 
@@ -491,9 +426,9 @@
     // 5: Words (keywords, types, functions)
     let commentPattern = '\\/\\/.*';
     let blockCommentPattern = '\\/\\*[\\s\\S]*?\\*\\/|\\/\\*.*';
-    if (cat === 'python') {
+    if (cat === 'python' || cat === 'py') {
       commentPattern = '#.*';
-      blockCommentPattern = '"" "[\\s\\S]*?"""|\'\'\'[\\s\\S]*?\'\'\'';
+      blockCommentPattern = '"""[\\s\\S]*?"""|\'\'\'[\\s\\S]*?\'\'\'';
     } else if (cat === 'sql') {
       commentPattern = '--.*';
     }
@@ -517,7 +452,8 @@
     ]);
 
     const TYPES = new Set([
-      'String','Integer','Boolean','Double','Float','List','ArrayList','Map','HashMap','Scanner','System','Object'
+      'String','Integer','Boolean','Double','Float','List','ArrayList','Map','HashMap','Scanner','System','Object',
+      'Exception','Thread','Runnable'
     ]);
 
     let lastIdx = 0;
@@ -869,7 +805,6 @@
     activeQuestions = [...wrongQs];
     currentQIndex = 0;
     isRetakeMode = true;
-    retakeSourceIds = wrongQs.map(q => q.id);
 
     // Reset user answers for these questions
     wrongQs.forEach(q => {
@@ -908,6 +843,90 @@
     cheatsheetModal.classList.remove('show');
   }
 
+  function highlightBrackets(text) {
+    if (!text) return '';
+    // Replace ASCII arrow or HTML-escaped arrow with clean unicode arrow
+    let res = String(text).replace(/(?:->|-&gt;)/g, '→');
+    // Highlight bracketed mnemonics like [추빌팩프싱], [자스제외부내], [우순교절시논우], [원부이결다조], [약함(좋음) → 강함(나쁨)]
+    // Only wrap when bracket contains Korean letters to preserve code brackets like [1, 2, 3]
+    res = res.replace(/\[([가-힣\s/()→\-]+)\]/g, '<span class="cs-mnemonic-pill">[$1]</span>');
+    return res;
+  }
+
+  function formatCheatsheetContent(rawContent) {
+    if (!rawContent) return '';
+    const lines = String(rawContent)
+      .split('\n')
+      .map(l => l.trimEnd())
+      .filter(l => l.trim().length > 0);
+
+    return lines.map(line => {
+      const trimmed = line.trim();
+
+      // 1) 암기 공식 전용 배너
+      if (/^•?\s*암기\s*공식\s*:\s*/i.test(trimmed)) {
+        const body = trimmed.replace(/^•?\s*암기\s*공식\s*:\s*/i, '');
+        return `
+          <div class="cs-mnemonic-banner">
+            <span class="cs-mnemonic-tag">암기 공식</span>
+            <div class="cs-mnemonic-text">${highlightBrackets(body)}</div>
+          </div>
+        `;
+      }
+
+      // 2) 요약 결론 / 하단 콜아웃: starts with "👉"
+      if (trimmed.startsWith('👉')) {
+        const body = trimmed.replace(/^👉\s*/, '');
+        return `
+          <div class="cs-summary-callout">
+            <span class="cs-summary-icon">👉</span>
+            <div class="cs-summary-text">${highlightBrackets(body)}</div>
+          </div>
+        `;
+      }
+
+      // 3) 번호형 단계 (1. ~ 7.)
+      const numMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
+      if (numMatch) {
+        return `
+          <div class="cs-item-row cs-numbered-row">
+            <span class="cs-step-badge">${numMatch[1]}</span>
+            <div class="cs-item-text">${highlightBrackets(numMatch[2])}</div>
+          </div>
+        `;
+      }
+
+      // 4) 들여쓰기 서브 항목 (starts with "  -" or "- ")
+      if (/^-\s+/.test(trimmed) || /^\s+-\s+/.test(line)) {
+        const body = trimmed.replace(/^-\s+/, '');
+        return `
+          <div class="cs-subitem-row">
+            <span class="cs-sub-dot">–</span>
+            <div class="cs-item-text">${highlightBrackets(body)}</div>
+          </div>
+        `;
+      }
+
+      // 5) 일반 불릿 (• ...)
+      if (trimmed.startsWith('•')) {
+        const body = trimmed.replace(/^•\s*/, '');
+        return `
+          <div class="cs-item-row cs-bullet-row">
+            <span class="cs-bullet-dot"></span>
+            <div class="cs-item-text">${highlightBrackets(body)}</div>
+          </div>
+        `;
+      }
+
+      // 6) 기타 일반 텍스트 행
+      return `
+        <div class="cs-item-row cs-plain-row">
+          <div class="cs-item-text">${highlightBrackets(trimmed)}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
   function renderCheatsheetTab(tabKey) {
     const tabs = csTabs.querySelectorAll('.cs-tab-btn');
     tabs.forEach(t => {
@@ -928,10 +947,13 @@
     `;
 
     (data.sections || []).forEach(sec => {
+      const headingText = highlightBrackets(escapeHtml(sec.heading));
       html += `
         <div class="cs-section-card">
-          <h4 class="cs-sec-heading">${escapeHtml(sec.heading)}</h4>
-          <div class="cs-sec-content">${sec.content}</div>
+          <div class="cs-sec-header">
+            <h4 class="cs-sec-heading">${headingText}</h4>
+          </div>
+          <div class="cs-sec-content">${formatCheatsheetContent(sec.content)}</div>
         </div>
       `;
     });
@@ -982,39 +1004,6 @@
       }
     });
 
-    if (btnPrevQ) {
-      btnPrevQ.addEventListener('click', () => {
-        if (currentQIndex > 0) {
-          if (memoPad) memoPad.save(currentQIndex);
-          saveCurrentInput();
-          currentQIndex--;
-          renderCurrentQuestion();
-        }
-      });
-    }
-
-    if (btnNextQ) {
-      btnNextQ.addEventListener('click', () => {
-        if (currentQIndex < activeQuestions.length - 1) {
-          if (memoPad) memoPad.save(currentQIndex);
-          saveCurrentInput();
-          currentQIndex++;
-          renderCurrentQuestion();
-        }
-      });
-    }
-
-    if (btnNext) {
-      btnNext.addEventListener('click', () => {
-        if (currentQIndex < activeQuestions.length - 1) {
-          if (memoPad) memoPad.save(currentQIndex);
-          saveCurrentInput();
-          currentQIndex++;
-          renderCurrentQuestion();
-        }
-      });
-    }
-
     // Score Modal buttons
     btnCloseModal.addEventListener('click', () => {
       scoreModal.classList.remove('show');
@@ -1061,24 +1050,21 @@
       }
     });
 
-    // Copy Trace Table to Pad (if scratchPad exists)
-    if (btnCopyTraceToPad && scratchPad) {
-      btnCopyTraceToPad.addEventListener('click', () => {
-        const q = activeQuestions[currentQIndex];
-        if (q && q.traceTable && Array.isArray(q.traceTable.headers)) {
-          if (scratchPad && scratchPad.loadCustomHeaders) {
-            scratchPad.loadCustomHeaders(q.traceTable.headers);
-            alert(`문항 ${currentQIndex + 1}의 변수 추적표 헤더를 가져왔습니다!`);
-          }
-        } else {
-          alert('현재 문제에는 등록된 변수 추적표가 없습니다.');
-        }
-      });
-    }
+    scoreModal.addEventListener('click', (e) => {
+      if (e.target === scoreModal) {
+        btnCloseModal.click();
+      }
+    });
 
-    // Keyboard navigation (Alt+Left, Alt+Right)
+    // Keyboard navigation (Alt+Left, Alt+Right, Escape)
     window.addEventListener('keydown', (e) => {
-      if (e.altKey && e.key === 'ArrowLeft') {
+      if (e.key === 'Escape') {
+        if (cheatsheetModal && cheatsheetModal.classList.contains('show')) {
+          closeCheatsheet();
+        } else if (scoreModal && scoreModal.classList.contains('show')) {
+          btnCloseModal.click();
+        }
+      } else if (e.altKey && e.key === 'ArrowLeft') {
         e.preventDefault();
         if (currentQIndex > 0) {
           if (memoPad) memoPad.save(currentQIndex);

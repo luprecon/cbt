@@ -12,7 +12,7 @@
   <!-- Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
@@ -89,9 +89,10 @@
 
     body {
       font-family: var(--font-body);
+      font-size: 15px;
       background-color: var(--bg-page);
       color: var(--text-main);
-      line-height: 1.6;
+      line-height: 1.72;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
@@ -548,10 +549,10 @@
     }
 
     .unit-hero-summary {
-      font-size: 14px;
+      font-size: 15px;
       color: #4b5563;
       margin-bottom: 12px;
-      line-height: 1.6;
+      line-height: 1.72;
     }
 
     .theory-drawer-toggle {
@@ -599,8 +600,8 @@
       background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: 0;
-      font-size: 14px;
-      line-height: 1.7;
+      font-size: 15px;
+      line-height: 1.75;
       color: #27272a;
     }
 
@@ -634,7 +635,7 @@
       width: 100%;
       border-collapse: collapse;
       margin: 12px 0;
-      font-size: 13px;
+      font-size: 13.5px;
       background: #ffffff;
     }
 
@@ -817,8 +818,8 @@
     }
 
     .q-passage-box {
-      font-size: 15px;
-      line-height: 1.8;
+      font-size: 15.5px;
+      line-height: 1.75;
       color: #27272a;
       margin-bottom: 20px;
       background-color: var(--tool-bg);
@@ -834,7 +835,7 @@
       border-collapse: collapse;
       margin: 10px 0;
       background: #ffffff;
-      font-size: 13px;
+      font-size: 13.5px;
     }
 
     .q-passage-box th, .q-passage-box td {
@@ -931,7 +932,7 @@
 
     .q-answer-card {
       margin-bottom: 10px;
-      font-size: 15px;
+      font-size: 15.5px;
     }
 
     .q-answer-card .exp-correct-label {
@@ -967,7 +968,8 @@
       background-color: #fef2f2;
       padding: 10px 14px;
       margin-bottom: 12px;
-      font-size: 13px;
+      font-size: 14px;
+      line-height: 1.65;
       color: #991b1b;
       border-radius: 0;
       border: none;
@@ -1018,8 +1020,8 @@
     }
 
     .q-exp-text {
-      font-size: 14px;
-      line-height: 1.7;
+      font-size: 15px;
+      line-height: 1.75;
       color: #374151;
       white-space: pre-wrap;
     }
@@ -1092,123 +1094,6 @@
         padding: 20px 16px;
       }
     }
-
-    /* ==========================================================================
-       Print Optimization Stylesheet (@media print)
-       ========================================================================== */
-    @media print {
-      body {
-        background: #ffffff !important;
-        color: #000000 !important;
-        font-size: 11pt !important;
-      }
-
-      .study-header,
-      .sidebar,
-      .btn-toggle-answer,
-      .btn-toggle-all-answers,
-      .theory-drawer-toggle,
-      .search-wrapper,
-      .header-right {
-        display: none !important;
-      }
-
-      .app-layout {
-        display: block !important;
-      }
-
-      .main-content {
-        max-width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-
-      .unit-hero-card {
-        border: 2px solid #000000 !important;
-        box-shadow: none !important;
-        page-break-after: always;
-        break-after: page;
-        margin-bottom: 20px !important;
-      }
-
-      .theory-drawer-wrapper {
-        display: block !important;
-        opacity: 1 !important;
-        margin-top: 16px !important;
-      }
-
-      .theory-body-container {
-        display: block !important;
-        background: #ffffff !important;
-        border: 1px solid #666666 !important;
-      }
-
-      .question-card {
-        border: none !important;
-        border-bottom: 1px solid #444444 !important;
-        box-shadow: none !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-        margin-bottom: 20px !important;
-        padding: 16px 0 !important;
-      }
-
-      .q-solution-drawer {
-        display: block !important;
-      }
-
-      .q-code-container {
-        background: #ffffff !important;
-        border: 1px solid #000000 !important;
-      }
-
-      .q-code-header {
-        background: #f0f0f0 !important;
-        color: #000000 !important;
-        border-bottom: 1px solid #000000 !important;
-      }
-
-      .q-code-block {
-        color: #000000 !important;
-      }
-
-      .q-code-block, .q-code-block * {
-        color: #000000 !important;
-        background: transparent !important;
-      }
-
-      .code-line:hover {
-        background: transparent !important;
-      }
-
-      .code-line-num {
-        color: #555555 !important;
-      }
-
-      .q-answer-card {
-        background: #f9f9f9 !important;
-        border: 1px solid #000000 !important;
-        color: #000000 !important;
-      }
-
-      .q-trap-box {
-        background: #f9f9f9 !important;
-        border-left: 4px solid #000000 !important;
-        color: #000000 !important;
-      }
-
-      .q-trace-box {
-        background: #ffffff !important;
-        border: 1px solid #000000 !important;
-      }
-
-      .theory-body-container .formula-card,
-      .theory-body-container blockquote.theory-quote {
-        background: #f9f9f9 !important;
-        border-left: 4px solid #000000 !important;
-        color: #000000 !important;
-      }
-    }
   </style>
 </head>
 <body>
@@ -1239,10 +1124,6 @@
 
       <button class="btn-action-tool" id="btnGlobalAnswerToggle" onclick="toggleAllAnswers()">
         👁️ 정답 전체 펼치기
-      </button>
-
-      <button class="btn-action-tool" onclick="window.print()" title="A4 책자 형태로 인쇄하거나 PDF로 저장합니다.">
-        🖨️ 인쇄 / PDF
       </button>
 
       <a href="index.html" class="btn-action-tool btn-action-cbt" title="CBT 시험 모드로 이동">

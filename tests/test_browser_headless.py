@@ -309,6 +309,364 @@ def run_tests():
         assert font_val.get("hasTextSemiBold") is True, "LG EI Text SemiBold (600) failed document.fonts.check"
         assert font_val.get("hasTextBold") is True, "LG EI Text Bold (700) failed document.fonts.check"
 
+        # Verify body font-size and paragraph font-sizes on index.html
+        size_resp = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                bodySize: window.getComputedStyle(document.body).fontSize,
+                passageSize: window.getComputedStyle(document.getElementById('passageBox')).fontSize,
+                expBodySize: window.getComputedStyle(document.getElementById('expBodyText')).fontSize
+            })""",
+            "returnByValue": True
+        })
+        size_val = size_resp.get("result", {}).get("result", {}).get("value", {})
+        print("  index.html font size verification:", size_val)
+        assert size_val.get("bodySize") == "15px", f"Expected body font-size 15px, got {size_val.get('bodySize')}"
+        assert size_val.get("passageSize") == "15.5px", f"Expected passage font-size 15.5px, got {size_val.get('passageSize')}"
+        assert size_val.get("expBodySize") == "15px", f"Expected expBodyText font-size 15px, got {size_val.get('expBodySize')}"
+
+        # -------------------------------------------------------------
+        # Cheatsheet Modal Verification on index.html
+        # -------------------------------------------------------------
+        save_screenshots_enabled = bool(os.environ.get("SAVE_SCREENSHOTS"))
+        screenshots_dir = os.path.join(base_dir, "docs", "screenshots")
+        if save_screenshots_enabled:
+            os.makedirs(screenshots_dir, exist_ok=True)
+
+        def save_screenshot(filename):
+            if not save_screenshots_enabled:
+                return
+            resp = send_cmd("Page.captureScreenshot", {"format": "png"})
+            raw_b64 = resp.get("result", {}).get("data", "")
+            if raw_b64:
+                with open(os.path.join(screenshots_dir, filename), "wb") as f:
+                    f.write(base64.b64decode(raw_b64))
+
+        # 1. Open Cheatsheet Modal
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnOpenCheatsheet').click()"})
+        time.sleep(0.3)
+        drain_events(0.2)
+
+        cs_open_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                isShown: document.getElementById('cheatsheetModal').classList.contains('show'),
+                modalDisplay: window.getComputedStyle(document.getElementById('cheatsheetModal')).display,
+                modalBoxWidth: window.getComputedStyle(document.querySelector('.cheatsheet-modal-box')).width,
+                tabsCount: document.querySelectorAll('.cs-tab-btn').length,
+                activeTabKey: document.querySelector('.cs-tab-btn.active') ? document.querySelector('.cs-tab-btn.active').dataset.tab : '',
+                cardsCount: document.querySelectorAll('#csBody .cs-section-card').length,
+                mnemonicBanners: document.querySelectorAll('#csBody .cs-mnemonic-banner').length,
+                stepBadges: document.querySelectorAll('#csBody .cs-step-badge').length,
+                mnemonicPills: document.querySelectorAll('#csBody .cs-mnemonic-pill').length,
+                tabBtnColor: window.getComputedStyle(document.querySelector('.cs-tab-btn.active')).color,
+                tabBtnBorder: window.getComputedStyle(document.querySelector('.cs-tab-btn.active')).borderBottomColor,
+                card1ContentHtml: document.querySelectorAll('#csBody .cs-sec-content')[0] ? document.querySelectorAll('#csBody .cs-sec-content')[0].innerHTML : '',
+                card1Height: document.querySelectorAll('#csBody .cs-section-card')[0] ? document.querySelectorAll('#csBody .cs-section-card')[0].offsetHeight : 0
+            })""",
+            "returnByValue": True
+        })
+        cs_val = cs_open_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Cheatsheet part1 eval:", cs_val)
+        assert cs_val.get("isShown") is True, "Cheatsheet modal did not get .show class"
+        assert cs_val.get("modalDisplay") == "flex", f"Expected modal display flex, got {cs_val.get('modalDisplay')}"
+        assert cs_val.get("tabsCount") == 4, f"Expected 4 tabs, got {cs_val.get('tabsCount')}"
+        assert cs_val.get("activeTabKey") == "part1", f"Expected active tab part1, got {cs_val.get('activeTabKey')}"
+        assert cs_val.get("cardsCount") == 4, f"Expected 4 section cards in part1, got {cs_val.get('cardsCount')}"
+        assert cs_val.get("mnemonicBanners") >= 2, f"Expected at least 2 mnemonic banners in part1, got {cs_val.get('mnemonicBanners')}"
+        assert cs_val.get("stepBadges") >= 13, f"Expected at least 13 numbered steps in part1 (6 coupling + 7 cohesion), got {cs_val.get('stepBadges')}"
+        assert cs_val.get("mnemonicPills") == 6, f"Expected exactly 6 mnemonic pills in part1 (Card1: 2, Card2: banner+heading, Card3: banner+heading), got {cs_val.get('mnemonicPills')}"
+        assert cs_val.get("card1Height", 0) >= 140, f"Expected card1 to be uncrushed (>= 140px), got {cs_val.get('card1Height')}"
+
+        # Verify heading pill transformation in Card 2 and Card 3
+        headings_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                card2HeadingHtml: document.querySelectorAll('#csBody .cs-sec-heading')[1] ? document.querySelectorAll('#csBody .cs-sec-heading')[1].innerHTML : '',
+                card3HeadingHtml: document.querySelectorAll('#csBody .cs-sec-heading')[2] ? document.querySelectorAll('#csBody .cs-sec-heading')[2].innerHTML : ''
+            })""",
+            "returnByValue": True
+        })
+        h_val = headings_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Cheatsheet headings eval:", h_val)
+        assert "cs-mnemonic-pill" in h_val.get("card2HeadingHtml", ""), f"Card 2 heading missing pill: {h_val.get('card2HeadingHtml')}"
+        assert "→" in h_val.get("card2HeadingHtml", "") and "->" not in h_val.get("card2HeadingHtml", "") and "-&gt;" not in h_val.get("card2HeadingHtml", "")
+        assert "cs-mnemonic-pill" in h_val.get("card3HeadingHtml", ""), f"Card 3 heading missing pill: {h_val.get('card3HeadingHtml')}"
+        assert "→" in h_val.get("card3HeadingHtml", "") and "->" not in h_val.get("card3HeadingHtml", "") and "-&gt;" not in h_val.get("card3HeadingHtml", "")
+
+        save_screenshot("cheatsheet_part1.png")
+
+        # 2. Switch to part2 (DB & SQL)
+        send_cmd("Runtime.evaluate", {"expression": "document.querySelector('.cs-tab-btn[data-tab=\"part2\"]').click()"})
+        time.sleep(0.2)
+        drain_events(0.1)
+        part2_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                activeTabKey: document.querySelector('.cs-tab-btn.active').dataset.tab,
+                cardsCount: document.querySelectorAll('#csBody .cs-section-card').length,
+                mnemonicBanners: document.querySelectorAll('#csBody .cs-mnemonic-banner').length,
+                subitemRows: document.querySelectorAll('#csBody .cs-subitem-row').length,
+                stepBadges: document.querySelectorAll('#csBody .cs-step-badge').length
+            })""",
+            "returnByValue": True
+        })
+        p2_val = part2_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Cheatsheet part2 eval:", p2_val)
+        assert p2_val.get("activeTabKey") == "part2"
+        assert p2_val.get("cardsCount") == 3
+        assert p2_val.get("mnemonicBanners") >= 1
+        assert p2_val.get("subitemRows") >= 5
+        save_screenshot("cheatsheet_part2.png")
+
+        # 3. Switch to part3 (Security & Network)
+        send_cmd("Runtime.evaluate", {"expression": "document.querySelector('.cs-tab-btn[data-tab=\"part3\"]').click()"})
+        time.sleep(0.2)
+        drain_events(0.1)
+        part3_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                activeTabKey: document.querySelector('.cs-tab-btn.active').dataset.tab,
+                cardsCount: document.querySelectorAll('#csBody .cs-section-card').length,
+                subitemRows: document.querySelectorAll('#csBody .cs-subitem-row').length
+            })""",
+            "returnByValue": True
+        })
+        p3_val = part3_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Cheatsheet part3 eval:", p3_val)
+        assert p3_val.get("activeTabKey") == "part3"
+        assert p3_val.get("cardsCount") == 3
+        assert p3_val.get("subitemRows") >= 5
+        save_screenshot("cheatsheet_part3.png")
+
+        # 4. Switch to tips (Exam tips & Strategy)
+        send_cmd("Runtime.evaluate", {"expression": "document.querySelector('.cs-tab-btn[data-tab=\"tips\"]').click()"})
+        time.sleep(0.2)
+        drain_events(0.1)
+        tips_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                activeTabKey: document.querySelector('.cs-tab-btn.active').dataset.tab,
+                cardsCount: document.querySelectorAll('#csBody .cs-section-card').length,
+                summaryCallout: document.querySelectorAll('#csBody .cs-summary-callout').length,
+                calloutText: document.querySelector('#csBody .cs-summary-callout') ? document.querySelector('#csBody .cs-summary-callout').innerText : ''
+            })""",
+            "returnByValue": True
+        })
+        tips_val = tips_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Cheatsheet tips eval:", tips_val)
+        assert tips_val.get("activeTabKey") == "tips"
+        assert tips_val.get("cardsCount") == 3
+        assert tips_val.get("summaryCallout") >= 1
+        assert "70점 안정 합격" in tips_val.get("calloutText", "")
+        save_screenshot("cheatsheet_tips.png")
+
+        # 5. Close cheatsheet modal via close icon
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnCloseCheatsheet').click()"})
+        time.sleep(0.2)
+        drain_events(0.1)
+        close_eval = send_cmd("Runtime.evaluate", {
+            "expression": "document.getElementById('cheatsheetModal').classList.contains('show')",
+            "returnByValue": True
+        })
+        assert close_eval.get("result", {}).get("result", {}).get("value") is False, "Modal did not close on #btnCloseCheatsheet click"
+
+        # 6. Reopen and close via bottom button
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnOpenCheatsheet').click()"})
+        time.sleep(0.2)
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnCloseCheatsheetBottom').click()"})
+        time.sleep(0.2)
+        close_bottom_eval = send_cmd("Runtime.evaluate", {
+            "expression": "document.getElementById('cheatsheetModal').classList.contains('show')",
+            "returnByValue": True
+        })
+        assert close_bottom_eval.get("result", {}).get("result", {}).get("value") is False, "Modal did not close on #btnCloseCheatsheetBottom click"
+
+        # 7. Reopen and close via backdrop click
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnOpenCheatsheet').click()"})
+        time.sleep(0.2)
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('cheatsheetModal').dispatchEvent(new MouseEvent('click', { bubbles: true }))"})
+        time.sleep(0.2)
+        close_backdrop_eval = send_cmd("Runtime.evaluate", {
+            "expression": "document.getElementById('cheatsheetModal').classList.contains('show')",
+            "returnByValue": True
+        })
+        assert close_backdrop_eval.get("result", {}).get("result", {}).get("value") is False, "Modal did not close on backdrop click"
+
+        # 8. Reopen and close via Escape key
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnOpenCheatsheet').click()"})
+        time.sleep(0.2)
+        send_cmd("Runtime.evaluate", {"expression": "window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))"})
+        time.sleep(0.2)
+        close_esc_eval = send_cmd("Runtime.evaluate", {
+            "expression": "document.getElementById('cheatsheetModal').classList.contains('show')",
+            "returnByValue": True
+        })
+        assert close_esc_eval.get("result", {}).get("result", {}).get("value") is False, "Modal did not close on Escape key"
+
+        # 9. Test Memo Pad drawing, per-question persistence, and clear
+        print("  Testing Memo Pad drawing and per-question persistence...")
+        memo_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const canvas = document.getElementById('memoCanvas');
+                const clearBtn = document.getElementById('btnClear');
+                if (!canvas) return { error: 'No memoCanvas' };
+
+                // Draw on Q1
+                const rect = canvas.getBoundingClientRect();
+                canvas.dispatchEvent(new MouseEvent('mousedown', { clientX: rect.left + 50, clientY: rect.top + 50, bubbles: true }));
+                canvas.dispatchEvent(new MouseEvent('mousemove', { clientX: rect.left + 150, clientY: rect.top + 150, bubbles: true }));
+                window.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+
+                const dataQ1 = canvas.toDataURL();
+
+                // Navigate to Q2
+                const boxes = document.querySelectorAll('.q-box');
+                if (boxes.length < 2) return { error: 'Not enough q-boxes' };
+                boxes[1].click();
+                const dataQ2 = canvas.toDataURL();
+
+                // Navigate back to Q1
+                boxes[0].click();
+                const dataQ1Restored = canvas.toDataURL();
+
+                // Clear Q1
+                if (clearBtn) clearBtn.click();
+                const dataQ1Cleared = canvas.toDataURL();
+
+                return {
+                    drewSomething: dataQ1.length > 1000,
+                    q2IsBlank: dataQ2 !== dataQ1,
+                    q1Restored: dataQ1Restored === dataQ1,
+                    q1Cleared: dataQ1Cleared !== dataQ1
+                };
+            })()""",
+            "returnByValue": True
+        })
+        m_val = memo_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Memo pad eval:", m_val)
+        assert m_val.get("drewSomething") is True, "Failed to draw on memoCanvas"
+        assert m_val.get("q2IsBlank") is True, "Q2 memo was not blank/cleared upon navigation"
+        assert m_val.get("q1Restored") is True, "Q1 memo was not properly restored upon returning to Q1"
+        assert m_val.get("q1Cleared") is True, "Memo was not cleared after clearBtn click"
+
+        # 10. Test Answer check status message styling and colors
+        print("  Testing Answer check status message styling...")
+        status_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const input = document.querySelector('.answer-input') || document.querySelector('input[type=\"text\"]');
+                const checkBtn = document.getElementById('btnCheckAnswer');
+                const statusMsg = document.getElementById('answerStatusMsg');
+
+                // 1. Enter incorrect answer
+                if (input) input.value = '999999_WRONG';
+                if (checkBtn) checkBtn.click();
+
+                const incorrectClass = statusMsg ? statusMsg.className : '';
+                const incorrectColor = statusMsg ? window.getComputedStyle(statusMsg).color : '';
+
+                // 2. Enter correct answer ('90')
+                if (input) input.value = '90';
+                if (checkBtn) checkBtn.click();
+
+                const correctClass = statusMsg ? statusMsg.className : '';
+                const correctColor = statusMsg ? window.getComputedStyle(statusMsg).color : '';
+
+                return {
+                    incorrectClass,
+                    incorrectColor,
+                    correctClass,
+                    correctColor
+                };
+            })()""",
+            "returnByValue": True
+        })
+        st_val = status_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Answer check status eval:", st_val)
+        assert "status-incorrect" in st_val.get("incorrectClass", ""), f"Expected status-incorrect class, got {st_val.get('incorrectClass')}"
+        assert st_val.get("incorrectColor") == "rgb(220, 38, 38)", f"Expected status-incorrect color rgb(220, 38, 38), got {st_val.get('incorrectColor')}"
+        assert "status-correct" in st_val.get("correctClass", ""), f"Expected status-correct class, got {st_val.get('correctClass')}"
+        assert st_val.get("correctColor") == "rgb(22, 163, 74)", f"Expected status-correct color rgb(22, 163, 74), got {st_val.get('correctColor')}"
+
+        # 11. Test scoreModal rendering, fonts, review grid pass/fail styles, and dismissal
+        score_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                // Trigger score modal directly
+                window.submitExamDirect = function() {
+                    const originalConfirm = window.confirm;
+                    window.confirm = () => true;
+                    document.getElementById('btnSubmitExam').click();
+                    window.confirm = originalConfirm;
+                };
+                window.submitExamDirect();
+                const sm = document.getElementById('scoreModal');
+                const titleStyle = window.getComputedStyle(document.getElementById('scoreTitle'));
+                const bigStyle = window.getComputedStyle(document.getElementById('scoreBigNumber'));
+                const judgStyle = window.getComputedStyle(document.getElementById('scoreJudgment'));
+                const items = document.querySelectorAll('#reviewGrid .review-item');
+                const passItems = document.querySelectorAll('#reviewGrid .review-item.pass');
+                const failItems = document.querySelectorAll('#reviewGrid .review-item.fail');
+                return {
+                    isShown: sm.classList.contains('show'),
+                    display: window.getComputedStyle(sm).display,
+                    scoreTitleFontSize: titleStyle.fontSize,
+                    scoreBigFontSize: bigStyle.fontSize,
+                    scoreJudgmentFontSize: judgStyle.fontSize,
+                    catStatsCols: window.getComputedStyle(document.querySelector('.category-stats-grid')).gridTemplateColumns.split(' ').length,
+                    totalReviewItems: items.length,
+                    passItemsCount: passItems.length,
+                    failItemsCount: failItems.length,
+                    passBg: passItems[0] ? window.getComputedStyle(passItems[0]).backgroundColor : '',
+                    passColor: passItems[0] ? window.getComputedStyle(passItems[0]).color : '',
+                    failBg: failItems[0] ? window.getComputedStyle(failItems[0]).backgroundColor : '',
+                    failColor: failItems[0] ? window.getComputedStyle(failItems[0]).color : ''
+                };
+            })()""",
+            "returnByValue": True
+        })
+        s_val = score_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Score modal eval:", s_val)
+        assert s_val.get("isShown") is True, "Score modal did not open on exam submit"
+        assert s_val.get("display") == "flex"
+        assert s_val.get("scoreTitleFontSize") == "14px"
+        assert s_val.get("scoreBigFontSize") == "34px"
+        assert s_val.get("scoreJudgmentFontSize") == "16px"
+        assert s_val.get("catStatsCols") == 3
+        assert s_val.get("totalReviewItems") == 20, f"Expected 20 review items, got {s_val.get('totalReviewItems')}"
+        assert s_val.get("passItemsCount") >= 1, "Expected at least 1 pass item (Q1 was answered correctly)"
+        assert s_val.get("failItemsCount") >= 1, "Expected fail items for unanswered questions"
+        assert s_val.get("passBg") == "rgb(220, 252, 231)", f"Expected pass item bg rgb(220, 252, 231), got {s_val.get('passBg')}"
+        assert s_val.get("passColor") == "rgb(21, 128, 61)", f"Expected pass item color rgb(21, 128, 61), got {s_val.get('passColor')}"
+        assert s_val.get("failBg") == "rgb(254, 226, 226)", f"Expected fail item bg rgb(254, 226, 226), got {s_val.get('failBg')}"
+        assert s_val.get("failColor") == "rgb(185, 28, 28)", f"Expected fail item color rgb(185, 28, 28), got {s_val.get('failColor')}"
+
+        # Close scoreModal via Escape key
+        send_cmd("Runtime.evaluate", {"expression": "window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))"})
+        time.sleep(0.2)
+        score_close_eval = send_cmd("Runtime.evaluate", {
+            "expression": "document.getElementById('scoreModal').classList.contains('show')",
+            "returnByValue": True
+        })
+        assert score_close_eval.get("result", {}).get("result", {}).get("value") is False, "Score modal did not close on Escape key"
+
+        # 12. Responsive viewport test (600px mobile viewport)
+        send_cmd("Emulation.setDeviceMetricsOverride", {
+            "width": 600,
+            "height": 800,
+            "deviceScaleFactor": 1,
+            "mobile": True
+        })
+        time.sleep(0.2)
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnOpenCheatsheet').click()"})
+        time.sleep(0.2)
+        responsive_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                boxWidth: document.querySelector('.cheatsheet-modal-box').offsetWidth,
+                windowWidth: window.innerWidth
+            })""",
+            "returnByValue": True
+        })
+        r_val = responsive_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Mobile 600px viewport eval:", r_val)
+        assert r_val.get("boxWidth", 999) <= 600 * 0.95 + 2, f"Expected cheatsheet modal box width <= 95vw ({600*0.95}), got {r_val.get('boxWidth')}"
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnCloseCheatsheet').click()"})
+        send_cmd("Emulation.clearDeviceMetricsOverride")
+        time.sleep(0.2)
+
         # -------------------------------------------------------------
         # Test 2: study.html (Concept Mode)
         # -------------------------------------------------------------
@@ -383,6 +741,24 @@ def run_tests():
         assert study_font_val.get("hasTextRegular") is True, "LG EI Text Regular (400) failed document.fonts.check in study.html"
         assert study_font_val.get("hasTextSemiBold") is True, "LG EI Text SemiBold (600) failed document.fonts.check in study.html"
         assert study_font_val.get("hasTextBold") is True, "LG EI Text Bold (700) failed document.fonts.check in study.html"
+
+        # Font size verification for study.html
+        study_size_resp = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                bodySize: window.getComputedStyle(document.body).fontSize,
+                passageSize: window.getComputedStyle(document.querySelector('.q-passage-box')).fontSize,
+                theorySize: window.getComputedStyle(document.querySelector('.theory-body-container')).fontSize,
+                heroSummarySize: window.getComputedStyle(document.querySelector('.unit-hero-summary')).fontSize
+            })""",
+            "returnByValue": True
+        })
+        study_size_val = study_size_resp.get("result", {}).get("result", {}).get("value", {})
+        print("  study.html font size verification:", study_size_val)
+        assert study_size_val.get("bodySize") == "15px", f"Expected study.html body font-size 15px, got {study_size_val.get('bodySize')}"
+        assert study_size_val.get("passageSize") == "15.5px", f"Expected study.html passage font-size 15.5px, got {study_size_val.get('passageSize')}"
+        assert study_size_val.get("theorySize") == "15px", f"Expected study.html theory font-size 15px, got {study_size_val.get('theorySize')}"
+        assert study_size_val.get("heroSummarySize") == "15px", f"Expected study.html hero summary font-size 15px, got {study_size_val.get('heroSummarySize')}"
+
 
         # Test all 5 units in Concept Mode for clean rendering (0 raw LaTeX, 0 raw blockquote '>' prefixes)
         # Also verify DOM-preserving sidebar animation (.sidebar-subtopics-wrapper.open toggling without destroying DOM nodes)

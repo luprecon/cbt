@@ -139,7 +139,7 @@ def test_verification():
         std_txt = f.read()
     assert "index.html" in std_txt, "study.html does not link to index.html!"
     assert "data/concept-data.js" in std_txt, "study.html does not include concept-data.js!"
-    assert "@media print" in std_txt, "study.html does not have @media print styles!"
+    assert "window.print" not in std_txt and "@media print" not in std_txt, "study.html still contains print feature!"
     assert "@media (max-width: 900px)" in std_txt, "study.html missing responsive layout rules!"
     assert "CBT 시험 모드로 돌아가기" in std_txt, "study.html missing return navigation text!"
     assert "formula-card" in std_txt, "study.html missing .formula-card styling and parser support!"
