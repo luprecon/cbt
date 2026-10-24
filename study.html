@@ -1100,6 +1100,13 @@
     }
 
     /* ==========================================================================
+       Mobile TOC Toggle Bar (Hidden on Desktop / Tablet > 600px)
+       ========================================================================== */
+    .mobile-toc-toggle-bar {
+      display: none;
+    }
+
+    /* ==========================================================================
        Responsive Layout (<= 900px)
        ========================================================================== */
     @media (max-width: 900px) {
@@ -1137,6 +1144,224 @@
 
       .main-content {
         padding: 20px 16px;
+      }
+    }
+
+    /* ==========================================================================
+       Galaxy S24 Ultra (412 x 915px) & Mobile Responsive Layout (<= 600px)
+       ========================================================================== */
+    @media (max-width: 600px) {
+      .study-header {
+        padding: 10px 14px;
+        gap: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .header-left,
+      .header-right {
+        display: contents;
+      }
+
+      /* Row 1: Logo + Return to CBT button */
+      .header-logo {
+        order: 1;
+        font-size: 16px;
+        gap: 6px;
+      }
+
+      .header-logo-badge {
+        font-size: 10.5px;
+        padding: 2px 5px;
+      }
+
+      .btn-action-cbt {
+        order: 2;
+        margin-left: auto;
+        padding: 5px 10px;
+        font-size: 11.5px;
+      }
+
+      /* Row 2: 50:50 Mode Toggle Tabs */
+      .mode-toggle-group {
+        order: 3;
+        width: 100%;
+        display: flex;
+      }
+
+      .btn-mode-tab {
+        flex: 1;
+        text-align: center;
+        padding: 7px 6px;
+        font-size: 12px;
+      }
+
+      /* Row 3: Search Input + Expand All Answers button */
+      .search-wrapper {
+        order: 4;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .search-input,
+      .search-input:focus {
+        width: 100%;
+        font-size: 12px;
+        padding: 6px 24px 6px 26px;
+      }
+
+      #btnGlobalAnswerToggle {
+        order: 5;
+        padding: 6px 10px;
+        font-size: 11.5px;
+        flex-shrink: 0;
+      }
+
+      /* Collapsible Mobile TOC Toggle Bar & Drawer */
+      .mobile-toc-toggle-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        width: 100%;
+        background: #2b2f36;
+        color: #ffffff;
+        border: none;
+        border-bottom: 1px solid #3f3f46;
+        padding: 10px 14px;
+        font-family: var(--font-headline);
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        text-align: left;
+      }
+
+      #mobileTocLabel {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .mobile-toc-toggle-bar:hover {
+        background: #374151;
+      }
+
+      .mobile-toc-chevron {
+        font-size: 11px;
+        color: #d1d5db;
+        flex-shrink: 0;
+      }
+
+      .sidebar {
+        display: none;
+        max-height: 60vh;
+        overflow-y: auto;
+        border-bottom: 2px solid #111827;
+      }
+
+      .sidebar.mobile-open {
+        display: flex;
+      }
+
+      /* Content Area & Cards Optimization for 412px */
+      .main-content {
+        padding: 16px 14px 48px 14px;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .unit-hero-card {
+        padding: 14px 16px;
+        margin-bottom: 18px;
+      }
+
+      .unit-hero-header {
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: flex-start;
+      }
+
+      .unit-hero-title {
+        font-size: 17.5px;
+        word-break: keep-all;
+      }
+
+      .unit-hero-summary {
+        font-size: 14.5px;
+      }
+
+      .theory-body-container {
+        padding: 14px 12px;
+        overflow-x: hidden;
+      }
+
+      .theory-body-container table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .questions-control-header {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .questions-count-text {
+        font-size: 14.5px;
+      }
+
+      .q-meta-row {
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: flex-start;
+      }
+
+      .q-badge-group {
+        flex-wrap: wrap;
+        row-gap: 4px;
+        font-size: 12px;
+      }
+
+      .q-prompt-text {
+        font-size: 16px;
+      }
+
+      .q-passage-box {
+        padding: 12px 14px;
+        overflow-x: auto;
+      }
+
+      .q-passage-box table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .q-solution-drawer {
+        padding: 14px 14px;
+      }
+
+      .q-trace-box {
+        overflow-x: auto;
+      }
+
+      .q-trace-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .search-status-bar {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 14px;
+        font-size: 13px;
       }
     }
   </style>
@@ -1179,6 +1404,12 @@
 
   <!-- App Layout -->
   <div class="app-layout">
+    <!-- Mobile Collapsible TOC Toggle Bar (<= 600px) -->
+    <button class="mobile-toc-toggle-bar" id="mobileTocToggleBtn" onclick="toggleMobileSidebar()" aria-expanded="false">
+      <span id="mobileTocLabel">📑 단원 및 목차 선택</span>
+      <span class="mobile-toc-chevron" id="mobileTocChevron">▼</span>
+    </button>
+
     <!-- Left Navigation Sidebar -->
     <aside class="sidebar" id="appSidebar">
       <!-- Injected by JavaScript based on active mode -->
@@ -1205,7 +1436,8 @@
       activeTopic: null,
       searchQuery: '',
       allAnswersExpanded: false,
-      theoryExpanded: true
+      theoryExpanded: true,
+      mobileDrawerOpen: false
     };
 
     // Fast Lookup
@@ -1483,7 +1715,52 @@
 
       renderSidebar(true);
       renderContent();
+      updateMobileTocUI();
     });
+
+    // =========================================================================
+    // Mobile TOC Drawer Controls (<= 600px)
+    // =========================================================================
+    function toggleMobileSidebar() {
+      state.mobileDrawerOpen = !state.mobileDrawerOpen;
+      updateMobileTocUI();
+    }
+
+    function closeMobileSidebar() {
+      if (state.mobileDrawerOpen) {
+        state.mobileDrawerOpen = false;
+        updateMobileTocUI();
+      }
+    }
+
+    function updateMobileTocUI() {
+      const sidebar = document.getElementById('appSidebar');
+      const toggleBtn = document.getElementById('mobileTocToggleBtn');
+      const labelEl = document.getElementById('mobileTocLabel');
+      const chevronEl = document.getElementById('mobileTocChevron');
+
+      if (sidebar) {
+        sidebar.classList.toggle('mobile-open', Boolean(state.mobileDrawerOpen));
+      }
+      if (toggleBtn) {
+        toggleBtn.setAttribute('aria-expanded', state.mobileDrawerOpen ? 'true' : 'false');
+      }
+      if (chevronEl) {
+        chevronEl.textContent = state.mobileDrawerOpen ? '▲' : '▼';
+      }
+      if (labelEl) {
+        if (state.mode === 'concept') {
+          const unit = unitsData[state.activeUnit] || {};
+          const unitLabel = unit.shortTitle || `제${state.activeUnit}단원`;
+          const topicSuffix = state.activeTopic ? ` · ${state.activeTopic}` : '';
+          labelEl.textContent = `📑 단원 및 목차 선택 (${unitLabel}${topicSuffix})`;
+        } else {
+          const rMeta = roundsCatalog.find(r => r.id === state.activeRoundId) || {};
+          const rLabel = rMeta.title || state.activeRoundId;
+          labelEl.textContent = `📑 기출 회차 선택 (${rLabel})`;
+        }
+      }
+    }
 
     // =========================================================================
     // Mode Switcher
@@ -1498,8 +1775,10 @@
       document.getElementById('btnModeConcept').classList.toggle('active', newMode === 'concept');
       document.getElementById('btnModeRound').classList.toggle('active', newMode === 'round');
 
+      closeMobileSidebar();
       renderSidebar(true);
       renderContent();
+      updateMobileTocUI();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1514,6 +1793,7 @@
         const existingConceptTree = sidebar.querySelector('[data-sidebar-mode="concept"]');
         if (existingConceptTree && !forceRebuild) {
           updateConceptSidebarActiveStates(sidebar);
+          updateMobileTocUI();
           return;
         }
 
@@ -1570,12 +1850,14 @@
         }
         html += `</ul></div>`;
         sidebar.innerHTML = html;
+        updateMobileTocUI();
 
       } else {
         // Round Mode
         const existingRoundTree = sidebar.querySelector('[data-sidebar-mode="round"]');
         if (existingRoundTree && !forceRebuild) {
           updateRoundSidebarActiveStates(sidebar);
+          updateMobileTocUI();
           return;
         }
 
@@ -1612,6 +1894,7 @@
 
         html += `</ul></div>`;
         sidebar.innerHTML = html;
+        updateMobileTocUI();
       }
     }
 
@@ -1661,7 +1944,9 @@
       document.getElementById('btnSearchClear').style.display = 'none';
       renderSidebar();
       renderContent();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (!state.mobileDrawerOpen) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
     function selectTopic(t, unitOwner) {
@@ -1699,6 +1984,7 @@
         }
         state.activeTopic = null;
       }
+      closeMobileSidebar();
       renderSidebar();
       renderContent();
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1709,6 +1995,7 @@
       state.searchQuery = '';
       document.getElementById('liveSearchInput').value = '';
       document.getElementById('btnSearchClear').style.display = 'none';
+      closeMobileSidebar();
       renderSidebar();
       renderContent();
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2011,6 +2298,9 @@
       state.searchQuery = val;
       const clearBtn = document.getElementById('btnSearchClear');
       clearBtn.style.display = val.length > 0 ? 'inline-block' : 'none';
+      if (val.trim().length > 0) {
+        closeMobileSidebar();
+      }
       renderSidebar();
       renderContent();
     }

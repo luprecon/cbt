@@ -1200,3 +1200,307 @@ header.top-header {
   margin-top: 0;
   flex-shrink: 0;
 }
+
+/* ==========================================================================
+   Galaxy S24 Ultra (412 x 915px) & Mobile Responsive Layout (<= 600px)
+   ========================================================================== */
+@media (max-width: 600px) {
+  body {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  /* 3-Row Compact Header */
+  header.top-header {
+    height: auto;
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header-left-group {
+    display: contents;
+  }
+
+  .header-logo {
+    order: 1;
+    font-size: 16px;
+  }
+
+  .header-center-timer {
+    position: static;
+    transform: none;
+    order: 2;
+    margin-left: auto;
+    gap: 6px;
+  }
+
+  .timer-label {
+    font-size: 12px;
+  }
+
+  .timer-val {
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  .header-subject-tabs {
+    order: 3;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .exam-select-dropdown {
+    width: 100%;
+    max-width: 100%;
+    font-size: 13px;
+    padding: 7px 10px;
+  }
+
+  .exam-meta-text {
+    font-size: 11.5px;
+    text-align: right;
+  }
+
+  .header-right-tools {
+    order: 4;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .header-right-tools .btn-file-load {
+    flex: 1 1 calc(50% - 6px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.4;
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+
+  .header-right-tools .btn-file-load.btn-submit {
+    flex: 1 1 100%;
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  /* Retake Alert Banner */
+  .retake-banner {
+    padding: 8px 14px;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  /* Exam Wrapper & 10x2 Question Boxes Grid */
+  .exam-wrapper {
+    width: 100%;
+    max-width: 100%;
+    padding: 14px 16px 48px 16px;
+  }
+
+  .question-boxes-bar {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 4px;
+    margin-bottom: 18px;
+  }
+
+  .q-box {
+    width: 100%;
+    height: 34px;
+    font-size: 12px;
+  }
+
+  /* Main Workspace Stack */
+  .main-workspace {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .problem-section {
+    width: 100%;
+  }
+
+  .question-prompt {
+    font-size: 16.5px;
+    margin-bottom: 14px;
+  }
+
+  .passage-text {
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    overflow-x: auto;
+  }
+
+  .passage-text table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .trace-table-container {
+    overflow-x: auto;
+  }
+
+  .trace-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Subjective Input & Controls */
+  .answer-row {
+    width: 100%;
+  }
+
+  .exam-input-text {
+    width: 100%;
+    flex: 1;
+    padding: 10px 12px;
+  }
+
+  .answer-controls {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .btn-check-answer {
+    padding: 10px 20px;
+    font-size: 13.5px;
+  }
+
+  .explanation-card {
+    padding: 14px 16px;
+  }
+
+  /* Memo Pad Full-Width Stack */
+  .tools-column {
+    width: 100%;
+  }
+
+  .tool-card {
+    padding: 12px;
+  }
+
+  .tool-header-row {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .memo-canvas-box {
+    width: 100%;
+    max-width: 100%;
+    height: 356px;
+  }
+
+  #memoCanvas {
+    width: 100%;
+    height: 356px;
+  }
+
+  /* Modals (#scoreModal & #cheatsheetModal) */
+  .modal-container {
+    width: 96vw;
+    max-width: 96vw;
+    max-height: 90vh;
+    padding: 16px;
+  }
+
+  .modal-container.cheatsheet-modal-box {
+    width: 96vw;
+    max-width: 96vw;
+    height: 90vh;
+    max-height: 90vh;
+    padding: 0;
+  }
+
+  .cheatsheet-modal-box .modal-header {
+    padding: 12px 16px;
+  }
+
+  .cheatsheet-modal-box .modal-title {
+    font-size: 16px;
+  }
+
+  .cheatsheet-nav-tabs {
+    padding: 0 8px;
+  }
+
+  .cs-tab-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .cheatsheet-body-scroll {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .cs-tab-header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .cs-tab-title {
+    font-size: 16.5px;
+  }
+
+  .cs-sec-header {
+    padding: 10px 14px;
+  }
+
+  .cs-sec-heading {
+    font-size: 15px;
+  }
+
+  .cs-sec-content {
+    padding: 12px 14px;
+  }
+
+  .cs-mnemonic-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 10px 12px;
+  }
+
+  .cs-subitem-row {
+    padding-left: 14px;
+    margin-left: 4px;
+  }
+
+  .cheatsheet-modal-box .modal-footer {
+    padding: 12px 16px;
+  }
+
+  /* Score Modal Grids */
+  .category-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .review-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .review-item {
+    padding: 6px 4px;
+    font-size: 11.5px;
+  }
+
+  .modal-footer .btn-modal {
+    flex: 1 1 calc(50% - 6px);
+    padding: 9px 10px;
+    font-size: 12.5px;
+  }
+}
+

@@ -972,16 +972,20 @@
     });
 
     modePracticeBtn.addEventListener('click', () => {
-      examMode = 'practice';
-      modePracticeBtn.classList.add('active');
-      modeRealBtn.classList.remove('active');
+      examMode = 'real';
+      modePracticeBtn.style.display = 'none';
+      modeRealBtn.style.display = '';
+      modeRealBtn.classList.add('active');
+      modePracticeBtn.classList.remove('active');
       renderCurrentQuestion();
     });
 
     modeRealBtn.addEventListener('click', () => {
-      examMode = 'real';
-      modeRealBtn.classList.add('active');
-      modePracticeBtn.classList.remove('active');
+      examMode = 'practice';
+      modeRealBtn.style.display = 'none';
+      modePracticeBtn.style.display = '';
+      modePracticeBtn.classList.add('active');
+      modeRealBtn.classList.remove('active');
       renderCurrentQuestion();
     });
 
@@ -1009,6 +1013,8 @@
       scoreModal.classList.remove('show');
       // 시험 종료 후 모달을 닫아도 해설을 열람할 수 있도록 연습 모드로 전환
       examMode = 'practice';
+      modeRealBtn.style.display = 'none';
+      modePracticeBtn.style.display = '';
       modePracticeBtn.classList.add('active');
       modeRealBtn.classList.remove('active');
       renderCurrentQuestion();
@@ -1025,6 +1031,8 @@
     btnViewAllExp.addEventListener('click', () => {
       scoreModal.classList.remove('show');
       examMode = 'practice';
+      modeRealBtn.style.display = 'none';
+      modePracticeBtn.style.display = '';
       modePracticeBtn.classList.add('active');
       modeRealBtn.classList.remove('active');
       renderCurrentQuestion();

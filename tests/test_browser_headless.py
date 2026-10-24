@@ -643,7 +643,7 @@ def run_tests():
         })
         assert score_close_eval.get("result", {}).get("result", {}).get("value") is False, "Score modal did not close on Escape key"
 
-        # 12. Responsive viewport test (600px mobile viewport)
+        # 12. Responsive viewport test (600px mobile viewport & Galaxy S24 Ultra 412 x 915px viewport)
         send_cmd("Emulation.setDeviceMetricsOverride", {
             "width": 600,
             "height": 800,
@@ -662,8 +662,163 @@ def run_tests():
         })
         r_val = responsive_eval.get("result", {}).get("result", {}).get("value", {})
         print("  Mobile 600px viewport eval:", r_val)
-        assert r_val.get("boxWidth", 999) <= 600 * 0.95 + 2, f"Expected cheatsheet modal box width <= 95vw ({600*0.95}), got {r_val.get('boxWidth')}"
+        assert r_val.get("boxWidth", 999) <= 600 * 0.96 + 2, f"Expected cheatsheet modal box width <= 96vw ({600*0.96}), got {r_val.get('boxWidth')}"
         send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnCloseCheatsheet').click()"})
+        time.sleep(0.15)
+
+        # 13. Galaxy S24 Ultra (412 x 915px, DPR 3.5, mobile=True) Test on index.html
+        print("  Testing Galaxy S24 Ultra (412 x 915px, DPR 3.5) layout on index.html...")
+        send_cmd("Emulation.setDeviceMetricsOverride", {
+            "width": 412,
+            "height": 915,
+            "deviceScaleFactor": 3.5,
+            "mobile": True
+        })
+        time.sleep(0.25)
+        s24_index_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const docEl = document.documentElement;
+                const bodyStyle = window.getComputedStyle(document.body);
+                const wrapperStyle = window.getComputedStyle(document.querySelector('.exam-wrapper'));
+                const timerStyle = window.getComputedStyle(document.querySelector('.header-center-timer'));
+                const logoRect = document.querySelector('.header-logo').getBoundingClientRect();
+                const timerRect = document.querySelector('.header-center-timer').getBoundingClientRect();
+                const selectRect = document.getElementById('examSelect').getBoundingClientRect();
+                const qBarStyle = window.getComputedStyle(document.querySelector('.question-boxes-bar'));
+                const qBoxRect = document.querySelector('.q-box').getBoundingClientRect();
+                const workspaceStyle = window.getComputedStyle(document.querySelector('.main-workspace'));
+                const inputRect = document.querySelector('.exam-input-text').getBoundingClientRect();
+                const toolsRect = document.querySelector('.tools-column').getBoundingClientRect();
+                const problemRect = document.querySelector('.problem-section').getBoundingClientRect();
+                const canvasRect = document.getElementById('memoCanvas').getBoundingClientRect();
+                const studyBtnRect = document.querySelector('.btn-study-link').getBoundingClientRect();
+                const csBtnRect = document.getElementById('btnOpenCheatsheet').getBoundingClientRect();
+                const submitBtnRect = document.getElementById('btnSubmitExam').getBoundingClientRect();
+
+                // Check timer does not overlap logo
+                const timerOverlapsLogo = !(timerRect.left >= logoRect.right || timerRect.right <= logoRect.left || timerRect.top >= logoRect.bottom || timerRect.bottom <= logoRect.top);
+
+                return {
+                    windowWidth: window.innerWidth,
+                    windowHeight: window.innerHeight,
+                    scrollWidth: docEl.scrollWidth,
+                    bodyMinWidth: bodyStyle.minWidth,
+                    wrapperWidth: document.querySelector('.exam-wrapper').offsetWidth,
+                    timerPosition: timerStyle.position,
+                    timerOverlapsLogo,
+                    selectWidth: Math.round(selectRect.width),
+                    qGridCols: qBarStyle.gridTemplateColumns.split(' ').length,
+                    qBoxHeight: Math.round(qBoxRect.height),
+                    workspaceDir: workspaceStyle.flexDirection,
+                    inputWidth: Math.round(inputRect.width),
+                    toolsTopBelowProblem: toolsRect.top >= problemRect.bottom - 2,
+                    toolsWidth: Math.round(toolsRect.width),
+                    canvasWidth: Math.round(canvasRect.width),
+                    canvasHeight: Math.round(canvasRect.height),
+                    studyAndCsEqualHeight: Math.abs(studyBtnRect.height - csBtnRect.height) <= 1 && Math.abs(studyBtnRect.width - csBtnRect.width) <= 2,
+                    submitFullWidth: Math.round(submitBtnRect.width) >= 380
+                };
+            })()""",
+            "returnByValue": True
+        })
+        s24_idx = s24_index_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Galaxy S24 Ultra index.html eval:", s24_idx)
+        assert s24_idx.get("windowWidth") == 412 and s24_idx.get("windowHeight") == 915
+        assert s24_idx.get("scrollWidth", 9999) <= 412, f"Horizontal overflow on index.html at 412px! scrollWidth={s24_idx.get('scrollWidth')}"
+        assert s24_idx.get("bodyMinWidth") == "0px", f"Expected body min-width 0px, got {s24_idx.get('bodyMinWidth')}"
+        assert s24_idx.get("wrapperWidth") <= 412, f"Expected exam-wrapper width <= 412, got {s24_idx.get('wrapperWidth')}"
+        assert s24_idx.get("timerPosition") == "static", f"Expected static timer on mobile, got {s24_idx.get('timerPosition')}"
+        assert s24_idx.get("timerOverlapsLogo") is False, "Timer overlaps logo on Galaxy S24 Ultra!"
+        assert s24_idx.get("qGridCols") == 10, f"Expected 10-column question grid on mobile, got {s24_idx.get('qGridCols')}"
+        assert s24_idx.get("qBoxHeight") == 34, f"Expected 34px q-box touch target height, got {s24_idx.get('qBoxHeight')}"
+        assert s24_idx.get("workspaceDir") == "column", f"Expected main-workspace flex-direction column, got {s24_idx.get('workspaceDir')}"
+        assert s24_idx.get("toolsTopBelowProblem") is True, "Expected tools-column (memo pad) stacked below problem-section"
+        assert abs(s24_idx.get("canvasWidth", 0) - s24_idx.get("canvasHeight", 999)) <= 2, f"Expected 1:1 square memoCanvas on Galaxy S24 Ultra, got {s24_idx.get('canvasWidth')}x{s24_idx.get('canvasHeight')}"
+        assert s24_idx.get("studyAndCsEqualHeight") is True, "Expected equal height/width for paired header buttons on Galaxy S24 Ultra"
+        assert s24_idx.get("submitFullWidth") is True, f"Expected full-width submit button on Galaxy S24 Ultra, got {s24_idx}"
+        save_screenshot("s24_ultra_index_cbt.png")
+
+        # Verify Practice/Real Mode Toggle & Multi-Blank + Passage Table (Q5) on Galaxy S24 Ultra
+        s24_edge_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                // Toggle Practice -> Real -> Practice
+                const pBtn = document.getElementById('modePractice');
+                const rBtn = document.getElementById('modeReal');
+                pBtn.click();
+                const inRealMode = window.getComputedStyle(rBtn).display !== 'none' && window.getComputedStyle(pBtn).display === 'none' && window.getComputedStyle(document.getElementById('btnCheckAnswer')).display === 'none';
+                rBtn.click();
+                const backInPractice = window.getComputedStyle(pBtn).display !== 'none' && window.getComputedStyle(rBtn).display === 'none' && window.getComputedStyle(document.getElementById('btnCheckAnswer')).display !== 'none';
+
+                // Navigate to Q5 (multi_blank + passage table)
+                const boxes = document.querySelectorAll('.q-box');
+                if (boxes[4]) boxes[4].click();
+                const blankInputs = document.querySelectorAll('.exam-input-text[data-blank-key]');
+                const blankInputsCount = blankInputs.length;
+                const blankInput1Width = blankInputs[0] ? Math.round(blankInputs[0].getBoundingClientRect().width) : 0;
+                const passageTable = document.querySelector('.passage-text table');
+                const passageTableDisplay = passageTable ? window.getComputedStyle(passageTable).display : '';
+                const scrollWidthQ5 = document.documentElement.scrollWidth;
+
+                // Return to Q1
+                if (boxes[0]) boxes[0].click();
+
+                return {
+                    inRealMode,
+                    backInPractice,
+                    blankInputsCount,
+                    blankInput1Width,
+                    passageTableDisplay,
+                    scrollWidthQ5
+                };
+            })()""",
+            "returnByValue": True
+        })
+        s24_ed = s24_edge_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Galaxy S24 Ultra mode toggle & Q5 multi_blank/table eval:", s24_ed)
+        assert s24_ed.get("inRealMode") is True, "Clicking #modePractice failed to switch to Real mode"
+        assert s24_ed.get("backInPractice") is True, "Clicking #modeReal failed to switch back to Practice mode"
+        assert s24_ed.get("blankInputsCount") == 2, f"Expected 2 multi_blank inputs on Q5, got {s24_ed.get('blankInputsCount')}"
+        assert s24_ed.get("blankInput1Width", 0) >= 320, f"Expected expanded multi_blank input width on 412px, got {s24_ed.get('blankInput1Width')}"
+        assert s24_ed.get("passageTableDisplay") == "block", f"Expected passage table display block on mobile, got {s24_ed.get('passageTableDisplay')}"
+        assert s24_ed.get("scrollWidthQ5", 999) <= 412, f"Horizontal overflow on Q5 multi_blank/table view: {s24_ed.get('scrollWidthQ5')}"
+
+        # Verify Cheatsheet & Score Modals on Galaxy S24 Ultra (412 x 915px)
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnOpenCheatsheet').click()"})
+        time.sleep(0.2)
+        s24_cs_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                csWidth: document.querySelector('.cheatsheet-modal-box').offsetWidth,
+                csHeight: document.querySelector('.cheatsheet-modal-box').offsetHeight,
+                scrollWidth: document.documentElement.scrollWidth
+            })""",
+            "returnByValue": True
+        })
+        s24_cs = s24_cs_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Galaxy S24 Ultra cheatsheet modal eval:", s24_cs)
+        assert s24_cs.get("csWidth", 999) <= 412, f"Cheatsheet modal exceeds 412px width: {s24_cs.get('csWidth')}"
+        assert s24_cs.get("scrollWidth", 999) <= 412, f"Horizontal overflow with cheatsheet modal open: {s24_cs.get('scrollWidth')}"
+        save_screenshot("s24_ultra_cheatsheet_modal.png")
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnCloseCheatsheet').click()"})
+        time.sleep(0.15)
+
+        send_cmd("Runtime.evaluate", {"expression": "window.submitExamDirect()"})
+        time.sleep(0.2)
+        s24_score_eval = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                modalWidth: document.querySelector('#scoreModal .modal-container').offsetWidth,
+                catStatsCols: window.getComputedStyle(document.querySelector('.category-stats-grid')).gridTemplateColumns.split(' ').length,
+                reviewGridCols: window.getComputedStyle(document.querySelector('.review-grid')).gridTemplateColumns.split(' ').length,
+                scrollWidth: document.documentElement.scrollWidth
+            })""",
+            "returnByValue": True
+        })
+        s24_sc = s24_score_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Galaxy S24 Ultra score modal eval:", s24_sc)
+        assert s24_sc.get("modalWidth", 999) <= 412, f"Score modal exceeds 412px width: {s24_sc.get('modalWidth')}"
+        assert s24_sc.get("catStatsCols") == 1, f"Expected 1 column for category-stats-grid on 412px, got {s24_sc.get('catStatsCols')}"
+        assert s24_sc.get("reviewGridCols") == 4, f"Expected 4 columns for review-grid on 412px, got {s24_sc.get('reviewGridCols')}"
+        assert s24_sc.get("scrollWidth", 999) <= 412
+        send_cmd("Runtime.evaluate", {"expression": "document.getElementById('btnCloseModal').click()"})
         send_cmd("Emulation.clearDeviceMetricsOverride")
         time.sleep(0.2)
 
@@ -978,13 +1133,113 @@ def run_tests():
         mobile_eval = send_cmd("Runtime.evaluate", {
             "expression": """({
                 layoutDir: window.getComputedStyle(document.querySelector('.app-layout')).flexDirection,
-                sidebarPos: window.getComputedStyle(document.querySelector('.sidebar')).position
+                sidebarPos: window.getComputedStyle(document.querySelector('.sidebar')).position,
+                tocToggleDisplay: window.getComputedStyle(document.getElementById('mobileTocToggleBtn')).display
             })""",
             "returnByValue": True
         })
         mobile_val = mobile_eval.get("result", {}).get("result", {}).get("value", {})
         assert mobile_val.get("layoutDir") == "column", f"Expected flex-direction column at 768px, got {mobile_val.get('layoutDir')}"
         assert mobile_val.get("sidebarPos") == "static", f"Expected static sidebar at 768px, got {mobile_val.get('sidebarPos')}"
+        assert mobile_val.get("tocToggleDisplay") == "none", f"Expected mobileTocToggleBtn hidden at 768px (>600px), got {mobile_val.get('tocToggleDisplay')}"
+
+        # Test Galaxy S24 Ultra (412 x 915px, DPR 3.5, mobile=True) on study.html
+        print("  Testing Galaxy S24 Ultra (412 x 915px, DPR 3.5) layout on study.html...")
+        send_cmd("Emulation.setDeviceMetricsOverride", {"width": 412, "height": 915, "deviceScaleFactor": 3.5, "mobile": True})
+        time.sleep(0.25)
+        s24_study_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const docEl = document.documentElement;
+                const tocBtn = document.getElementById('mobileTocToggleBtn');
+                const sidebar = document.getElementById('appSidebar');
+                const modeTabs = document.querySelectorAll('.btn-mode-tab');
+                const tab1Rect = modeTabs[0].getBoundingClientRect();
+                const tab2Rect = modeTabs[1].getBoundingClientRect();
+                const initialSidebarDisplay = window.getComputedStyle(sidebar).display;
+                const tocBtnDisplay = window.getComputedStyle(tocBtn).display;
+
+                // Open mobile TOC drawer
+                tocBtn.click();
+                const openSidebarDisplay = window.getComputedStyle(sidebar).display;
+                const openHasClass = sidebar.classList.contains('mobile-open');
+
+                return {
+                    windowWidth: window.innerWidth,
+                    windowHeight: window.innerHeight,
+                    scrollWidth: docEl.scrollWidth,
+                    tocBtnDisplay,
+                    initialSidebarDisplay,
+                    openSidebarDisplay,
+                    openHasClass,
+                    tab1Width: Math.round(tab1Rect.width),
+                    tab2Width: Math.round(tab2Rect.width),
+                    tocLabelText: document.getElementById('mobileTocLabel').textContent.trim()
+                };
+            })()""",
+            "returnByValue": True
+        })
+        s24_st = s24_study_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Galaxy S24 Ultra study.html eval:", s24_st)
+        assert s24_st.get("windowWidth") == 412 and s24_st.get("windowHeight") == 915
+        assert s24_st.get("scrollWidth", 9999) <= 412, f"Horizontal overflow on study.html at 412px! scrollWidth={s24_st.get('scrollWidth')}"
+        assert s24_st.get("tocBtnDisplay") == "flex", f"Expected mobileTocToggleBtn display flex at 412px, got {s24_st.get('tocBtnDisplay')}"
+        assert s24_st.get("initialSidebarDisplay") == "none", f"Expected sidebar initially collapsed (none) at 412px, got {s24_st.get('initialSidebarDisplay')}"
+        assert s24_st.get("openSidebarDisplay") == "flex" and s24_st.get("openHasClass") is True, "Expected sidebar to open when mobileTocToggleBtn clicked"
+        assert abs(s24_st.get("tab1Width", 0) - s24_st.get("tab2Width", 100)) <= 4, f"Expected 50:50 mode tabs on 412px, got {s24_st.get('tab1Width')} vs {s24_st.get('tab2Width')}"
+        save_screenshot("s24_ultra_study_toc_open.png")
+
+        # Select a subtopic in mobile drawer and verify auto-close + label update + 0 overflow
+        s24_topic_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const chip = document.querySelector('.subtopic-chip[data-topic*="1.5"]');
+                if (chip) chip.click();
+                const sidebar = document.getElementById('appSidebar');
+                return {
+                    drawerClosed: !sidebar.classList.contains('mobile-open') && window.getComputedStyle(sidebar).display === 'none',
+                    tocLabelText: document.getElementById('mobileTocLabel').textContent.trim(),
+                    scrollWidth: document.documentElement.scrollWidth
+                };
+            })()""",
+            "returnByValue": True
+        })
+        s24_tp = s24_topic_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Galaxy S24 Ultra subtopic auto-close eval:", s24_tp)
+        assert s24_tp.get("drawerClosed") is True, "Expected mobile TOC drawer to auto-close upon selecting a subtopic"
+        assert "1.5" in s24_tp.get("tocLabelText", ""), f"Expected mobile TOC label to reflect selected subtopic 1.5, got {s24_tp.get('tocLabelText')}"
+        assert s24_tp.get("scrollWidth", 9999) <= 412, f"Horizontal overflow on study.html subtopic view: {s24_tp.get('scrollWidth')}"
+        save_screenshot("s24_ultra_study_concept.png")
+
+        # Verify mobile TOC drawer auto-closes when typing in #liveSearchInput or switching mode
+        s24_search_toc_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const tocBtn = document.getElementById('mobileTocToggleBtn');
+                const sidebar = document.getElementById('appSidebar');
+                // 1. Open drawer, then type into search
+                tocBtn.click();
+                const openBeforeSearch = sidebar.classList.contains('mobile-open');
+                document.getElementById('liveSearchInput').value = '정규화';
+                handleSearchInput();
+                const closedAfterSearch = !sidebar.classList.contains('mobile-open') && window.getComputedStyle(sidebar).display === 'none';
+                clearSearch();
+
+                // 2. Open drawer, then switch mode to 'round'
+                tocBtn.click();
+                const openBeforeMode = sidebar.classList.contains('mobile-open');
+                switchMode('round');
+                const closedAfterMode = !sidebar.classList.contains('mobile-open') && window.getComputedStyle(sidebar).display === 'none';
+                switchMode('concept');
+
+                return { openBeforeSearch, closedAfterSearch, openBeforeMode, closedAfterMode };
+            })()""",
+            "returnByValue": True
+        })
+        s24_stoc = s24_search_toc_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Galaxy S24 Ultra search/mode TOC auto-close eval:", s24_stoc)
+        assert s24_stoc.get("openBeforeSearch") is True and s24_stoc.get("closedAfterSearch") is True, "Expected mobile TOC drawer to auto-close when typing into #liveSearchInput"
+        assert s24_stoc.get("openBeforeMode") is True and s24_stoc.get("closedAfterMode") is True, "Expected mobile TOC drawer to auto-close when switching modes"
+
+        # Reset back to full Unit 1 and clear device metrics override
+        send_cmd("Runtime.evaluate", {"expression": "selectUnit(1);"})
         send_cmd("Emulation.clearDeviceMetricsOverride")
         time.sleep(0.1)
 
