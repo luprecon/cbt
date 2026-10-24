@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>정보처리기사 실기 개념서 &amp; 기출 해설 (2020~2026)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
   
   <!-- Preload LG EI Web Fonts -->
   <link rel="preload" href="fonts/LGEIText-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -2186,7 +2187,7 @@
 
             <div class="q-prompt-text">${highlightQuery(q.prompt, isSearch)}</div>
 
-            ${q.passage ? `<div class="q-passage-box">${highlightQuery(q.passage, isSearch)}</div>` : ''}
+            ${q.passage ? `<div class="q-passage-box">${renderMarkdownPassage(q.passage, isSearch)}</div>` : ''}
 
             ${q.code ? `
               <div class="q-code-container">
@@ -2220,6 +2221,59 @@
           </div>
         `;
       });
+      return html;
+    }
+
+    function renderMarkdownPassage(text, isSearch = false) {
+      if (!text) return '';
+      const lines = text.trim().split('\n');
+      let html = '';
+      let tableBuffer = [];
+
+      const flushTable = () => {
+        if (tableBuffer.length === 0) return;
+        html += '<table class="q-trace-table" style="margin: 10px 0;">';
+        let isHeader = true;
+
+        tableBuffer.forEach(line => {
+          const trimmed = line.trim();
+          if (trimmed.includes('---')) return; // 구분선 스킵
+          const cells = trimmed
+            .replace(/\\\|/g, '\uE000')
+            .split('|')
+            .map(c => c.replace(/\uE000/g, '|').trim())
+            .filter((_, i, a) => i > 0 && i < a.length - 1);
+
+          if (cells.length > 0) {
+            html += '<tr>';
+            cells.forEach(c => {
+              const tag = isHeader ? 'th' : 'td';
+              const cellHtml = highlightQuery(c, isSearch).replace(/&lt;br\s*\/?&gt;/gi, '<br>');
+              html += `<${tag}>${cellHtml}</${tag}>`;
+            });
+            html += '</tr>';
+            if (isHeader) isHeader = false;
+          }
+        });
+
+        html += '</table>';
+        tableBuffer = [];
+      };
+
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+          tableBuffer.push(trimmed);
+        } else {
+          flushTable();
+          if (trimmed) {
+            const lineHtml = highlightQuery(trimmed, isSearch).replace(/&lt;br\s*\/?&gt;/gi, '<br>');
+            html += `<div style="margin-bottom: 6px;">${lineHtml}</div>`;
+          }
+        }
+      });
+
+      flushTable();
       return html;
     }
 

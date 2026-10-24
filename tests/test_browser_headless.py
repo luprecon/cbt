@@ -106,6 +106,14 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
         pass
 
 
+class QuietServer(http.server.HTTPServer):
+    def handle_error(self, request, client_address):
+        exc = sys.exc_info()[1]
+        if isinstance(exc, (ConnectionResetError, BrokenPipeError)):
+            return
+        super().handle_error(request, client_address)
+
+
 def run_tests():
     edge_paths = [
         r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
@@ -125,7 +133,7 @@ def run_tests():
     
     # 1. Start local HTTP server on port 8769
     server_port = 8769
-    httpd = http.server.HTTPServer(("127.0.0.1", server_port), functools.partial(QuietHandler, directory=base_dir))
+    httpd = QuietServer(("127.0.0.1", server_port), functools.partial(QuietHandler, directory=base_dir))
     server_thread = threading.Thread(target=httpd.serve_forever, daemon=True)
     server_thread.start()
     print(f"Local test HTTP server running at http://127.0.0.1:{server_port}")
@@ -323,6 +331,25 @@ def run_tests():
         assert size_val.get("bodySize") == "15px", f"Expected body font-size 15px, got {size_val.get('bodySize')}"
         assert size_val.get("passageSize") == "15.5px", f"Expected passage font-size 15.5px, got {size_val.get('passageSize')}"
         assert size_val.get("expBodySize") == "15px", f"Expected expBodyText font-size 15px, got {size_val.get('expBodySize')}"
+
+        # Verify index.html favicon and initial mode toggle buttons
+        init_ui_resp = send_cmd("Runtime.evaluate", {
+            "expression": """({
+                hasFavicon: !!document.querySelector('link[rel*="icon"]'),
+                faviconHref: document.querySelector('link[rel*="icon"]') ? document.querySelector('link[rel*="icon"]').getAttribute('href') : '',
+                practiceBtnText: document.getElementById('modePractice') ? document.getElementById('modePractice').textContent.trim() : '',
+                realBtnText: document.getElementById('modeReal') ? document.getElementById('modeReal').textContent.trim() : '',
+                practiceBtnDisplay: document.getElementById('modePractice') ? window.getComputedStyle(document.getElementById('modePractice')).display : '',
+                realBtnDisplay: document.getElementById('modeReal') ? window.getComputedStyle(document.getElementById('modeReal')).display : ''
+            })""",
+            "returnByValue": True
+        })
+        init_ui_val = init_ui_resp.get("result", {}).get("result", {}).get("value", {})
+        assert init_ui_val.get("hasFavicon") is True and "svg+xml" in init_ui_val.get("faviconHref", ""), "Missing or invalid favicon in index.html"
+        assert init_ui_val.get("practiceBtnText") == "실전 모드로 전환", f"Unexpected practiceBtnText: {init_ui_val.get('practiceBtnText')}"
+        assert init_ui_val.get("realBtnText") == "연습 모드로 전환", f"Unexpected realBtnText: {init_ui_val.get('realBtnText')}"
+        assert init_ui_val.get("practiceBtnDisplay") != "none", "Expected #modePractice visible initially"
+        assert init_ui_val.get("realBtnDisplay") == "none", "Expected #modeReal hidden initially"
 
         # -------------------------------------------------------------
         # Cheatsheet Modal Verification on index.html
@@ -613,7 +640,8 @@ def run_tests():
                     passBg: passItems[0] ? window.getComputedStyle(passItems[0]).backgroundColor : '',
                     passColor: passItems[0] ? window.getComputedStyle(passItems[0]).color : '',
                     failBg: failItems[0] ? window.getComputedStyle(failItems[0]).backgroundColor : '',
-                    failColor: failItems[0] ? window.getComputedStyle(failItems[0]).color : ''
+                    failColor: failItems[0] ? window.getComputedStyle(failItems[0]).color : '',
+                    timerPaused: document.getElementById('btnToggleTimer').textContent.trim() === '▶'
                 };
             })()""",
             "returnByValue": True
@@ -621,6 +649,7 @@ def run_tests():
         s_val = score_eval.get("result", {}).get("result", {}).get("value", {})
         print("  Score modal eval:", s_val)
         assert s_val.get("isShown") is True, "Score modal did not open on exam submit"
+        assert s_val.get("timerPaused") is True, "Timer was not paused on exam submit"
         assert s_val.get("display") == "flex"
         assert s_val.get("scoreTitleFontSize") == "14px"
         assert s_val.get("scoreBigFontSize") == "34px"
@@ -715,6 +744,7 @@ def run_tests():
                     toolsWidth: Math.round(toolsRect.width),
                     canvasWidth: Math.round(canvasRect.width),
                     canvasHeight: Math.round(canvasRect.height),
+                    canvasTouchAction: window.getComputedStyle(document.getElementById('memoCanvas')).touchAction,
                     studyAndCsEqualHeight: Math.abs(studyBtnRect.height - csBtnRect.height) <= 1 && Math.abs(studyBtnRect.width - csBtnRect.width) <= 2,
                     submitFullWidth: Math.round(submitBtnRect.width) >= 380
                 };
@@ -733,7 +763,8 @@ def run_tests():
         assert s24_idx.get("qBoxHeight") == 34, f"Expected 34px q-box touch target height, got {s24_idx.get('qBoxHeight')}"
         assert s24_idx.get("workspaceDir") == "column", f"Expected main-workspace flex-direction column, got {s24_idx.get('workspaceDir')}"
         assert s24_idx.get("toolsTopBelowProblem") is True, "Expected tools-column (memo pad) stacked below problem-section"
-        assert abs(s24_idx.get("canvasWidth", 0) - s24_idx.get("canvasHeight", 999)) <= 2, f"Expected 1:1 square memoCanvas on Galaxy S24 Ultra, got {s24_idx.get('canvasWidth')}x{s24_idx.get('canvasHeight')}"
+        assert abs(s24_idx.get("canvasWidth", 0) - s24_idx.get("canvasHeight", 999)) <= 1, f"Expected 1:1 square memoCanvas on Galaxy S24 Ultra, got {s24_idx.get('canvasWidth')}x{s24_idx.get('canvasHeight')}"
+        assert s24_idx.get("canvasTouchAction") == "none", f"Expected touch-action none on memoCanvas, got {s24_idx.get('canvasTouchAction')}"
         assert s24_idx.get("studyAndCsEqualHeight") is True, "Expected equal height/width for paired header buttons on Galaxy S24 Ultra"
         assert s24_idx.get("submitFullWidth") is True, f"Expected full-width submit button on Galaxy S24 Ultra, got {s24_idx}"
         save_screenshot("s24_ultra_index_cbt.png")
@@ -744,6 +775,8 @@ def run_tests():
                 // Toggle Practice -> Real -> Practice
                 const pBtn = document.getElementById('modePractice');
                 const rBtn = document.getElementById('modeReal');
+                const initialPracticeLabel = pBtn.textContent.trim();
+                const initialRealLabel = rBtn.textContent.trim();
                 pBtn.click();
                 const inRealMode = window.getComputedStyle(rBtn).display !== 'none' && window.getComputedStyle(pBtn).display === 'none' && window.getComputedStyle(document.getElementById('btnCheckAnswer')).display === 'none';
                 rBtn.click();
@@ -763,6 +796,8 @@ def run_tests():
                 if (boxes[0]) boxes[0].click();
 
                 return {
+                    initialPracticeLabel,
+                    initialRealLabel,
                     inRealMode,
                     backInPractice,
                     blankInputsCount,
@@ -775,6 +810,8 @@ def run_tests():
         })
         s24_ed = s24_edge_eval.get("result", {}).get("result", {}).get("value", {})
         print("  Galaxy S24 Ultra mode toggle & Q5 multi_blank/table eval:", s24_ed)
+        assert s24_ed.get("initialPracticeLabel") == "실전 모드로 전환", f"Unexpected initialPracticeLabel: {s24_ed.get('initialPracticeLabel')}"
+        assert s24_ed.get("initialRealLabel") == "연습 모드로 전환", f"Unexpected initialRealLabel: {s24_ed.get('initialRealLabel')}"
         assert s24_ed.get("inRealMode") is True, "Clicking #modePractice failed to switch to Real mode"
         assert s24_ed.get("backInPractice") is True, "Clicking #modeReal failed to switch back to Practice mode"
         assert s24_ed.get("blankInputsCount") == 2, f"Expected 2 multi_blank inputs on Q5, got {s24_ed.get('blankInputsCount')}"
@@ -822,6 +859,87 @@ def run_tests():
         send_cmd("Emulation.clearDeviceMetricsOverride")
         time.sleep(0.2)
 
+        # Test mode reset to practice on btnRestartFull
+        restart_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                // Switch to Real mode
+                document.getElementById('modePractice').click();
+                // Submit exam to open score modal
+                window.submitExamDirect();
+                // Click restart full
+                document.getElementById('btnRestartFull').click();
+                const pBtn = document.getElementById('modePractice');
+                const rBtn = document.getElementById('modeReal');
+                const timerRunning = document.getElementById('btnToggleTimer').textContent.trim() === '⏸';
+                return {
+                    pBtnDisplay: window.getComputedStyle(pBtn).display,
+                    rBtnDisplay: window.getComputedStyle(rBtn).display,
+                    timerRunning
+                };
+            })()""",
+            "returnByValue": True
+        })
+        rst_val = restart_eval.get("result", {}).get("result", {}).get("value", {})
+        assert rst_val.get("pBtnDisplay") != "none", "Expected modePractice visible after btnRestartFull"
+        assert rst_val.get("rBtnDisplay") == "none", "Expected modeReal hidden after btnRestartFull"
+        assert rst_val.get("timerRunning") is True, "Expected timer restarted with ⏸ on btnRestartFull"
+
+        # Test retake mode: points normalization and practice mode reset
+        retake_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                // Submit exam to open score modal
+                window.submitExamDirect();
+                const origConfirm = window.confirm;
+                window.confirm = () => true;
+                document.getElementById('btnRetakeWrong').click();
+                window.confirm = origConfirm;
+                const ptBadge20 = document.getElementById('qPointsBadge').textContent.trim();
+                const checkBtnDisplay = window.getComputedStyle(document.getElementById('btnCheckAnswer')).display;
+                const pBtnDisplay = window.getComputedStyle(document.getElementById('modePractice')).display;
+
+                // Exit retake mode
+                window.confirm = () => true;
+                document.getElementById('btnExitRetake').click();
+                window.confirm = origConfirm;
+
+                // Select a 15-question theme exam (c_special)
+                window.confirm = () => true;
+                const select = document.getElementById('examSelect');
+                select.value = 'c_special';
+                select.dispatchEvent(new Event('change'));
+                window.confirm = origConfirm;
+
+                const normalPtBadge15 = document.getElementById('qPointsBadge').textContent.trim();
+                window.submitExamDirect();
+                window.confirm = () => true;
+                document.getElementById('btnRetakeWrong').click();
+                window.confirm = origConfirm;
+                const retakePtBadge15 = document.getElementById('qPointsBadge').textContent.trim();
+
+                // Restore back to 2026_1
+                window.confirm = () => true;
+                select.value = '2026_1';
+                select.dispatchEvent(new Event('change'));
+                window.confirm = origConfirm;
+
+                return {
+                    ptBadge20,
+                    checkBtnDisplay,
+                    pBtnDisplay,
+                    normalPtBadge15,
+                    retakePtBadge15
+                };
+            })()""",
+            "returnByValue": True
+        })
+        rt_val = retake_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Retake evaluation result:", rt_val)
+        assert rt_val.get("ptBadge20") == "배점 5점", f"Expected '배점 5점' in 20-question retake, got '{rt_val.get('ptBadge20')}'"
+        assert rt_val.get("checkBtnDisplay") != "none", "Expected btnCheckAnswer visible in retake mode"
+        assert rt_val.get("pBtnDisplay") != "none", "Expected modePractice button visible in retake mode"
+        assert rt_val.get("normalPtBadge15") == "배점 6.7점", f"Expected '배점 6.7점' for 15-question exam, got '{rt_val.get('normalPtBadge15')}'"
+        assert rt_val.get("retakePtBadge15") == "배점 6.7점", f"Expected '배점 6.7점' in 15-question retake, got '{rt_val.get('retakePtBadge15')}'"
+
         # -------------------------------------------------------------
         # Test 2: study.html (Concept Mode)
         # -------------------------------------------------------------
@@ -831,11 +949,12 @@ def run_tests():
         drain_events(0.3)
 
         eval_resp = send_cmd("Runtime.evaluate", {
-            "expression": "({ href: window.location.href, totalQuestions: (window.CONCEPT_BOOK ? window.CONCEPT_BOOK.questions.length : 0), unitKeys: (window.CONCEPT_BOOK ? Object.keys(window.CONCEPT_BOOK.units).length : 0), cardsRendered: document.querySelectorAll('.question-card').length, hasBackLink: !!document.querySelector('.btn-action-cbt'), formulaCards: document.querySelectorAll('.formula-card').length, hasRawLatex: /\\$[^\\$\\n]+\\$/.test(document.getElementById('theoryBodyContainer') ? document.getElementById('theoryBodyContainer').innerText : '') })",
+            "expression": "({ href: window.location.href, totalQuestions: (window.CONCEPT_BOOK ? window.CONCEPT_BOOK.questions.length : 0), unitKeys: (window.CONCEPT_BOOK ? Object.keys(window.CONCEPT_BOOK.units).length : 0), cardsRendered: document.querySelectorAll('.question-card').length, hasBackLink: !!document.querySelector('.btn-action-cbt'), formulaCards: document.querySelectorAll('.formula-card').length, hasRawLatex: /\\$[^\\$\\n]+\\$/.test(document.getElementById('theoryBodyContainer') ? document.getElementById('theoryBodyContainer').innerText : ''), hasFavicon: !!document.querySelector('link[rel*=\"icon\"]') })",
             "returnByValue": True
         })
         val = eval_resp.get("result", {}).get("result", {}).get("value", {})
         print("  study.html concept mode result:", val)
+        assert val.get("hasFavicon") is True, "Missing favicon in study.html"
         assert val.get("totalQuestions") == 525, f"Expected 525 questions in concept-data, got {val.get('totalQuestions')}"
         assert val.get("unitKeys") == 5, f"Expected 5 units in concept-data, got {val.get('unitKeys')}"
         assert val.get("cardsRendered") > 0, "No question cards rendered in study.html"
@@ -1259,6 +1378,70 @@ def run_tests():
         assert val.get("cardsRendered") == 20, f"Expected 20 cards for active round, got {val.get('cardsRendered')}"
         assert "주제별 기출 모음" in val.get("sidebarText", ""), "Round mode sidebar missing '주제별 기출 모음'!"
         assert "6대" not in val.get("sidebarText", "") and "킬러" not in val.get("sidebarText", ""), "Round mode sidebar still contains exaggerated words!"
+
+        # Test study.html Markdown Passage Table rendering (renderMarkdownPassage)
+        print("  Testing study.html passage markdown table rendering into <table class='q-trace-table'>...")
+        passage_table_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                selectRound('2021_1');
+                const card14 = document.getElementById('card_2021_1_14');
+                const passageTable = card14 ? card14.querySelector('.q-passage-box table') : null;
+                const thCount = passageTable ? passageTable.querySelectorAll('th').length : 0;
+                const trCount = passageTable ? passageTable.querySelectorAll('tr').length : 0;
+                const hasClass = passageTable ? passageTable.classList.contains('q-trace-table') : false;
+                // Test search query highlight inside passage table
+                document.getElementById('liveSearchInput').value = '김한국';
+                handleSearchInput();
+                const mark = document.querySelector('.q-passage-box table mark.highlight');
+                const markText = mark ? mark.textContent.trim() : '';
+                clearSearch();
+                selectRound('2026_1');
+                return {
+                    hasTable: !!passageTable,
+                    hasClass,
+                    thCount,
+                    trCount,
+                    markText
+                };
+            })()""",
+            "returnByValue": True
+        })
+        pt_val = passage_table_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Passage table eval (2021_1 Q14):", pt_val)
+        assert pt_val.get("hasTable") is True, "Failed to render passage markdown table in study.html"
+        assert pt_val.get("hasClass") is True, "Passage table missing 'q-trace-table' class"
+        assert pt_val.get("thCount") == 4, f"Expected 4 <th> in passage table, got {pt_val.get('thCount')}"
+        assert pt_val.get("trCount") == 6, f"Expected 6 <tr> in passage table, got {pt_val.get('trCount')}"
+        assert pt_val.get("markText") == "김한국", f"Expected search highlight on '김한국', got '{pt_val.get('markText')}'"
+
+        # Test passage table <br> line break rendering and escaped pipe handling
+        passage_edge_eval = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const sampleTable = renderMarkdownPassage('| 헤더1 | 헤더2 |\\n| --- | --- |\\n| 항목1<br>항목2 | 특수 \\\\| 파이프 |');
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = sampleTable;
+                const thCount = tempDiv.querySelectorAll('th').length;
+                const tdCount = tempDiv.querySelectorAll('td').length;
+                const hasBr = tempDiv.querySelector('td br') !== null;
+                const rawBrText = tempDiv.innerHTML.includes('&lt;br&gt;');
+                const cellText = tempDiv.querySelectorAll('td')[1] ? tempDiv.querySelectorAll('td')[1].textContent.trim() : '';
+                return {
+                    thCount,
+                    tdCount,
+                    hasBr,
+                    rawBrText,
+                    cellText
+                };
+            })()""",
+            "returnByValue": True
+        })
+        pe_val = passage_edge_eval.get("result", {}).get("result", {}).get("value", {})
+        print("  Passage table edge case eval:", pe_val)
+        assert pe_val.get("thCount") == 2, f"Expected 2 <th>, got {pe_val.get('thCount')}"
+        assert pe_val.get("tdCount") == 2, f"Expected 2 <td>, got {pe_val.get('tdCount')}"
+        assert pe_val.get("hasBr") is True, "Expected <br> element inside table cell"
+        assert pe_val.get("rawBrText") is False, "Found unescaped &lt;br&gt; text in rendered table HTML"
+        assert pe_val.get("cellText") == "특수 | 파이프", f"Expected '특수 | 파이프', got '{pe_val.get('cellText')}'"
 
         # Test Syntax Highlighting in code blocks (Round mode 2026_1 Q1 & Unit 2 C/Java/Python)
         print("  Testing code syntax highlighting tokens and line numbers...")

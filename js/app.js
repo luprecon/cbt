@@ -128,11 +128,29 @@
     timer.start();
   }
 
+  function setExamMode(newMode) {
+    examMode = newMode;
+    if (newMode === 'real') {
+      modePracticeBtn.style.display = 'none';
+      modeRealBtn.style.display = '';
+      modeRealBtn.classList.add('active');
+      modePracticeBtn.classList.remove('active');
+    } else {
+      modeRealBtn.style.display = 'none';
+      modePracticeBtn.style.display = '';
+      modePracticeBtn.classList.add('active');
+      modeRealBtn.classList.remove('active');
+    }
+    renderCurrentQuestion();
+  }
+
   function getPointPerQuestion() {
-    const count = activeQuestions.length || 20;
-    if (count === 20) return 5;
-    if (count === 25) return 4;
-    return Number((100 / count).toFixed(1));
+    const totalCount = (isRetakeMode && fullExamData && fullExamData.questions)
+      ? (fullExamData.questions.length || 20)
+      : (activeQuestions.length || 20);
+    if (totalCount === 20) return 5;
+    if (totalCount === 25) return 4;
+    return Number((100 / totalCount).toFixed(1));
   }
 
   function loadExam(roundId, retainAnswers = false) {
@@ -154,14 +172,16 @@
     isRetakeMode = false;
     retakeBanner.style.display = 'none';
 
+    renderQuestionBoxes();
+
     if (!retainAnswers) {
       userAnswers = {};
       gradedResults = {};
       if (memoPad) memoPad.clearAll();
+      setExamMode('practice');
+    } else {
+      renderCurrentQuestion();
     }
-
-    renderQuestionBoxes();
-    renderCurrentQuestion();
   }
 
   function getCategoryClass(cat) {
@@ -224,6 +244,7 @@
     const boxes = questionBoxesContainer.querySelectorAll('.q-box');
     boxes.forEach((box, idx) => {
       const q = activeQuestions[idx];
+      if (!q) return;
       box.classList.remove('current', 'answered', 'correct', 'incorrect', 'partial');
       if (idx === currentQIndex) box.classList.add('current');
 
@@ -315,15 +336,17 @@
         const trimmed = line.trim();
         if (trimmed.includes('---')) return; // 구분선 스킵
         const cells = trimmed
+          .replace(/\\\|/g, '\uE000')
           .split('|')
-          .map(c => c.trim())
+          .map(c => c.replace(/\uE000/g, '|').trim())
           .filter((_, i, a) => i > 0 && i < a.length - 1);
 
         if (cells.length > 0) {
           html += '<tr>';
           cells.forEach(c => {
             const tag = isHeader ? 'th' : 'td';
-            html += `<${tag}>${escapeHtml(c)}</${tag}>`;
+            const cellHtml = escapeHtml(c).replace(/&lt;br\s*\/?&gt;/gi, '<br>');
+            html += `<${tag}>${cellHtml}</${tag}>`;
           });
           html += '</tr>';
           if (isHeader) isHeader = false;
@@ -341,7 +364,8 @@
       } else {
         flushTable();
         if (trimmed) {
-          html += `<div style="margin-bottom: 6px; font-weight: 500;">${escapeHtml(trimmed)}</div>`;
+          const lineHtml = escapeHtml(trimmed).replace(/&lt;br\s*\/?&gt;/gi, '<br>');
+          html += `<div style="margin-bottom: 6px; font-weight: 500;">${lineHtml}</div>`;
         }
       }
     });
@@ -686,6 +710,10 @@
   }
 
   function submitExam() {
+    if (timer) {
+      timer.pause();
+      if (btnToggleTimer) btnToggleTimer.textContent = '▶';
+    }
     saveCurrentInput();
     if (memoPad) memoPad.save(currentQIndex);
 
@@ -818,7 +846,7 @@
     if (memoPad) memoPad.clearAll();
     scoreModal.classList.remove('show');
     renderQuestionBoxes();
-    renderCurrentQuestion();
+    setExamMode('practice');
   }
 
   function exitRetakeMode() {
@@ -829,7 +857,7 @@
       retakeBanner.style.display = 'none';
       if (memoPad) memoPad.clearAll();
       renderQuestionBoxes();
-      renderCurrentQuestion();
+      setExamMode('practice');
     }
   }
 
@@ -965,28 +993,22 @@
     examSelectDropdown.addEventListener('change', (e) => {
       if (confirm('시험 회차를 변경하시겠습니까? 현재 풀던 답안은 초기화됩니다.')) {
         loadExam(e.target.value);
-        if (timer) timer.reset();
+        if (timer) {
+          timer.reset();
+          timer.start();
+          if (btnToggleTimer) btnToggleTimer.textContent = '⏸';
+        }
       } else {
         examSelectDropdown.value = currentRoundId;
       }
     });
 
     modePracticeBtn.addEventListener('click', () => {
-      examMode = 'real';
-      modePracticeBtn.style.display = 'none';
-      modeRealBtn.style.display = '';
-      modeRealBtn.classList.add('active');
-      modePracticeBtn.classList.remove('active');
-      renderCurrentQuestion();
+      setExamMode('real');
     });
 
     modeRealBtn.addEventListener('click', () => {
-      examMode = 'practice';
-      modeRealBtn.style.display = 'none';
-      modePracticeBtn.style.display = '';
-      modePracticeBtn.classList.add('active');
-      modeRealBtn.classList.remove('active');
-      renderCurrentQuestion();
+      setExamMode('practice');
     });
 
     btnToggleTimer.addEventListener('click', () => {
@@ -1005,6 +1027,11 @@
       if (confirm('현재 회차의 모든 답안과 채점 결과를 초기화하시겠습니까?')) {
         if (memoPad) memoPad.clearAll();
         loadExam(currentRoundId, false);
+        if (timer) {
+          timer.reset();
+          timer.start();
+          if (btnToggleTimer) btnToggleTimer.textContent = '⏸';
+        }
       }
     });
 
@@ -1012,12 +1039,7 @@
     btnCloseModal.addEventListener('click', () => {
       scoreModal.classList.remove('show');
       // 시험 종료 후 모달을 닫아도 해설을 열람할 수 있도록 연습 모드로 전환
-      examMode = 'practice';
-      modeRealBtn.style.display = 'none';
-      modePracticeBtn.style.display = '';
-      modePracticeBtn.classList.add('active');
-      modeRealBtn.classList.remove('active');
-      renderCurrentQuestion();
+      setExamMode('practice');
     });
 
     btnRetakeWrong.addEventListener('click', retakeIncorrectOnly);
@@ -1025,17 +1047,18 @@
     btnRestartFull.addEventListener('click', () => {
       scoreModal.classList.remove('show');
       if (memoPad) memoPad.clearAll();
+      setExamMode('practice');
       loadExam(currentRoundId, false);
+      if (timer) {
+        timer.reset();
+        timer.start();
+        if (btnToggleTimer) btnToggleTimer.textContent = '⏸';
+      }
     });
 
     btnViewAllExp.addEventListener('click', () => {
       scoreModal.classList.remove('show');
-      examMode = 'practice';
-      modeRealBtn.style.display = 'none';
-      modePracticeBtn.style.display = '';
-      modePracticeBtn.classList.add('active');
-      modeRealBtn.classList.remove('active');
-      renderCurrentQuestion();
+      setExamMode('practice');
       const q = activeQuestions[currentQIndex];
       if (q) renderExplanation(q, true);
     });
