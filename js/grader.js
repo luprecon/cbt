@@ -63,10 +63,53 @@ const Grader = {
   stripBrackets(str) {
     if (!str) return '';
     return String(str)
-      .replace(/[\[\]\(\)]/g, ' ')
+      .replace(/[\[\]\(\)\{\}]/g, ' ')
       .replace(/[\n,]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
+  },
+
+  /**
+   * 집합/항목 나열 순서 무관 동치 검사
+   * (e.g. {'중국', '한국'} == {'한국', '중국'}, 'A, B, C' == 'C, B, A')
+   */
+  isSetEquivalent(s1, s2, caseSensitive = false) {
+    if (!s1 || !s2) return false;
+    let str1 = String(s1).trim();
+    let str2 = String(s2).trim();
+
+    const isSetLiteral = (s) => (s.startsWith('{') && s.endsWith('}')) || (s.startsWith('[') && s.endsWith(']'));
+    const hasComma = str1.includes(',') || str2.includes(',');
+
+    // 쉼표가 없고 세트 리터럴도 아닌 경우(단순 공백 구분 순서 보장 코드 출력)는 순서 변경 허용 안 함
+    if (!hasComma && !isSetLiteral(str1) && !isSetLiteral(str2)) {
+      return false;
+    }
+
+    // 괄호, 중괄호, 대괄호 제거
+    str1 = str1.replace(/^[\[\{\(]+|[\]\}\)]+$/g, '').trim();
+    str2 = str2.replace(/^[\[\{\(]+|[\]\}\)]+$/g, '').trim();
+
+    const splitTokens = (s) => {
+      const parts = s.includes(',') ? s.split(',') : s.split(/\s+/);
+      return parts
+        .map(t => {
+          let token = t.trim().replace(/^['"]+|['"]+$/g, '');
+          return caseSensitive ? token : token.toLowerCase();
+        })
+        .filter(t => t.length > 0)
+        .sort();
+    };
+
+    const t1 = splitTokens(str1);
+    const t2 = splitTokens(str2);
+
+    if (t1.length <= 1 || t1.length !== t2.length) return false;
+
+    for (let i = 0; i < t1.length; i++) {
+      if (t1[i] !== t2[i]) return false;
+    }
+    return true;
   },
 
   /**
@@ -143,6 +186,9 @@ const Grader = {
       const strippedUser = this.stripBrackets(userNorm);
       const strippedTarget = this.stripBrackets(targetNorm);
       if (strippedUser === strippedTarget && strippedUser.length > 0) return true;
+
+      // 집합/항목 나열 순서 무관 비교
+      if (this.isSetEquivalent(userRaw, target, caseSensitive)) return true;
     }
 
     return false;
@@ -187,6 +233,20 @@ const Grader = {
 
         // 코드 출력형 공백 정규화
         if (this.normalizeCodeOutput(userVal).toLowerCase() === this.normalizeCodeOutput(cand).toLowerCase()) {
+          matched = true;
+          break;
+        }
+
+        // 대괄호 제거 비교
+        const strippedUser = this.stripBrackets(userNorm);
+        const strippedTarget = this.stripBrackets(candNorm);
+        if (strippedUser === strippedTarget && strippedUser.length > 0) {
+          matched = true;
+          break;
+        }
+
+        // 집합/항목 나열 순서 무관 비교
+        if (this.isSetEquivalent(userVal, cand, false)) {
           matched = true;
           break;
         }
@@ -246,6 +306,9 @@ const Grader = {
   }
 };
 
+if (typeof window !== 'undefined') {
+  window.Grader = Grader;
+}
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Grader;
 }
