@@ -96,6 +96,9 @@
       line-height: 1.72;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -104,6 +107,12 @@
 
     em, i, cite, address, var {
       font-style: normal;
+    }
+
+    pre, code, .q-code-block, table, th, td {
+      text-align: initial;
+      word-break: normal;
+      overflow-wrap: normal;
     }
 
     /* ==========================================================================
@@ -310,6 +319,7 @@
       overflow-y: auto;
     }
 
+    .section-title,
     .sidebar-section-title {
       font-size: 11px;
       text-transform: uppercase;
@@ -317,6 +327,10 @@
       letter-spacing: 0.5px;
       color: #6b7280;
       padding: 14px 14px 6px 14px;
+      text-align: left;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      text-wrap: balance;
     }
 
     .sidebar-list {
@@ -531,12 +545,17 @@
       border-bottom: 1px solid #e5e7eb;
     }
 
+    .hero-title,
     .unit-hero-title {
       font-family: var(--font-headline);
       font-size: 20px;
       font-weight: 700;
       color: #111827;
       letter-spacing: -0.5px;
+      text-align: left;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      text-wrap: balance;
     }
 
     .unit-hero-badge {
@@ -594,11 +613,19 @@
       border-color: #9ca3af;
     }
 
+    .hero-summary,
     .unit-hero-summary {
       font-size: 15px;
       color: #4b5563;
       margin-bottom: 12px;
       line-height: 1.72;
+      text-align: justify;
+      text-justify: inter-character;
+      text-align-last: left;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      text-wrap: pretty;
     }
 
     .theory-drawer-toggle {
@@ -649,6 +676,13 @@
       font-size: 15px;
       line-height: 1.75;
       color: #27272a;
+      text-align: justify;
+      text-justify: inter-character;
+      text-align-last: left;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      text-wrap: pretty;
     }
 
     .theory-body-container h3 {
@@ -667,6 +701,17 @@
 
     .theory-body-container p, .theory-body-container ul {
       margin-bottom: 10px;
+    }
+
+    .theory-body-container p,
+    .theory-body-container li {
+      text-align: justify;
+      text-justify: inter-character;
+      text-align-last: left;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      text-wrap: pretty;
     }
 
     .theory-body-container ul {
@@ -860,7 +905,10 @@
       color: #111827;
       line-height: 1.5;
       margin-bottom: 16px;
+      text-align: left;
       word-break: keep-all;
+      overflow-wrap: break-word;
+      text-wrap: balance;
     }
 
     .q-passage-box {
@@ -873,7 +921,13 @@
       border-radius: 0;
       border: none;
       white-space: pre-line;
+      text-align: justify;
+      text-justify: inter-character;
+      text-align-last: left;
       word-break: keep-all;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      text-wrap: pretty;
     }
 
     .q-passage-box table {
@@ -923,6 +977,10 @@
       font-size: 13.5px;
       color: #e2e8f0;
       background: transparent;
+      text-align: left;
+      word-break: normal;
+      overflow-wrap: normal;
+      white-space: pre;
     }
 
     .code-line {
@@ -1019,6 +1077,13 @@
       color: #991b1b;
       border-radius: 0;
       border: none;
+      text-align: justify;
+      text-justify: inter-character;
+      text-align-last: left;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      text-wrap: pretty;
     }
 
     .q-trap-title {
@@ -1070,6 +1135,13 @@
       line-height: 1.75;
       color: #374151;
       white-space: pre-wrap;
+      text-align: justify;
+      text-justify: inter-character;
+      text-align-last: left;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      text-wrap: pretty;
     }
 
     /* Search Highlight */

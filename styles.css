@@ -77,10 +77,19 @@ body {
   line-height: 1.72;
   user-select: none;
   min-width: 1100px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 em, i, cite, address, var {
   font-style: normal;
+}
+
+pre, code, .code-block, table, th, td {
+  text-align: initial;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 /* ==========================================================================
@@ -350,7 +359,10 @@ header.top-header {
   color: #111827;
   margin-bottom: 18px;
   line-height: 1.5;
+  text-align: left;
   word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .passage-text {
@@ -362,7 +374,13 @@ header.top-header {
   padding: 16px 20px;
   border-radius: 0;
   white-space: pre-line;
+  text-align: justify;
+  text-justify: inter-character;
+  text-align-last: left;
   word-break: keep-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-wrap: pretty;
 }
 
 .passage-text table {
@@ -411,6 +429,9 @@ header.top-header {
   font-size: 13.5px;
   color: #e2e8f0;
   background: transparent;
+  text-align: left;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 .code-line {
@@ -552,10 +573,18 @@ header.top-header {
   font-family: var(--font-headline);
 }
 
-.exp-body-text {
+.exp-body-text,
+.explanation-box {
   font-size: 15px;
   line-height: 1.75;
   color: #374151;
+  text-align: justify;
+  text-justify: inter-character;
+  text-align-last: left;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-wrap: pretty;
 }
 
 .exp-trap-box {
@@ -565,6 +594,13 @@ header.top-header {
   font-size: 14px;
   line-height: 1.65;
   color: #991b1b;
+  text-align: justify;
+  text-justify: inter-character;
+  text-align-last: left;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-wrap: pretty;
 }
 
 .trace-table-container {
@@ -707,8 +743,10 @@ header.top-header {
   justify-content: space-between;
 }
 
-.modal-title {
+.modal-title,
+.modal-header h2 {
   font-family: var(--font-headline);
+  text-wrap: balance;
 }
 
 .btn-modal-close-icon {
@@ -1016,6 +1054,7 @@ header.top-header {
   line-height: 1.5;
   word-break: keep-all;
   overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .cs-sec-content {
@@ -1026,6 +1065,13 @@ header.top-header {
   font-size: 15px;
   line-height: 1.72;
   color: #27272a;
+  text-align: justify;
+  text-justify: inter-character;
+  text-align-last: left;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-wrap: pretty;
 }
 
 /* Mnemonic Callout Banner */
@@ -1059,6 +1105,10 @@ header.top-header {
   font-weight: 600;
   color: #14532d;
   line-height: 1.5;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-wrap: pretty;
 }
 
 /* Bracketed Mnemonic Pill */
@@ -1101,8 +1151,13 @@ header.top-header {
   font-size: 15px;
   line-height: 1.72;
   color: #334155;
+  text-align: justify;
+  text-justify: inter-character;
+  text-align-last: left;
   word-break: keep-all;
   overflow-wrap: break-word;
+  word-wrap: break-word;
+  text-wrap: pretty;
 }
 
 .cs-item-text strong {

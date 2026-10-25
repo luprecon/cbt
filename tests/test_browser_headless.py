@@ -332,6 +332,64 @@ def run_tests():
         assert size_val.get("passageSize") == "15.5px", f"Expected passage font-size 15.5px, got {size_val.get('passageSize')}"
         assert size_val.get("expBodySize") == "15px", f"Expected expBodyText font-size 15px, got {size_val.get('expBodySize')}"
 
+        # Verify typography computed styles (text-align, word-break, overflow-wrap) on index.html
+        typo_resp = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const docEl = document.documentElement;
+                const bodyStyle = window.getComputedStyle(document.body);
+                const passageEl = document.getElementById('passageBox');
+                const passageStyle = window.getComputedStyle(passageEl);
+                const expBodyEl = document.getElementById('expBodyText');
+                const expBodyStyle = window.getComputedStyle(expBodyEl);
+                const expTrapEl = document.getElementById('expTrapBox');
+                const expTrapStyle = expTrapEl ? window.getComputedStyle(expTrapEl) : null;
+                const promptEl = document.getElementById('questionPrompt');
+                const promptStyle = window.getComputedStyle(promptEl);
+                const codeEl = document.getElementById('codeBlock');
+                const codeStyle = window.getComputedStyle(codeEl);
+
+                return {
+                    desktopScrollWidth: docEl.scrollWidth,
+                    windowInnerWidth: window.innerWidth,
+                    bodyWordBreak: bodyStyle.wordBreak,
+                    bodyOverflowWrap: bodyStyle.overflowWrap,
+                    passageTextAlign: passageStyle.textAlign,
+                    passageWordBreak: passageStyle.wordBreak,
+                    passageOverflowWrap: passageStyle.overflowWrap,
+                    expBodyTextAlign: expBodyStyle.textAlign,
+                    expBodyWordBreak: expBodyStyle.wordBreak,
+                    expBodyOverflowWrap: expBodyStyle.overflowWrap,
+                    expTrapTextAlign: expTrapStyle ? expTrapStyle.textAlign : '',
+                    expTrapWordBreak: expTrapStyle ? expTrapStyle.wordBreak : '',
+                    expTrapOverflowWrap: expTrapStyle ? expTrapStyle.overflowWrap : '',
+                    promptTextAlign: promptStyle.textAlign,
+                    promptWordBreak: promptStyle.wordBreak,
+                    codeTextAlign: codeStyle.textAlign,
+                    codeWordBreak: codeStyle.wordBreak
+                };
+            })()""",
+            "returnByValue": True
+        })
+        typo_val = typo_resp.get("result", {}).get("result", {}).get("value", {})
+        print("  index.html typography computed style verification:", typo_val)
+        assert typo_val.get("bodyWordBreak") == "keep-all", f"Expected body word-break keep-all, got {typo_val.get('bodyWordBreak')}"
+        assert typo_val.get("bodyOverflowWrap") == "break-word", f"Expected body overflow-wrap break-word, got {typo_val.get('bodyOverflowWrap')}"
+        assert typo_val.get("passageTextAlign") == "justify", f"Expected passage text-align justify, got {typo_val.get('passageTextAlign')}"
+        assert typo_val.get("passageWordBreak") == "keep-all", f"Expected passage word-break keep-all, got {typo_val.get('passageWordBreak')}"
+        assert typo_val.get("passageOverflowWrap") == "break-word", f"Expected passage overflow-wrap break-word, got {typo_val.get('passageOverflowWrap')}"
+        assert typo_val.get("expBodyTextAlign") == "justify", f"Expected expBodyText text-align justify, got {typo_val.get('expBodyTextAlign')}"
+        assert typo_val.get("expBodyWordBreak") == "keep-all", f"Expected expBodyText word-break keep-all, got {typo_val.get('expBodyWordBreak')}"
+        assert typo_val.get("expBodyOverflowWrap") == "break-word", f"Expected expBodyText overflow-wrap break-word, got {typo_val.get('expBodyOverflowWrap')}"
+        if typo_val.get("expTrapTextAlign"):
+            assert typo_val.get("expTrapTextAlign") == "justify", f"Expected expTrapBox text-align justify, got {typo_val.get('expTrapTextAlign')}"
+            assert typo_val.get("expTrapWordBreak") == "keep-all", f"Expected expTrapBox word-break keep-all, got {typo_val.get('expTrapWordBreak')}"
+            assert typo_val.get("expTrapOverflowWrap") == "break-word", f"Expected expTrapBox overflow-wrap break-word, got {typo_val.get('expTrapOverflowWrap')}"
+        assert typo_val.get("promptTextAlign") in ("left", "start"), f"Expected prompt text-align left/start, got {typo_val.get('promptTextAlign')}"
+        assert typo_val.get("promptWordBreak") == "keep-all", f"Expected prompt word-break keep-all, got {typo_val.get('promptWordBreak')}"
+        assert typo_val.get("codeTextAlign") in ("left", "start"), f"Expected code text-align left/start, got {typo_val.get('codeTextAlign')}"
+        assert typo_val.get("codeWordBreak") == "normal", f"Expected code word-break normal, got {typo_val.get('codeWordBreak')}"
+        assert typo_val.get("desktopScrollWidth") <= typo_val.get("windowInnerWidth"), f"Desktop horizontal overflow on index.html: scrollWidth {typo_val.get('desktopScrollWidth')} > innerWidth {typo_val.get('windowInnerWidth')}"
+
         # Verify index.html favicon and initial mode toggle buttons
         init_ui_resp = send_cmd("Runtime.evaluate", {
             "expression": """({
@@ -387,7 +445,15 @@ def run_tests():
                 tabBtnColor: window.getComputedStyle(document.querySelector('.cs-tab-btn.active')).color,
                 tabBtnBorder: window.getComputedStyle(document.querySelector('.cs-tab-btn.active')).borderBottomColor,
                 card1ContentHtml: document.querySelectorAll('#csBody .cs-sec-content')[0] ? document.querySelectorAll('#csBody .cs-sec-content')[0].innerHTML : '',
-                card1Height: document.querySelectorAll('#csBody .cs-section-card')[0] ? document.querySelectorAll('#csBody .cs-section-card')[0].offsetHeight : 0
+                card1Height: document.querySelectorAll('#csBody .cs-section-card')[0] ? document.querySelectorAll('#csBody .cs-section-card')[0].offsetHeight : 0,
+                csSecTextAlign: document.querySelector('.cs-sec-content') ? window.getComputedStyle(document.querySelector('.cs-sec-content')).textAlign : '',
+                csSecWordBreak: document.querySelector('.cs-sec-content') ? window.getComputedStyle(document.querySelector('.cs-sec-content')).wordBreak : '',
+                csItemTextAlign: document.querySelector('.cs-item-text') ? window.getComputedStyle(document.querySelector('.cs-item-text')).textAlign : '',
+                csItemWordBreak: document.querySelector('.cs-item-text') ? window.getComputedStyle(document.querySelector('.cs-item-text')).wordBreak : '',
+                csItemOverflowWrap: document.querySelector('.cs-item-text') ? window.getComputedStyle(document.querySelector('.cs-item-text')).overflowWrap : '',
+                csMnemonicWordBreak: document.querySelector('.cs-mnemonic-text') ? window.getComputedStyle(document.querySelector('.cs-mnemonic-text')).wordBreak : '',
+                csMnemonicOverflowWrap: document.querySelector('.cs-mnemonic-text') ? window.getComputedStyle(document.querySelector('.cs-mnemonic-text')).overflowWrap : '',
+                csHeadingTextWrap: document.querySelector('.cs-sec-heading') ? window.getComputedStyle(document.querySelector('.cs-sec-heading')).textWrap : ''
             })""",
             "returnByValue": True
         })
@@ -402,6 +468,16 @@ def run_tests():
         assert cs_val.get("stepBadges") >= 13, f"Expected at least 13 numbered steps in part1 (6 coupling + 7 cohesion), got {cs_val.get('stepBadges')}"
         assert cs_val.get("mnemonicPills") == 6, f"Expected exactly 6 mnemonic pills in part1 (Card1: 2, Card2: banner+heading, Card3: banner+heading), got {cs_val.get('mnemonicPills')}"
         assert cs_val.get("card1Height", 0) >= 140, f"Expected card1 to be uncrushed (>= 140px), got {cs_val.get('card1Height')}"
+        assert cs_val.get("csSecTextAlign") == "justify", f"Expected .cs-sec-content text-align justify, got {cs_val.get('csSecTextAlign')}"
+        assert cs_val.get("csSecWordBreak") == "keep-all", f"Expected .cs-sec-content word-break keep-all, got {cs_val.get('csSecWordBreak')}"
+        assert cs_val.get("csItemTextAlign") == "justify", f"Expected .cs-item-text text-align justify, got {cs_val.get('csItemTextAlign')}"
+        assert cs_val.get("csItemWordBreak") == "keep-all", f"Expected .cs-item-text word-break keep-all, got {cs_val.get('csItemWordBreak')}"
+        assert cs_val.get("csItemOverflowWrap") == "break-word", f"Expected .cs-item-text overflow-wrap break-word, got {cs_val.get('csItemOverflowWrap')}"
+        if cs_val.get("csMnemonicWordBreak"):
+            assert cs_val.get("csMnemonicWordBreak") == "keep-all", f"Expected .cs-mnemonic-text word-break keep-all, got {cs_val.get('csMnemonicWordBreak')}"
+            assert cs_val.get("csMnemonicOverflowWrap") == "break-word", f"Expected .cs-mnemonic-text overflow-wrap break-word, got {cs_val.get('csMnemonicOverflowWrap')}"
+        if cs_val.get("csHeadingTextWrap"):
+            assert cs_val.get("csHeadingTextWrap") == "balance", f"Expected .cs-sec-heading text-wrap balance, got {cs_val.get('csHeadingTextWrap')}"
 
         # Verify heading pill transformation in Card 2 and Card 3
         headings_eval = send_cmd("Runtime.evaluate", {
@@ -746,7 +822,22 @@ def run_tests():
                     canvasHeight: Math.round(canvasRect.height),
                     canvasTouchAction: window.getComputedStyle(document.getElementById('memoCanvas')).touchAction,
                     studyAndCsEqualHeight: Math.abs(studyBtnRect.height - csBtnRect.height) <= 1 && Math.abs(studyBtnRect.width - csBtnRect.width) <= 2,
-                    submitFullWidth: Math.round(submitBtnRect.width) >= 380
+                    submitFullWidth: Math.round(submitBtnRect.width) >= 380,
+                    bodyWordBreak: bodyStyle.wordBreak,
+                    bodyOverflowWrap: bodyStyle.overflowWrap,
+                    passageTextAlign: window.getComputedStyle(document.getElementById('passageBox')).textAlign,
+                    passageWordBreak: window.getComputedStyle(document.getElementById('passageBox')).wordBreak,
+                    passageOverflowWrap: window.getComputedStyle(document.getElementById('passageBox')).overflowWrap,
+                    expBodyTextAlign: window.getComputedStyle(document.getElementById('expBodyText')).textAlign,
+                    expBodyWordBreak: window.getComputedStyle(document.getElementById('expBodyText')).wordBreak,
+                    expBodyOverflowWrap: window.getComputedStyle(document.getElementById('expBodyText')).overflowWrap,
+                    expTrapTextAlign: window.getComputedStyle(document.getElementById('expTrapBox')).textAlign,
+                    expTrapWordBreak: window.getComputedStyle(document.getElementById('expTrapBox')).wordBreak,
+                    expTrapOverflowWrap: window.getComputedStyle(document.getElementById('expTrapBox')).overflowWrap,
+                    promptTextAlign: window.getComputedStyle(document.getElementById('questionPrompt')).textAlign,
+                    promptWordBreak: window.getComputedStyle(document.getElementById('questionPrompt')).wordBreak,
+                    codeTextAlign: window.getComputedStyle(document.getElementById('codeBlock')).textAlign,
+                    codeWordBreak: window.getComputedStyle(document.getElementById('codeBlock')).wordBreak
                 };
             })()""",
             "returnByValue": True
@@ -756,6 +847,20 @@ def run_tests():
         assert s24_idx.get("windowWidth") == 412 and s24_idx.get("windowHeight") == 915
         assert s24_idx.get("scrollWidth", 9999) <= 412, f"Horizontal overflow on index.html at 412px! scrollWidth={s24_idx.get('scrollWidth')}"
         assert s24_idx.get("bodyMinWidth") == "0px", f"Expected body min-width 0px, got {s24_idx.get('bodyMinWidth')}"
+        assert s24_idx.get("bodyWordBreak") == "keep-all", f"Expected mobile body word-break keep-all, got {s24_idx.get('bodyWordBreak')}"
+        assert s24_idx.get("bodyOverflowWrap") == "break-word", f"Expected mobile body overflow-wrap break-word, got {s24_idx.get('bodyOverflowWrap')}"
+        assert s24_idx.get("passageTextAlign") == "justify", f"Expected mobile passage text-align justify, got {s24_idx.get('passageTextAlign')}"
+        assert s24_idx.get("passageWordBreak") == "keep-all", f"Expected mobile passage word-break keep-all, got {s24_idx.get('passageWordBreak')}"
+        assert s24_idx.get("passageOverflowWrap") == "break-word", f"Expected mobile passage overflow-wrap break-word, got {s24_idx.get('passageOverflowWrap')}"
+        assert s24_idx.get("expBodyTextAlign") == "justify", f"Expected mobile expBodyText text-align justify, got {s24_idx.get('expBodyTextAlign')}"
+        assert s24_idx.get("expBodyWordBreak") == "keep-all", f"Expected mobile expBodyText word-break keep-all, got {s24_idx.get('expBodyWordBreak')}"
+        assert s24_idx.get("expBodyOverflowWrap") == "break-word", f"Expected mobile expBodyText overflow-wrap break-word, got {s24_idx.get('expBodyOverflowWrap')}"
+        assert s24_idx.get("expTrapTextAlign") == "justify", f"Expected mobile expTrapBox text-align justify, got {s24_idx.get('expTrapTextAlign')}"
+        assert s24_idx.get("expTrapWordBreak") == "keep-all", f"Expected mobile expTrapBox word-break keep-all, got {s24_idx.get('expTrapWordBreak')}"
+        assert s24_idx.get("promptTextAlign") in ("left", "start"), f"Expected mobile prompt text-align left/start, got {s24_idx.get('promptTextAlign')}"
+        assert s24_idx.get("promptWordBreak") == "keep-all", f"Expected mobile prompt word-break keep-all, got {s24_idx.get('promptWordBreak')}"
+        assert s24_idx.get("codeTextAlign") in ("left", "start"), f"Expected mobile code text-align left/start, got {s24_idx.get('codeTextAlign')}"
+        assert s24_idx.get("codeWordBreak") == "normal", f"Expected mobile code word-break normal, got {s24_idx.get('codeWordBreak')}"
         assert s24_idx.get("wrapperWidth") <= 412, f"Expected exam-wrapper width <= 412, got {s24_idx.get('wrapperWidth')}"
         assert s24_idx.get("timerPosition") == "static", f"Expected static timer on mobile, got {s24_idx.get('timerPosition')}"
         assert s24_idx.get("timerOverlapsLogo") is False, "Timer overlaps logo on Galaxy S24 Ultra!"
@@ -790,6 +895,10 @@ def run_tests():
                 const blankInput1Width = blankInputs[0] ? Math.round(blankInputs[0].getBoundingClientRect().width) : 0;
                 const passageTable = document.querySelector('.passage-text table');
                 const passageTableDisplay = passageTable ? window.getComputedStyle(passageTable).display : '';
+                const passageTableTh = passageTable ? passageTable.querySelector('th') : null;
+                const passageTableThWordBreak = passageTableTh ? window.getComputedStyle(passageTableTh).wordBreak : '';
+                const passageTableTd = passageTable ? passageTable.querySelector('td') : null;
+                const passageTableTdWordBreak = passageTableTd ? window.getComputedStyle(passageTableTd).wordBreak : '';
                 const scrollWidthQ5 = document.documentElement.scrollWidth;
 
                 // Return to Q1
@@ -803,6 +912,8 @@ def run_tests():
                     blankInputsCount,
                     blankInput1Width,
                     passageTableDisplay,
+                    passageTableThWordBreak,
+                    passageTableTdWordBreak,
                     scrollWidthQ5
                 };
             })()""",
@@ -817,6 +928,10 @@ def run_tests():
         assert s24_ed.get("blankInputsCount") == 2, f"Expected 2 multi_blank inputs on Q5, got {s24_ed.get('blankInputsCount')}"
         assert s24_ed.get("blankInput1Width", 0) >= 320, f"Expected expanded multi_blank input width on 412px, got {s24_ed.get('blankInput1Width')}"
         assert s24_ed.get("passageTableDisplay") == "block", f"Expected passage table display block on mobile, got {s24_ed.get('passageTableDisplay')}"
+        if s24_ed.get("passageTableThWordBreak"):
+            assert s24_ed.get("passageTableThWordBreak") == "normal", f"Expected passage table th word-break normal, got {s24_ed.get('passageTableThWordBreak')}"
+        if s24_ed.get("passageTableTdWordBreak"):
+            assert s24_ed.get("passageTableTdWordBreak") == "normal", f"Expected passage table td word-break normal, got {s24_ed.get('passageTableTdWordBreak')}"
         assert s24_ed.get("scrollWidthQ5", 999) <= 412, f"Horizontal overflow on Q5 multi_blank/table view: {s24_ed.get('scrollWidthQ5')}"
 
         # Verify Cheatsheet & Score Modals on Galaxy S24 Ultra (412 x 915px)
@@ -1032,6 +1147,75 @@ def run_tests():
         assert study_size_val.get("passageSize") == "15.5px", f"Expected study.html passage font-size 15.5px, got {study_size_val.get('passageSize')}"
         assert study_size_val.get("theorySize") == "15px", f"Expected study.html theory font-size 15px, got {study_size_val.get('theorySize')}"
         assert study_size_val.get("heroSummarySize") == "15px", f"Expected study.html hero summary font-size 15px, got {study_size_val.get('heroSummarySize')}"
+
+        # Typography verification for study.html
+        study_typo_resp = send_cmd("Runtime.evaluate", {
+            "expression": """(() => {
+                const docEl = document.documentElement;
+                const bodyStyle = window.getComputedStyle(document.body);
+                const passageEl = document.querySelector('.q-passage-box');
+                const passageStyle = window.getComputedStyle(passageEl);
+                const theoryEl = document.querySelector('.theory-body-container');
+                const theoryStyle = window.getComputedStyle(theoryEl);
+                const heroEl = document.querySelector('.unit-hero-summary');
+                const heroStyle = window.getComputedStyle(heroEl);
+                const expEl = document.querySelector('.q-exp-text');
+                const expStyle = expEl ? window.getComputedStyle(expEl) : null;
+                const trapEl = document.querySelector('.q-trap-box');
+                const trapStyle = trapEl ? window.getComputedStyle(trapEl) : null;
+                const promptEl = document.querySelector('.q-prompt-text');
+                const promptStyle = window.getComputedStyle(promptEl);
+
+                return {
+                    desktopScrollWidth: docEl.scrollWidth,
+                    windowInnerWidth: window.innerWidth,
+                    bodyWordBreak: bodyStyle.wordBreak,
+                    bodyOverflowWrap: bodyStyle.overflowWrap,
+                    passageTextAlign: passageStyle.textAlign,
+                    passageWordBreak: passageStyle.wordBreak,
+                    passageOverflowWrap: passageStyle.overflowWrap,
+                    theoryTextAlign: theoryStyle.textAlign,
+                    theoryWordBreak: theoryStyle.wordBreak,
+                    theoryOverflowWrap: theoryStyle.overflowWrap,
+                    heroTextAlign: heroStyle.textAlign,
+                    heroWordBreak: heroStyle.wordBreak,
+                    heroOverflowWrap: heroStyle.overflowWrap,
+                    expTextAlign: expStyle ? expStyle.textAlign : '',
+                    expWordBreak: expStyle ? expStyle.wordBreak : '',
+                    expOverflowWrap: expStyle ? expStyle.overflowWrap : '',
+                    trapTextAlign: trapStyle ? trapStyle.textAlign : '',
+                    trapWordBreak: trapStyle ? trapStyle.wordBreak : '',
+                    trapOverflowWrap: trapStyle ? trapStyle.overflowWrap : '',
+                    promptTextAlign: promptStyle.textAlign,
+                    promptWordBreak: promptStyle.wordBreak
+                };
+            })()""",
+            "returnByValue": True
+        })
+        study_typo_val = study_typo_resp.get("result", {}).get("result", {}).get("value", {})
+        print("  study.html typography computed style verification:", study_typo_val)
+        assert study_typo_val.get("bodyWordBreak") == "keep-all", f"Expected body word-break keep-all, got {study_typo_val.get('bodyWordBreak')}"
+        assert study_typo_val.get("bodyOverflowWrap") == "break-word", f"Expected body overflow-wrap break-word, got {study_typo_val.get('bodyOverflowWrap')}"
+        assert study_typo_val.get("passageTextAlign") == "justify", f"Expected passage text-align justify, got {study_typo_val.get('passageTextAlign')}"
+        assert study_typo_val.get("passageWordBreak") == "keep-all", f"Expected passage word-break keep-all, got {study_typo_val.get('passageWordBreak')}"
+        assert study_typo_val.get("passageOverflowWrap") == "break-word", f"Expected passage overflow-wrap break-word, got {study_typo_val.get('passageOverflowWrap')}"
+        assert study_typo_val.get("theoryTextAlign") == "justify", f"Expected theory text-align justify, got {study_typo_val.get('theoryTextAlign')}"
+        assert study_typo_val.get("theoryWordBreak") == "keep-all", f"Expected theory word-break keep-all, got {study_typo_val.get('theoryWordBreak')}"
+        assert study_typo_val.get("theoryOverflowWrap") == "break-word", f"Expected theory overflow-wrap break-word, got {study_typo_val.get('theoryOverflowWrap')}"
+        assert study_typo_val.get("heroTextAlign") == "justify", f"Expected hero summary text-align justify, got {study_typo_val.get('heroTextAlign')}"
+        assert study_typo_val.get("heroWordBreak") == "keep-all", f"Expected hero summary word-break keep-all, got {study_typo_val.get('heroWordBreak')}"
+        assert study_typo_val.get("heroOverflowWrap") == "break-word", f"Expected hero summary overflow-wrap break-word, got {study_typo_val.get('heroOverflowWrap')}"
+        if study_typo_val.get("expTextAlign"):
+            assert study_typo_val.get("expTextAlign") == "justify", f"Expected exp text-align justify, got {study_typo_val.get('expTextAlign')}"
+            assert study_typo_val.get("expWordBreak") == "keep-all", f"Expected exp word-break keep-all, got {study_typo_val.get('expWordBreak')}"
+            assert study_typo_val.get("expOverflowWrap") == "break-word", f"Expected exp overflow-wrap break-word, got {study_typo_val.get('expOverflowWrap')}"
+        if study_typo_val.get("trapTextAlign"):
+            assert study_typo_val.get("trapTextAlign") == "justify", f"Expected trap text-align justify, got {study_typo_val.get('trapTextAlign')}"
+            assert study_typo_val.get("trapWordBreak") == "keep-all", f"Expected trap word-break keep-all, got {study_typo_val.get('trapWordBreak')}"
+            assert study_typo_val.get("trapOverflowWrap") == "break-word", f"Expected trap overflow-wrap break-word, got {study_typo_val.get('trapOverflowWrap')}"
+        assert study_typo_val.get("promptTextAlign") in ("left", "start"), f"Expected prompt text-align left/start, got {study_typo_val.get('promptTextAlign')}"
+        assert study_typo_val.get("promptWordBreak") == "keep-all", f"Expected prompt word-break keep-all, got {study_typo_val.get('promptWordBreak')}"
+        assert study_typo_val.get("desktopScrollWidth") <= study_typo_val.get("windowInnerWidth"), f"Desktop horizontal overflow on study.html: scrollWidth {study_typo_val.get('desktopScrollWidth')} > innerWidth {study_typo_val.get('windowInnerWidth')}"
 
 
         # Test all 5 units in Concept Mode for clean rendering (0 raw LaTeX, 0 raw blockquote '>' prefixes)
@@ -1292,7 +1476,20 @@ def run_tests():
                     openHasClass,
                     tab1Width: Math.round(tab1Rect.width),
                     tab2Width: Math.round(tab2Rect.width),
-                    tocLabelText: document.getElementById('mobileTocLabel').textContent.trim()
+                    tocLabelText: document.getElementById('mobileTocLabel').textContent.trim(),
+                    bodyWordBreak: window.getComputedStyle(document.body).wordBreak,
+                    bodyOverflowWrap: window.getComputedStyle(document.body).overflowWrap,
+                    passageTextAlign: document.querySelector('.q-passage-box') ? window.getComputedStyle(document.querySelector('.q-passage-box')).textAlign : '',
+                    passageWordBreak: document.querySelector('.q-passage-box') ? window.getComputedStyle(document.querySelector('.q-passage-box')).wordBreak : '',
+                    passageOverflowWrap: document.querySelector('.q-passage-box') ? window.getComputedStyle(document.querySelector('.q-passage-box')).overflowWrap : '',
+                    theoryTextAlign: document.querySelector('.theory-body-container') ? window.getComputedStyle(document.querySelector('.theory-body-container')).textAlign : '',
+                    theoryWordBreak: document.querySelector('.theory-body-container') ? window.getComputedStyle(document.querySelector('.theory-body-container')).wordBreak : '',
+                    theoryOverflowWrap: document.querySelector('.theory-body-container') ? window.getComputedStyle(document.querySelector('.theory-body-container')).overflowWrap : '',
+                    heroTextAlign: document.querySelector('.unit-hero-summary') ? window.getComputedStyle(document.querySelector('.unit-hero-summary')).textAlign : '',
+                    heroWordBreak: document.querySelector('.unit-hero-summary') ? window.getComputedStyle(document.querySelector('.unit-hero-summary')).wordBreak : '',
+                    heroOverflowWrap: document.querySelector('.unit-hero-summary') ? window.getComputedStyle(document.querySelector('.unit-hero-summary')).overflowWrap : '',
+                    promptTextAlign: document.querySelector('.q-prompt-text') ? window.getComputedStyle(document.querySelector('.q-prompt-text')).textAlign : '',
+                    promptWordBreak: document.querySelector('.q-prompt-text') ? window.getComputedStyle(document.querySelector('.q-prompt-text')).wordBreak : ''
                 };
             })()""",
             "returnByValue": True
@@ -1301,6 +1498,20 @@ def run_tests():
         print("  Galaxy S24 Ultra study.html eval:", s24_st)
         assert s24_st.get("windowWidth") == 412 and s24_st.get("windowHeight") == 915
         assert s24_st.get("scrollWidth", 9999) <= 412, f"Horizontal overflow on study.html at 412px! scrollWidth={s24_st.get('scrollWidth')}"
+        assert s24_st.get("bodyWordBreak") == "keep-all", f"Expected mobile study body word-break keep-all, got {s24_st.get('bodyWordBreak')}"
+        assert s24_st.get("bodyOverflowWrap") == "break-word", f"Expected mobile study body overflow-wrap break-word, got {s24_st.get('bodyOverflowWrap')}"
+        if s24_st.get("passageTextAlign"):
+            assert s24_st.get("passageTextAlign") == "justify", f"Expected mobile study passage text-align justify, got {s24_st.get('passageTextAlign')}"
+            assert s24_st.get("passageWordBreak") == "keep-all", f"Expected mobile study passage word-break keep-all, got {s24_st.get('passageWordBreak')}"
+            assert s24_st.get("passageOverflowWrap") == "break-word", f"Expected mobile study passage overflow-wrap break-word, got {s24_st.get('passageOverflowWrap')}"
+        assert s24_st.get("theoryTextAlign") == "justify", f"Expected mobile study theory text-align justify, got {s24_st.get('theoryTextAlign')}"
+        assert s24_st.get("theoryWordBreak") == "keep-all", f"Expected mobile study theory word-break keep-all, got {s24_st.get('theoryWordBreak')}"
+        assert s24_st.get("theoryOverflowWrap") == "break-word", f"Expected mobile study theory overflow-wrap break-word, got {s24_st.get('theoryOverflowWrap')}"
+        assert s24_st.get("heroTextAlign") == "justify", f"Expected mobile study hero text-align justify, got {s24_st.get('heroTextAlign')}"
+        assert s24_st.get("heroWordBreak") == "keep-all", f"Expected mobile study hero word-break keep-all, got {s24_st.get('heroWordBreak')}"
+        assert s24_st.get("heroOverflowWrap") == "break-word", f"Expected mobile study hero overflow-wrap break-word, got {s24_st.get('heroOverflowWrap')}"
+        assert s24_st.get("promptTextAlign") in ("left", "start"), f"Expected mobile study prompt text-align left/start, got {s24_st.get('promptTextAlign')}"
+        assert s24_st.get("promptWordBreak") == "keep-all", f"Expected mobile study prompt word-break keep-all, got {s24_st.get('promptWordBreak')}"
         assert s24_st.get("tocBtnDisplay") == "flex", f"Expected mobileTocToggleBtn display flex at 412px, got {s24_st.get('tocBtnDisplay')}"
         assert s24_st.get("initialSidebarDisplay") == "none", f"Expected sidebar initially collapsed (none) at 412px, got {s24_st.get('initialSidebarDisplay')}"
         assert s24_st.get("openSidebarDisplay") == "flex" and s24_st.get("openHasClass") is True, "Expected sidebar to open when mobileTocToggleBtn clicked"
@@ -1389,6 +1600,8 @@ def run_tests():
                 const thCount = passageTable ? passageTable.querySelectorAll('th').length : 0;
                 const trCount = passageTable ? passageTable.querySelectorAll('tr').length : 0;
                 const hasClass = passageTable ? passageTable.classList.contains('q-trace-table') : false;
+                const thWordBreak = passageTable && passageTable.querySelector('th') ? window.getComputedStyle(passageTable.querySelector('th')).wordBreak : '';
+                const tdWordBreak = passageTable && passageTable.querySelector('td') ? window.getComputedStyle(passageTable.querySelector('td')).wordBreak : '';
                 // Test search query highlight inside passage table
                 document.getElementById('liveSearchInput').value = '김한국';
                 handleSearchInput();
@@ -1401,7 +1614,9 @@ def run_tests():
                     hasClass,
                     thCount,
                     trCount,
-                    markText
+                    markText,
+                    thWordBreak,
+                    tdWordBreak
                 };
             })()""",
             "returnByValue": True
@@ -1413,6 +1628,8 @@ def run_tests():
         assert pt_val.get("thCount") == 4, f"Expected 4 <th> in passage table, got {pt_val.get('thCount')}"
         assert pt_val.get("trCount") == 6, f"Expected 6 <tr> in passage table, got {pt_val.get('trCount')}"
         assert pt_val.get("markText") == "김한국", f"Expected search highlight on '김한국', got '{pt_val.get('markText')}'"
+        assert pt_val.get("thWordBreak") == "normal", f"Expected passage table th word-break normal, got {pt_val.get('thWordBreak')}"
+        assert pt_val.get("tdWordBreak") == "normal", f"Expected passage table td word-break normal, got {pt_val.get('tdWordBreak')}"
 
         # Test passage table <br> line break rendering and escaped pipe handling
         passage_edge_eval = send_cmd("Runtime.evaluate", {
@@ -1448,6 +1665,8 @@ def run_tests():
         code_eval = send_cmd("Runtime.evaluate", {
             "expression": """({
                 codeBlocksCount: document.querySelectorAll('.q-code-block').length,
+                codeTextAlign: window.getComputedStyle(document.querySelector('.q-code-block')).textAlign,
+                codeWordBreak: window.getComputedStyle(document.querySelector('.q-code-block')).wordBreak,
                 hasKw: document.querySelectorAll('.q-code-block .c-kw').length > 0,
                 hasFn: document.querySelectorAll('.q-code-block .c-fn').length > 0,
                 hasStr: document.querySelectorAll('.q-code-block .c-str').length > 0,
@@ -1464,6 +1683,8 @@ def run_tests():
         code_val = code_eval.get("result", {}).get("result", {}).get("value", {})
         print("  Code syntax highlighting evaluation result:", code_val)
         assert code_val.get("codeBlocksCount", 0) > 0, "Expected .q-code-block elements in Round mode"
+        assert code_val.get("codeTextAlign") in ("left", "start"), f"Expected .q-code-block text-align left/start, got {code_val.get('codeTextAlign')}"
+        assert code_val.get("codeWordBreak") == "normal", f"Expected .q-code-block word-break normal, got {code_val.get('codeWordBreak')}"
         assert code_val.get("hasKw") is True, "Expected .c-kw elements in code blocks"
         assert code_val.get("hasFn") is True, "Expected .c-fn elements in code blocks"
         assert code_val.get("hasStr") is True, "Expected .c-str elements in code blocks"
